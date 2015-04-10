@@ -1,0 +1,38 @@
+(provide 'c-conf)
+
+(defun c-insert-include()
+  (interactive)
+  (insert "#include <.h>")
+  (backward-char 3))
+
+(defun c-insert-local-include()
+  (interactive)
+  (insert "#include \".h\"")
+  (backward-char 3))
+
+(defun jj-c-initialization-hook()
+  (define-key c-mode-base-map (kbd "C-c i") 'c-insert-include)
+  (define-key c-mode-base-map (kbd "C-c I") 'c-insert-local-include)
+  (define-key c-mode-base-map [(s-down-mouse-3)] 'senator-completion-menu-popup)
+  (define-key c-mode-base-map (kbd "C-c C-c") 'compile)
+  (define-key c-mode-base-map (kbd "C-<tab>") 'semantic-ia-complete-symbol)
+  (define-key c-mode-base-map [f5] 'jj-compile)
+  (define-key c-mode-base-map [f6] 'jj-compile-clean)
+  (define-key c-mode-base-map [f7] 'jj-compile-install)
+  (define-key c-mode-base-map [f8] 'jj-compile-install-lib))
+
+(add-hook 'c-initialization-hook 'jj-c-initialization-hook)
+
+(defun jj-c-hook()
+  (semantic-mode t)
+  (semantic-default-c-setup)
+  (c-set-style "linux")
+  (setq-default tab-width '8)
+  (setq-default indent-tabs-mode t)
+  (setq fill-column 80)
+  (setq comment-column 72)
+  (setq-default turn-on-auto-fill t)
+  (setq-default c-electric-pound-behavior (quote(alignleft))))
+
+(add-hook 'c-mode-common-hook 'jj-c-hook)
+(add-hook 'c++mode-common-hook 'jj-c-hook)
