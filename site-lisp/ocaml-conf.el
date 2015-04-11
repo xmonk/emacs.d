@@ -27,19 +27,17 @@
 (use-package tuareg
   :ensure t
   :commands tuareg-mode
-  :config
+  :init
   ;; Add opam emacs directory to the load-path
   (dolist (var (car (read-from-string (shell-command-to-string "opam config env --sexp"))))
     (setenv (car var) (cadr var)))
-
   ;; Update the emacs path
   (setq exec-path (append (parse-colon-path (getenv "PATH"))
                           (list exec-directory)))
-
   ;; Update the emacs load path
   (add-to-list 'load-path (expand-file-name "../../share/emacs/site-lisp"
                                             (getenv "OCAML_TOPLEVEL_PATH")))
-
+  :config
   (use-package utop
     :ensure t
     :init
@@ -60,13 +58,9 @@
     (add-hook 'caml-mode-hook 'merlin-mode t)
     ;; Use opam switch to lookup ocamlmerlin binary
     (setq merlin-command 'opam)
-    (add-hook 'tuareg-mode-hook 'merlin-mode)
-
-    (load-after auto-complete
-      ;; Enable auto-complete
-      (setq merlin-use-auto-complete-mode 'easy)
-      (setq merlin-use-auto-complete-mode t)
-      (setq merlin-error-after-save nil)))
+    (setq merlin-use-auto-complete-mode nil)
+    (setq merlin-error-after-save t)
+    (add-hook 'tuareg-mode-hook 'merlin-mode))
 
   (setq auto-mode-alist
         (append '(("\\.ml[ily]?$" . tuareg-mode)
