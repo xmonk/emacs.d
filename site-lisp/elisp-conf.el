@@ -24,18 +24,10 @@
 ;;
 ;;; Code:
 
-
-(defun jj/emacs-lisp-mode-hook()
-  (eldoc-mode t)
-  (setq-default tab-width 2)
-  (setq-default indent-tabs-mode nil)
-  (define-key emacs-lisp-mode-map (kbd "<return>") 'newline-and-indent)
-  ;; Compile my .emacs file.
+(load-after emacs-lisp-mode
   (if (string-equal buffer-file-name (expand-file-name user-init-file))
-      (add-hook 'after-save-hook 'compile-init-file t t)))
-
-(add-hook 'emacs-lisp-mode-hook 'jj/emacs-lisp-mode-hook)
-(add-hook 'after-save-hook 'check-parens)
+      (add-hook 'after-save-hook 'compile-init-file t t))
+  (add-hook 'after-save-hook 'check-parens))
 
 (provide 'elisp-conf)
 
