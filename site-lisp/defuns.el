@@ -140,7 +140,6 @@
 ;; command and replace the region with the resulting
 ;; output. Normally you would access this command via C-u M-| but
 ;; since we're trying to optimize things a bit:
-
 (defun custom-shell-command-on-region nil
   "Replace region with ``shell-command-on-region''.
 By default, this will make mark active if it is not and then
@@ -155,9 +154,8 @@ not on a region."
     (setq string (read-from-minibuffer "Shell command on region: " nil nil nil
                                        'shell-command-history))
     (shell-command-on-region (region-beginning) (region-end) string -1)
-                                        ; Get rid of final newline cause I normally did by hand anyway.
+    ;; Get rid of final newline cause I normally did by hand anyway.
     (delete-char -1)))
-
 
 ;; Matching parenthesis using % as in Vi.
 (defun jj/match-paren (&optional arg)
@@ -168,7 +166,6 @@ not on a region."
         ;; Now, try to succeed from inside of a bracket
         ((looking-at "\\s)") (forward-char) (backward-sexp arg))
         ((looking-back "\\s(" 1) (backward-char) (forward-sexp arg))))
-
 
 ;; Misc functions
 
@@ -309,7 +306,6 @@ not on a region."
       (byte-compile-file (concat user-emacs-directory "init.el")))
   (byte-recompile-directory *site-lisp*) 0)
 
-
 (defun jj/clear-buffers ()
   "Kill all buffers, asking permission on unmodified ones."
   (interactive)
@@ -338,7 +334,6 @@ not on a region."
   (when (get-char-property (point) 'flymake-overlay)
     (let ((help (get-char-property (point) 'help-echo)))
       (if help (message "%s" help)))))
-
 
 (defun jj/swap(l)
   "Utility function used by jj/ido-jump-to-window"
@@ -439,7 +434,6 @@ not on a region."
         (funcall func))
     (switch-to-buffer-other-window buffer-name)))
 
-
 ;; indenting utility functions taken from http://bit.ly/WWwD11
 (defun indent-buffer()
   "Indent the currently visited buffer."
@@ -497,7 +491,6 @@ not on a region."
         (mapc (lambda(path) (shell-command-to-string (format "open \"%s\"" path))) files))
        ((string-equal system-type "gnu/linux")
         (mapc (lambda(path) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" path))) files))))))
-
 
 (defmacro load-after (feature &rest body)
   "Macro that wraps 'eval-after-load.  Where FEATURE is a module variable and BODY is the code."
