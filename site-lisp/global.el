@@ -266,6 +266,10 @@
 (when (and (>= emacs-major-version 23) (not (server-running-p)))
   (server-start))
 
+(when (server-running-p)
+  (when (eq window-system nil)
+    (menu-bar-mode -1)))
+
 ;; spelling
 (use-package ispell
   :commands ispell
