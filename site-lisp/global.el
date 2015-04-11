@@ -1,5 +1,23 @@
 (provide 'global)
 
+;; frame setup
+(set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
+(set-face-attribute 'mode-line nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
+(set-face-attribute 'font-lock-comment-face nil :slant 'italic :weight 'normal)
+;; stop cursor from blinking
+(blink-cursor-mode -1)
+;; don't scroll like a maniac
+(setq mouse-wheel-scroll-amount '(1))
+(setq mouse-wheel-progressive-speed nil)
+;; disable scroll-bar and tool-bar
+(dolist (mode '(scroll-bar-mode tool-bar-mode))
+  (if (fboundp mode) (funcall mode -1)))
+
+(when running-apple
+  (if (boundp 'mac-option-modifier)
+      (setq mac-option-modifier 'meta))
+  (setq mac-allow-anti-aliasing t))
+
 ;; utf-8
 (prefer-coding-system 'utf-8-unix)
 (set-default-coding-systems 'utf-8-unix)
@@ -309,24 +327,6 @@
   (add-hook 'prog-mode-hook 'jj/pretty-lambdas))
 (add-hook 'prog-mode-hook 'jj/local-comment-auto-fill)
 (add-hook 'prog-mode-hook 'jj/add-watchwords)
-
-;; frame setup
-(set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'mode-line nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'font-lock-comment-face nil :slant 'italic :weight 'normal)
-;; stop cursor from blinking
-(blink-cursor-mode -1)
-;; don't scroll like a maniac
-(setq mouse-wheel-scroll-amount '(1))
-(setq mouse-wheel-progressive-speed nil)
-;; disable scroll-bar and tool-bar
-(dolist (mode '(scroll-bar-mode tool-bar-mode))
-  (if (fboundp mode) (funcall mode -1)))
-
-(when running-apple
-  (if (boundp 'mac-option-modifier)
-      (setq mac-option-modifier 'meta))
-  (setq mac-allow-anti-aliasing t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; global.el ends here
