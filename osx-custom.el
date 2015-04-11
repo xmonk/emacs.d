@@ -3,11 +3,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(magit-emacsclient-executable "/usr/local/bin/emacsclient")
+ '(magit-item-highlight-face nil)
+ '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (magit flycheck-pyflakes tuareg merlin ocp-indent utop go-errcheck go-eldoc flycheck browse-kill-ring whole-line-or-region codesearch expand-region markdown-mode undo-tree git-timemachine exec-path-from-shell use-package)))
- '(magit-emacsclient-executable "/usr/local/bin/emacsclient")
-  '(magit-item-highlight-face nil))
+    (flycheck browse-kill-ring codesearch expand-region flycheck-pyflakes git-timemachine go-eldoc go-errcheck go-mode magit markdown-mode merlin ocp-indent tuareg undo-tree utop whole-line-or-region paredit exec-path-from-shell use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
