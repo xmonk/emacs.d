@@ -53,11 +53,11 @@
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
 (setq next-line-add-newlines nil)
-(which-function-mode t)
 (setq backup-by-copying-when-linked t)
 (setq search-highlight t)
 (setq query-replace-highlight t)
 (setq require-final-newline t)
+(delete-selection-mode 1)
 
 ;; don't let the cursor go into minibuffer prompt
 (setq minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)))
