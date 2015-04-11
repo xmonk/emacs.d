@@ -28,6 +28,7 @@
   :commands go-mode
   :ensure t
   :config
+  (setenv "GOPATH" (concat (getenv "HOME") "/g"))
   ;; gofmt command
   (setq gofmt-command "goimports")
 
