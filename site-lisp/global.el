@@ -163,6 +163,15 @@
   :commands (codesearch-search codesearch-reset codesearch-list-directories)
   :ensure t)
 
+(use-package smartscan
+  :ensure t
+  :commands smartscan-mode
+  :bind-keymap (("M-n" . smartscan-map)
+		("M-p" . smartscan-map)
+		("M-'" . smartscan-map))
+  :config
+  (global-smartscan-mode 1))
+
 ;; etags
 (autoload 'etags-table "etags-table")
 (load-after etags-table
