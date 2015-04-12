@@ -1,8 +1,8 @@
 (provide 'global)
 
 ;; frame setup
-(set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'mode-line nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
+(set-face-attribute 'default nil :font "Lucida Grande Mono-12" :slant 'normal :weight 'normal)
+(set-face-attribute 'mode-line nil :font "Lucida Grande-12" :slant 'normal :weight 'normal)
 (set-face-attribute 'font-lock-comment-face nil :slant 'italic :weight 'normal)
 ;; stop cursor from blinking
 (blink-cursor-mode -1)
@@ -99,8 +99,8 @@
   (ido-everywhere))
 
 ;; on duplicate filenames, show path names.
-(use-package uniquify
-  :config
+(require 'uniquify nil t)
+(load-after uniquify
   (setq uniquify-buffer-name-style 'post-forward
         uniquify-separator ":"
         uniquify-after-kill-buffer-p t))
@@ -128,8 +128,8 @@
   (setq undo-tree-visualizer-timestamps t))
 
 ;; load dired extras
-(use-package dired-x
-  :config (setq dired-use-ls-dired nil))
+(require-if 'dired-x
+  (setq dired-use-ls-dired nil))
 
 ;; don't allow the scratch buffer to be killed. It will delete it's
 ;; contents instead.
@@ -153,11 +153,11 @@
 
 ;; vc
 (setq vc-follow-symlinks t)
-
 (setq change-log-default-name "ChangeLog"
       user-full-name "Juan Fuentes"
       user-mail-address "juan.j.fuentes@gmail.com"
       vc-svn-header '("\$Id\$"))
+
 ;; codesearch http://code.google.com/p/codesearch/
 (use-package codesearch
   :commands (codesearch-search codesearch-reset codesearch-list-directories)
@@ -183,6 +183,7 @@
   :diminish whole-line-or-region-mode
   :config
   (whole-line-or-region-mode))
+
 ;; Kill ring
 (use-package browse-kill-ring
   :ensure t
@@ -214,6 +215,7 @@
   :defer 2
   :config
   (winner-mode))
+
 ;; sessions
 (setq session-save-file (concat user-emacs-directory ".session"))
 
@@ -221,6 +223,7 @@
 (autoload 'mwheel "mwheel" nil t)
 (setq mouse-yank-at-point 't)
 
+;; browser
 (cond ((eq window-system 'x)
        (setq browse-url-browser-function 'browse-url-default-browser))
       ((eq window-system 'ns)
