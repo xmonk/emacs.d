@@ -27,8 +27,8 @@
 (use-package magit
   :commands (magit-status mgit)
   :ensure t
+  :init (setq magit-last-seen-setup-instructions "1.4.0")
   :config
-  (setq magit-last-seen-setup-instructions "1.4.0")
   (defalias 'mgit 'magit-status)
   (defalias 'mquit 'magit-quit-session)
 
