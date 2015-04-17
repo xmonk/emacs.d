@@ -4,6 +4,7 @@
 (set-face-attribute 'default nil :font "Lucida Grande Mono-12" :slant 'normal :weight 'normal)
 (set-face-attribute 'mode-line nil :font "Lucida Grande-12" :slant 'normal :weight 'normal)
 (set-face-attribute 'font-lock-comment-face nil :slant 'italic :weight 'normal)
+
 ;; stop cursor from blinking
 (blink-cursor-mode -1)
 ;; don't scroll like a maniac
@@ -93,10 +94,35 @@
 (autoload 'zap-up-to-char "misc" "Kill up to, but not including ARGth occurrence of CHAR.")
 
 ;; ido
-(require 'ido nil t)
-(load-after ido
+(use-package ido
+  :commands ido-mode
+  :init
+  (add-hook
+   'ido-setup-hook
+   (lambda()
+     ;; Go straight home
+     (define-key ido-file-completion-map (kbd "~")
+       (lambda()
+	 (interactive)
+	 (if (looking-back "/")
+	     (insert "~/")
+	   (call-interactively 'self-insert-command))))))
   (ido-mode 1)
-  (ido-everywhere))
+  (ido-everywhere)
+  (use-package flx-ido
+    :ensure t
+    :init
+    (flx-ido-mode 1)
+    (setq ido-enable-flex-matching t)
+    (setq ido-use-faces nil)))
+
+;; smex
+(use-package smex
+  :ensure t
+  :bind (("C-x C-m" . smex)
+	 ("C-x m" . smex-major-mode-commands))
+  :config
+  (setq smex-auto-update nil))
 
 ;; on duplicate filenames, show path names.
 (require 'uniquify nil t)
@@ -128,8 +154,8 @@
   (setq undo-tree-visualizer-timestamps t))
 
 ;; load dired extras
-(require-if 'dired-x
-  (setq dired-use-ls-dired nil))
+(require 'dired-x nil t)
+(setq dired-use-ls-dired nil)
 
 ;; don't allow the scratch buffer to be killed. It will delete it's
 ;; contents instead.
@@ -173,7 +199,7 @@
   (global-smartscan-mode 1))
 
 ;; etags
-(autoload 'etags-table "etags-table")
+(autoload 'etags-table "etags-table" nil t)
 (load-after etags-table
   (setq etags-table-search-up-depth 10))
 
@@ -211,18 +237,20 @@
 
 ;; needed packages
 (autoload 'jka-compr "jka-compr" nil t)
-(auto-compression-mode 1)
+(load-after jka-compr
+  (auto-compression-mode 1))
 
 ;; Save place
 (require 'saveplace nil t)
-(setq-default save-place t)
-(setq save-place-file (concat user-emacs-directory ".places"))
-(setq save-place-limit 100)
+(load-after saveplace
+  (setq-default save-place t)
+  (setq save-place-file (concat user-emacs-directory ".places"))
+  (setq save-place-limit 100))
 
 ;; winner mode
 (use-package winner
   :defer 2
-  :config
+  :init
   (winner-mode))
 
 ;; sessions
@@ -317,10 +345,11 @@
     (add-hook 'git-commit-mode-hook 'flyspell-mode)))
 
 ;; Add the init-path tree to the Info path
-(require 'info nil t)
-(info-initialize)
-(setq initial-info-path Info-directory-list)
-(setq Info-directory-list (append (getenv "INFOPATH") initial-info-path))
+(autoload 'info "info" nil t)
+(load-after info
+  (info-initialize)
+  (setq initial-info-path Info-directory-list)
+  (setq Info-directory-list (append (getenv "INFOPATH") initial-info-path)))
 
 ;; Ediff
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
