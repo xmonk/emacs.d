@@ -1,7 +1,8 @@
-(provide 'keymaps)
 
-(global-set-key (kbd "C-x C-m") 'execute-extended-command)
-(global-set-key (kbd "C-x m") 'execute-extended-command)
+(unless (locate-library "smex")
+  (global-set-key (kbd "C-x C-m") 'execute-extended-command)
+  (global-set-key (kbd "C-x m") 'execute-extended-command))
+
 (global-set-key (kbd "C-c m") 'gnus)
 (global-set-key (kbd "M-g") 'goto-line)
 (global-set-key (kbd "C-x k") 'jj/kill-buffer)
@@ -34,3 +35,5 @@
   (global-set-key [(control ?-)] (lambda() (interactive) (text-scale-decrease 1)))
   (global-set-key [(control ?0)] (lambda() (interactive) (text-scale-increase 0)))
   (global-set-key (kbd "<f11>") 'jj/fullscreen))
+
+(provide 'keymaps)

@@ -1,5 +1,3 @@
-(provide 'c-conf)
-
 (defun c-insert-include()
   (interactive)
   (insert "#include <.h>")
@@ -28,3 +26,5 @@
 
 (add-hook 'c-mode-common-hook 'jj-c-hook)
 (add-hook 'c++mode-common-hook 'jj-c-hook)
+
+(provide 'c-conf)

@@ -24,10 +24,8 @@
 ;;
 ;;; Code:
 
-(provide 'defuns)
-
 (eval-when-compile
-  (require 'cl))
+  (require 'cl-lib))
 
 (defun jj/compile-config()
   (interactive)
@@ -580,6 +578,6 @@ If region is active, apply to active region instead."
                            (if (frame-parameter f 'fullscreen)
                                nil
                              'fullboth))))
-
+(provide 'defuns)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; defuns.el ends here

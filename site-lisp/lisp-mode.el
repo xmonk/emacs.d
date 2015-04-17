@@ -1,5 +1,3 @@
-(provide 'lisp-conf)
-
 (use-package lisp-mode
   :commands lisp-mode
   :config
@@ -27,3 +25,5 @@
   (add-hook 'lisp-mode-hook 'jj/lisp-mode-hook)
   (add-hook 'inferior-lisp-mode-hook 'jj/inferior-lisp-mode-hook)
   (add-hook 'after-save-hook 'check-parens nil t))
+
+(provide 'lisp-conf)
