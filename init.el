@@ -34,6 +34,12 @@
 (if running-apple
     (setenv "TMPDIR" "/tmp"))
 
+(unless window-system
+  (menu-bar-mode -1))
+
+(dolist (mode '(scroll-bar-mode tool-bar-mode))
+  (if (fboundp mode) (funcall mode -1)))
+
 ;; Load customizations
   (cond ((eql system-type 'darwin)
          (setq custom-file (concat user-emacs-directory "osx-custom.el")))
