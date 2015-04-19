@@ -1,4 +1,4 @@
-;;; py-conf.el ---
+;;; py-conf.el --- Python configuration
 ;;
 ;; Filename: py-conf.el
 ;; Description:
@@ -7,9 +7,9 @@
 ;; Created: Thu Apr 28 19:54:14 2011 (-0400)
 ;; Version:
 ;; Package-Requires: (jedi, epc, auto-complete, flycheck)
-;; Last-Updated: Wed Apr  1 21:48:45 2015 (-0400)
+;; Last-Updated: Sat Apr 18 14:11:46 2015 (-0400)
 ;;           By:
-;;     Update #: 112
+;;     Update #: 114
 ;; URL:
 ;; Doc URL:
 ;; Keywords:
@@ -24,9 +24,8 @@
 ;;
 ;;; Code:
 
-;; set path pythonpath and exec-path if *venv* is not set in $PATH and $PYTHONPATH.
-
 (load-after python
+  ;; set path pythonpath and exec-path if *venv* is not set in $PATH and $PYTHONPATH.
   (defvar *venv* (concat (getenv "HOME") "/.venv/"))
   (unless (and (file-directory-p *venv*) (string-match *venv* (getenv "PATH"))
                (string-match *venv* (getenv "PYTHONPATH")))
