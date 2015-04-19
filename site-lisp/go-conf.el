@@ -53,6 +53,8 @@
     (compile "go test -v"))
 
   (defun jj/go-init-hook()
+    ;; go-mode enables this by default argh!
+    (flyspell-mode-off)
     (setq-default tab-width 8)
     (setq-default indent-tabs-mode t)
     (bind-key "C-c C-c" (jj:go "go build ") go-mode-map)
