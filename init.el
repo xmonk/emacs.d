@@ -1,18 +1,26 @@
-;;; init.el ---
+;;; init.el --- Emacs configuration.
 ;;
 ;; Filename: init.el
 ;; Description:
 ;; Author: Juan Fuentes
 ;; Maintainer:
-;; Copyright © Juan Julio Fuentes
 ;; Created: Sat Jun 28 18:48:44 2008
 ;; Version:
-;; Last-Updated: Wed Apr  1 19:27:09 2015 (-0400)
+;; Package-Requires: ()
+;; Last-Updated: Sat Apr 18 14:22:27 2015 (-0400)
 ;;           By:
-;;     Update #: 88
+;;     Update #: 92
 ;; URL:
+;; Doc URL:
 ;; Keywords:
 ;; Compatibility:
+;;
+;;
+;;; Commentary:
+;;
+;;
+;;; Change Log:
+;;
 ;;
 ;;; Code:
 
@@ -27,7 +35,7 @@
 
 (defvar running-apple (string-match "apple" system-configuration))
 
-;; 20mb let's see how well it works.
+;; 20MB let's see how well it works.
 (setq gc-cons-threshold 20000000)
 
 ;; In os x there is an issue with tramp and TMPDIR, this is a work around.
@@ -40,7 +48,7 @@
 (dolist (mode '(scroll-bar-mode tool-bar-mode))
   (if (fboundp mode) (funcall mode -1)))
 
-;; Load customizations
+;; Load customization's
   (cond ((eql system-type 'darwin)
          (setq custom-file (concat user-emacs-directory "osx-custom.el")))
         ((eql system-type 'berkeley-unix)
