@@ -1,15 +1,31 @@
-(provide 'global)
+;;; global.el ---  Global emacs configuration.
+;;
+;; Filename: global.el
+;; Description:
+;; Author: Juan Fuentes
+;; Maintainer:
+;; Created:  Sat Jun 28 18:48:44 2008 (-0400)
+;; Version:
+;; Package-Requires: ()
+;; Last-Updated: Sat Apr 18 14:22:00 2015 (-0400)
+;;           By:
+;;     Update #: 97
+;; URL:
+;; Doc URL:
+;; Keywords:
+;; Compatibility:
+;;
+;;
+;;; Commentary:
+;;
+;;
+;;; Change Log:
+;;
+;;
+;;; Code:
 
-;; frame setup
-(set-face-attribute 'default nil :font "Lucida Grande Mono-12" :slant 'normal :weight 'normal)
-(set-face-attribute 'mode-line nil :font "Lucida Grande-12" :slant 'normal :weight 'normal)
-(set-face-attribute 'font-lock-comment-face nil :slant 'italic :weight 'normal)
+;;; frame setup
 
-;; stop cursor from blinking
-(blink-cursor-mode -1)
-;; don't scroll like a maniac
-(setq mouse-wheel-scroll-amount '(1))
-(setq mouse-wheel-progressive-speed nil)
 ;; disable scroll-bar and tool-bar
 (dolist (mode '(scroll-bar-mode tool-bar-mode))
   (if (fboundp mode) (funcall mode -1)))
@@ -19,6 +35,21 @@
       (setq mac-option-modifier 'meta))
   (setq mac-allow-anti-aliasing t))
 
+;; set faces
+(set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
+(set-face-attribute 'mode-line nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
+(set-face-attribute 'font-lock-comment-face nil :font "Lucida Grande" :height 130 :slant 'italic :weight 'normal)
+(set-face-attribute 'font-lock-doc-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
+(set-face-attribute 'font-lock-function-name-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
+
+;; stop cursor from blinking
+(blink-cursor-mode -1)
+
+;; don't scroll like a maniac
+(setq mouse-wheel-scroll-amount '(1))
+(setq mouse-wheel-progressive-speed nil)
+
+;;; Encoding
 ;; utf-8
 (prefer-coding-system 'utf-8-unix)
 (set-default-coding-systems 'utf-8-unix)
@@ -31,10 +62,11 @@
 ;; From Emacs wiki
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
-;; load Ubuntu's site-lisp if exists.
+;;; load Ubuntu's site-lisp if exists.
 (if (file-directory-p "/usr/share/emacs/site-lisp")
     (setq load-path (cons "/usr/share/emacs/site-lisp" load-path)))
 
+;;; system configuration
 (setq-default kill-whole-line t)
 (setq-default fill-column 100)
 (setq-default indent-tabs-mode t)
@@ -62,7 +94,11 @@
 
 ;; don't let the cursor go into minibuffer prompt
 (setq minibuffer-prompt-properties (quote (read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt)))
+
+;; fringe
 (set-default 'indicate-empty-lines nil)
+
+;; setup the mode-line as I like it.
 (setq-default mode-line-format
               (list (purecopy "")
                     'mode-line-modified
@@ -90,10 +126,10 @@
 ;; Don't ask for confirmation of new buffers.
 (setq confirm-nonexistent-file-or-buffer nil)
 
-;; sensible zap to char
+;;; sensible zap to char
 (autoload 'zap-up-to-char "misc" "Kill up to, but not including ARGth occurrence of CHAR.")
 
-;; ido
+;;; ido
 (use-package ido
   :commands ido-mode
   :init
@@ -116,7 +152,7 @@
     (setq ido-enable-flex-matching t)
     (setq ido-use-faces nil)))
 
-;; smex
+;;; smex
 (use-package smex
   :ensure t
   :bind (("C-x C-m" . smex)
@@ -124,14 +160,14 @@
   :config
   (setq smex-auto-update nil))
 
-;; on duplicate filenames, show path names.
+;;; on duplicate filenames, show path names.
 (require 'uniquify nil t)
 (load-after uniquify
   (setq uniquify-buffer-name-style 'post-forward
         uniquify-separator ":"
         uniquify-after-kill-buffer-p t))
 
-;; diminish
+;;; diminish
 (use-package diminish
   :ensure t
   :config
@@ -141,7 +177,7 @@
   :commands git-timemachine
   :ensure t)
 
-;; undo-tree
+;;; undo-tree
 (use-package undo-tree
   :ensure t
   :diminish undo-tree-mode
@@ -153,42 +189,42 @@
   (setq undo-tree-visualizer-relative-timestamps t)
   (setq undo-tree-visualizer-timestamps t))
 
-;; load dired extras
+;;; load dired extras
 (require 'dired-x nil t)
 (setq dired-use-ls-dired nil)
 
-;; don't allow the scratch buffer to be killed. It will delete it's
-;; contents instead.
+;;; Don't allow the scratch buffer to be killed. It will delete it's contents instead.
 (add-hook 'kill-buffer-query-functions 'jj/immortal-scratch-buffer)
 
-;; byte-compile on exit
+;;; Byte-compile on exit
 (add-hook 'kill-emacs-query-functions 'jj/refresh-init-elc)
 
-;; doc-view
+;;; Doc-view
 (autoload 'doc-view "doc-view" nil t)
 
-;; markdown
+;;; Markdown
 (use-package markdown-mode
   :commands markdown-mode
   :ensure t)
 
-;; expand-region
+;;; Expand-region
 (use-package expand-region
   :ensure t
   :bind ("s-/" . er/expand-region))
 
-;; vc
+;;; vc
 (setq vc-follow-symlinks t)
 (setq change-log-default-name "ChangeLog"
       user-full-name "Juan Fuentes"
       user-mail-address "juan.j.fuentes@gmail.com"
       vc-svn-header '("\$Id\$"))
 
-;; codesearch http://code.google.com/p/codesearch/
+;;; codesearch http://code.google.com/p/codesearch/
 (use-package codesearch
   :commands (codesearch-search codesearch-reset codesearch-list-directories)
   :ensure t)
 
+;;; Smart scan
 (use-package smartscan
   :ensure t
   :commands smartscan-mode
@@ -198,20 +234,20 @@
   :config
   (global-smartscan-mode 1))
 
-;; etags
+;;; etags
 (autoload 'etags-table "etags-table" nil t)
 (load-after etags-table
   (setq etags-table-search-up-depth 10))
 
-;; Remove trailing whitespace
+;;; Remove trailing whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; whitespace-mode
+;;; Whitespace-mode
 (setq whitespace-line-column 80
       whitespace-style '(trailing lines space-before-tab
                                   indentation space-after-tab))
 
-;; whole-line-or-region-mode
+;;; whole-line-or-region-mode
 (use-package whole-line-or-region
   :defer 2
   :ensure t
@@ -219,12 +255,12 @@
   :config
   (whole-line-or-region-mode))
 
-;; Kill ring
+;;; Kill ring
 (use-package browse-kill-ring
   :ensure t
   :bind ("C-c k" . browse-kill-ring))
 
-;;abbrev
+;;; Abbrev
 (use-package abbrev
   :commands abbrev-mode
   :diminish abbrev-mode
@@ -235,32 +271,32 @@
   (setq-default abbrev-mode t)
   (setq save-abbrevs t))
 
-;; needed packages
+;;; needed packages
 (autoload 'jka-compr "jka-compr" nil t)
 (load-after jka-compr
   (auto-compression-mode 1))
 
-;; Save place
+;;; Save place
 (require 'saveplace nil t)
 (load-after saveplace
   (setq-default save-place t)
   (setq save-place-file (concat user-emacs-directory ".places"))
   (setq save-place-limit 100))
 
-;; winner mode
+;;; winner mode
 (use-package winner
   :defer 2
   :init
   (winner-mode))
 
-;; sessions
+;;; sessions
 (setq session-save-file (concat user-emacs-directory ".session"))
 
-;; Paste at point NOT at cursor
+;;; Paste at point NOT at cursor
 (autoload 'mwheel "mwheel" nil t)
 (setq mouse-yank-at-point 't)
 
-;; browser
+;;; browser
 (cond ((eq window-system 'x)
        (setq browse-url-browser-function 'browse-url-default-browser))
       ((eq window-system 'ns)
@@ -268,7 +304,7 @@
       ((eq window-system 'nil)
        (setq browse-url-browser-function 'eww-browse-url)))
 
-;; flycheck
+;;; flycheck
 (use-package flycheck
   :ensure t
   :defer 5
@@ -280,6 +316,7 @@
         flycheck-idle-change-delay 0.3)
   (setq flycheck-display-errors-function #'flycheck-display-error-messages-unless-error-list))
 
+;;; backup
 ;; Save all my backup files in a specific directory
 (defconst use-backup-dir t)
 (setq backup-directory-alist (quote ((".*" . "~/.emacs.d/.backup")))
@@ -290,7 +327,7 @@
       backup-by-copying-when-linked t) ;;copy linked files, don't rename.
 (setq auto-save-default nil)
 
-;; revert all buffer when file is modified in disk
+;;; revert all buffer when file is modified in disk
 (setq global-auto-revert-mode t)
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
@@ -319,16 +356,17 @@
     (message nil))
   (run-with-idle-timer 60 t 'jj/save-desktop))
 
-;; Start Server only if it's not
+;;; Server
 (require 'server nil t)
 (when (and (>= emacs-major-version 23) (not (server-running-p)))
   (server-start))
 
+;; Disable the menu-bar when running on a terminal.
 (when (server-running-p)
   (when (eq window-system nil)
     (menu-bar-mode -1)))
 
-;; spelling
+;;; spelling
 (use-package ispell
   :commands ispell
   :config
@@ -344,18 +382,19 @@
     ;; spell check git commit messages
     (add-hook 'git-commit-mode-hook 'flyspell-mode)))
 
-;; Add the init-path tree to the Info path
+;;; Info
+;;Add the init-path tree to the Info path
 (autoload 'info "info" nil t)
 (load-after info
   (info-initialize)
   (setq initial-info-path Info-directory-list)
   (setq Info-directory-list (append (getenv "INFOPATH") initial-info-path)))
 
-;; Ediff
+;;; Ediff
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq diff-switches "-Nu")
 
-;;Mail related stuff.
+;;;Mail related stuff.
 (setq mail-user-agent (quote gnus-user-agent))
 (setq read-mail-command (quote gnus))
 (setq mail-yank-prefix ">")
@@ -369,5 +408,41 @@
 (add-hook 'prog-mode-hook 'jj/local-comment-auto-fill)
 (add-hook 'prog-mode-hook 'jj/add-watchwords)
 
+;;; Header
+(use-package header2
+  :ensure t
+  :bind ("<f9>" . make-header)
+  :config
+  (setq make-header-hook '(;;header-mode-line
+                           header-title
+                           header-blank
+                           header-file-name
+                           header-description
+                           header-author
+                           header-maintainer
+                           header-copyright
+                           header-creation-date
+                           header-version
+                           header-pkg-requires
+                           header-modification-date
+                           header-modification-author
+                           header-update-count
+                           header-url
+                           header-doc-url
+                           header-keywords
+                           header-compatibility
+                           header-blank
+                           header-lib-requires
+                           header-commentary
+                           header-blank
+                           header-history
+                           header-blank
+                           header-code
+                           header-eof
+                           ))
+  (autoload 'auto-update-file-header "header2")
+  (add-hook 'write-file-hooks 'auto-update-file-header))
+
+(provide 'global)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; global.el ends here
