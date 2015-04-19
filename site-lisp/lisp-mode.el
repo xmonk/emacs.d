@@ -1,3 +1,29 @@
+;;; lisp-mode.el ---  Common Lisp configuration
+;;
+;; Filename: lisp-mode.el
+;; Description:
+;; Author: Juan Fuentes
+;; Maintainer:
+;; Created: Sat Apr 18 14:13:19 2015 (-0400)
+;; Version:
+;; Package-Requires: ()
+;; Last-Updated: Sat Apr 18 14:13:42 2015 (-0400)
+;;           By:
+;;     Update #: 2
+;; URL:
+;; Doc URL:
+;; Keywords:
+;; Compatibility:
+;;
+;;
+;;; Commentary:
+;;
+;;
+;;; Change Log:
+;;
+;;
+;;; Code:
+
 (use-package lisp-mode
   :commands lisp-mode
   :config
@@ -27,3 +53,6 @@
   (add-hook 'after-save-hook 'check-parens nil t))
 
 (provide 'lisp-conf)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; lisp-mode.el ends here

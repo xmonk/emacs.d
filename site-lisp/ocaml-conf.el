@@ -1,4 +1,4 @@
-;;; ocaml-conf.el ---  OCaml configuration file
+;;; ocaml-conf.el ---  OCaml configuration
 ;;
 ;; Filename: ocaml-conf.el
 ;; Description:
@@ -7,9 +7,9 @@
 ;; Created: Sun Feb 22 23:19:16 2015 (-0400)
 ;; Version:
 ;; Package-Requires: ()
-;; Last-Updated:
+;; Last-Updated: Sat Apr 18 14:13:13 2015 (-0400)
 ;;           By:
-;;     Update #: 40
+;;     Update #: 42
 ;; URL:
 ;; Doc URL:
 ;; Keywords:

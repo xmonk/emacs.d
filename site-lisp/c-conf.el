@@ -1,3 +1,29 @@
+;;; c-conf.el ---  C configuration file
+;;
+;; Filename: c-conf.el
+;; Description:
+;; Author: Juan Fuentes
+;; Maintainer:
+;; Created: Sat Apr 18 14:05:39 2015 (-0400)
+;; Version:
+;; Package-Requires: ()
+;; Last-Updated: Sat Apr 18 14:07:54 2015 (-0400)
+;;           By:
+;;     Update #: 3
+;; URL:
+;; Doc URL:
+;; Keywords:
+;; Compatibility:
+;;
+;;
+;;; Commentary:
+;;
+;;
+;;; Change Log:
+;;
+;;
+;;; Code:
+
 (defun c-insert-include()
   (interactive)
   (insert "#include <.h>")
@@ -28,3 +54,6 @@
 (add-hook 'c++mode-common-hook 'jj-c-hook)
 
 (provide 'c-conf)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; c-conf.el ends here

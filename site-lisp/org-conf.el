@@ -1,15 +1,15 @@
-;;; org-conf.el ---
+;;; org-conf.el --- Org configuration
 ;;
 ;; Filename: org-conf.el
 ;; Description:
 ;; Author: Juan Fuentes
 ;; Maintainer:
-;; Created: Wed Oct 10 15:11:21 2007
+;; Created: Wed Oct 10 15:11:21 2007 (-0400)
 ;; Version:
 ;; Package-Requires: ()
-;; Last-Updated: Wed Apr  1 09:29:51 2015 (-0400)
+;; Last-Updated: Sat Apr 18 14:12:19 2015 (-0400)
 ;;           By:
-;;     Update #: 117
+;;     Update #: 119
 ;; URL:
 ;; Doc URL:
 ;; Keywords:

@@ -1,3 +1,28 @@
+;;; keymaps.el --- Personal key maps.
+;;
+;; Filename: keymaps.el
+;; Description:
+;; Author: Juan Fuentes
+;; Maintainer:
+;; Created: Sat Apr 18 14:13:55 2015 (-0400)
+;; Version:
+;; Package-Requires: ()
+;; Last-Updated: Sat Apr 18 14:14:22 2015 (-0400)
+;;           By:
+;;     Update #: 2
+;; URL:
+;; Doc URL:
+;; Keywords:
+;; Compatibility:
+;;
+;;
+;;; Commentary:
+;;
+;;
+;;; Change Log:
+;;
+;;
+;;; Code:
 
 (unless (locate-library "smex")
   (global-set-key (kbd "C-x C-m") 'execute-extended-command)
@@ -37,3 +62,6 @@
   (global-set-key (kbd "<f11>") 'jj/fullscreen))
 
 (provide 'keymaps)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; keymaps.el ends here
