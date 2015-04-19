@@ -1,4 +1,4 @@
-;;; defuns.el --- Generic macros and functions.
+;;; defuns.el ---  Generic macros and functions.
 ;;
 ;; Filename: defuns.el
 ;; Description:
@@ -7,9 +7,9 @@
 ;; Created: Tue May 24 23:32:35 2011 (-0400)
 ;; Version:
 ;; Package-Requires: ()
-;; Last-Updated: Wed Apr  1 19:06:57 2015 (-0400)
+;; Last-Updated: Sat Apr 18 14:10:06 2015 (-0400)
 ;;           By:
-;;     Update #: 109
+;;     Update #: 111
 ;; URL:
 ;; Doc URL:
 ;; Keywords:
@@ -53,8 +53,8 @@
         (jj/smart-split-helper w2))))
 
 (defun jj/smart-split()
-  "Split the frame into 80-column sub-windows, and make sure no window has
-   fewer than 80 columns."
+  "Split the frame into 80-column sub-windows, and make sure no
+   window has fewer than 80 columns."
   (interactive)
   (jj/smart-split-helper nil))
 
@@ -87,6 +87,71 @@
   "Moves current line N (1) lines down leaving point in place."
   (interactive "p")
   (jj/move-line (if (null n) 1 n)))
+
+
+;; Help find-file-at-point understand: `file:linenumber` and do the right thing.
+(defvar ffap-file-at-point-line-number nil
+  "Variable to hold line number from the last `ffap-file-at-point' call.")
+
+(defadvice ffap-file-at-point (after ffap-store-line-number activate)
+  "Search `ffap-string-at-point' for a line number pattern and save it in `ffap-file-at-point-line-number' variable."
+  (let* ((string (ffap-string-at-point)) ;; string/name definition copied from `ffap-string-at-point'
+         (name
+          (or (condition-case nil
+                  (and (not (string-match "//" string)) ; foo.com://bar
+                       (substitute-in-file-name string))
+                (error nil))
+              string))
+         (line-number-string
+          (and (string-match ":[0-9]+" name)
+               (substring name (1+ (match-beginning 0)) (match-end 0))))
+         (line-number
+          (and line-number-string
+               (string-to-number line-number-string))))
+    (if (and line-number (> line-number 0))
+        (setq ffap-file-at-point-line-number line-number)
+      (setq ffap-file-at-point-line-number nil))))
+
+(defadvice find-file-at-point (after ffap-goto-line-number activate)
+  "If `ffap-file-at-point-line-number' is non-nil goto this line."
+  (when ffap-file-at-point-line-number
+    (goto-line ffap-file-at-point-line-number)
+    (setq ffap-file-at-point-line-number nil)))
+
+;; Open files with path:line:col format.
+(defadvice find-file (around find-file-line-number
+                             (path &optional wildcards)
+                             activate)
+  "Turn files like file.js:14:10 into file.js and going to line 14, col 10."
+  (save-match-data
+    (let* ((match (string-match "^\\(.*?\\):\\([0-9]+\\):?\\([0-9]*\\)$" path))
+           (line-no (and match
+                         (match-string 2 path)
+                         (string-to-number (match-string 2 path))))
+           (col-no (and match
+                        (match-string 3 path)
+                        (string-to-number (match-string 3 path))))
+           (path (if match (match-string 1 path) path)))
+      ad-do-it
+      (when line-no
+        ;; goto-line is for interactive use
+        (goto-char (point-min))
+        (forward-line (1- line-no))
+        (when (> col-no 0)
+          (forward-char (1- col-no)))))))
+
+(defadvice server-visit-files (before parse-numbers-in-lines (files proc &optional nowait) activate)
+  "Look for file names like file:line or file:line:position and parse name in such a manner that move to line:position in file."
+  (ad-set-arg 0
+              (mapcar (lambda (fn)
+                        (let ((name (car fn)))
+                          (if (string-match "^\\(.*?\\):\\([0-9]+\\)\\(?::\\([0-9]+\\)\\)?$" name)
+                              (cons
+                               (match-string 1 name)
+                               (cons (string-to-number (match-string 2 name))
+                                     (string-to-number (or (match-string 3 name) "")))
+                               )
+                            fn))) files)))
 
 ;; Copy or cut the line you are at without having to set the mark.
 (defadvice kill-ring-save(before slickcopy activate compile)
@@ -134,17 +199,16 @@
   (forward-line 1)
   (indent-according-to-mode))
 
-;; A somewhat insanely powerful trick, evaluate a region via a shell
-;; command and replace the region with the resulting
-;; output. Normally you would access this command via C-u M-| but
-;; since we're trying to optimize things a bit:
+;; A somewhat insanely powerful trick, evaluate a region via a shell command and replace the region
+;; with the resulting output. Normally you would access this command via C-u M-| but since we're
+;; trying to optimize things a bit:
 (defun custom-shell-command-on-region nil
   "Replace region with ``shell-command-on-region''.
 By default, this will make mark active if it is not and then
 prompt you for a shell command to run and replaces region with
 the results.  This is handy for doing things like getting
-external program locations in scripts and running grep and
-not on a region."
+external program locations in scripts and running grep and not on
+a region."
   (interactive)
   (save-excursion
     (if (equal mark-active nil)
@@ -286,8 +350,8 @@ not on a region."
   (interactive)
   (insert(gui-get-selection 'CLIPBOARD)))
 
-;; Get rid of that annoying prompt that requires one to type
-;; in YES and then press the enter key to confirm.
+;; Get rid of that annoying prompt that requires one to type in YES and then press the enter key to
+;; confirm.
 (defun yes-or-no-p(PROMPT)
   (beep)
   (y-or-n-p PROMPT))
@@ -368,23 +432,6 @@ not on a region."
     (when file
       (find-file file))))
 
-(defun jj/insert-header-at-point()
-  "Insert header in point"
-  (interactive)
-  (insert *jj/file-header*))
-
-(defun jj/insert-file-header()
-  "Insert header at top of document."
-  (interactive)
-  (goto-char (point-min))
-  (unless (equal nil comment-start)
-    (if (= 1 (length comment-start))
-        (insert comment-start comment-start " ")
-      (insert comment-start)))
-  (jj/insert-header-at-point)
-  (unless (equal nil comment-end)
-    (insert comment-end "\n\n")))
-
 (defun jj/pretty-lambdas()
   "Inserts lambda instead of the word lambda"
   (font-lock-add-keywords
@@ -419,7 +466,9 @@ not on a region."
       (jump-to-register :term-fullscreen)
     (progn
       (window-configuration-to-register :term-fullscreen)
-      (multi-term)
+      (if (locate-library "multi-term")
+	  (multi-term)
+	(term))
       (delete-other-windows))))
 
 (defun jj/start-or-switch(func buffer-name)
@@ -515,8 +564,8 @@ not on a region."
   (dolist (p exec-path)
     (princ (format "%s\n" p))))
 
-;; automatically save buffers associated with files on buffer switch
-;; and on windows switch. Taken from prelude.
+;; Automatically save buffers associated with files on buffer switch and on windows switch. Taken
+;; from prelude.
 (defun jj/auto-save ()
   "Save the current buffer."
   (when (and buffer-file-name
@@ -545,8 +594,8 @@ not on a region."
 (defun endless/comment-line-or-region (n)
   "Comment or uncomment current line and leave point after it.
 With positive prefix, apply to N lines including current one.
-With negative prefix, apply to -N lines above.
-If region is active, apply to active region instead."
+With negative prefix, apply to -N lines above.  If region is
+active, apply to active region instead."
   (interactive "p")
   (if (use-region-p)
       (comment-or-uncomment-region
@@ -579,5 +628,6 @@ If region is active, apply to active region instead."
                                nil
                              'fullboth))))
 (provide 'defuns)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; defuns.el ends here
