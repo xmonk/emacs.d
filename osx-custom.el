@@ -8,7 +8,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (smex flx-ido smartscan flycheck browse-kill-ring codesearch expand-region flycheck-pyflakes git-timemachine go-eldoc go-errcheck go-mode magit markdown-mode merlin ocp-indent tuareg undo-tree utop whole-line-or-region paredit use-package))))
+    (header2 smex flx-ido smartscan flycheck browse-kill-ring codesearch expand-region flycheck-pyflakes git-timemachine go-eldoc go-errcheck go-mode magit markdown-mode merlin ocp-indent tuareg undo-tree utop whole-line-or-region paredit use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
