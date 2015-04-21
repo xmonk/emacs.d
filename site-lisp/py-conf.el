@@ -29,8 +29,8 @@
   (defvar *venv* (concat (getenv "HOME") "/.venv/"))
   (unless (and (file-directory-p *venv*) (string-match *venv* (getenv "PATH"))
                (string-match *venv* (getenv "PYTHONPATH")))
-    (setenv "PATH" (concat (concat *venv* "bin:") (getenv "PATH")))
-    (setenv "PYTHONPATH" (concat (concat (getenv "PYTHONPATH") ":") (concat *venv* "lib/python2.7/site-packages")))
+    (setenv "PATH" (concat *venv* "bin" path-separator (getenv "PATH")))
+    (setenv "PYTHONPATH" (concat (getenv "PYTHONPATH") path-separator *venv* "lib/python2.7/site-packages"))
     (setq exec-path (append exec-path (list (concat *venv* "bin")))))
 
   (when (executable-find "linters")
