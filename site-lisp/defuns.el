@@ -638,6 +638,19 @@ active, apply to active region instead."
    (codesearch-update-index)
    (codesearch-search pattern file-pattern))
   (setq codesearch-csearchindex "~/.csearchindex"))
+
+;; FIXME: Not tested.
+;; Projectile + pyenv utility functions.
+(defun projectile-pyenv-mode-set ()
+  (pyenv-mode-set (projectile-project-name))
+  (unless (eq python-shell-virtualenv-path nil)
+    (setenv "PATH" (concat (concat python-shell-virtualenv-path ":") (getenv "PATH")))))
+
+(defun projectile-pyenv-mode-unset ()
+  (unless (eq python-shell-virtualenv-path nil)
+    (setenv "PATH" (mapconcat 'identity (delete python-shell-virtualenv-path (split-string (getenv "PATH") path-separator)) ":")))
+  (pyenv-mode-unset))
+
 (provide 'defuns)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
