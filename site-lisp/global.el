@@ -124,6 +124,9 @@
 ;; seed the random-number generator
 (random t)
 
+;; make ibuffer the default
+(defalias 'list-buffers 'ibuffer)
+
 ;; set-goal-column
 (put 'set-goal-column 'disabled nil)
 
