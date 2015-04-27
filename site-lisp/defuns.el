@@ -119,9 +119,7 @@
     (setq ffap-file-at-point-line-number nil)))
 
 ;; Open files with path:line:col format.
-(defadvice find-file (around find-file-line-number
-                             (path &optional wildcards)
-                             activate)
+(defadvice find-file (around find-file-line-number (path &optional wildcards) activate)
   "Turn files like file.js:14:10 into file.js and going to line 14, col 10."
   (save-match-data
     (let* ((match (string-match "^\\(.*?\\):\\([0-9]+\\):?\\([0-9]*\\)$" path))
