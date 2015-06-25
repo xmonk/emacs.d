@@ -6,6 +6,7 @@
  '(magit-emacsclient-executable "/usr/local/bin/emacsclient")
  '(magit-item-highlight-face nil)
  '(package-enable-at-startup nil)
+ '(global-font-lock-mode nil)
  '(package-selected-packages
    (quote
     (header2 smex flx-ido smartscan flycheck browse-kill-ring codesearch expand-region flycheck-pyflakes git-timemachine go-eldoc go-errcheck go-mode magit markdown-mode merlin ocp-indent tuareg undo-tree utop whole-line-or-region paredit use-package))))
