@@ -649,6 +649,19 @@ active, apply to active region instead."
     (setenv "PATH" (mapconcat 'identity (delete python-shell-virtualenv-path (split-string (getenv "PATH") path-separator)) ":")))
   (pyenv-mode-unset))
 
+(defun init-maxframe()
+  "maximize frame on start."
+  (let ((px (display-pixel-width))
+      (py (display-pixel-height))
+      (fx (frame-char-width))
+      (fy (frame-char-height))
+      tx ty)
+  (setq tx (- (/ px fx) 7))
+  (setq ty (- (/ py fy) 2))
+  (setq initial-frame-alist '((top . 2) (left . 2)))
+  (add-to-list 'default-frame-alist (cons 'width tx))
+  (add-to-list 'default-frame-alist (cons 'height ty))))
+
 (provide 'defuns)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
