@@ -625,6 +625,7 @@ active, apply to active region instead."
                            (if (frame-parameter f 'fullscreen)
                                nil
                              'fullboth))))
+
 (defun codesearch-goodbed (pattern file-pattern)
   "Search for `PATTERN` in goodbed repository that match `FILE-PATTERN`."
   (interactive
@@ -633,6 +634,18 @@ active, apply to active region instead."
     (read-string "File pattern: " ".*")))
   (and
    (setq codesearch-csearchindex "~/.goodbedindex")
+   (codesearch-update-index)
+   (codesearch-search pattern file-pattern))
+  (setq codesearch-csearchindex "~/.csearchindex"))
+
+(defun codesearch-sportrfid (pattern file-pattern)
+  "Search for `PATTERN` in sportfid repository that match `FILE-PATTERN`."
+  (interactive
+   (list
+    (read-string "Pattern: " (thing-at-point 'symbol))
+    (read-string "File pattern: " ".*")))
+  (and
+   (setq codesearch-csearchindex "~/.sportrfid.csearchindex")
    (codesearch-update-index)
    (codesearch-search pattern file-pattern))
   (setq codesearch-csearchindex "~/.csearchindex"))
