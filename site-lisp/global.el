@@ -25,8 +25,9 @@
 ;;; Code:
 
 ;;; frame setup
-;; maximize frame on start.
-(let ((px (display-pixel-width))
+(defun init-maxframe()
+  "maximize frame on start."
+  (let ((px (display-pixel-width))
       (py (display-pixel-height))
       (fx (frame-char-width))
       (fy (frame-char-height))
@@ -35,7 +36,7 @@
   (setq ty (- (/ py fy) 2))
   (setq initial-frame-alist '((top . 2) (left . 2)))
   (add-to-list 'default-frame-alist (cons 'width tx))
-  (add-to-list 'default-frame-alist (cons 'height ty)))
+  (add-to-list 'default-frame-alist (cons 'height ty))))
 
 ;; disable scroll-bar and tool-bar
 (dolist (mode '(scroll-bar-mode tool-bar-mode))
