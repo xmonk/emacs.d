@@ -289,10 +289,14 @@
 
 ;;; Save place
 (require 'saveplace nil t)
-(load-after saveplace
-  (setq-default save-place t)
-  (setq save-place-file (concat user-emacs-directory ".places"))
-  (setq save-place-limit 100))
+(setq-default save-place t)
+(setq save-place-file (concat user-emacs-directory ".places"))
+(setq save-place-limit 100)
+
+;;; swiper
+(use-package swiper
+  :ensure t
+  :bind ("C-c C-s" . swiper))
 
 ;;; winner mode
 (use-package winner
