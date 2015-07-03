@@ -46,6 +46,25 @@
       :ensure t
       :defer t))
 
+  (use-package jedi
+    :config
+    (jedi-mode)
+    (setq python-shell-virtualenv-path *venv*)
+    (setq jedi:setup-keys t)
+    ;; Don't let tooltip show up automatically
+    (setq Jedi:get-in-function-call-delay 10000000)
+    (add-hook 'python-mode-hook 'auto-complete-mode)
+    (add-hook 'python-mode-hook 'jedi:setup)
+    (add-hook 'python-mode-hook 'jedi:ac-setup)
+    (add-to-list 'ac-sources 'ac-source-jedi-direct)
+    (defun jedi-config:setup-keys ()
+      (local-set-key (kbd "M-<.>") 'jedi:goto-definition)
+      (local-set-key (kbd "M-<,>") 'jedi:goto-definition-pop-marker)
+      (local-set-key (kbd "M-<?>") 'jedi:show-doc)
+      (local-set-key (kbd "M-</>") 'jedi:get-in-function-call))
+    (define-key python-mode-map (kbd "C-c <tab>") 'jedi:complete)
+    (add-hook 'python-mode-hook 'jedi-config:setup-keys))
+
   (defun jj/pydoc (name)
     "Display pydoc information for NAME in a buffer named *pydoc*."`
     (interactive "sName of function or module: ")

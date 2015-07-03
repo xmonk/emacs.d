@@ -41,6 +41,12 @@
     :commands go-errcheck
     :ensure t)
 
+  (load-after "auto-complete"
+    (use-package go-autocomplete
+      :config
+      (add-to-list 'ac-sources 'ac-source-go)
+      (bind-key "C-c TAB" 'auto-complete go-mode-map)))
+
   ;; compile and run go code.
   (defmacro jj:go(cmd)
     `(lambda()
