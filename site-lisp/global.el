@@ -191,6 +191,15 @@
   (setq undo-tree-visualizer-relative-timestamps t)
   (setq undo-tree-visualizer-timestamps t))
 
+;;; projectile
+(use-package projectile
+  :ensure t
+  :diminish projectile-mode
+  :bind ("C-c p p" . projectile-switch-project)
+  :init (setq projectile-mode-line "Projectile")
+  :config
+  (projectile-global-mode))
+
 ;;; load dired extras
 (require 'dired-x nil t)
 (setq dired-use-ls-dired nil)
