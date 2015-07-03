@@ -32,8 +32,6 @@
   (defalias 'mgit 'magit-status)
   (defalias 'mquit 'magit-quit-session)
 
-  (magit-auto-revert-mode t)
-
   (defadvice magit-status (around magit-fullscreen activate)
     (window-configuration-to-register :magit-fullscreen)
     ad-do-it
