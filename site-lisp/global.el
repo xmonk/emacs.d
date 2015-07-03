@@ -378,8 +378,7 @@
 
 ;; Disable the menu-bar when running on a terminal.
 (when (server-running-p)
-  (when (eq window-system nil)
-    (menu-bar-mode -1)))
+  (menu-bar-mode -1))
 
 ;;; spelling
 (use-package ispell
