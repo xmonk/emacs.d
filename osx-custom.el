@@ -8,7 +8,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (projectile go-autocomplete ac-c-headers jedi auto-complete swiper multi-term header2 smex flx-ido smartscan flycheck browse-kill-ring codesearch expand-region flycheck-pyflakes git-timemachine go-eldoc go-errcheck go-mode magit markdown-mode merlin ocp-indent tuareg undo-tree utop whole-line-or-region paredit use-package))))
+    (helm-flycheck helm-swoop helm-pydoc helm-projectile ggtags helm projectile go-autocomplete ac-c-headers jedi auto-complete swiper multi-term header2 smex flx-ido smartscan flycheck browse-kill-ring codesearch expand-region flycheck-pyflakes git-timemachine go-eldoc go-errcheck go-mode magit markdown-mode merlin ocp-indent tuareg undo-tree utop whole-line-or-region paredit use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -86,8 +86,8 @@
 (mapc (lambda (lib)
         (require lib nil t))
       '(defuns global ac-conf elisp-conf
-	 c-conf go-conf lisp-conf magit-conf
-	 org-conf py-conf keymaps ocaml-conf))
+	c-conf go-conf lisp-conf magit-conf
+	org-conf py-conf keymaps ocaml-conf helm-conf))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
