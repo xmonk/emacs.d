@@ -87,7 +87,7 @@
         (require lib nil t))
       '(defuns global ac-conf elisp-conf
 	c-conf go-conf lisp-conf magit-conf
-	org-conf py-conf keymaps ocaml-conf helm-conf))
+	org-conf py-conf keymaps ocaml-conf helm-conf java-conf))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
