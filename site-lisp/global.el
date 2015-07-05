@@ -422,6 +422,15 @@
 (add-hook 'prog-mode-hook 'jj/local-comment-auto-fill)
 (add-hook 'prog-mode-hook 'jj/add-watchwords)
 
+;;; ggtags
+(use-package ggtags
+  :ensure t
+  :init
+  (add-hook 'c-mode-hook 'ggtags-mode)
+  (add-hook 'java-mode-hook 'ggtags-mode)
+  (add-hook 'go-mode-hook 'ggtags-mode)
+  (add-hook 'python-mode-hook 'ggtags-mode))
+
 ;;; Header
 (use-package header2
   :ensure t
