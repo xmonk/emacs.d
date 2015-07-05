@@ -115,7 +115,7 @@
 (defadvice find-file-at-point (after ffap-goto-line-number activate)
   "If `ffap-file-at-point-line-number' is non-nil goto this line."
   (when ffap-file-at-point-line-number
-    (goto-line ffap-file-at-point-line-number)
+    (forward-line (- ffap-file-at-point-line-number 1))
     (setq ffap-file-at-point-line-number nil)))
 
 ;; Open files with path:line:col format.
