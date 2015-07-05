@@ -1,6 +1,33 @@
+;;; helm-conf.el ---  Helm configuration
+;;
+;; Filename: helm-conf.el
+;; Description:
+;; Author: Juan Fuentes
+;; Maintainer:
+;; Created: Sat Jul  4 18:43:48 2015 (-0400)
+;; Version:
+;; Package-Requires: ()
+;; Last-Updated:
+;;           By:
+;;     Update #: 2
+;; URL:
+;; Doc URL:
+;; Keywords:
+;; Compatibility:
+;;
+;;
+;;; Commentary:
+;;
+;;
+;;; Change Log:
+;;
+;;
+;;; Code:
+
+
 (use-package helm
   :ensure t
-  :commands (helm-M-x helm-mode helm)
+  :commands (helm-M-x helm-mode helm helm-projectile helm-pydoc)
   :config
   (use-package helm-config)
   (use-package helm-c-moccur)
@@ -82,3 +109,6 @@
   (global-set-key (kbd "M-y") 'helm-show-kill-ring))
 
 (provide 'helm-conf)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; helm-conf.el ends here
