@@ -64,7 +64,7 @@
 (when (eq window-system 'ns)
   (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
     (setenv "PATH" path)
-    (setq exec-path (split-string path ":"))))
+    (setq exec-path (split-string path path-separator))))
 
 ;; package
 (autoload 'package "package" nil t)
