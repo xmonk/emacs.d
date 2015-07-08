@@ -217,8 +217,15 @@
 
 ;;; Markdown
 (use-package markdown-mode
-  :commands markdown-mode
-  :ensure t)
+  :ensure t
+  :defer t
+  :mode ("\\.\\(m\\(ark\\)?down\\|md\\)$" . markdown-mode)
+  :init
+  (add-hook 'markdown-mode-hook 'flyspell-mode)
+  :config
+  (let ((markdown-cmd "peg-markdown"))
+    (when (executable-find markdown-cmd)
+      (setq markdown-command markdown-cmd))))
 
 ;;; Expand-region
 (use-package expand-region
