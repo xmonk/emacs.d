@@ -84,10 +84,10 @@
 
 (add-to-list 'load-path (expand-file-name *site-lisp*))
 (mapc (lambda (lib)
-        (require lib nil t))
+	(require lib nil t))
       '(defuns global ac-conf elisp-conf
-	c-conf go-conf lisp-conf magit-conf
-	org-conf py-conf keymaps ocaml-conf helm-conf java-conf))
+	 c-conf go-conf lisp-conf magit-conf
+	 org-conf py-conf keymaps ocaml-conf helm-conf java-conf))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
