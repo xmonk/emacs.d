@@ -14,7 +14,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(linum ((t (:stipple nil :background "#121212" :foreground "#333333" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 92 :width normal :family "Lucida Grande"))))
  '(org-agenda-dimmed-todo-face ((t (:inherit default :weight bold))))
  '(org-agenda-done ((t (:inherit nil :strike-through t))))
  '(org-done ((t (:weight bold :strike-through t))))
