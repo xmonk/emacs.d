@@ -60,15 +60,13 @@
     (setq merlin-command 'opam)
     (setq merlin-use-auto-complete-mode nil)
     (setq merlin-error-after-save t)
-    (add-hook 'tuareg-mode-hook 'merlin-mode))
+    (add-hook 'tuareg-mode-hook 'merlin-mode)
+    (add-hook 'caml-mode-hook 'merlin-mode))
 
   (setq auto-mode-alist
         (append '(("\\.ml[ily]?$" . tuareg-mode)
                   ("\\.topml$" . tuareg-mode))
-                auto-mode-alist))
-  (autoload 'utop "utop" "Toplevel for OCaml" t)
-  (autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-  (add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer))
+                auto-mode-alist)))
 
 (provide 'ocaml-conf)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
