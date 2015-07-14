@@ -43,6 +43,7 @@
 
   (load-after "auto-complete"
     (use-package go-autocomplete
+      :ensure t
       :config
       (add-to-list 'ac-sources 'ac-source-go)
       (bind-key "C-c TAB" 'auto-complete go-mode-map)))
