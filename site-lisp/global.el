@@ -149,13 +149,7 @@
 	     (insert "~/")
 	   (call-interactively 'self-insert-command))))))
   (ido-mode 1)
-  (ido-everywhere)
-  (use-package flx-ido
-    :ensure t
-    :init
-    (flx-ido-mode 1)
-    (setq ido-enable-flex-matching t)
-    (setq ido-use-faces nil)))
+  (ido-everywhere))
 
 ;;; smex
 (use-package smex
