@@ -26,7 +26,7 @@
 
 
 (use-package helm
-  :ensure t
+  :disabled
   :commands (helm-M-x helm-mode helm helm-projectile helm-pydoc)
   :config
   (use-package helm-config)
