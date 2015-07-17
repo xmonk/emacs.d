@@ -24,7 +24,7 @@
 ;;
 ;;; Code:
 
-
+(autoload 'wisent-java-default-setup "wisent-java" "Java semantic setup." nil nil)
 (add-hook 'java-mode-hook (lambda()
 			    (c-set-style "java")
 			    (setq-default tab-width '4)
