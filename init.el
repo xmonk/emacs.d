@@ -42,6 +42,11 @@
 (if running-apple
     (setenv "TMPDIR" "/tmp"))
 
+;;; Server
+(require 'server nil t)
+(when (and (>= emacs-major-version 23) (not (server-running-p)))
+  (server-start))
+
 (unless window-system
   (menu-bar-mode -1))
 

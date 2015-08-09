@@ -374,15 +374,6 @@
     (message nil))
   (run-with-idle-timer 60 t 'jj/save-desktop))
 
-;;; Server
-(require 'server nil t)
-(when (and (>= emacs-major-version 23) (not (server-running-p)))
-  (server-start))
-
-;; Disable the menu-bar when running on a terminal.
-(when (server-running-p)
-  (menu-bar-mode -1))
-
 ;;; spelling
 (use-package ispell
   :commands ispell
