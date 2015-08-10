@@ -34,15 +34,14 @@
       (setq mac-option-modifier 'meta))
   (setq mac-allow-anti-aliasing t))
 
-(if (locate-library "jj-theme")
-	(require 'jj-theme nil t))
-
-;; set faces
-(set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'mode-line nil :box nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'font-lock-comment-face nil :font "Lucida Grande" :height 130 :slant 'italic :weight 'normal)
-(set-face-attribute 'font-lock-doc-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
-(set-face-attribute 'font-lock-function-name-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
+(use-package jj-theme
+  :config
+  ;; set faces
+  (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
+  (set-face-attribute 'mode-line nil :box nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
+  (set-face-attribute 'font-lock-comment-face nil :font "Lucida Grande" :height 130 :slant 'italic :weight 'normal)
+  (set-face-attribute 'font-lock-doc-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
+  (set-face-attribute 'font-lock-function-name-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal))
 
 ;; stop cursor from blinking
 (blink-cursor-mode -1)
