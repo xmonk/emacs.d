@@ -43,6 +43,7 @@
    '(font-lock-type-face ((t (:foreground "#000000" ))))
    '(font-lock-constant-face ((t (:foreground "#000000" ))))
    '(font-lock-variable-name-face ((t (:foreground "#000000" ))))
+   '(font-lock-warning-face ((t (:foreground "black" :bold t :underline t))))
    '(minibuffer-prompt ((t (:foreground "#000000" :bold t ))))
    '(org-code ((t (:foreground "#000000" :weight bold))))
    '(org-verbatim ((t (:foreground "#000000"))))
@@ -70,17 +71,16 @@
    '(popup-menu-face ((t (:inherit default))))
    '(popup-tip-face ((t (:background "grey95" :foreground "black" :bold t :font "Lucida Grande Mono Nrw" :height 120))))
    ;;; company
-   '(company-preview ((t (:foreground "black" :underline t :font "Lucida Grande Mono Nrw" :height 120))))
+   '(company-preview ((t (:foreground "black" ::underline t :font "Lucida Grande Mono Nrw" :height 120))))
    '(company-preview-common ((t (:inherit company-preview))))
-   '(company-scrollbar-bg ((t (:background "grey95" :foreground "black"))))
-   '(company-scrollbar-fg ((t (:background "black"))))
+   '(company-scrollbar-bg ((t (:background "white" :foreground "black"))))
+   '(company-scrollbar-fg ((t (:background "black" :foreground "white"))))
    '(company-tooltip ((t (:background "white" :foreground "black" :font "Lucida Grande Mono" :height 120))))
    '(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
    '(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
-   '(company-tooltip-selection ((t (:background "grey75" :foreground "black" :font "Lucida Grande Mono" :height 120))))
+   '(company-tooltip-selection ((t (:background "black" :foreground "white" :font "Lucida Grande Mono" :height 120))))
    ;;; eshell
-   '(eshell-prompt ((t (:inherit default))))
-   '(font-lock-warning-face ((t (:foreground "black" :bold t :underline t)))))
+   '(eshell-prompt ((t (:inherit default)))))
 
 ;;;###autoload
 (and load-file-name
