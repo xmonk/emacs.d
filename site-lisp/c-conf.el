@@ -44,11 +44,13 @@
   (setq comment-column 72)
   (setq-default turn-on-auto-fill t)
   (setq-default c-electric-pound-behavior (quote(alignleft)))
+  (load-after company
+    (add-to-list 'company-backends '(company-clang)))
   (define-key c-mode-base-map (kbd "C-c i") 'c-insert-include)
   (define-key c-mode-base-map (kbd "C-c I") 'c-insert-local-include)
   (define-key c-mode-base-map (kbd "C-c C-c") 'compile)
   (define-key c-mode-base-map (kbd "C-c f") 'ff-find-other-file)
-  (define-key c-mode-base-map (kbd "C-<tab>") 'semantic-ia-complete-symbol))
+  (define-key c-mode-base-map (kbd "C-TAB") 'semantic-ia-complete-symbol))
 
 (add-hook 'c-mode-common-hook 'jj-c-hook)
 (add-hook 'c++mode-common-hook 'jj-c-hook)

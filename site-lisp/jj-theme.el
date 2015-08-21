@@ -29,7 +29,7 @@
    '(default ((t (:foreground "#000000" :background nil))))
    '(cursor ((t (:background "#000000" ))))
    '(mode-line ((t (:foreground "white" :background "black" :box nil :font "Lucida Grande" :height 120 :slant normal :weight normal))))
-   '(mode-line-inactive ((t (:foreground "black" :background "grey75" :box nil :font "Lucida Grande" :height 120 :slant normal :weight light))))
+   '(mode-line-inactive ((t (:foreground "black" :background "white" :box nil :font "Lucida Grande" :height 120 :slant normal :weight light))))
    '(linum ((t (:stipple nil :background "#ffffff" :foreground "#000000" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 92 :width normal :family "Lucida Grande"))))
    '(font-lock-builtin-face ((t (:foreground "#000000" :bold nil ))))
    '(font-lock-comment-face ((t (:foreground "#000000" :slant italic :weight normal ))))
@@ -52,6 +52,34 @@
    '(org-headline-done ((((class color) (min-colors 16) (background light)) (:weigth bold :strike-through t))))
    '(org-todo ((t (:inherit default :weight bold))))
    '(ido-subdir ((t (:weight bold))))
+   ;;; magit
+   '(magit-item-highlight-face ((t (:inherit default))))
+   '(magit-dimmed ((t (:inherit default))))
+   '(magit-diff-hunk-heading ((t (:inherit default))))
+   '(magit-diff-hunk-heading-highlight ((t (:inherit default))))
+   '(magit-diff-added ((t (:inherit default))))
+   '(magit-diff-added-highlight ((t (:inherit default))))
+   '(magit-diff-removed ((t (:inherit default))))
+   '(magit-diff-removed-highlight ((t (:inherit default))))
+   ;;; auto-complete
+   '(ac-completion-face ((t (:background "grey95" :foreground "black"))))
+   '(ac-candidate-face ((t (:background "grey95" :foreground "black"))))
+   '(ac-selection-face ((t (:background "black" :foreground "white" :bold t ))))
+   '(popup-face ((t (:inherit default))))
+   '(popup-summary-face ((t (:inherit default))))
+   '(popup-menu-face ((t (:inherit default))))
+   '(popup-tip-face ((t (:background "grey95" :foreground "black" :bold t :font "Lucida Grande Mono Nrw" :height 120))))
+   ;;; company
+   '(company-preview ((t (:foreground "black" :underline t :font "Lucida Grande Mono Nrw" :height 120))))
+   '(company-preview-common ((t (:inherit company-preview))))
+   '(company-scrollbar-bg ((t (:background "grey95" :foreground "black"))))
+   '(company-scrollbar-fg ((t (:background "black"))))
+   '(company-tooltip ((t (:background "white" :foreground "black" :font "Lucida Grande Mono" :height 120))))
+   '(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
+   '(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
+   '(company-tooltip-selection ((t (:background "grey75" :foreground "black" :font "Lucida Grande Mono" :height 120))))
+   ;;; eshell
+   '(eshell-prompt ((t (:inherit default))))
    '(font-lock-warning-face ((t (:foreground "black" :bold t :underline t)))))
 
 ;;;###autoload

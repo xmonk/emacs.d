@@ -1,5 +1,6 @@
+
 (use-package auto-complete
-  :ensure t
+  :disabled
   :diminish auto-complete-mode
   :config
   (ac-config-default)

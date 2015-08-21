@@ -70,19 +70,19 @@
    '(popup-menu-face ((t (:inherit default))))
    '(popup-tip-face ((t (:background "grey95" :foreground "black" :bold t :font "Lucida Grande Mono Nrw" :height 120))))
    ;;; company
-   '(company-preview ((t (:foreground "darkgray" :underline t :font "Lucida Grande Mono Nrw" :height 120))))
+   '(company-preview ((t (:foreground "white" :underline t :font "Lucida Grande Mono Nrw" :height 120))))
    '(company-preview-common ((t (:inherit company-preview))))
-   '(company-scrollbar-bg ((t (:background "lightgray" :foreground "white"))))
-   '(company-scrollbar-fg ((t (:foreground "lightgray" :background "steelblue"))))
-   '(company-tooltip ((t (:background "lightgray" :foreground "black"  :font "Lucida Grande Mono Nrw" :height 120))))
+   '(company-scrollbar-bg ((t (:background "black" :foreground "white"))))
+   '(company-scrollbar-fg ((t (:background "white" :foreground "black"))))
+   '(company-tooltip ((t (:background "black" :foreground "white" :font "Lucida Grande Mono" :height 120))))
    '(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
    '(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
-   '(company-tooltip-selection ((t (:background "steelblue" :foreground "white"  :font "Lucida Grande Mono Nrw" :height 120))))
+   '(company-tooltip-selection ((t (:background "white" :foreground "black" :font "Lucida Grande Mono" :height 120))))
    ;;; eshell
    '(eshell-prompt ((t (:inherit default))))
    '(font-lock-warning-face ((t (:foreground "black" :bold t :underline t)))))
 
-;;;###autoload
+;;; ###autoload
 (and load-file-name
     (boundp 'custom-theme-load-path)
     (add-to-list 'custom-theme-load-path

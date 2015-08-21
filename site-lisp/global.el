@@ -124,12 +124,27 @@
 ;;; sensible zap to char
 (autoload 'zap-up-to-char "misc" "Kill up to, but not including ARGth occurrence of CHAR.")
 
+;;; company
+(use-package company
+  :ensure t
+  :bind (("C-c TAB" . company-complete))
+  :diminish company-mode
+  :config
+  (global-company-mode 1)
+  (setq company-tooltip-limit 20
+        company-quickhelp-idle-delay 4
+        company-minimum-prefix-length 3
+        company-idle-delay .3
+        company-echo-delay 0
+        company-begin-commands '(self-insert-command)
+        company-auto-complete nil
+        company-begin-commands nil))
+
 ;;; ido
 (use-package ido
   :commands ido-mode
   :init
-  (add-hook
-   'ido-setup-hook
+  (add-hook 'ido-setup-hook
    (lambda()
      ;; Go straight home
      (define-key ido-file-completion-map (kbd "~")
