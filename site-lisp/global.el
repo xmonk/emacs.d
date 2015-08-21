@@ -463,6 +463,15 @@
   (autoload 'auto-update-file-header "header2")
   (add-hook 'write-file-hooks 'auto-update-file-header))
 
+;;; eshell
+(defun jj/eshell-prompt ()
+  "Personal prompt."
+  (if (= (user-uid) 0)
+      "# " ":; "))
+(setq eshell-prompt-regexp "^[^#:;\n]*[#;] ")
+(setq eshell-prompt-function  'jj/eshell-prompt)
+(setq eshell-ls-use-colors nil)
+
 (provide 'global)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; global.el ends here
