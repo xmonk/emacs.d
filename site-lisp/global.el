@@ -158,7 +158,8 @@
 
 ;;; smex
 (use-package smex
-  :ensure t
+  :disabled
+  :ensure nil
   :bind (("C-x C-m" . smex)
 	 ("C-x m" . smex-major-mode-commands))
   :config
