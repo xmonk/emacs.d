@@ -186,7 +186,8 @@
 (use-package undo-tree
   :ensure t
   :diminish undo-tree-mode
-  :bind (("s-z" . undo-tree-undo)
+  :bind (("C-x u" . undo-tree-undo)
+         ("s-z" . undo-tree-undo)
          ("s-r" . undo-tree-redo))
   :config
   (undo-tree-mode t)
