@@ -38,20 +38,23 @@
 ;; 20MB let's see how well it works.
 (setq gc-cons-threshold 20000000)
 
-;; In os x there is an issue with tramp and TMPDIR, this is a work around.
-(if running-apple
-    (setenv "TMPDIR" "/tmp"))
-
-;;; Server
-(require 'server nil t)
-(when (and (>= emacs-major-version 23) (not (server-running-p)))
-  (server-start))
-
 (unless window-system
   (menu-bar-mode -1))
 
 (dolist (mode '(scroll-bar-mode tool-bar-mode))
   (if (fboundp mode) (funcall mode -1)))
+
+(when window-system
+  ;; set faces
+  (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
+  (set-face-attribute 'mode-line nil :box nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
+  (set-face-attribute 'font-lock-comment-face nil :font "Lucida Grande" :height 130 :slant 'italic :weight 'normal)
+  (set-face-attribute 'font-lock-doc-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
+  (set-face-attribute 'font-lock-function-name-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal))
+
+;; In os x there is an issue with tramp and TMPDIR, this is a work around.
+(if running-apple
+    (setenv "TMPDIR" "/tmp"))
 
 ;; Load customization's
   (cond ((eql system-type 'darwin)
@@ -71,6 +74,11 @@
     (setenv "PATH" path)
     (setq exec-path (split-string path path-separator))))
 
+;;; Server
+(require 'server nil t)
+(when (and (>= emacs-major-version 23) (not (server-running-p)))
+  (server-start))
+
 ;; package
 (autoload 'package "package" nil t)
 
@@ -89,10 +97,10 @@
 
 (add-to-list 'load-path (expand-file-name *site-lisp*))
 (mapc (lambda (lib)
-	(require lib nil t))
-      '(defuns global ac-conf elisp-conf
-	 c-conf go-conf lisp-conf magit-conf
-	 org-conf py-conf keymaps ocaml-conf java-conf))
+        (require lib nil t))
+      '(defuns global elisp-conf c-conf go-conf lisp-conf
+         magit-conf org-conf py-conf keymaps
+         ocaml-conf java-conf))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
