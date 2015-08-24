@@ -172,6 +172,32 @@
         uniquify-separator ":"
         uniquify-after-kill-buffer-p t))
 
+;;; paredit
+(use-package paredit
+  :ensure t
+  :commands paredit-mode
+  :diminish paredit-mode
+  :config
+  (use-package paredit-ext)
+  (bind-key "C-M-l" 'paredit-recentre-on-sexp paredit-mode-map)
+  (bind-key ")" 'paredit-close-round-and-newline paredit-mode-map)
+  (bind-key "M-)" 'paredit-close-round paredit-mode-map)
+  (bind-key "M-k" 'paredit-raise-sexp paredit-mode-map)
+  (bind-key "M-I" 'paredit-splice-sexp paredit-mode-map)
+  (bind-key "<return>" 'paredit-newline paredit-mode-map)
+  (unbind-key "M-r" paredit-mode-map)
+  (unbind-key "M-s" paredit-mode-map)
+  (unbind-key "C-j" paredit-mode-map)
+  (bind-key "C-. D" 'paredit-forward-down paredit-mode-map)
+  (bind-key "C-. B" 'paredit-splice-sexp-killing-backward paredit-mode-map)
+  (bind-key "C-. C" 'paredit-convolute-sexp paredit-mode-map)
+  (bind-key "C-. F" 'paredit-splice-sexp-killing-forward paredit-mode-map)
+  (bind-key "C-. a" 'paredit-add-to-next-list paredit-mode-map)
+  (bind-key "C-. A" 'paredit-add-to-previous-list paredit-mode-map)
+  (bind-key "C-. j" 'paredit-join-with-next-list paredit-mode-map)
+  (bind-key "C-. J" 'paredit-join-with-previous-list paredit-mode-map))
+
+
 ;;; diminish
 (use-package diminish
   :ensure t
@@ -418,8 +444,7 @@
 (if (fboundp 'auto-image-file-mode)
     (auto-image-file-mode 1))
 
-(when (font-lock-mode)
-  (add-hook 'prog-mode-hook 'jj/pretty-lambdas))
+(add-hook 'prog-mode-hook 'jj/pretty-lambdas)
 (add-hook 'prog-mode-hook 'jj/local-comment-auto-fill)
 (add-hook 'prog-mode-hook 'jj/add-watchwords)
 
