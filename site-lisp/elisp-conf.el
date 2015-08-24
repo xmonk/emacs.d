@@ -24,16 +24,12 @@
 ;;
 ;;; Code:
 
-(load-after emacs-lisp-mode
-  (if (string-equal buffer-file-name (expand-file-name user-init-file))
-      (add-hook 'after-save-hook 'compile-init-file t t))
-  (load-after auto-complete
-    (bind-key "C-c <tab>" 'auto-complete emacs-lisp-mode-map)
-    (add-hook 'emacs-lisp-mode-hook 'auto-complete-mode)
-    (add-hook 'lisp-interaction-mode-hook 'auto-complete-mode))
-  (add-hook 'after-save-hook 'check-parens))
+(add-hook 'emacs-lisp-mode-hook '(lambda () (paredit-mode 1)))
+(add-hook 'lisp-interaction-mode-hook '(lambda() (paredit-mode 1)))
+(add-hook 'after-save-hook 'check-parens)
+(if (string-equal buffer-file-name (expand-file-name user-init-file))
+    (add-hook 'after-save-hook 'compile-init-file t t))
 
 (provide 'elisp-conf)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; elisp-conf.el ends here
