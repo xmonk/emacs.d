@@ -25,7 +25,6 @@
 ;;; Code:
 
 (use-package tuareg
-  :disabled
   :ensure t
   :commands tuareg-mode
   :init
@@ -40,23 +39,26 @@
                                             (getenv "OCAML_TOPLEVEL_PATH")))
   :config
   (use-package utop
-    :disabled
     :ensure t
     :init
     ;; Automatically load utop.el
     (autoload 'utop "utop" "Toplevel for OCaml" t))
 
   (use-package ocp-indent
-    :disabled
     :ensure t
     :config
     (ocp-setup-indent))
 
   ;; Load merlin-mode
   (use-package merlin
-    :disabled
     :ensure t
     :config
+    (load-after company
+      (add-to-list 'company-backends 'merlin-company-backend)
+      (setq merlin-use-auto-complete-mode 'easy)
+      (add-hook 'merlin-mode-hook 'company-mode)
+      (bind-key "C-c TAB" 'company-complete merlin-mode-map))
+
     ;; Start merlin on ocaml files
     (add-hook 'tuareg-mode-hook 'merlin-mode t)
     (add-hook 'caml-mode-hook 'merlin-mode t)
