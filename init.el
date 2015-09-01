@@ -45,7 +45,7 @@
   (if (fboundp mode) (funcall mode -1)))
 
 ;; set faces
-(set-face-attribute 'default nil :background "black" :foreground "gray" :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
+(set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
 (set-face-attribute 'mode-line nil :box nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
 (set-face-attribute 'font-lock-comment-face nil :font "Lucida Grande" :height 130 :slant 'italic :weight 'normal)
 (set-face-attribute 'font-lock-doc-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
@@ -98,8 +98,7 @@
 (mapc (lambda (lib)
         (require lib nil t))
       '(defuns global elisp-conf c-conf go-conf lisp-conf
-         magit-conf org-conf py-conf keymaps
-         ocaml-conf java-conf))
+         magit-conf org-conf py-conf keymaps ocaml-conf java-conf))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
