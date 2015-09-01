@@ -28,6 +28,8 @@
 (use-package helm
   :disabled
   :commands (helm-M-x helm-mode helm helm-projectile helm-pydoc)
+  :bind (("C-x C-m" . helm-M-x)
+	 ("C-x m" . helm-M-x))
   :config
   (use-package helm-config)
   (use-package helm-c-moccur)
