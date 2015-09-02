@@ -124,6 +124,9 @@
 ;;; sensible zap to char
 (autoload 'zap-up-to-char "misc" "Kill up to, but not including ARGth occurrence of CHAR.")
 
+;;; tramp
+(setq tramp-default-method "ssh")
+
 ;;; company
 (use-package company
   :ensure t
