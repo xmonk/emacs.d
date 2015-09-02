@@ -54,7 +54,9 @@
     (load-after company
       (add-to-list 'company-backends 'company-anaconda))
     (add-hook 'python-mode-hook 'anaconda-mode)
-    (add-hook 'python-mode-hook 'eldoc-mode))
+    (add-hook 'python-mode-hook 'eldoc-mode)
+    (bind-key (kbd "M-.") 'anaconda-mode-goto-definitions anaconda-mode-map)
+    (bind-key (kbd "M-*") 'anaconda-nav-pop-marker anaconda-mode-map))
 
   (defun jj/pydoc (name)
     "Display pydoc information for NAME in a buffer named *pydoc*."`
