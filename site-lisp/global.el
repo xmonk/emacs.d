@@ -159,11 +159,11 @@
   (setq smex-auto-update nil))
 
 ;;; on duplicate filenames, show path names.
-(require 'uniquify nil t)
-(load-after uniquify
+(use-package uniquify
+  :init
   (setq uniquify-buffer-name-style 'post-forward
-        uniquify-separator ":"
-        uniquify-after-kill-buffer-p t))
+	uniquify-separator ":"
+	uniquify-after-kill-buffer-p t))
 
 ;;; paredit
 (use-package paredit
@@ -222,9 +222,15 @@
   :config
   (projectile-global-mode))
 
+(use-package dired
+  :commands dired
+  :init
+  (setq dired-listing-switches "-lahv")
+  (setq dired-use-ls-dired nil))
+
 ;;; load dired extras
-(require 'dired-x nil t)
-(setq dired-use-ls-dired nil)
+(use-package dired-x
+  :commands dired-jump)
 
 ;;; Don't allow the scratch buffer to be killed. It will delete it's contents instead.
 (add-hook 'kill-buffer-query-functions 'jj/immortal-scratch-buffer)
@@ -337,8 +343,10 @@
 (setq session-save-file (concat user-emacs-directory ".session"))
 
 ;;; Paste at point NOT at cursor
-(autoload 'mwheel "mwheel" nil t)
-(setq mouse-yank-at-point 't)
+;;(autoload 'mwheel "mwheel" nil t)
+(use-package mwheel
+  :init
+  (setq mouse-yank-at-point 't))
 
 ;;; browser
 (cond ((eq window-system 'x)
@@ -418,8 +426,9 @@
 
 ;;; Info
 ;;Add the init-path tree to the Info path
-(autoload 'info "info" nil t)
-(load-after info
+;;(autoload 'info "info" nil t)
+(use-package info ;;load-after info
+  :init
   (info-initialize)
   (setq initial-info-path Info-directory-list)
   (setq Info-directory-list (append (getenv "INFOPATH") initial-info-path)))
