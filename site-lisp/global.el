@@ -24,16 +24,6 @@
 ;;
 ;;; Code:
 
-;;; frame setup
-;; disable scroll-bar and tool-bar
-(dolist (mode '(scroll-bar-mode tool-bar-mode))
-  (if (fboundp mode) (funcall mode -1)))
-
-(when running-apple
-  (if (boundp 'mac-option-modifier)
-      (setq mac-option-modifier 'meta))
-  (setq mac-allow-anti-aliasing t))
-
 ;; stop cursor from blinking
 (blink-cursor-mode -1)
 

@@ -44,6 +44,11 @@
 (dolist (mode '(scroll-bar-mode tool-bar-mode))
   (if (fboundp mode) (funcall mode -1)))
 
+(when running-apple
+  (if (boundp 'mac-option-modifier)
+      (setq mac-option-modifier 'meta))
+  (setq mac-allow-anti-aliasing t))
+
 ;; set faces
 (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
 (set-face-attribute 'mode-line nil :box nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
