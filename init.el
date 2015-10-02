@@ -102,7 +102,7 @@
 (add-to-list 'load-path (expand-file-name *site-lisp*))
 (mapc (lambda (lib)
         (require lib nil t))
-      '(defuns global elisp-conf c-conf go-conf lisp-conf
+      '(defuns global elisp-conf c-conf go-conf lisp-conf helm-conf
          magit-conf org-conf py-conf keymaps ocaml-conf java-conf))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
