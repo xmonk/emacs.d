@@ -60,6 +60,7 @@
     (compile "go test -v"))
 
   (defun jj/go-init-hook()
+    (subword-mode +1)
     ;; go-mode enables this by default argh!
     (flyspell-mode-off)
     (setq-default tab-width 8)

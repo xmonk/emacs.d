@@ -41,7 +41,7 @@
   (setq-default tab-width '4)
   (setq-default indent-tabs-mode nil)
   (setq python-indent-offset 4)
-
+  (subword-mode +1)
   (when (executable-find "pyflakes")
     (use-package flycheck-pyflakes
       :ensure t
