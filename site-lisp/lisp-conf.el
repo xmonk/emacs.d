@@ -1,6 +1,6 @@
-;;; lisp-mode.el ---  Common Lisp configuration
+;;; lisp-conf.el ---  Common Lisp configuration
 ;;
-;; Filename: lisp-mode.el
+;; Filename: lisp-conf.el
 ;; Description:
 ;; Author: Juan Fuentes
 ;; Maintainer:
@@ -55,4 +55,4 @@
 (provide 'lisp-conf)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; lisp-mode.el ends here
+;;; lisp-conf.el ends here
