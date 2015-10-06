@@ -96,14 +96,24 @@
     (package-refresh-contents)
     (package-install 'use-package))
 
-(defvar use-package-verbose t)
 (require 'use-package)
+(defvar use-package-verbose t)
 
 (add-to-list 'load-path (expand-file-name *site-lisp*))
-(mapc (lambda (lib)
-        (require lib nil t))
-      '(defuns global elisp-conf c-conf go-conf lisp-conf helm-conf
-         magit-conf org-conf py-conf keymaps ocaml-conf java-conf))
+
+(use-package defuns)
+(use-package global)
+(use-package keymaps)
+(use-package helm-conf)
+(use-package elisp-conf)
+(use-package lisp-conf)
+(use-package c-conf)
+(use-package go-conf)
+(use-package org-conf)
+(use-package magit-conf)
+(use-package py-conf)
+(use-package ocaml-conf :disabled)
+(use-package java-conf)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
