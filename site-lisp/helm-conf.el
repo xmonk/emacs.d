@@ -9,7 +9,7 @@
 ;; Package-Requires: ()
 ;; Last-Updated:
 ;;           By:
-;;     Update #: 2
+;;     Update #: 3
 ;; URL:
 ;; Doc URL:
 ;; Keywords:
@@ -27,6 +27,7 @@
 
 (use-package helm
   :ensure t
+  :bind* (("C-x C-m" . helm-M-x))
   :config
   (use-package helm-config)
   (use-package helm-c-moccur)
@@ -46,12 +47,13 @@
 	helm-input-idle-delay 0.01 ; be idle for this many seconds, before updating candidate buffer
 	helm-ff-search-library-in-sexp t ; search for library in `require' and `declare-function' sexp.
 
-	helm-split-window-default-side 'other ;; open helm buffer in another window
-	helm-split-window-in-side-p t ;; open helm buffer inside current window, not occupy whole other window
+	helm-split-window-default-side 'other ; open helm buffer in another window
+	helm-split-window-in-side-p t ; open helm buffer inside current window, not occupy whole other window
 	helm-buffers-favorite-modes (append helm-buffers-favorite-modes
 					    '(picture-mode artist-mode))
 	helm-candidate-number-limit 200 ; limit the number of displayed canidates
 	helm-M-x-requires-pattern 0     ; show all candidates when set to 0
+	helm-M-x-fuzzy-match t
 	helm-boring-file-regexp-list
 	'("\\.git$" "\\.hg$" "\\.svn$" "\\.CVS$" "\\._darcs$" "\\.la$" "\\.o$" "\\.i$") ; do not show these files in helm buffer
 	helm-ff-file-name-history-use-recentf t
@@ -69,8 +71,8 @@
   (setq helm-autoresize-min-height 30)
   (use-package helm-swoop
     :config
-    (bind-key (kbd "C-<f1>") 'helm-swoop)
-    (bind-key (kbd "C-S-<f1>") 'helm-swoop-back-to-last-point)
+    (bind-key (kbd "C-c h C-s") 'helm-swoop)
+    (bind-key (kbd "C-c h M-s") 'helm-swoop-back-to-last-point)
     (bind-key (kbd "C-<f1>") 'helm-swoop-from-isearch isearch-mode-map))
 
   (defun helm-toggle-header-line()
@@ -96,15 +98,16 @@
 
   (global-set-key (kbd "C-c h") 'helm-command-prefix)
   (global-unset-key (kbd "C-x c"))
-  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; ebind tab to run persistent action
   (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
   (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+  (global-set-key (kbd "C-x b") 'helm-mini)
 
   (when (executable-find "curl")
     (setq helm-google-suggest-use-curl-p t))
 
-  (global-set-key [f2] 'jj/helm)
-  (global-set-key [S-f1] 'helm-do-grep)
+  (global-set-key (kbd "C-c h j") 'jj/helm)
+  (global-set-key (kbd "C-c h g") 'helm-do-grep)
   (global-set-key (kbd "M-y") 'helm-show-kill-ring))
 
 (provide 'helm-conf)
