@@ -27,12 +27,13 @@
 
 (use-package helm
   :ensure t
-  :bind* (("C-x C-m" . helm-M-x))
+  :bind* (("C-x C-m" . helm-M-x)
+	  ("C-x b" . helm-mini))
   :config
   (use-package helm-config)
-  (use-package helm-c-moccur)
-  (use-package helm-ls-git)
-  (use-package helm-ls-hg)
+  (use-package helm-c-moccur :ensure t)
+  (use-package helm-ls-git :ensure t)
+  (use-package helm-ls-hg :ensure t)
   (use-package helm-semantic)
   (use-package helm-flycheck)
   (use-package helm-projectile)
@@ -70,6 +71,7 @@
   (setq helm-autoresize-max-height 30)
   (setq helm-autoresize-min-height 30)
   (use-package helm-swoop
+    :ensure t
     :config
     (bind-key (kbd "C-c h C-s") 'helm-swoop)
     (bind-key (kbd "C-c h M-s") 'helm-swoop-back-to-last-point)
@@ -101,7 +103,6 @@
   (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; ebind tab to run persistent action
   (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
   (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
-  (global-set-key (kbd "C-x b") 'helm-mini)
 
   (when (executable-find "curl")
     (setq helm-google-suggest-use-curl-p t))
