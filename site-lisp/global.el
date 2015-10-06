@@ -171,7 +171,6 @@
   :commands paredit-mode
   :diminish paredit-mode
   :config
-  (use-package paredit-ext)
   (bind-key "C-M-l" 'paredit-recentre-on-sexp paredit-mode-map)
   (bind-key ")" 'paredit-close-round-and-newline paredit-mode-map)
   (bind-key "M-)" 'paredit-close-round paredit-mode-map)
