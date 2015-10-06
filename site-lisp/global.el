@@ -193,9 +193,11 @@
 
 ;;; diminish
 (use-package diminish
-  :ensure t
-  :config
-  (load-after eldoc (diminish 'eldoc-mode)))
+  :ensure t)
+
+(use-package eldoc
+  :commands eldoc-mode
+  :diminish eldoc-mode)
 
 (use-package git-timemachine
   :commands git-timemachine
@@ -280,11 +282,6 @@
   :config
   (global-smartscan-mode 1))
 
-;;; etags
-(autoload 'etags-table "etags-table" nil t)
-(load-after etags-table
-  (setq etags-table-search-up-depth 10))
-
 ;;; Remove trailing whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
@@ -318,8 +315,8 @@
   (setq save-abbrevs t))
 
 ;;; needed packages
-(autoload 'jka-compr "jka-compr" nil t)
-(load-after jka-compr
+(use-package jka-compr
+  :init
   (auto-compression-mode 1))
 
 ;;; Save place
@@ -343,7 +340,6 @@
 (setq session-save-file (concat user-emacs-directory ".session"))
 
 ;;; Paste at point NOT at cursor
-;;(autoload 'mwheel "mwheel" nil t)
 (use-package mwheel
   :init
   (setq mouse-yank-at-point 't))
@@ -426,8 +422,8 @@
 
 ;;; Info
 ;;Add the init-path tree to the Info path
-;;(autoload 'info "info" nil t)
-(use-package info ;;load-after info
+(use-package info
+  :commands info
   :init
   (info-initialize)
   (setq initial-info-path Info-directory-list)
