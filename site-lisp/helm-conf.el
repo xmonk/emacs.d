@@ -27,13 +27,13 @@
 
 (use-package helm
   :ensure t
-  :bind* (("C-x C-m" . helm-M-x)
-	  ("C-x b" . helm-mini))
+  :bind (("C-x C-m" . helm-M-x)
+	 ("C-x b" . helm-mini))
   :config
   (use-package helm-config)
-  (use-package helm-c-moccur :ensure t)
-  (use-package helm-ls-git :ensure t)
-  (use-package helm-ls-hg :ensure t)
+  (use-package helm-c-moccur :ensure t :defer 5)
+  (use-package helm-ls-git :ensure t :defer 5)
+  (use-package helm-ls-hg :ensure t :defer 5)
   (use-package helm-semantic)
   (use-package helm-flycheck)
   (use-package helm-projectile)
@@ -70,12 +70,18 @@
   (helm-autoresize-mode 1)
   (setq helm-autoresize-max-height 30)
   (setq helm-autoresize-min-height 30)
+
   (use-package helm-swoop
-    :ensure t
+    :disabled
     :config
-    (bind-key (kbd "C-c h C-s") 'helm-swoop)
-    (bind-key (kbd "C-c h M-s") 'helm-swoop-back-to-last-point)
+    (bind-key (kbd "C-c h s") 'helm-swoop)
+    (bind-key (kbd "C-c h C-s") 'helm-swoop-back-to-last-point)
     (bind-key (kbd "C-<f1>") 'helm-swoop-from-isearch isearch-mode-map))
+
+  (use-package swiper-helm
+    :ensure t
+    :bind (("C-c h s" . swiper-helm)
+	   ("C-c h C-s" . swiper-helm-from-isearch)))
 
   (defun helm-toggle-header-line()
     (if (=(length helm-sources)1)
