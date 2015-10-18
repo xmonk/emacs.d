@@ -29,7 +29,7 @@
   (global-set-key (kbd "C-x m") 'execute-extended-command))
 (global-set-key (kbd "C-c C-f") 'hexl-find-file)
 (global-set-key (kbd "C-c m") 'gnus)
-(global-set-key (kbd "M-g") 'goto-line)
+(global-set-key (kbd "M-g") 'hydra-window/body)
 (global-set-key (kbd "C-x k") 'jj/kill-buffer)
 (global-set-key (kbd "C-;") #'endless/comment-line-or-region)
 (global-set-key (kbd "C-w") 'backward-kill-word)
