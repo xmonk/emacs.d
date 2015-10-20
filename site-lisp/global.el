@@ -252,6 +252,7 @@
   :ensure t
   :diminish projectile-mode
   :init (setq projectile-mode-line "Projectile")
+  :bind (("C-c p p" . projectile-switch-project))
   :config
   (projectile-global-mode))
 
