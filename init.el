@@ -112,7 +112,7 @@
 (use-package org-conf)
 (use-package magit-conf)
 (use-package py-conf)
-(use-package ocaml-conf :disabled)
+(use-package ocaml-conf)
 (use-package java-conf)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
