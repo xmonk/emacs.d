@@ -29,6 +29,9 @@
   :ensure t
   :bind (("C-x C-m" . helm-M-x)
 	 ("C-x b" . helm-mini))
+  :diminish helm-mode
+  :init
+  (helm-mode 1)
   :config
   (use-package helm-config)
   (use-package helm-c-moccur :ensure t :defer 5)
@@ -38,7 +41,6 @@
   (use-package helm-flycheck)
   (use-package helm-projectile)
 
-  (helm-mode 1)
   (helm-adaptative-mode)
 
   (setq helm-google-suggest-use-curl-p t
@@ -109,7 +111,8 @@
   (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; ebind tab to run persistent action
   (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
   (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
-
+  (define-key helm-map (kbd "C-x C-m") 'helm-M-x)
+  (global-set-key (kbd "C-x b") 'helm-mini)
   (when (executable-find "curl")
     (setq helm-google-suggest-use-curl-p t))
 
