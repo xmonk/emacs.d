@@ -324,10 +324,11 @@
 
 ;;; whole-line-or-region-mode
 (use-package whole-line-or-region
-  :defer 2
   :ensure t
+  :bind (("C-y" . whole-line-or-region-yank)
+	 ("M-w" . whole-line-or-region-kill-ring-save))
   :diminish whole-line-or-region-mode
-  :config
+  :init
   (whole-line-or-region-mode))
 
 ;;; Kill ring
