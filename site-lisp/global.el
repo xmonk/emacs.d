@@ -361,11 +361,18 @@
 ;;; swiper
 (use-package swiper
   :ensure t
-  :bind ("C-s" . swiper))
+  :bind ("C-s" . swiper)
+  :config
+  ;;advise swiper to recenter on exit
+  (defun jj/swiper-recenter (&rest args)
+    "recenter display after swiper"
+    (recenter))
+  (advice-add 'swiper :after #'jj/swiper-recenter))
 
 ;;; winner mode
 (use-package winner
-  :defer 2
+  :bind (("C-c <left>" . winner-undo)
+	 ("C-c <right>" . winner-redo))
   :init
   (winner-mode))
 
