@@ -35,8 +35,12 @@
   (backward-char 3))
 
 (defun jj-c-hook()
+  (global-semanticdb-minor-mode 1)
+  (global-semantic-idle-scheduler-mode 1)
   (semantic-mode t)
   (semantic-default-c-setup)
+  (semantic-add-system-include "/usr/include")
+  (semantic-add-system-include "/usr/local/include")
   (c-set-style "linux")
   (setq-default tab-width '8)
   (setq-default indent-tabs-mode t)
