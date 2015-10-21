@@ -33,7 +33,7 @@
     (setenv "PYTHONPATH" (concat (getenv "PYTHONPATH") path-separator *venv* "lib/python2.7/site-packages"))
     (setq exec-path (append exec-path (list (concat *venv* "bin")))))
 
-  (autoload 'wisent-python-default-setup "wisent-python" "Python semantic setup." nil nil)
+  ;;(autoload 'wisent-python-default-setup "wisent-python" "Python semantic setup." nil nil)
   (when (executable-find "linters")
     (setq python-check-command "linters"))
 
