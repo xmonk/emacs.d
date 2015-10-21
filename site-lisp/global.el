@@ -361,7 +361,7 @@
 ;;; swiper
 (use-package swiper
   :ensure t
-  :bind ("C-s" . swiper)
+  :bind ("s-s" . swiper)
   :config
   ;;advise swiper to recenter on exit
   (defun jj/swiper-recenter (&rest args)
