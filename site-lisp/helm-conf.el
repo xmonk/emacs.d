@@ -38,8 +38,8 @@
   (use-package helm-ls-git :ensure t :defer 5)
   (use-package helm-ls-hg :ensure t :defer 5)
   (use-package helm-semantic)
-  (use-package helm-flycheck)
-  (use-package helm-projectile)
+  (use-package helm-flycheck :ensure t)
+  (use-package helm-projectile :ensure t)
 
   (helm-adaptative-mode)
 
