@@ -626,29 +626,19 @@ active, apply to active region instead."
                                nil
                              'fullboth))))
 
-(defun codesearch-goodbed (pattern file-pattern)
-  "Search for `PATTERN` in goodbed repository that match `FILE-PATTERN`."
+(defmacro jj/codesearcher (name index)
+  "Creates a codesearch function of NAME that use INDEX"
+  (declare (indent t) (debug t))
+  `(defun ,name (pattern file-pattern)
   (interactive
    (list
     (read-string "Pattern: " (thing-at-point 'symbol))
     (read-string "File pattern: " ".*")))
   (and
-   (setq codesearch-csearchindex "~/.goodbedindex")
+   (setq codesearch-csearchindex ,index)
    (codesearch-update-index)
    (codesearch-search pattern file-pattern))
-  (setq codesearch-csearchindex "~/.csearchindex"))
-
-(defun codesearch-sportrfid (pattern file-pattern)
-  "Search for `PATTERN` in sportfid repository that match `FILE-PATTERN`."
-  (interactive
-   (list
-    (read-string "Pattern: " (thing-at-point 'symbol))
-    (read-string "File pattern: " ".*")))
-  (and
-   (setq codesearch-csearchindex "~/.sportrfid.csearchindex")
-   (codesearch-update-index)
-   (codesearch-search pattern file-pattern))
-  (setq codesearch-csearchindex "~/.csearchindex"))
+  (setq codesearch-csearchindex "~/.csearchindex")))
 
 ;; FIXME: Not tested.
 ;; Projectile + pyenv utility functions.

@@ -302,6 +302,9 @@
 ;;; codesearch http://code.google.com/p/codesearch/
 (use-package codesearch
   :commands (codesearch-search codesearch-reset codesearch-list-directories)
+  :init
+  (jj/codesearcher codesearch-goodbed "~/.goodbedindex")
+  (jj/codesearcher codesearch-sprotrfid "~/.sportrfidindex")
   :ensure t)
 
 ;;; Smart scan
