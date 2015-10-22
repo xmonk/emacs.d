@@ -1,3 +1,28 @@
+;;; ac-conf.el ---  auto-complete
+;;
+;; Filename: ac-conf.el
+;; Description:
+;; Author: Juan Fuentes
+;; Maintainer:
+;; Created: Thu Oct 22 18:47:40 2015 (-0400)
+;; Version:
+;; Package-Requires: ()
+;; Last-Updated:
+;;           By:
+;;     Update #: 1
+;; URL:
+;; Doc URL:
+;; Keywords:
+;; Compatibility:
+;;
+;;
+;;; Commentary:
+;;
+;;
+;;; Change Log:
+;;
+;;
+;;; Code:
 
 (use-package auto-complete
   :disabled
@@ -32,3 +57,6 @@
                  ac-source-semantic)))
 
 (provide 'ac-conf)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; ac-conf.el ends here
