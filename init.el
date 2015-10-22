@@ -97,7 +97,7 @@
     (package-install 'use-package))
 
 (require 'use-package)
-(defvar use-package-verbose t)
+(defvar use-package-verbose nil)
 
 (add-to-list 'load-path (expand-file-name *site-lisp*))
 
