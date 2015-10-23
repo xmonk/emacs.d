@@ -51,6 +51,7 @@
 
 ;; set faces
 (set-face-attribute 'default nil :background "black" :foreground "#D0D0D0" :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
+(set-face-attribute 'cursor nil :background "#D0D0D0" :foreground "#D0D0D0")
 (set-face-attribute 'mode-line nil :box nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
 (set-face-attribute 'font-lock-comment-face nil :font "Lucida Grande" :height 130 :slant 'italic :weight 'normal)
 (set-face-attribute 'font-lock-doc-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
