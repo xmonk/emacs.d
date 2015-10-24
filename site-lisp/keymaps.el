@@ -41,7 +41,7 @@
 (global-set-key (kbd "C-o") 'jj/vi-open-next-line)
 (global-set-key (kbd "C-S-o") 'jj/vi-open-previous-line)
 (global-set-key (kbd "M-<?!>") 'custom-shell-command-on-region)
-(global-set-key (kbd "s-s") 'jj/esh)
+(global-set-key (kbd "s-e") 'jj/esh)
 (global-set-key (kbd "C-c w") 'jj/ido-jump-to-window)
 
 ;; This might conflict in certain modes.
