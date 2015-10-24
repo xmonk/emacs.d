@@ -79,18 +79,18 @@
 
 ;; fringe
 (set-default 'indicate-empty-lines nil)
-
+(column-number-mode)
 ;; setup the mode-line as I like it.
-(setq-default mode-line-format
-              (list (purecopy "")
-                    'mode-line-modified
-                    'mode-line-buffer-identification
-                    (purecopy ":%l   ")
-                    'global-mode-string
-                    'vc-mode
-                    (purecopy "   %[(")
-                    'mode-name 'minor-mode-alist (purecopy "%n") 'mode-line-process
-                    (purecopy ")%]----%p-%-")))
+;; (setq-default mode-line-format
+;;               (list (purecopy "")
+;;                     'mode-line-modified
+;;                     'mode-line-buffer-identification
+;;                     (purecopy ":%l   ")
+;;                     'global-mode-string
+;;                     'vc-mode
+;;                     (purecopy "   %[(")
+;;                     'mode-name 'minor-mode-alist (purecopy "%n") 'mode-line-process
+;;                     (purecopy ")%]----%p-%-")))
 
 ;; seed the random-number generator
 (random t)
