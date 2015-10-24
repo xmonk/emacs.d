@@ -40,7 +40,7 @@
   :config
   (use-package utop
     :ensure t
-    :init
+    :config
     ;; Automatically load utop.el
     (autoload 'utop "utop" "Toplevel for OCaml" t))
 
