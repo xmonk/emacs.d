@@ -26,9 +26,9 @@
 
 
 (use-package helm
+  :disabled
   :ensure t
-  :bind (("C-x C-m" . helm-M-x)
-	 ("C-x b" . helm-mini))
+  :bind (("C-x b" . helm-mini))
   :diminish helm-mode
   :init
   (helm-mode 1)
@@ -38,8 +38,8 @@
   (use-package helm-ls-git :ensure t :defer 5)
   (use-package helm-ls-hg :ensure t :defer 5)
   (use-package helm-semantic)
-  (use-package helm-flycheck :ensure t)
-  (use-package helm-projectile :ensure t)
+  (use-package helm-flycheck :ensure t :defer)
+  (use-package helm-projectile :ensure t :defer)
 
   (helm-adaptative-mode)
 
