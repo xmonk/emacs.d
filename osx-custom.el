@@ -34,7 +34,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (flx-ido flx helm-mode hydra swiper-helm helm-ls-hg helm-ls-git helm-c-moccur helm company-jedi utop anaconda-mode paredit-mode nasm-mode company-quickhelp company-mode go-company company company-anaconda company-go disaster helm-flycheck helm-pydoc helm-projectile ggtags projectile ac-c-headers jedi swiper multi-term header2 smex smartscan flycheck browse-kill-ring codesearch expand-region flycheck-pyflakes git-timemachine go-eldoc go-errcheck go-mode magit markdown-mode merlin ocp-indent tuareg undo-tree whole-line-or-region paredit use-package))))
+    (whole-line-or-region utop use-package undo-tree tuareg swiper smex smartscan projectile paredit ocp-indent merlin markdown-mode magit hydra header2 go-errcheck go-eldoc git-timemachine flycheck-pyflakes expand-region company-go company-anaconda codesearch browse-kill-ring))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
