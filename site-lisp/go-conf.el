@@ -48,6 +48,10 @@
       (add-to-list 'company-backends '(company-go))
       (bind-key "C-c TAB" 'company-complete go-mode-map)))
 
+  ;; Enable go-rename if available
+  (use-package go-rename
+    :ensure t)
+
   ;; compile and run go code.
   (defmacro jj:go(cmd)
     `(lambda()
@@ -77,14 +81,7 @@
         (setq load-path (cons (concat (getenv "GOPATH") "/src/golang.org/x/tools/cmd/oracle") load-path))
         (when (locate-library "oracle")
           (require 'go-oracle "oracle")
-          (setq go-oracle-command "oracle"))))
-
-    ;; Enable go-rename if available
-    (let ((*gorename* (concat (getenv "GOPATH") "/src/golang.org/x/tools/refactor/rename")))
-      (when (file-directory-p *gorename*)
-        (setq load-path (cons *gorename* load-path))
-        (when (locate-library "rename")
-          (load-library "rename")))))
+          (setq go-oracle-command "oracle")))))
 
   (add-hook 'go-mode-hook 'jj/go-init-hook))
 
