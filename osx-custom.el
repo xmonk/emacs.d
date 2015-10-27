@@ -34,7 +34,8 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (whole-line-or-region utop use-package undo-tree tuareg swiper smex smartscan projectile paredit ocp-indent merlin markdown-mode magit hydra header2 go-errcheck go-eldoc git-timemachine flycheck-pyflakes expand-region company-go company-anaconda codesearch browse-kill-ring))))
+    (go-rename go-mode direx whole-line-or-region utop use-package undo-tree tuareg swiper smex smartscan projectile paredit ocp-indent merlin markdown-mode magit hydra header2 go-errcheck go-eldoc git-timemachine flycheck-pyflakes expand-region company-go company-anaconda codesearch browse-kill-ring)))
+ '(temporary-file-directory "/tmp"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
