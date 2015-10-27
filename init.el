@@ -50,7 +50,7 @@
   (setq mac-allow-anti-aliasing t))
 
 ;; set faces
-
+;; Uncomment following two lines and comment the third for dark background
 ;; (set-face-attribute 'default nil :background "black" :foreground "#D0D0D0" :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
 ;; (set-face-attribute 'cursor nil :background "#D0D0D0" :foreground "#D0D0D0")
 (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
