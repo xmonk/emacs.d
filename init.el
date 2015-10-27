@@ -64,12 +64,12 @@
     (setenv "TMPDIR" "/tmp"))
 
 ;; Load customization's
-  (cond ((eql system-type 'darwin)
-         (setq custom-file (concat user-emacs-directory "osx-custom.el")))
-        ((eql system-type 'berkeley-unix)
-         (setq custom-file (concat user-emacs-directory "obsd-custom.el")))
-        ((eql system-type 'gnu/linux)
-         (setq custom-file (concat user-emacs-directory "linux-custom.el"))))
+(cond ((eql system-type 'darwin)
+       (setq custom-file (concat user-emacs-directory "osx-custom.el")))
+      ((eql system-type 'berkeley-unix)
+       (setq custom-file (concat user-emacs-directory "obsd-custom.el")))
+      ((eql system-type 'gnu/linux)
+       (setq custom-file (concat user-emacs-directory "linux-custom.el"))))
 
 (if (file-exists-p custom-file)
     (load-file custom-file)
