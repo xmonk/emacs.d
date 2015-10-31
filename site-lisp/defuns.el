@@ -315,8 +315,13 @@ a region."
   (interactive)
   (kill-buffer nil))
 
-(defun jj/print-date()
+(defun jj/insert-date()
   "Insert date string into current buffer."
+  (interactive)
+  (insert (format-time-string "%a %b %d %Y")))
+
+(defun jj/insert-datetime ()
+  "Insert time string into current buffer."
   (interactive)
   (insert (current-time-string)))
 
