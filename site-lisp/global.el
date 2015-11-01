@@ -356,10 +356,11 @@
   (auto-compression-mode 1))
 
 ;;; Save place
-(require 'saveplace nil t)
-(setq-default save-place t)
-(setq save-place-file (concat user-emacs-directory ".places"))
-(setq save-place-limit 100)
+(use-package saveplace
+  :config
+  (save-place-mode)
+  (setq save-place-version-control t)
+  (setq save-place-file (concat user-emacs-directory ".places")))
 
 ;;; swiper
 (use-package swiper
