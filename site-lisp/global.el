@@ -358,7 +358,7 @@
 ;;; Save place
 (use-package saveplace
   :config
-  (save-place-mode)
+  (setq-default save-place t)
   (setq save-place-version-control t)
   (setq save-place-file (concat user-emacs-directory ".places")))
 
