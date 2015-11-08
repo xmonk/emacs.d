@@ -632,27 +632,29 @@ active, apply to active region instead."
                              'fullboth))))
 
 (defmacro jj/codesearcher (name index)
-  "Creates a codesearch function of NAME that use INDEX"
+  "Create a codesearch function of NAME that use INDEX."
   (declare (indent t) (debug t))
   `(defun ,name (pattern file-pattern)
-  (interactive
-   (list
-    (read-string "Pattern: " (thing-at-point 'symbol))
-    (read-string "File pattern: " ".*")))
-  (and
-   (setq codesearch-csearchindex ,index)
-   (codesearch-update-index)
-   (codesearch-search pattern file-pattern))
-  (setq codesearch-csearchindex "~/.csearchindex")))
+     (interactive
+      (list
+       (read-string "Pattern: " (thing-at-point 'symbol))
+       (read-string "File pattern: " ".*")))
+     (and
+      (setq codesearch-csearchindex ,index)
+      (codesearch-update-index)
+      (codesearch-search pattern file-pattern))
+     (setq codesearch-csearchindex "~/.csearchindex")))
 
 ;; FIXME: Not tested.
 ;; Projectile + pyenv utility functions.
 (defun projectile-pyenv-mode-set ()
+  "Set the pyenv based on  the project."
   (pyenv-mode-set (projectile-project-name))
   (unless (eq python-shell-virtualenv-path nil)
     (setenv "PATH" (concat (concat python-shell-virtualenv-path ":") (getenv "PATH")))))
 
 (defun projectile-pyenv-mode-unset ()
+  "Unset the pyenv."
   (unless (eq python-shell-virtualenv-path nil)
     (setenv "PATH" (mapconcat 'identity (delete python-shell-virtualenv-path (split-string (getenv "PATH") path-separator)) ":")))
   (pyenv-mode-unset))
