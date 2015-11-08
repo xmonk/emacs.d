@@ -30,7 +30,7 @@
    '(cursor ((t (:background "#000000" ))))
    '(region ((t (:background "#A4CDFC" :foreground "#000000"))))
    '(mode-line ((t (:foreground "white" :background "black" :box nil :font "Lucida Grande" :height 120 :slant normal :weight normal))))
-   '(mode-line-inactive ((t (:foreground "black" :background "white" :box nil :font "Lucida Grande" :height 120 :slant normal :weight light))))
+   '(mode-line-inactive ((t (:foreground "black" :background "white" :box nil :font "Lucida Grande" :height 120 :slant normal :weight light :box t))))
    '(linum ((t (:stipple nil :background "#ffffff" :foreground "#000000" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 92 :width normal :family "Lucida Grande"))))
    '(font-lock-builtin-face ((t (:foreground "#000000" :bold nil ))))
    '(font-lock-comment-face ((t (:foreground "#000000" :slant italic :weight normal ))))
