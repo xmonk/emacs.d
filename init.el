@@ -86,6 +86,10 @@
 (when (and (>= emacs-major-version 23) (not (server-running-p)))
   (server-start))
 
+;;; This fixes the issue of 'url-insert-buffer-content not being autoloaded.
+(unless (fboundp 'url-insert-buffer-contents)
+  (load-library "url-handlers"))
+
 ;; package
 (autoload 'package "package" nil t)
 
