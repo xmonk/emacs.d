@@ -87,8 +87,8 @@
   (server-start))
 
 ;;; This fixes the issue of 'url-insert-buffer-content not being autoloaded.
-(unless (fboundp 'url-insert-buffer-contents)
-  (load-library "url-handlers"))
+;; (unless (fboundp 'url-insert-buffer-contents)
+;;   (load-library "url-handlers"))
 
 ;; package
 (autoload 'package "package" nil t)
