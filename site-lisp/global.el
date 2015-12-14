@@ -417,7 +417,7 @@
       kept-old-versions 2      ;; number of oldest version to keep
       delete-old-versions t    ;; ask to delete excess backup versions
       backup-by-copying-when-linked t) ;;copy linked files, don't rename.
-(setq auto-save-default nil)
+(setq auto-save-default t)
 
 ;;; revert all buffer when file is modified in disk
 (setq global-auto-revert-mode t)
