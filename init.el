@@ -108,7 +108,7 @@
 (defvar use-package-verbose t)
 
 (add-to-list 'load-path (expand-file-name *site-lisp*))
-(use-package jj-theme)
+(use-package jj-theme :disabled)
 (use-package defuns)
 (use-package global)
 (use-package keymaps)
