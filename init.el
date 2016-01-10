@@ -7,9 +7,9 @@
 ;; Created: Sat Jun 28 18:48:44 2008
 ;; Version:
 ;; Package-Requires: ()
-;; Last-Updated: Sat Apr 18 14:22:27 2015 (-0400)
+;; Last-Updated: Tue Jan  5 10:15:19 2016 (-0400)
 ;;           By:
-;;     Update #: 92
+;;     Update #: 94
 ;; URL:
 ;; Doc URL:
 ;; Keywords:
@@ -112,7 +112,7 @@
 (use-package defuns)
 (use-package global)
 (use-package keymaps)
-(use-package helm-conf)
+(use-package helm-conf :disabled)
 (use-package elisp-conf)
 (use-package lisp-conf)
 (use-package c-conf)
@@ -120,7 +120,7 @@
 (use-package org-conf)
 (use-package magit-conf)
 (use-package py-conf)
-(use-package ocaml-conf)
+(use-package ocaml-conf :disabled)
 (use-package java-conf)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
