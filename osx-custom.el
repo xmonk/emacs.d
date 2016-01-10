@@ -9,7 +9,7 @@
 ;; Package-Requires: ()
 ;; Last-Updated:
 ;;           By:
-;;     Update #: 4
+;;     Update #: 5
 ;; URL:
 ;; Doc URL:
 ;; Keywords:
@@ -34,7 +34,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (org-plus-contrib org go-rename go-mode direx whole-line-or-region utop use-package undo-tree tuareg swiper smex smartscan projectile paredit ocp-indent merlin markdown-mode magit hydra header2 go-errcheck go-eldoc git-timemachine flycheck-pyflakes expand-region company-go company-anaconda codesearch browse-kill-ring)))
+    (anaconda-mode flycheck company org-plus-contrib org go-rename go-mode direx whole-line-or-region utop use-package undo-tree tuareg swiper smex smartscan projectile paredit ocp-indent merlin markdown-mode magit hydra header2 go-errcheck go-eldoc git-timemachine flycheck-pyflakes expand-region company-go company-anaconda codesearch browse-kill-ring)))
  '(temporary-file-directory "/tmp"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
