@@ -122,8 +122,9 @@
   :ensure t
   :bind (("C-c TAB" . company-complete))
   :diminish company-mode
-  :config
+  :init
   (global-company-mode 1)
+  :config
   (setq company-tooltip-limit 20
         company-quickhelp-idle-delay 4
         company-minimum-prefix-length 3
