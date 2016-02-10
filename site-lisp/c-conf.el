@@ -35,9 +35,9 @@
   (backward-char 3))
 
 (defun jj-c-hook()
+  (semantic-mode t)
   (global-semanticdb-minor-mode 1)
   (global-semantic-idle-scheduler-mode 1)
-  (semantic-mode t)
   (semantic-default-c-setup)
   (semantic-add-system-include "/usr/include")
   (semantic-add-system-include "/usr/local/include")
