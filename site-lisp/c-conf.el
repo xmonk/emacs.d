@@ -54,7 +54,10 @@
   (define-key c-mode-base-map (kbd "C-c I") 'c-insert-local-include)
   (define-key c-mode-base-map (kbd "C-c C-c") 'compile)
   (define-key c-mode-base-map (kbd "C-c f") 'ff-find-other-file)
-  (define-key c-mode-base-map (kbd "C-TAB") 'semantic-ia-complete-symbol))
+  (define-key c-mode-base-map (kbd "C-TAB") 'semantic-ia-complete-symbol)
+  (set (make-local-variable 'compile-command)
+       (concat "gcc -g -fsanitize=address " (buffer-file-name)
+	       " -o " (file-name-sans-extension buffer-file-name))))
 
 (add-hook 'c-mode-common-hook 'jj-c-hook)
 (add-hook 'c++mode-common-hook 'jj-c-hook)
