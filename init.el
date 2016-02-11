@@ -7,9 +7,9 @@
 ;; Created: Sat Jun 28 18:48:44 2008
 ;; Version:
 ;; Package-Requires: ()
-;; Last-Updated: Tue Jan  5 10:15:19 2016 (-0400)
+;; Last-Updated: Tue Feb  9 16:54:47 2016 (-0400)
 ;;           By:
-;;     Update #: 94
+;;     Update #: 95
 ;; URL:
 ;; Doc URL:
 ;; Keywords:
@@ -120,7 +120,7 @@
 (use-package org-conf)
 (use-package magit-conf)
 (use-package py-conf)
-(use-package ocaml-conf :disabled)
+(use-package ocaml-conf)
 (use-package java-conf)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
