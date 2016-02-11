@@ -348,6 +348,7 @@
   (setq abbrev-file-name (concat user-emacs-directory "abbrevs"))
   (if (file-exists-p abbrev-file-name)
       (quietly-read-abbrev-file))
+  (setq save-abbrevs 'silently)
   (setq-default abbrev-mode t)
   (setq save-abbrevs t))
 
