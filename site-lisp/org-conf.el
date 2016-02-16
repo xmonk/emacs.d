@@ -100,6 +100,7 @@
      (lisp . t)
      (sh . t)
      (C . t)
+     (go . t)
      (emacs-lisp . t)
      (sqlite . t)))
 
