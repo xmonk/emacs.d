@@ -41,7 +41,7 @@
     :commands go-errcheck
     :ensure t)
 
-  (load-after company
+  (load-after "company"
     (use-package company-go
       :ensure t
       :config
@@ -81,7 +81,7 @@
         (setq load-path (cons (concat (getenv "GOPATH") "/src/golang.org/x/tools/cmd/oracle") load-path))
         (when (locate-library "oracle")
           (require 'go-oracle "oracle")
-          (setq go-oracle-command "oracle")))))
+          (defvar go-oracle-command "oracle")))))
 
   (add-hook 'go-mode-hook 'jj/go-init-hook))
 
