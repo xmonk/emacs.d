@@ -288,6 +288,13 @@
     (when (executable-find markdown-cmd)
       (setq markdown-command markdown-cmd))))
 
+;;; Web-mode
+(use-package "web-mode"
+  :ensure t
+  :defer t
+  :mode (("\\.html$" . web-mode)
+	 ("\\.xhtml$" . web-mode)))
+
 ;;; Expand-region
 (use-package expand-region
   :ensure t
