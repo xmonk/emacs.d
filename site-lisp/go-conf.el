@@ -52,6 +52,9 @@
   (use-package go-rename
     :ensure t)
 
+  (use-package "go-guru"
+    :ensure t)
+
   ;; compile and run go code.
   (defmacro jj:go(cmd)
     `(lambda()
@@ -73,15 +76,7 @@
     (bind-key "C-c C-e" (jj:go "go run ") go-mode-map)
     (bind-key "C-c ." 'godoc-at-point go-mode-map)
     (bind-key "C-c C-t" 'jj/go-test go-mode-map)
-    (add-hook 'before-save-hook 'gofmt-before-save)
-
-    ;; Enable go-oracle-mode if available
-    (let ((oracle (executable-find "oracle")))
-      (when oracle
-        (setq load-path (cons (concat (getenv "GOPATH") "/src/golang.org/x/tools/cmd/oracle") load-path))
-        (when (locate-library "oracle")
-          (require 'go-oracle "oracle")
-          (defvar go-oracle-command "oracle")))))
+    (add-hook 'before-save-hook 'gofmt-before-save))
 
   (add-hook 'go-mode-hook 'jj/go-init-hook))
 
