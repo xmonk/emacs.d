@@ -1,5 +1,6 @@
 /semanticdb/
 /.places
+/.backup
 /abbrevs
 /elpa/
 /ido.last
