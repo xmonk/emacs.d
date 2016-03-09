@@ -704,6 +704,11 @@ abort completely with `C-g'."
                    bef aft (if p "loc" "glob")))
       (user-error "No typo at or before point"))))
 
+(defun jj/background-mode (arg)
+  "Utility function to set the correct background mode.
+ARG should be one of: `dark' `light' 'nil'."
+  (setq frame-background-mode arg)
+  (mapc 'frame-set-background-mode (frame-list)))
 
 (provide 'defuns)
 
