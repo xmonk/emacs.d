@@ -58,11 +58,10 @@
   (set (make-local-variable 'compile-command)
        (concat "gcc -g -fsanitize=address " (buffer-file-name)
 	       " -o " (file-name-sans-extension buffer-file-name))))
-(use-package "c-eldoc"
+(use-package xcscope
   :ensure t
   :config
-  (add-hook 'c-mode-common-hook 'c-turn-eldoc-mode)
-  (add-hook 'c++mode-common-hook 'c-turn-eldoc-mode))
+  (cscope-setup))
 
 (add-hook 'c-mode-common-hook 'jj-c-hook)
 (add-hook 'c++mode-common-hook 'jj-c-hook)
