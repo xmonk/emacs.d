@@ -383,10 +383,6 @@
     (recenter))
   (advice-add 'swiper :after #'jj/swiper-recenter))
 
-;;; ivy
-(use-package counsel
-  :ensure t)
-
 ;;; winner mode
 (use-package winner
   :bind (("C-c <left>" . winner-undo)
