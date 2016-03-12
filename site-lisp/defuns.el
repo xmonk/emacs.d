@@ -462,6 +462,16 @@ a region."
       (eshell)
       (delete-other-windows))))
 
+(defun jj/sh ()
+  "Bring up a full-screen shell or restore previous config."
+  (interactive)
+  (if (string= "shell-mode" major-mode)
+      (jump-to-register :shell-fullscreen)
+    (progn
+      (window-configuration-to-register :shell-fullscreen)
+      (shell)
+      (delete-other-windows))))
+
 (defun jj/term()
   "Bring up a full-screen terminal or restore previous config."
   (interactive)
@@ -471,7 +481,7 @@ a region."
       (window-configuration-to-register :term-fullscreen)
       (if (locate-library "multi-term")
 	  (multi-term)
-	(term))
+	(term (getenv "SHELL")))
       (delete-other-windows))))
 
 (defun jj/start-or-switch(func buffer-name)
