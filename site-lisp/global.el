@@ -144,7 +144,7 @@
      (define-key ido-file-completion-map (kbd "~")
        (lambda()
 	 (interactive)
-	 (if (looking-back "/")
+	 (if (looking-back "/" 0)
 	     (insert "~/")
 	   (call-interactively 'self-insert-command))))))
   (ido-mode 1)
