@@ -30,9 +30,10 @@
   (unless (and (file-directory-p *venv*) (string-match *venv* (getenv "PATH"))
                (string-match *venv* (getenv "PYTHONPATH")))
     (setenv "PATH" (concat *venv* "bin" path-separator (getenv "PATH")))
-    (setenv "PYTHONPATH" (concat (getenv "PYTHONPATH") path-separator *venv* "lib/python2.7/site-packages"))
+    (setenv "PYTHONPATH" (concat (getenv "PYTHONPATH") path-separator *venv* "lib/python3.5/site-packages"))
     (setq exec-path (append exec-path (list (concat *venv* "bin")))))
 
+  (setq python-shell-interpreter "ipython")
   ;;(autoload 'wisent-python-default-setup "wisent-python" "Python semantic setup." nil nil)
   (when (executable-find "linters")
     (setq python-check-command "linters"))
