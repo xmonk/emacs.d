@@ -67,7 +67,13 @@
     ;; Use opam switch to lookup ocamlmerlin binary
     (setq merlin-command 'opam)
     (setq merlin-use-auto-complete-mode nil)
-    (setq merlin-error-after-save t)
+
+    (use-package flycheck-ocaml
+      :ensure t
+      :config
+      (setq merlin-error-after-save nil)
+      (flycheck-ocaml-setup))
+
     (add-hook 'tuareg-mode-hook 'merlin-mode)
     (add-hook 'caml-mode-hook 'merlin-mode))
 
