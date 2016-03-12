@@ -374,13 +374,18 @@
 ;;; swiper
 (use-package swiper
   :ensure t
-  :bind ("s-s" . swiper)
+  :bind (("C-s" . swiper)
+	 ("C-r" . swiper))
   :config
   ;;advise swiper to recenter on exit
   (defun jj/swiper-recenter (&rest args)
     "recenter display after swiper"
     (recenter))
   (advice-add 'swiper :after #'jj/swiper-recenter))
+
+;;; ivy
+(use-package counsel
+  :ensure t)
 
 ;;; winner mode
 (use-package winner
