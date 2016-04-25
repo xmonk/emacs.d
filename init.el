@@ -24,7 +24,7 @@
 ;;
 ;;; Code:
 
-(require 'debug)
+(autoload 'debug "debug" "emacs debugger")
 (setq debug-on-error nil)
 
 (defvar *site-lisp* (concat user-emacs-directory "site-lisp/")
@@ -48,16 +48,6 @@
   (if (boundp 'mac-option-modifier)
       (setq mac-option-modifier 'meta))
   (setq mac-allow-anti-aliasing t))
-
-;; set faces
-;; Uncomment following two lines and comment the third for dark background
-(set-face-attribute 'default nil :background "black" :foreground "#D0D0D0" :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'cursor nil :background "#D0D0D0" :foreground "#D0D0D0")
-;; (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'mode-line nil :box nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'font-lock-comment-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
-(set-face-attribute 'font-lock-doc-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
-(set-face-attribute 'font-lock-function-name-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
 
 ;; In os x there is an issue with tramp and TMPDIR, this is a work around.
 (if running-apple
@@ -105,14 +95,15 @@
   (package-install 'use-package))
 
 (require 'use-package)
-(defvar use-package-verbose t)
+(defvar use-package-verbose nil)
 
 (add-to-list 'load-path (expand-file-name *site-lisp*))
 (use-package jj-dark-theme :disabled)
+(use-package jj-theme)
 (use-package defuns)
 (use-package global)
 (use-package keymaps)
-(use-package helm-conf :disabled)
+;; (use-package helm-conf :disabled)
 (use-package elisp-conf)
 (use-package lisp-conf)
 (use-package c-conf)
@@ -121,7 +112,17 @@
 (use-package magit-conf)
 (use-package py-conf)
 (use-package ocaml-conf)
-(use-package java-conf)
+;; (use-package java-conf)
+
+;; set faces
+;; Uncomment following two lines and comment the third for dark background
+;; (set-face-attribute 'default nil :background "black" :foreground "#D0D0D0" :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
+;; (set-face-attribute 'cursor nil :background "#D0D0D0" :foreground "#D0D0D0")
+(set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
+(set-face-attribute 'mode-line nil :box nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
+(set-face-attribute 'font-lock-comment-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
+(set-face-attribute 'font-lock-doc-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
+(set-face-attribute 'font-lock-function-name-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
