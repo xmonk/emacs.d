@@ -116,6 +116,7 @@
 
 ;;; tramp
 (setq tramp-default-method "ssh")
+(setq tramp-ssh-controlmaster-options "")
 
 ;;; company
 (use-package company
