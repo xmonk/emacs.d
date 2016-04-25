@@ -33,10 +33,10 @@
    '(mode-line-inactive ((t (:foreground "black" :background "grey92" :box nil :font "Lucida Grande" :height 120 :slant normal :weight light :box t))))
    '(linum ((t (:stipple nil :background "#ffffff" :foreground "#000000" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 92 :width normal :family "Lucida Grande"))))
    '(font-lock-builtin-face ((t (:foreground "#000000" :bold nil ))))
-   '(font-lock-comment-face ((t (:foreground "#000000" :slant normal :weight normal ))))
+   '(font-lock-comment-face ((t (:foreground "#000000" :slant italic :weight normal ))))
    '(font-lock-comment-delimiter-face ((t (:foreground "#000000" :slant normal))))
    '(font-lock-function-name-face ((t (:foreground "#000000" :bold nil))))
-   '(font-lock-keyword-face ((t (:foreground "#000000" :weight normal)))) ;; was bold
+   '(font-lock-keyword-face ((t (:foreground "#000000" :weight bold))))
    '(font-lock-preprocessor-face ((t (:foreground "#000000" :bold nil))))
    '(font-lock-regexp-grouping-backslash ((t (:foreground "#000000"))))
    '(font-lock-regexp-grouping-construct ((t (:foreground "#000000"))))
