@@ -479,9 +479,7 @@ a region."
       (jump-to-register :term-fullscreen)
     (progn
       (window-configuration-to-register :term-fullscreen)
-      (if (locate-library "multi-term")
-	  (multi-term)
-	(term (getenv "SHELL")))
+      (term (getenv "SHELL"))
       (delete-other-windows))))
 
 (defun jj/start-or-switch(func buffer-name)
