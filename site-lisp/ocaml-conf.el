@@ -7,9 +7,9 @@
 ;; Created: Sun Feb 22 23:19:16 2015 (-0400)
 ;; Version:
 ;; Package-Requires: ()
-;; Last-Updated: Sat Apr 18 14:13:13 2015 (-0400)
+;; Last-Updated: Thu May  5 06:57:18 2016 (-0400)
 ;;           By:
-;;     Update #: 42
+;;     Update #: 43
 ;; URL:
 ;; Doc URL:
 ;; Keywords:
@@ -44,7 +44,8 @@
     ;; Automatically load utop.el
     (autoload 'utop "utop" "Toplevel for OCaml" t)
     (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
-    (add-hook 'tuareg-mode-hook 'utop-minor-mode))
+    (add-hook 'tuareg-mode-hook 'utop-minor-mode)
+    (setq utop-command "opam config exec -- utop -emacs"))
 
   (use-package ocp-indent
     :ensure t
