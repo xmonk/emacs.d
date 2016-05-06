@@ -112,6 +112,7 @@
 (use-package magit-conf)
 (use-package py-conf)
 (use-package ocaml-conf)
+(use-package rust-conf)
 ;; (use-package java-conf)
 
 ;; set faces
