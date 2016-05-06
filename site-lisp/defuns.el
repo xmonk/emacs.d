@@ -436,7 +436,7 @@ a region."
       (find-file file))))
 
 (defun jj/pretty-lambdas()
-  "Inserts lambda instead of the word lambda"
+  "Inserts lambda instead of the word `Lambda`"
   (font-lock-add-keywords
    nil `(("(?\\(lambda\\>\\)"
           (0 (progn (compose-region (match-beginning 1) (match-end 1)
@@ -681,20 +681,18 @@ active, apply to active region instead."
   (add-to-list 'default-frame-alist (cons 'height ty))))
 
 (defun endless/ispell-word-then-abbrev (p)
-  "Call `ispell-word', then create an abbrev for it.
-With prefix P, create local abbrev. Otherwise it will
-be global.
-If there's nothing wrong with the word at point, keep
-looking for a typo until the beginning of buffer. You can
-skip typos you don't want to fix with `SPC', and you can
-abort completely with `C-g'."
+"Call `ispell-word', to create an abbrev for it with prefix `P`
+create local abbrev.  Otherwise it will be global if there's
+nothing wrong with the word at point, keep looking for a typo
+until the beginning of buffer.  You can skip typos you don't want
+to fix with `SPC', and you can abort completely with `C-g'."
   (interactive "P")
   (let (bef aft)
     (save-excursion
       (while (if (setq bef (thing-at-point 'word))
                  ;; Word was corrected or used quit.
                  (if (ispell-word nil 'quiet)
-                     nil ; End the loop.
+                     nil		; End the loop.
                    ;; Also end if we reach `bob'.
                    (not (bobp)))
                ;; If there's no word at point, keep looking
@@ -719,6 +717,5 @@ ARG should be one of: `dark' `light' 'nil'."
   (mapc 'frame-set-background-mode (frame-list)))
 
 (provide 'defuns)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; defuns.el ends here
