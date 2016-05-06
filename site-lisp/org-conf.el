@@ -7,9 +7,9 @@
 ;; Created: Wed Oct 10 15:11:21 2007 (-0400)
 ;; Version:
 ;; Package-Requires: ()
-;; Last-Updated: Sat Apr 18 14:12:19 2015 (-0400)
+;; Last-Updated: Thu May  5 19:10:43 2016 (-0400)
 ;;           By:
-;;     Update #: 119
+;;     Update #: 120
 ;; URL:
 ;; Doc URL:
 ;; Keywords:
@@ -89,6 +89,8 @@
 
   (setq org-babel-default-header-args:python '((:exports . "code")
                                                (:tangle  . "yes")))
+  (use-package ob-go
+    :ensure t)
 
   ;; load languages.
   (org-babel-do-load-languages
