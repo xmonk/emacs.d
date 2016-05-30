@@ -46,7 +46,8 @@
   (when (executable-find "pyflakes")
     (use-package flycheck-pyflakes
       :ensure t
-      :defer t))
+      :init
+      (add-hook 'python-mode-hook #'flycheck-mode)))
 
   (use-package anaconda-mode
     :ensure t
