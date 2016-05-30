@@ -64,8 +64,9 @@
   (cscope-setup))
 
 (add-hook 'c-mode-common-hook 'jj-c-hook)
+(add-hook 'c-mode-common-hook #'flycheck-mode)
 (add-hook 'c++mode-common-hook 'jj-c-hook)
-
+(add-hook 'c++mode-common-hook #'flycheck-mode)
 (provide 'c-conf)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -27,6 +27,7 @@
 (add-hook 'emacs-lisp-mode-hook '(lambda () (paredit-mode 1)))
 (add-hook 'lisp-interaction-mode-hook '(lambda() (paredit-mode 1)))
 (add-hook 'after-save-hook 'check-parens)
+(add-hook 'emacs-lisp-mode-hook #'flycheck-mode)
 (if (string-equal buffer-file-name (expand-file-name user-init-file))
     (add-hook 'after-save-hook 'compile-init-file t t))
 

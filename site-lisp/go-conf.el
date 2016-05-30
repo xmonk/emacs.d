@@ -78,7 +78,8 @@
     (bind-key "C-c C-t" 'jj/go-test go-mode-map)
     (add-hook 'before-save-hook 'gofmt-before-save))
 
-  (add-hook 'go-mode-hook 'jj/go-init-hook))
+  (add-hook 'go-mode-hook 'jj/go-init-hook)
+  (add-hook 'go-mode-hook #'flycheck-mode))
 
 (provide 'go-conf)
 
