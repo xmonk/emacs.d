@@ -25,7 +25,6 @@
 ;;; Code:
 
 (use-package tuareg
-  :ensure t
   :commands tuareg-mode
   :init
   ;; Add opam emacs directory to the load-path
@@ -48,13 +47,11 @@
     (setq utop-command "opam config exec -- utop -emacs"))
 
   (use-package ocp-indent
-    :ensure t
     :config
     (ocp-setup-indent))
 
   ;; Load merlin-mode
   (use-package merlin
-    :ensure t
     :config
     (load-after company
       (add-to-list 'company-backends 'merlin-company-backend)
@@ -70,7 +67,6 @@
     (setq merlin-use-auto-complete-mode nil)
 
     (use-package flycheck-ocaml
-      :ensure t
       :config
       (setq merlin-error-after-save nil)
       (flycheck-ocaml-setup))
