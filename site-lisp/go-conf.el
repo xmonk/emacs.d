@@ -41,7 +41,7 @@
     :commands go-errcheck
     :ensure t)
 
-  (load-after "company"
+  (eval-after-load "company"
     (use-package company-go
       :ensure t
       :config
@@ -55,27 +55,12 @@
   (use-package "go-guru"
     :ensure t)
 
-  ;; compile and run go code.
-  (defmacro jj:go(cmd)
-    `(lambda()
-       (interactive)
-       (compile (concat ,cmd (buffer-file-name)))))
-
-  (defun jj/go-test()
-    (interactive)
-    (cd (file-name-directory (buffer-file-name)))
-    (compile "go test -v"))
-
   (defun jj/go-init-hook()
     (subword-mode +1)
     ;; go-mode enables this by default argh!
     (flyspell-mode-off)
     (setq-default tab-width 8)
     (setq-default indent-tabs-mode t)
-    (bind-key "C-c C-c" (jj:go "go build ") go-mode-map)
-    (bind-key "C-c C-e" (jj:go "go run ") go-mode-map)
-    (bind-key "C-c ." 'godoc-at-point go-mode-map)
-    (bind-key "C-c C-t" 'jj/go-test go-mode-map)
     (add-hook 'before-save-hook 'gofmt-before-save))
 
   (add-hook 'go-mode-hook 'jj/go-init-hook)
