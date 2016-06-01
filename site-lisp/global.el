@@ -28,8 +28,8 @@
 (blink-cursor-mode -1)
 
 ;; don't scroll like a maniac
-(setq mouse-wheel-scroll-amount '(1))
-(setq mouse-wheel-progressive-speed nil)
+(defvar mouse-wheel-scroll-amount '(1))
+(defvar mouse-wheel-progressive-speed nil)
 
 ;;; Encoding
 ;; utf-8
@@ -60,9 +60,9 @@
 (setq initial-scratch-message "")
 (setq inhibit-startup-echo-area-message "jj")
 (setq inhibit-default-init t)
-(setq minibuffer-max-depth nil)
-(setq show-paren-delay 0)
-(setq show-paren-highlight-openparen nil)
+(defvar minibuffer-max-depth nil)
+(defvar show-paren-delay 0)
+(defvar show-paren-highlight-openparen nil)
 (show-paren-mode t)
 (setq version-control t)
 (setq visible-bell nil)
@@ -115,8 +115,8 @@
 (autoload 'zap-up-to-char "misc" "Kill up to, but not including ARGth occurrence of CHAR.")
 
 ;;; tramp
-(setq tramp-default-method "ssh")
-(setq tramp-ssh-controlmaster-options "")
+(defvar tramp-default-method "ssh")
+(defvar tramp-ssh-controlmaster-options "")
 
 ;;; company
 (use-package company
@@ -136,28 +136,20 @@
         company-begin-commands nil))
 
 ;;; ido
-(use-package ido
-  :commands ido-mode
-  :init
-  (add-hook 'ido-setup-hook
-   (lambda()
-     ;; Go straight home
-     (define-key ido-file-completion-map (kbd "~")
-       (lambda()
-	 (interactive)
-	 (if (looking-back "/" 0)
-	     (insert "~/")
-	   (call-interactively 'self-insert-command))))))
-  (ido-mode 1)
-  (ido-everywhere))
-
-;;; smex
-(use-package smex
-  :ensure t
-  :bind (("C-x C-m" . smex)
-	 ("C-x m" . smex-major-mode-commands))
-  :config
-  (setq smex-auto-update nil))
+;; (use-package ido
+;;   :commands ido-mode
+;;   :init
+;;   (add-hook 'ido-setup-hook
+;;    (lambda()
+;;      ;; Go straight home
+;;      (define-key ido-file-completion-map (kbd "~")
+;;        (lambda()
+;;          (interactive)
+;;          (if (looking-back "/" 0)
+;;              (insert "~/")
+;;            (call-interactively 'self-insert-command))))))
+;;   (ido-mode 1)
+;;   (ido-everywhere))
 
 ;;; on duplicate filenames, show path names.
 (use-package uniquify
@@ -189,40 +181,6 @@
   (bind-key "C-. A" 'paredit-add-to-previous-list paredit-mode-map)
   (bind-key "C-. j" 'paredit-join-with-next-list paredit-mode-map)
   (bind-key "C-. J" 'paredit-join-with-previous-list paredit-mode-map))
-
-;;; hydra
-(use-package hydra
-  :defer t
-  :ensure t)
-
-;;; window movement based on  Hydra wiki.
-(defhydra hydra-window (:color red
-                        :hint nil)
-  "hydra-window"
-  ("h" windmove-left "left")
-  ("j" windmove-down "down")
-  ("k" windmove-up "up")
-  ("l" windmove-right "right")
-  ("H" hydra-move-splitter-left "split left")
-  ("J" hydra-move-splitter-down "split down")
-  ("K" hydra-move-splitter-up "split up")
-  ("L" hydra-move-splitter-right "split right")
-  ("v" (lambda ()
-	 (interactive)
-	 (split-window-right)
-	 (windmove-right)) "vertical")
-  ("x" (lambda ()
-	 (interactive)
-	 (split-window-below)
-	 (windmove-down)) "horizontal")
-  ("S" save-buffer "save")
-  ("d" delete-window "delete window")
-  ("o" delete-other-windows "delete other windows")
-  ("u" (progn
-	 (winner-undo)
-	 (setq this-command 'winner-undo)) "window undo")
-  ("r" winner-redo "window redo")
-  ("SPC" nil "quit"))
 
 ;;; diminish
 (use-package diminish
@@ -372,18 +330,6 @@
   (setq save-place-version-control t)
   (setq save-place-file (concat user-emacs-directory ".places")))
 
-;;; swiper
-(use-package swiper
-  :ensure t
-  :bind (("C-s" . swiper)
-	 ("C-r" . swiper))
-  :config
-  ;;advise swiper to recenter on exit
-  (defun jj/swiper-recenter (&rest args)
-    "recenter display after swiper"
-    (recenter))
-  (advice-add 'swiper :after #'jj/swiper-recenter))
-
 ;;; winner mode
 (use-package winner
   :bind (("C-c <left>" . winner-undo)
@@ -412,8 +358,7 @@
   :ensure t
   :defer 5
   :diminish flycheck-mode
-  :init
-  (add-hook 'after-init-hook #'global-flycheck-mode)
+  :config
   ;; Override default flycheck triggers
   (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled)
         flycheck-idle-change-delay 0.3)
@@ -500,41 +445,6 @@
 (add-hook 'prog-mode-hook 'jj/pretty-lambdas)
 (add-hook 'prog-mode-hook 'jj/local-comment-auto-fill)
 (add-hook 'prog-mode-hook 'jj/add-watchwords)
-
-;;; Header
-(use-package header2
-  :ensure t
-  :bind ("<f9>" . make-header)
-  :config
-  (setq make-header-hook '(;;header-mode-line
-                           header-title
-                           header-blank
-                           header-file-name
-                           header-description
-                           header-author
-                           header-maintainer
-                           header-copyright
-                           header-creation-date
-                           header-version
-                           header-pkg-requires
-                           header-modification-date
-                           header-modification-author
-                           header-update-count
-                           header-url
-                           header-doc-url
-                           header-keywords
-                           header-compatibility
-                           header-blank
-                           header-lib-requires
-                           header-commentary
-                           header-blank
-                           header-history
-                           header-blank
-                           header-code
-                           header-eof
-                           ))
-  (autoload 'auto-update-file-header "header2")
-  (add-hook 'write-file-hooks 'auto-update-file-header))
 
 ;;; eshell
 (defun jj/eshell-prompt ()
