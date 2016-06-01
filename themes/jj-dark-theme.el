@@ -28,7 +28,7 @@
   (custom-theme-set-faces 'jj-dark
    '(default ((t (:foreground "#D0D0D0" :background "black"))))
    '(cursor ((t (:background "#D0D0D0" :foreground "#D0D0D0"))))
-   '(mode-line ((t (:foreground "black" :background "#D0D0D0" :box nil :font "Lucida Grande" :height 120 :slant normal :weight normal))))
+   '(mode-line ((t (:foreground "black" :background "white" :box nil :font "Lucida Grande" :height 120 :slant normal :weight normal))))
    '(mode-line-inactive ((t (:foreground "#D0D0D0" :background "black" :box nil :font "Lucida Grande" :height 120 :slant normal :weight light))))
    '(linum ((t (:stipple nil :background "black" :foreground "#D0D0D0" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 92 :width normal :family "Lucida Grande"))))
    '(font-lock-builtin-face ((t (:foreground "#D0D0D0" :bold nil ))))
