@@ -30,21 +30,32 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("b7ba8bd70d2c954e326144c5bf11eecffd55683dfa76aa16bc53572a6184bc1d" default)))
+ '(font-lock-maximum-decoration t)
+ '(font-lock-mode t t)
+ '(global-font-lock-mode t)
  '(indent-tabs-mode t)
- '(font-lock-mode nil)
- '(global-font-lock-mode nil)
- '(font-lock-maximum-decoration nil)
  '(magit-item-highlight-face nil)
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (company-go rustfmt rust-fmt rust-mode flycheck-ocaml c-eldoc smex xcscope go-guru web-mode ob-go anaconda-mode flycheck company org-plus-contrib org go-rename go-mode direx whole-line-or-region utop use-package undo-tree tuareg swiper smartscan projectile paredit ocp-indent merlin markdown-mode magit hydra header2 go-errcheck go-eldoc git-timemachine flycheck-pyflakes expand-region company-anaconda codesearch browse-kill-ring)))
+    (ujelly-theme slime slime-company racer company-go rustfmt rust-fmt rust-mode flycheck-ocaml c-eldoc smex xcscope go-guru web-mode ob-go anaconda-mode flycheck company org-plus-contrib org go-rename go-mode direx whole-line-or-region utop use-package undo-tree tuareg swiper smartscan projectile paredit ocp-indent merlin markdown-mode magit hydra header2 go-errcheck go-eldoc git-timemachine flycheck-pyflakes expand-region company-anaconda codesearch browse-kill-ring)))
  '(temporary-file-directory "/tmp"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(company-preview ((t (:foreground "black" :underline t :font "Lucida Grande Mono" :height 120))))
+ '(company-preview-common ((t (:inherit company-preview))))
+ '(company-scrollbar-bg ((t (:background "white" :foreground "black"))))
+ '(company-scrollbar-fg ((t (:foreground "white" :background "black"))))
+ '(company-tooltip ((t (:background "white" :foreground "black" :font "Lucida Grande Mono" :height 120))))
+ '(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
+ '(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
+ '(company-tooltip-selection ((t (:background "#1D1D1D" :foreground "white" :font "Lucida Grande Mono" :height 120))))
  '(eshell-prompt ((t (:inherit default))))
  '(sp-pair-overlay-face ((t nil))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
