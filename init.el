@@ -52,8 +52,22 @@
     (load-file custom-file)
   (message "ERROR: No custom file found or specified"))
 
+;; themes
 (add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes"))
 
+;; set faces
+;; Uncomment following two lines and comment the third for dark background
+(set-face-attribute 'default nil :background "black" :foreground "#D0D0D0" :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
+(set-face-attribute 'mode-line nil :box nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
+(set-face-attribute 'font-lock-comment-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
+(set-face-attribute 'font-lock-doc-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
+(set-face-attribute 'font-lock-function-name-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
+
+;; ido
+(ido-mode t)
+(ido-everywhere t)
+
+;; frame
 (when (memq window-system '(mac ns))
   (if (boundp 'mac-option-modifier)
       (setq mac-option-modifier 'meta))
@@ -61,16 +75,7 @@
   (setenv "TMPDIR" "/tmp") ;; os x sets it to /var/tmp/...
   (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
     (setenv "PATH" path)
-    (setq exec-path (split-string path path-separator)))
-
-  ;; set faces
-  ;; Uncomment following two lines and comment the third for dark background
-  ;; (set-face-attribute 'default nil :background "black" :foreground "#D0D0D0" :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
-  (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
-  (set-face-attribute 'mode-line nil :box nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
-  (set-face-attribute 'font-lock-comment-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
-  (set-face-attribute 'font-lock-doc-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
-  (set-face-attribute 'font-lock-function-name-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal))
+    (setq exec-path (split-string path path-separator))))
 
 ;;; Server
 (require 'server nil t)
@@ -104,8 +109,11 @@
 (use-package go-conf)
 (use-package org-conf)
 (use-package magit-conf)
+(use-package ocaml-conf)
 (use-package py-conf)
 (use-package rust-conf)
+
+(load-theme 'ujelly)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
