@@ -113,7 +113,5 @@
 (use-package py-conf)
 (use-package rust-conf)
 
-(load-theme 'ujelly)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
