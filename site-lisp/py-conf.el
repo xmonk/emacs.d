@@ -49,14 +49,21 @@
       :init
       (add-hook 'python-mode-hook #'flycheck-mode)))
 
+  (when (executable-find "yapf")
+    (use-package py-yapf
+      :ensure t
+      :init
+      (add-hook 'python-mode-hook 'py-yapf-enable-on-save)))
+
   (use-package anaconda-mode
     :ensure t
     :config
     (setq python-shell-virtualenv-path *venv*)
     (load-after company
-      (when (locate-library "company-jedi")
-	 (add-to-list 'company-backends 'company-jedi))
-      (add-to-list 'company-backends 'company-anaconda))
+      (use-package company-anaconda
+        :ensure t
+        :init
+        (add-to-list 'company-backends 'company-anaconda)))
     (add-hook 'python-mode-hook 'anaconda-mode)
     (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
 
