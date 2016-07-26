@@ -56,8 +56,9 @@
 (add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes"))
 
 ;; set faces
-;; Uncomment following two lines and comment the third for dark background
-(set-face-attribute 'default nil :background "black" :foreground "#D0D0D0" :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
+;; Uncomment following line and comment the second for light background
+;; (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
+(set-face-attribute 'default nil :background "#161616" :foreground "#D0D0D0" :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
 (set-face-attribute 'mode-line nil :box nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
 (set-face-attribute 'font-lock-comment-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
 (set-face-attribute 'font-lock-doc-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
@@ -109,9 +110,10 @@
 (use-package go-conf)
 (use-package org-conf)
 (use-package magit-conf)
-(use-package ocaml-conf)
 (use-package py-conf)
-(use-package rust-conf)
+(use-package rust-conf :disabled)
+(use-package slime-conf :disabled)
+(use-package ocaml-conf)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
