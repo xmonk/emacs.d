@@ -30,12 +30,18 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("451cb80ff909630fcbad322fa8d8d02d304f24b2c1b0f4ddb0b4ca25b1e8faeb" default)))
  '(font-lock-maximum-decoration t)
- '(font-lock-mode t t)
+ '(font-lock-mode t)
  '(global-font-lock-mode t)
  '(indent-tabs-mode t)
  '(magit-item-highlight-face nil)
  '(package-enable-at-startup nil)
+ '(package-selected-packages
+   (quote
+    (go-guru go-rename company-go go-errcheck go-eldoc tuareg anaconda-mode flycheck company xcscope whole-line-or-region web-mode use-package undo-tree smartscan rustfmt rust-mode py-yapf projectile paredit ob-go markdown-mode magit go-mode git-timemachine flycheck-pyflakes expand-region company-anaconda codesearch browse-kill-ring)))
  '(temporary-file-directory "/tmp"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
