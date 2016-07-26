@@ -25,7 +25,7 @@
 ;;; Code:
 
 (use-package tuareg
-  :ensure t
+  :disabled
   :commands tuareg-mode
   :init
   ;; Add opam emacs directory to the load-path
@@ -33,13 +33,12 @@
     (setenv (car var) (cadr var)))
   ;; Update the emacs path
   (setq exec-path (append (parse-colon-path (getenv "PATH"))
-                          (list exec-directory)))
+			  (list exec-directory)))
   ;; Update the emacs load path
   (add-to-list 'load-path (expand-file-name "../../share/emacs/site-lisp"
-                                            (getenv "OCAML_TOPLEVEL_PATH")))
+					    (getenv "OCAML_TOPLEVEL_PATH")))
   :config
   (use-package utop
-    :ensure t
     :config
     ;; Automatically load utop.el
     (autoload 'utop "utop" "Toplevel for OCaml" t)
@@ -48,13 +47,11 @@
     (setq utop-command "opam config exec -- utop -emacs"))
 
   (use-package ocp-indent
-    :ensure t
     :config
     (ocp-setup-indent))
 
   ;; Load merlin-mode
   (use-package merlin
-    :ensure t
     :config
     (load-after company
       (add-to-list 'company-backends 'merlin-company-backend)
@@ -68,11 +65,6 @@
     ;; Use opam switch to lookup ocamlmerlin binary
     (setq merlin-command 'opam)
     (setq merlin-use-auto-complete-mode nil)
-
-    (use-package flycheck-ocaml
-      :config
-      (setq merlin-error-after-save nil)
-      (flycheck-ocaml-setup))
 
     (add-hook 'tuareg-mode-hook 'merlin-mode)
     (add-hook 'caml-mode-hook 'merlin-mode))
