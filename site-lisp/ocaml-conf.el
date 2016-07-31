@@ -25,7 +25,7 @@
 ;;; Code:
 
 (use-package tuareg
-  :disabled
+  :ensure t
   :commands tuareg-mode
   :init
   ;; Add opam emacs directory to the load-path
