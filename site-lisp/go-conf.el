@@ -46,7 +46,9 @@
       :ensure t
       :config
       (add-to-list 'company-backends '(company-go))
-      (bind-key "C-c TAB" 'company-complete go-mode-map)))
+      (bind-key "C-c TAB" 'company-complete go-mode-map)
+      (unless (executable-find "gocode")
+	(shell-command-to-string "go get github.com/nsf/gocode"))))
 
   ;; Enable go-rename if available
   (use-package go-rename
