@@ -45,6 +45,7 @@
   (setq-default tab-width '8)
   (setq-default indent-tabs-mode t)
   (setq fill-column 80)
+  (setq comment-style 'extra-line)
   (setq comment-column 72)
   (setq-default turn-on-auto-fill t)
   (setq-default c-electric-pound-behavior (quote(alignleft)))
