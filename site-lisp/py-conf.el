@@ -26,17 +26,15 @@
 
 (load-after python
   ;; set path pythonpath and exec-path if *venv* is not set in $PATH and $PYTHONPATH.
-  (defvar *venv* (concat (getenv "HOME") "/.venv/"))
-  (unless (and (file-directory-p *venv*) (string-match *venv* (getenv "PATH"))
-               (string-match *venv* (getenv "PYTHONPATH")))
-    (setenv "PATH" (concat *venv* "bin" path-separator (getenv "PATH")))
-    (setenv "PYTHONPATH" (concat (getenv "PYTHONPATH") path-separator *venv* "lib/python3.5/site-packages"))
-    (setq exec-path (append exec-path (list (concat *venv* "bin")))))
+  ;; (defvar *venv* (concat (getenv "HOME") "/.venv/"))
+  ;; (unless (and (file-directory-p *venv*) (string-match *venv* (getenv "PATH"))
+  ;;              (string-match *venv* (getenv "PYTHONPATH")))
+  ;;   (setenv "PATH" (concat *venv* "bin" path-separator (getenv "PATH")))
+  ;;   (setenv "PYTHONPATH" (concat (getenv "PYTHONPATH") path-separator *venv* "lib/python3.5/site-packages"))
+  ;;   (setq exec-path (append exec-path (list (concat *venv* "bin")))))
 
-  (setq python-shell-interpreter "ipython")
-  ;;(autoload 'wisent-python-default-setup "wisent-python" "Python semantic setup." nil nil)
-  (when (executable-find "linters")
-    (setq python-check-command "linters"))
+  (setq python-shell-interpreter "ipython"
+    python-shell-interpreter-args "--simple-prompt --pprint")
 
   (autoload 'doctest-mode "doctest-mode" "Python doctest editing mode." t)
   (setq-default tab-width '4)
@@ -58,7 +56,7 @@
   (use-package anaconda-mode
     :ensure t
     :config
-    (setq python-shell-virtualenv-path *venv*)
+    ;; (setq python-shell-virtualenv-path *venv*)
     (load-after company
       (use-package company-anaconda
         :ensure t
