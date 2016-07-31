@@ -54,11 +54,11 @@
 
 ;; themes
 (add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes"))
-
+(load-theme 'jj t)
 ;; set faces
 ;; Uncomment following line and comment the second for light background
-;; (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'default nil :background "#161616" :foreground "#D0D0D0" :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
+(set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
+;; (set-face-attribute 'default nil :background "#161616" :foreground "#D0D0D0" :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
 (set-face-attribute 'mode-line nil :box nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
 (set-face-attribute 'font-lock-comment-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
 (set-face-attribute 'font-lock-doc-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
@@ -89,7 +89,7 @@
 (setq package-archives
       '(("gnu"   . "https://elpa.gnu.org/packages/")
         ("melpa" . "https://melpa.org/packages/")
-	("org" . "http://orgmode.org/elpa/")))
+        ("org" . "http://orgmode.org/elpa/")))
 
 (package-initialize)
 
