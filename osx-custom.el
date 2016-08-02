@@ -38,7 +38,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (tuareg ob-go xcscope whole-line-or-region web-mode use-package undo-tree smartscan py-yapf projectile paredit markdown-mode magit go-mode git-timemachine flycheck-pyflakes expand-region company-anaconda codesearch browse-kill-ring)))
+    (anaconda-mode flycheck company tuareg ob-go xcscope whole-line-or-region web-mode use-package undo-tree smartscan py-yapf projectile paredit markdown-mode magit go-mode git-timemachine flycheck-pyflakes expand-region company-anaconda codesearch browse-kill-ring)))
  '(temporary-file-directory "/tmp"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
