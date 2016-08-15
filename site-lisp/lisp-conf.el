@@ -26,6 +26,10 @@
 
 (use-package lisp-mode
   :commands lisp-mode
+  :init
+  (add-hook 'lisp-mode-hook 'jj/lisp-mode-hook)
+  (add-hook 'inferior-lisp-mode-hook 'jj/inferior-lisp-mode-hook)
+  (add-hook 'after-save-hook 'check-parens nil t)
   :config
   (use-package info-look
     :config
@@ -46,11 +50,7 @@
 
   (defun jj/inferior-lisp-mode-hook()
     (if (fboundp 'inferior-slime-mode)
-        (inferior-slime-mode t)))
-
-  (add-hook 'lisp-mode-hook 'jj/lisp-mode-hook)
-  (add-hook 'inferior-lisp-mode-hook 'jj/inferior-lisp-mode-hook)
-  (add-hook 'after-save-hook 'check-parens nil t))
+        (inferior-slime-mode t))))
 
 (provide 'lisp-conf)
 
