@@ -27,13 +27,15 @@
 (use-package org
   :commands org-mode
   :config
+  :init
+  (add-hook 'org-mode-hook 'jj/org-mode-hook)
+
   (use-package ox-md)
 
   (defun jj/org-mode-hook()
     (auto-fill-mode 1)
     (flyspell-mode 1)
     (local-set-key "\C-ca" 'org-agenda))
-  (add-hook 'org-mode-hook 'jj/org-mode-hook)
 
   (setq org-directory "~/.org")
   (setq org-default-notes-file (concat org-directory "/notes.org"))
