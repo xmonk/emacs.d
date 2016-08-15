@@ -412,7 +412,7 @@
   (setq ispell-exta-args '("--sug-mode=ultra"))
   (use-package flyspell
     :diminish flyspell-mode
-    :config
+    :init
     ;; automatically check spelling for text
     (add-hook 'text-mode-hook 'flyspell-mode)
     ;; spell check comments and strings when programming
