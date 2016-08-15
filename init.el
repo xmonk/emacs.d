@@ -114,7 +114,7 @@
 (use-package py-conf)
 (use-package rust-conf :disabled)
 (use-package slime-conf :disabled)
-(use-package ocaml-conf)
+(use-package ocaml-conf :disabled)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
