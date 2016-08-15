@@ -26,6 +26,8 @@
 
 (use-package rust-mode
   :ensure t
+  :init
+  (add-hook 'rust-mode-hook #'rustfmt-enable-on-save)
   :config
   (use-package rustfmt :ensure t)
 
@@ -33,12 +35,11 @@
   (define-key rust-mode-map (kbd "C-c C-f") #'rustfmt-format-buffer)
   (use-package racer
     :init
-    (setq racer-cmd (concat (getenv "HOME") "/.cargo/bin/racer"))
-    (setq racer-rust-src-path (concat (getenv "HOME") "/r/rust/src"))
     (add-hook 'race-mode-hook #'company-mode)
     (add-hook 'rust-mode-hook #'racer-mode)
-    (setq company-tooltip-align-annotations t))
-  (add-hook 'rust-mode-hook #'rustfmt-enable-on-save))
+    (setq racer-cmd (concat (getenv "HOME") "/.cargo/bin/racer"))
+    (setq racer-rust-src-path (concat (getenv "HOME") "/r/rust/src"))
+    (setq company-tooltip-align-annotations t)))
 
 
 (provide 'rust-conf)
