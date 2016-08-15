@@ -34,7 +34,7 @@
 
   (use-package go-eldoc
     :ensure t
-    :config
+    :init
     (add-hook 'go-mode-hook 'go-eldoc-setup))
 
   (use-package go-errcheck

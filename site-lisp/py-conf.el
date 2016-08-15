@@ -57,13 +57,14 @@
     :ensure t
     :config
     ;; (setq python-shell-virtualenv-path *venv*)
-    (load-after company
+    (use-package company
+      :init
+      (add-hook 'python-mode-hook 'anaconda-mode)
+      (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
       (use-package company-anaconda
         :ensure t
         :init
-        (add-to-list 'company-backends 'company-anaconda)))
-    (add-hook 'python-mode-hook 'anaconda-mode)
-    (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
+        (add-to-list 'company-backends 'company-anaconda))))
 
   (defun jj/pydoc (name)
     "Display pydoc information for NAME in a buffer named *pydoc*."`
