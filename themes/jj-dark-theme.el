@@ -36,8 +36,8 @@
 
   (custom-theme-set-faces
    'jj-dark
-   `(default ((,class (:foreground ,fg1 :background ,bg2))))
-   `(cursor ((,class (:background ,bg2 :foreground ,fg1))))
+   `(default ((,class (:foreground ,fg1 :background ,bg1))))
+   `(cursor ((,class (:background ,bg1 :foreground ,fg1))))
    `(mode-line ((,class (:foreground ,fg2 :background "white" :box nil :font "Lucida Grande" :height 120 :slant normal :weight normal))))
    `(mode-line-inactive ((,class (:foreground ,fg1 :background ,bg1 :box nil :font "Lucida Grande" :height 120 :slant normal :weight light))))
    `(linum ((,class (:stipple nil :background ,bg1 :foreground ,fg1 :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 92 :width normal :family "Lucida Grande"))))
