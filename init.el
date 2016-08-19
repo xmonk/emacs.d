@@ -54,17 +54,20 @@
 
 ;; themes
 (add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes"))
-(load-theme 'jj-dark t)
+;; (load-theme 'jj-dark t)
 
-;; set faces
-;; Uncomment following line and comment the second for light background
-;;(set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'default nil :background "#1a1a1a" :foreground "#C7C7C7" :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'mode-line nil :box nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'font-lock-comment-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
-(set-face-attribute 'font-lock-doc-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
-(set-face-attribute 'font-lock-function-name-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
-
+(when (memq window-system '(mac ns))
+ ;; set faces
+ ;; Uncomment following line and comment the second for light background
+ ;;(set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
+ ;;(set-face-attribute 'default nil :background "#1a1a1a" :foreground "#C7C7C7" :font "Lucida Grande
+ ;; Mono" :height 120 :slant 'normal :weight 'normal)
+ (set-face-attribute 'default nil :background "#000000" :foreground "#C7C7C7" :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
+ (set-face-attribute 'mode-line nil :box nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
+ (set-face-attribute 'font-lock-comment-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
+ (set-face-attribute 'font-lock-doc-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
+ (set-face-attribute 'font-lock-function-name-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
+ )
 ;; ido
 (ido-mode t)
 (ido-everywhere t)
