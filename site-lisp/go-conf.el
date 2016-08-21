@@ -56,8 +56,8 @@
 
   (use-package "go-guru"
     :ensure t
-    :config
-    (go-guru-hl-identifier-mode t))
+    :init
+    (add-hook 'go-mode-hook 'go-guru-hl-identifier-mode))
 
   (defun jj/go-init-hook()
     (subword-mode +1)
