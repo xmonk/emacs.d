@@ -126,14 +126,14 @@
   :init
   (global-company-mode 1)
   :config
-  (setq company-tooltip-limit 20
-        company-quickhelp-idle-delay 4
-        company-minimum-prefix-length 3
+  (setq ;;company-tooltip-limit 20
+        ;;company-quickhelp-idle-delay 4
+        ;;company-minimum-prefix-length 3
         company-idle-delay .3
         company-echo-delay 0
-        company-begin-commands '(self-insert-command)
-        company-auto-complete nil
-        company-begin-commands nil))
+	company-transformers '(company-sort-by-backend-importance)
+	company-auto-complete 'company-explicit-action-p
+        company-show-numbers t))
 
 ;;; ido
 ;; (use-package ido
@@ -324,11 +324,9 @@
   (auto-compression-mode 1))
 
 ;;; Save place
-(use-package saveplace
-  :config
-  (setq-default save-place t)
-  (setq save-place-version-control t)
-  (setq save-place-file (concat user-emacs-directory ".places")))
+(save-place-mode 1)
+(defvar save-place-version-control t)
+(defvar save-place-file (concat user-emacs-directory ".places"))
 
 ;;; winner mode
 (use-package winner
@@ -339,6 +337,7 @@
 
 ;;; sessions
 (setq session-save-file (concat user-emacs-directory ".session"))
+
 
 ;;; Paste at point NOT at cursor
 (use-package mwheel
