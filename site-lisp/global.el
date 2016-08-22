@@ -44,10 +44,6 @@
 ;; From Emacs wiki
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
-;;; load Ubuntu's site-lisp if exists.
-(if (file-directory-p "/usr/share/emacs/site-lisp")
-    (setq load-path (cons "/usr/share/emacs/site-lisp" load-path)))
-
 ;;; system configuration
 (setq-default kill-whole-line t)
 (setq-default fill-column 100)
@@ -126,33 +122,18 @@
   :init
   (global-company-mode 1)
   :config
-  (setq ;;company-tooltip-limit 20
-        ;;company-quickhelp-idle-delay 4
-        ;;company-minimum-prefix-length 3
+  (setq company-tooltip-limit 20
+        company-quickhelp-idle-delay 4
+        company-minimum-prefix-length 3
         company-idle-delay .3
         company-echo-delay 0
-	company-transformers '(company-sort-by-backend-importance)
-	company-auto-complete 'company-explicit-action-p
-        company-show-numbers t))
-
-;;; ido
-;; (use-package ido
-;;   :commands ido-mode
-;;   :init
-;;   (add-hook 'ido-setup-hook
-;;    (lambda()
-;;      ;; Go straight home
-;;      (define-key ido-file-completion-map (kbd "~")
-;;        (lambda()
-;;          (interactive)
-;;          (if (looking-back "/" 0)
-;;              (insert "~/")
-;;            (call-interactively 'self-insert-command))))))
-;;   (ido-mode 1)
-;;   (ido-everywhere))
+	;;company-transformers '(company-sort-by-backend-importance)
+	company-auto-complete nil
+	company-begin-commands nil))
 
 ;;; on duplicate filenames, show path names.
 (use-package uniquify
+  :defer 5
   :init
   (setq uniquify-buffer-name-style 'post-forward
 	uniquify-separator ":"
@@ -233,7 +214,8 @@
 (add-hook 'kill-emacs-query-functions 'jj/refresh-init-elc)
 
 ;;; Doc-view
-(autoload 'doc-view "doc-view" nil t)
+(use-package doc-view
+  :commands doc-view)
 
 ;;; Markdown
 (use-package markdown-mode
@@ -261,18 +243,14 @@
 
 ;;; vc
 (setq vc-follow-symlinks t)
-(setq change-log-default-name "ChangeLog"
-      user-full-name "Juan Fuentes"
-      user-mail-address "juan.j.fuentes@gmail.com"
-      vc-svn-header '("\$Id\$"))
 
 ;;; codesearch http://code.google.com/p/codesearch/
 (use-package codesearch
+  :ensure t
   :commands (codesearch-search codesearch-reset codesearch-list-directories)
   :init
   (jj/codesearcher codesearch-goodbed "~/.goodbedindex")
-  (jj/codesearcher codesearch-sprotrfid "~/.sportrfidindex")
-  :ensure t)
+  (jj/codesearcher codesearch-colmapp "~/.tns.csindex"))
 
 ;;; Smart scan
 (use-package smartscan
@@ -284,13 +262,12 @@
   :config
   (global-smartscan-mode 1))
 
-;;; Remove trailing whitespace
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
 ;;; Whitespace-mode
 (setq whitespace-line-column 80
       whitespace-style '(trailing lines space-before-tab
                                   indentation space-after-tab))
+;;; Remove trailing whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;;; whole-line-or-region-mode
 (use-package whole-line-or-region
@@ -320,7 +297,8 @@
 
 ;;; needed packages
 (use-package jka-compr
-  :init
+  :defer t
+  :config
   (auto-compression-mode 1))
 
 ;;; Save place
@@ -338,24 +316,24 @@
 ;;; sessions
 (setq session-save-file (concat user-emacs-directory ".session"))
 
-
 ;;; Paste at point NOT at cursor
 (use-package mwheel
+  :defer t
   :init
   (setq mouse-yank-at-point 't))
 
 ;;; browser
-(cond ((eq window-system 'x)
-       (setq browse-url-browser-function 'browse-url-default-browser))
-      ((eq window-system 'ns)
-       (setq browse-url-browser-function 'browse-url-default-macosx-browser))
-      ((eq window-system 'nil)
-       (setq browse-url-browser-function 'eww-browse-url)))
+;; (cond ((eq window-system 'x)
+;;        (setq browse-url-browser-function 'browse-url-default-browser))
+;;       ((eq window-system 'ns)
+;;        (setq browse-url-browser-function 'browse-url-default-macosx-browser))
+;;       ((eq window-system 'nil)
+;;        (setq browse-url-browser-function 'eww-browse-url)))
 
 ;;; flycheck
 (use-package flycheck
   :ensure t
-  :defer 5
+  :commands flycheck-mode
   :diminish flycheck-mode
   :config
   ;; Override default flycheck triggers
@@ -411,6 +389,7 @@
   (setq ispell-exta-args '("--sug-mode=ultra"))
   (use-package flyspell
     :diminish flyspell-mode
+    :commands flyspell-mode
     :init
     ;; automatically check spelling for text
     (add-hook 'text-mode-hook 'flyspell-mode)
@@ -438,7 +417,7 @@
 (setq mail-yank-prefix ">")
 
 ;; If images are supported than display them when visiting them.
-(if (fboundp 'auto-image-file-mode)
+(when (fboundp 'auto-image-file-mode)
     (auto-image-file-mode 1))
 
 (add-hook 'prog-mode-hook 'jj/pretty-lambdas)
