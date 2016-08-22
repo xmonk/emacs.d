@@ -55,7 +55,7 @@
   (package-install 'use-package))
 
 (require 'use-package)
-(defvar use-package-verbose nil)
+(defvar use-package-verbose t)
 
 ;; Load customization's
 (cond ((eql system-type 'darwin)
@@ -109,10 +109,10 @@
 (use-package keymaps)
 (use-package elisp-conf)
 (use-package lisp-conf)
+(use-package magit-conf)
 (use-package c-conf)
 (use-package go-conf)
-(use-package org-conf)
-(use-package magit-conf)
+(use-package org-conf :defer t)
 (use-package py-conf)
 (use-package rust-conf :disabled)
 (use-package slime-conf :disabled)
