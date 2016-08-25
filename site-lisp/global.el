@@ -139,6 +139,14 @@
 	uniquify-separator ":"
 	uniquify-after-kill-buffer-p t))
 
+;;; workgroups
+(use-package workgroups2
+  :commands workgroups2
+  :init
+  (setq wg-session-file "~/.emacs.d/.emacs_workgroups")
+  (workgroups-mode 1))
+
+
 ;;; paredit
 (use-package paredit
   :ensure t
