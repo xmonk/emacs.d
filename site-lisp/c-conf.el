@@ -59,10 +59,6 @@
   (set (make-local-variable 'compile-command)
        (concat "gcc -g -fsanitize=address " (buffer-file-name)
 	       " -o " (file-name-sans-extension buffer-file-name))))
-(use-package xcscope
-  :ensure t
-  :config
-  (cscope-setup))
 
 (add-hook 'c-mode-common-hook 'jj-c-hook)
 (add-hook 'c-mode-common-hook #'flycheck-mode)

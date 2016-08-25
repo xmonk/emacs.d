@@ -163,6 +163,13 @@
   (bind-key "C-. j" 'paredit-join-with-next-list paredit-mode-map)
   (bind-key "C-. J" 'paredit-join-with-previous-list paredit-mode-map))
 
+;;; cscope
+(use-package xcscope
+  :ensure t
+  :config
+  (cscope-setup)
+  (setq cscope-program "gtags-cscope"))
+
 ;;; diminish
 (use-package diminish
   :ensure t)
