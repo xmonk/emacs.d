@@ -40,6 +40,17 @@
 (dolist (mode '(scroll-bar-mode tool-bar-mode))
   (if (fboundp mode) (funcall mode -1)))
 
+;; themes
+(add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes"))
+
+;; set faces
+;; Uncomment following line and comment the second for light background
+(set-face-attribute 'default nil :background "#000000" :foreground "#C7C7C7" :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
+(set-face-attribute 'mode-line nil :box nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
+(set-face-attribute 'font-lock-comment-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
+(set-face-attribute 'font-lock-doc-face nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
+(set-face-attribute 'font-lock-function-name-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
+
 ;; package
 (autoload 'package "package" nil t)
 
@@ -68,21 +79,6 @@
 (if (file-exists-p custom-file)
     (load-file custom-file)
   (message "ERROR: No custom file found or specified"))
-
-;; themes
-(add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes"))
-(load-theme 'jj-dark t)
-
-;; set faces
-;; Uncomment following line and comment the second for light background
-;;(set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
-;;(set-face-attribute 'default nil :background "#1a1a1a" :foreground "#C7C7C7" :font "Lucida Grande
-;; Mono" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'default nil :background "#000000" :foreground "#C7C7C7" :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'mode-line nil :box nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'font-lock-comment-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
-(set-face-attribute 'font-lock-doc-face nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'font-lock-function-name-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
 
 ;; ido
 (ido-mode t)
@@ -114,9 +110,9 @@
 (use-package go-conf)
 (use-package org-conf :defer t)
 (use-package py-conf)
+(use-package ocaml-conf)
 (use-package rust-conf :disabled)
 (use-package slime-conf :disabled)
-(use-package ocaml-conf :disabled)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
