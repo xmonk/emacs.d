@@ -68,7 +68,7 @@
   (package-install 'use-package))
 
 (require 'use-package)
-(defvar use-package-verbose t)
+(defvar use-package-verbose nil)
 
 ;; Load customization's
 (cond ((eql system-type 'darwin)
