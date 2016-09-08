@@ -25,11 +25,11 @@
 ;;; Code:
 
 (use-package org
+  :ensure t
   :commands org-mode
-  :config
   :init
   (add-hook 'org-mode-hook 'jj/org-mode-hook)
-
+  :config
   (use-package ox-md)
 
   (defun jj/org-mode-hook()
