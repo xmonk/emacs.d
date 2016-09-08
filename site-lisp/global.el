@@ -122,6 +122,13 @@
   :init
   (global-company-mode 1)
   :config
+  (use-package company-flx
+    :ensure t
+    :init
+    (add-hook 'company-mode-hook (lambda ()
+				   (add-to-list 'company-backends 'company-capf)))
+    (company-flx-mode +1))
+
   (setq company-tooltip-limit 20
         company-quickhelp-idle-delay 4
         company-minimum-prefix-length 3
