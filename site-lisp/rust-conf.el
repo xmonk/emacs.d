@@ -29,7 +29,8 @@
   :init
   (add-hook 'rust-mode-hook #'rustfmt-enable-on-save)
   :config
-  (use-package rustfmt :ensure t)
+  (use-package rustfmt
+    :ensure t)
 
   (setq rustfmt-bin (concat (getenv "HOME") "/.cargo/bin/rustfmt"))
   (define-key rust-mode-map (kbd "C-c C-f") #'rustfmt-format-buffer)
