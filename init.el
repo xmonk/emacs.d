@@ -82,7 +82,7 @@
 
 ;; ido
 (ido-mode t)
-(ido-everywhere t)
+(ido-everywhere 1)
 
 ;; frame
 (when (memq window-system '(mac ns))
