@@ -86,11 +86,11 @@
 
   ;; Set default header arguments for the Org-mode blocks used to
   ;; showcase example Org-mode syntax.
-  (setq org-babel-default-header-args:org '((:results . "raw silent")
-                                            (:exports . "code")))
+  (setq-default org-babel-default-header-args:org '((:results . "raw silent")
+                                                    (:exports . "code")))
 
-  (setq org-babel-default-header-args:python '((:exports . "code")
-                                               (:tangle  . "yes")))
+  (setq-default org-babel-default-header-args:python '((:exports . "code")
+                                                       (:tangle  . "yes")))
   (use-package ob-go
     :ensure t)
 
