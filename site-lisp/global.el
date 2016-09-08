@@ -344,6 +344,9 @@
   :init
   (setq mouse-yank-at-point 't))
 
+;;; Mouse copy region
+(setq mouse-drag-copy-region t)
+
 ;;; browser
 ;; (cond ((eq window-system 'x)
 ;;        (setq browse-url-browser-function 'browse-url-default-browser))
