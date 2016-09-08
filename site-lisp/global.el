@@ -148,6 +148,7 @@
 
 ;;; workgroups
 (use-package workgroups2
+  :ensure t
   :commands workgroups2
   :init
   (setq wg-session-file "~/.emacs.d/.emacs_workgroups")
