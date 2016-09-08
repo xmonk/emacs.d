@@ -41,7 +41,8 @@
   (if (fboundp mode) (funcall mode -1)))
 
 ;; themes
-(add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes"))
+(add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
+(load-theme 'plain-dark t)
 
 ;; set faces
 ;; Uncomment following line and comment the second for light background
@@ -50,6 +51,7 @@
 (set-face-attribute 'font-lock-comment-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
 (set-face-attribute 'font-lock-doc-face nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
 (set-face-attribute 'font-lock-function-name-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
+(set-face-attribute 'cursor nil :background "#C7C7C7")
 
 ;; package
 (autoload 'package "package" nil t)
