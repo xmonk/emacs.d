@@ -110,7 +110,7 @@
 (use-package magit-conf)
 (use-package c-conf)
 (use-package go-conf)
-(use-package org-conf :defer t)
+(use-package org-conf)
 (use-package py-conf)
 (use-package ocaml-conf)
 (use-package rust-conf :disabled)
