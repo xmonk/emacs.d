@@ -34,7 +34,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (tuareg workgroups2 php-mode elpy nasm-mode jedi rust-mode go-guru go-rename company-go go-errcheck go-eldoc anaconda-mode flycheck company ob-go xcscope whole-line-or-region web-mode use-package undo-tree smartscan py-yapf projectile paredit markdown-mode magit go-mode git-timemachine flycheck-pyflakes expand-region company-anaconda codesearch browse-kill-ring)))
+    (magit-popup git-commit with-editor async pkg-info epl pythonic f s dash caml flx company-flx swift-mode org tuareg workgroups2 php-mode elpy nasm-mode jedi rust-mode go-guru go-rename company-go go-errcheck go-eldoc anaconda-mode flycheck company ob-go xcscope whole-line-or-region web-mode use-package undo-tree smartscan py-yapf projectile paredit markdown-mode magit go-mode git-timemachine flycheck-pyflakes expand-region company-anaconda codesearch browse-kill-ring)))
  '(temporary-file-directory "/tmp"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
