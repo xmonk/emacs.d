@@ -28,8 +28,9 @@
   :commands python-mode
   :config
 
+  (setq python-shell-completion-native-enable nil)
   (setq python-shell-interpreter "ipython"
-	python-shell-interpreter-args "--simple-prompt --pprint")
+        python-shell-interpreter-args "--simple-prompt --pprint")
 
   (autoload 'doctest-mode "doctest-mode" "Python doctest editing mode." t)
   (setq-default tab-width '4)
