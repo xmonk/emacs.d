@@ -42,11 +42,10 @@
 
 ;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-(load-theme 'plain-dark t)
 
 ;; set faces
 ;; Uncomment following line and comment the second for light background
-(set-face-attribute 'default nil :background "#000000" :foreground "#C7C7C7" :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
+(set-face-attribute 'default nil :background "#262c34" :foreground "#B5BABF" :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
 (set-face-attribute 'mode-line nil :box nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
 (set-face-attribute 'font-lock-comment-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
 (set-face-attribute 'font-lock-doc-face nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
@@ -113,8 +112,17 @@
 (use-package org-conf)
 (use-package py-conf)
 (use-package ocaml-conf)
-(use-package rust-conf :disabled)
-(use-package slime-conf :disabled)
+;; (use-package rust-conf :disabled)
+;; (use-package slime-conf :disabled)
+
+(use-package doom-themes
+  :ensure t
+  :init
+  (add-hook 'minibuffer-setup-hook 'doom-brighten-minibuffer)
+  (add-hook 'find-file-hook 'doom-buffer-mode)
+  :config
+  (load-theme 'doom-one t))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
