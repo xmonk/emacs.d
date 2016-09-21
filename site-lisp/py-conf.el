@@ -27,10 +27,10 @@
 (use-package python
   :commands python-mode
   :config
-
-  (setq python-shell-completion-native-enable nil)
-  (setq python-shell-interpreter "ipython"
-        python-shell-interpreter-args "--simple-prompt --pprint")
+  (setq python-shell-interpreter "python"
+        python-shell-interpreter-args "-i"
+        comint-process-echoes t
+        python-shell-completion-native-enable nil)
 
   (autoload 'doctest-mode "doctest-mode" "Python doctest editing mode." t)
   (setq-default tab-width '4)
