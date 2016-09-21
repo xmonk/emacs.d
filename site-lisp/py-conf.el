@@ -59,7 +59,7 @@
       (use-package company-anaconda
         :ensure t
         :init
-        (add-to-list 'company-backends 'company-anaconda))))
+        (add-to-list 'company-backends '(company-anaconda :with company-capf)))))
 
   (defun jj/pydoc (name)
     "Display pydoc information for NAME in a buffer named *pydoc*."`
