@@ -119,8 +119,8 @@
   :ensure t
   :bind (("C-c TAB" . company-complete))
   :diminish company-mode
-  :init
-  (global-company-mode 1)
+  :defer t
+  :init (global-company-mode 1)
   :config
   (use-package company-flx
     :ensure t
@@ -148,7 +148,9 @@
 
 ;;; workgroups
 (use-package workgroups2
+  :disabled
   :ensure t
+  :defer t
   :commands workgroups2
   :init
   (setq wg-session-file "~/.emacs.d/.emacs_workgroups")
@@ -158,6 +160,7 @@
 ;;; paredit
 (use-package paredit
   :ensure t
+  :defer t
   :commands paredit-mode
   :diminish paredit-mode
   :config
@@ -182,8 +185,9 @@
 ;;; cscope
 (use-package xcscope
   :ensure t
+  :defer t
+  :init (cscope-setup)
   :config
-  (cscope-setup)
   (setq cscope-program "gtags-cscope"))
 
 ;;; diminish
@@ -277,13 +281,13 @@
 
 ;;; Smart scan
 (use-package smartscan
-  :ensure t
+  :disabled
+  :defer t
   :commands smartscan-mode
   :bind-keymap (("M-n" . smartscan-map)
 		("M-p" . smartscan-map)
 		("M-'" . smartscan-map))
-  :config
-  (global-smartscan-mode 1))
+  :init (global-smartscan-mode 1))
 
 ;;; Whitespace-mode
 (setq whitespace-line-column 80
@@ -295,6 +299,7 @@
 ;;; whole-line-or-region-mode
 (use-package whole-line-or-region
   :ensure t
+  :defer t
   :bind (("C-y" . whole-line-or-region-yank)
 	 ("M-w" . whole-line-or-region-kill-ring-save))
   :diminish whole-line-or-region-mode
