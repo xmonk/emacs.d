@@ -706,6 +706,9 @@ ARG should be one of: `dark' `light' 'nil'."
   (setq frame-background-mode arg)
   (mapc 'frame-set-background-mode (frame-list)))
 
+(defun jj/pwd ()
+  (car (cdr (split-string (pwd) " "))))
+
 (provide 'defuns)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; defuns.el ends here
