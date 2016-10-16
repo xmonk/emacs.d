@@ -26,6 +26,15 @@
 (autoload 'debug "debug" "emacs debugger")
 (setq debug-on-error nil)
 
+;; set faces
+;; Uncomment following line and comment the second for light background
+(set-face-attribute 'default nil :background "#000000" :foreground "#C7C7C7" :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
+(set-face-attribute 'mode-line nil :box nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
+(set-face-attribute 'font-lock-comment-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
+(set-face-attribute 'font-lock-doc-face nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
+(set-face-attribute 'font-lock-function-name-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
+(set-face-attribute 'cursor nil :background "#C7C7C7")
+
 (defvar *site-lisp* (concat user-emacs-directory "site-lisp/")
   "Location of configuration files to be loaded at start up.")
 
@@ -40,17 +49,19 @@
 (dolist (mode '(scroll-bar-mode tool-bar-mode))
   (if (fboundp mode) (funcall mode -1)))
 
+;; frame
+(when (memq window-system '(mac ns))
+  (if (boundp 'mac-option-modifier)
+      (setq mac-option-modifier 'meta))
+  (setq mac-allow-anti-aliasing t)
+  (setenv "TMPDIR" "/tmp") ;; os x sets it to /var/tmp/...
+  (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
+    (setenv "PATH" path)
+    (setq exec-path (split-string path path-separator))))
+
 ;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-
-;; set faces
-;; Uncomment following line and comment the second for light background
-(set-face-attribute 'default nil :background "#262c34" :foreground "#B5BABF" :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'mode-line nil :box nil :font "Lucida Grande" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'font-lock-comment-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
-(set-face-attribute 'font-lock-doc-face nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'font-lock-function-name-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
-(set-face-attribute 'cursor nil :background "#C7C7C7")
+(load-theme 'plain-dark t)
 
 ;; package
 (autoload 'package "package" nil t)
@@ -67,7 +78,7 @@
   (package-install 'use-package))
 
 (require 'use-package)
-(defvar use-package-verbose nil)
+(defvar use-package-verbose t)
 
 ;; Load customization's
 (cond ((eql system-type 'darwin)
@@ -85,16 +96,6 @@
 (ido-mode t)
 (ido-everywhere 1)
 
-;; frame
-(when (memq window-system '(mac ns))
-  (if (boundp 'mac-option-modifier)
-      (setq mac-option-modifier 'meta))
-  (setq mac-allow-anti-aliasing t)
-  (setenv "TMPDIR" "/tmp") ;; os x sets it to /var/tmp/...
-  (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
-    (setenv "PATH" path)
-    (setq exec-path (split-string path path-separator))))
-
 ;;; Server
 (require 'server nil t)
 (when (and (>= emacs-major-version 23) (not (server-running-p)))
@@ -111,18 +112,9 @@
 (use-package go-conf)
 (use-package org-conf)
 (use-package py-conf)
-(use-package ocaml-conf)
+;; (use-package ocaml-conf)
 ;; (use-package rust-conf :disabled)
 ;; (use-package slime-conf :disabled)
-
-(use-package doom-themes
-  :ensure t
-  :init
-  (add-hook 'minibuffer-setup-hook 'doom-brighten-minibuffer)
-  (add-hook 'find-file-hook 'doom-buffer-mode)
-  :config
-  (load-theme 'doom-one t))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
