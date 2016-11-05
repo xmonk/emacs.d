@@ -49,6 +49,10 @@
 (dolist (mode '(scroll-bar-mode tool-bar-mode))
   (if (fboundp mode) (funcall mode -1)))
 
+;; themes
+(add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
+(load-theme 'plain-dark t)
+
 ;; frame
 (when (memq window-system '(mac ns))
   (if (boundp 'mac-option-modifier)
@@ -58,10 +62,6 @@
   (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
     (setenv "PATH" path)
     (setq exec-path (split-string path path-separator))))
-
-;; themes
-(add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-(load-theme 'plain-dark t)
 
 ;; package
 (autoload 'package "package" nil t)
@@ -113,8 +113,8 @@
 (use-package org-conf)
 (use-package py-conf)
 ;; (use-package ocaml-conf)
-;; (use-package rust-conf :disabled)
-;; (use-package slime-conf :disabled)
+;; (use-package rust-conf)
+;; (use-package slime-conf)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
