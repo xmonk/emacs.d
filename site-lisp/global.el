@@ -279,7 +279,7 @@
 
 ;;; Smart scan
 (use-package smartscan
-  :disabled
+  :ensure t
   :defer t
   :commands smartscan-mode
   :bind-keymap (("M-n" . smartscan-map)
