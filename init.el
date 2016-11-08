@@ -112,9 +112,9 @@
 (use-package go-conf)
 (use-package org-conf)
 (use-package py-conf)
-;; (use-package ocaml-conf)
-;; (use-package rust-conf)
-;; (use-package slime-conf)
+(use-package ocaml-conf :disabled)
+(use-package rust-conf :disabled)
+(use-package slime-conf :disabled)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
