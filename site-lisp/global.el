@@ -309,6 +309,9 @@
   :ensure t
   :bind ("C-c k" . browse-kill-ring))
 
+;; add system clipboard to kill-ring
+(setq save-interprogram-paste-before-kill t)
+
 ;;; Abbrev
 (use-package abbrev
   :commands abbrev-mode
