@@ -255,11 +255,14 @@
       (setq markdown-command markdown-cmd))))
 
 ;;; Web-mode
-(use-package "web-mode"
+(use-package web-mode
   :ensure t
   :defer t
   :mode (("\\.html$" . web-mode)
-	 ("\\.xhtml$" . web-mode)))
+	 ("\\.xhtml$" . web-mode))
+  :init
+  (add-hook 'web-mode-hook (lambda ()
+			     (setq web-mode-markup-indent-offset 2))))
 
 ;;; Expand-region
 (use-package expand-region
