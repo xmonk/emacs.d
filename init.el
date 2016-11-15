@@ -51,7 +51,7 @@
 
 ;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-(load-theme 'plain-dark t)
+(load-theme 'jj-dark t)
 
 ;; frame
 (when (memq window-system '(mac ns))
