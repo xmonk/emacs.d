@@ -105,6 +105,7 @@
 (use-package defuns)
 (use-package global)
 (use-package keymaps)
+(use-package cedet-conf)
 (use-package elisp-conf)
 (use-package lisp-conf)
 (use-package magit-conf)
