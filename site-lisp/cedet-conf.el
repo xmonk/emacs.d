@@ -24,7 +24,6 @@
 ;;
 ;;; Code:
 
-(global-ede-mode t)
 (require 'semantic/sb)
 (require 'semantic/ia)
 
@@ -37,13 +36,6 @@
 ;; Enable srecode
 (require 'srecode)
 (srecode-minor-mode 1)
-
-;; (setq common-cedet-mode-list
-;;       (list 'c-mode-common-hook
-;;             'lisp-mode-hook
-;;             'emacs-lisp-mode-hook
-;;             'python-mode-hook
-;;             'makefile-mode-hook))
 
 (semanticdb-enable-gnu-global-databases 'c-mode t)
 (semanticdb-enable-gnu-global-databases 'c++-mode t)
