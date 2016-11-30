@@ -24,8 +24,10 @@
 ;;
 ;;; Code:
 
+
+(load (concat (getenv "HOME") "/.opam/system/share/emacs/site-lisp/tuareg-site-file"))
+
 (use-package tuareg
-  :ensure t
   :commands tuareg-mode
   :init
   ;; Add opam emacs directory to the load-path
