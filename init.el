@@ -113,7 +113,8 @@
 (use-package go-conf)
 (use-package org-conf)
 (use-package py-conf)
-(use-package ocaml-conf :disabled)
+(use-package ocaml-conf
+  :if (file-directory-p (concat (getenv "HOME") "/.opam")))
 (use-package rust-conf :disabled)
 (use-package slime-conf :disabled)
 
