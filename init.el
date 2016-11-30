@@ -114,7 +114,9 @@
 (use-package org-conf)
 (use-package py-conf)
 (use-package ocaml-conf
-  :if (file-directory-p (concat (getenv "HOME") "/.opam")))
+  :if (file-directory-p (concat (getenv "HOME") "/.opam"))
+  :config
+  (load (concat (getenv "HOME") "/.opam/system/share/emacs/site-lisp/tuareg-site-file")))
 (use-package rust-conf :disabled)
 (use-package slime-conf :disabled)
 
