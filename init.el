@@ -52,12 +52,14 @@
 
 ;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-(load-theme 'jj-dark t)
+;;(load-theme 'jj-dark t)
 
 ;; frame
 (when (memq window-system '(mac ns))
   (if (boundp 'mac-option-modifier)
       (setq mac-option-modifier 'meta))
+  (if (boundp 'mac-command-modifier)
+      (setq mac-command-modifier 'super))
   (setq mac-allow-anti-aliasing t)
   (setenv "TMPDIR" "/tmp") ;; os x sets it to /var/tmp/...
   (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
@@ -68,8 +70,7 @@
 (autoload 'package "package" nil t)
 
 (setq package-archives
-      '(("gnu"   . "https://elpa.gnu.org/packages/")
-        ("melpa" . "https://melpa.org/packages/")
+      '(("melpa" . "https://melpa.org/packages/")
         ("org" . "http://orgmode.org/elpa/")))
 
 (package-initialize)
