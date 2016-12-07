@@ -148,7 +148,7 @@
 
 ;;; workgroups
 (use-package workgroups2
-  :ensure t
+  :disabled
   :defer t
   :commands workgroups2
   :init
