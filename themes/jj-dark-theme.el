@@ -55,6 +55,7 @@
       (white "#FFFFFF"))
   (apply 'custom-theme-set-faces 'jj-dark
 	 ;; `(mode-line ((t (:box nil))))
+	 `(font-lock-warning-face ((t (:foreground ,white :background ,black :font "Lucida Grande" :height 130 :slant normal :weight bold))))
 	 `(mode-line ((t (:foreground ,black :background "gray" :box nil :font "Lucida Grande" :height 120 :slant normal :weight normal))))
 	 `(mode-line-inactive ((t (:foreground ,black :background "darkgray" :box nil :font "Lucida Grande" :height 120 :slant normal :weight light))))
 	 `(cursor ((t (:background ,white :foreground ,black))))
