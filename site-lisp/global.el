@@ -116,6 +116,7 @@
 
 ;;; company
 (use-package company
+  :disabled
   :ensure t
   :bind (("C-c TAB" . company-complete))
   :diminish company-mode
@@ -123,6 +124,7 @@
   :init (global-company-mode 1)
   :config
   (use-package company-flx
+    :disabled
     :ensure t
     :init
     (add-hook 'company-mode-hook (lambda ()
@@ -282,7 +284,7 @@
 
 ;;; Smart scan
 (use-package smartscan
-  :ensure t
+  :disabled
   :defer t
   :commands smartscan-mode
   :bind-keymap (("M-n" . smartscan-map)
@@ -458,15 +460,6 @@
 (add-hook 'prog-mode-hook 'jj/pretty-lambdas)
 (add-hook 'prog-mode-hook 'jj/local-comment-auto-fill)
 (add-hook 'prog-mode-hook 'jj/add-watchwords)
-
-;;; eshell
-(defun jj/eshell-prompt ()
-  "Personal prompt."
-  (if (= (user-uid) 0)
-      "# " ":; "))
-(setq eshell-prompt-regexp "^[^#:;\n]*[#;] ")
-(setq eshell-prompt-function  'jj/eshell-prompt)
-(setq eshell-ls-use-colors nil)
 
 (provide 'global)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

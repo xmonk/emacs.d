@@ -92,21 +92,23 @@
 
   ;; company-c-headers
   (use-package company-c-headers
+    :disabled
     :ensure t
     :init
     (add-to-list 'company-backends 'company-c-headers))
 
   (defun jj-c-hook()
     (load-after company
-      (add-to-list 'company-backends '(company-clang)))
+      (add-to-list 'company-backends '(company-clang))
+      (define-key c-mode-map  (kbd "C-c TAB") 'company-complete)
+      (define-key c++-mode-map  (kbd "C-c TAB") 'company-complete))
+
     (define-key c-mode-base-map (kbd "C-c i") 'c-insert-include)
     (define-key c-mode-base-map (kbd "C-c I") 'c-insert-local-include)
     (define-key c-mode-base-map (kbd "C-c C-c") 'compile)
     (define-key c-mode-base-map (kbd "C-c f") 'ff-find-other-file)
     (define-key c-mode-base-map (kbd "C-c C-j") 'semantic-ia-fast-jump)
     (define-key c-mode-base-map (kbd "C-c C-s") 'semantic-ia-show-summary)
-    (define-key c-mode-map  (kbd "C-c TAB") 'company-complete)
-    (define-key c++-mode-map  (kbd "C-c TAB") 'company-complete)
 
     (set (make-local-variable 'compile-command)
 	 (concat "gcc -g -fsanitize=address " (buffer-file-name)
