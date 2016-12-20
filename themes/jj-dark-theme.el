@@ -24,8 +24,6 @@
 ;;
 ;;; Code:
 
-;; #D0D0D0
-
 (deftheme jj-dark)
 
 (defvar jj-faces
@@ -54,10 +52,12 @@
 (let ((black "#000000")
       (white "#FFFFFF"))
   (apply 'custom-theme-set-faces 'jj-dark
-	 ;; `(mode-line ((t (:box nil))))
+	 `(font-lock-function-name-face ((t (:font "Lucida Grande" :height 140 :slant normal :weight normal))))
+	 `(font-lock-comment-face ((t (:font "Lucida Grande" :height 140 :slant normal :weight normal))))
+	 `(font-doc-face ((t (:font "Lucida Grande Mono" :height 130 :slant normal :weight normal))))
 	 `(font-lock-warning-face ((t (:foreground ,white :background ,black :font "Lucida Grande" :height 130 :slant normal :weight bold))))
-	 `(mode-line ((t (:foreground ,black :background "gray" :box nil :font "Lucida Grande" :height 120 :slant normal :weight normal))))
-	 `(mode-line-inactive ((t (:foreground ,black :background "darkgray" :box nil :font "Lucida Grande" :height 120 :slant normal :weight light))))
+	 `(mode-line ((t (:foreground ,black :background ,white :box nil :font "Lucida Grande" :height 130 :slant normal :weight normal))))
+	 `(mode-line-inactive ((t (:foreground ,black :background ,white :box nil :font "Lucida Grande" :height 130 :slant normal :weight light))))
 	 `(cursor ((t (:background ,white :foreground ,black))))
 	 `(org-code ((t (:foreground ,white :weight bold))))
 	 `(org-verbatim ((t (:foreground ,white))))
@@ -95,7 +95,7 @@
 	 ;; eshell
 	 `(eshell-prompt ((t (:inherit default))))
 	 `(font-lock-warning-face ((t (:foreground ,black :bold t :underline t))))
-	 (mapcar (lambda (n) `(,n ((t (:background ,black :foreground ,white))))) jj-faces)))
+	 (mapcar (lambda (n) `(,n ((t (:background ,black :foreground ,white :font "Lucida Grande Mono" :height 120))))) jj-faces)))
 
 ;;;###autoload
 (when load-file-name
