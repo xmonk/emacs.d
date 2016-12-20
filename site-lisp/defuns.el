@@ -707,7 +707,19 @@ ARG should be one of: `dark' `light' 'nil'."
   (mapc 'frame-set-background-mode (frame-list)))
 
 (defun jj/pwd ()
+  "Prints the current working directory."
   (car (cdr (split-string (pwd) " "))))
+
+(defun jj/ls_selected_packages ()
+  "List of all user selected packages."
+  (dolist (p package-selected-packages)
+    (princ (format "%s\n" p))))
+
+(defun jj/ls_installed_packages ()
+  "List all installed packages."
+  (dolist (a package-activated-list)
+    (princ (format "%s\n" a))))
+
 
 (provide 'defuns)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
