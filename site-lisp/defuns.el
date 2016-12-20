@@ -671,11 +671,11 @@ active, apply to active region instead."
   (add-to-list 'default-frame-alist (cons 'height ty))))
 
 (defun endless/ispell-word-then-abbrev (p)
-"Call `ispell-word', to create an abbrev for it with prefix `P`
-create local abbrev.  Otherwise it will be global if there's
-nothing wrong with the word at point, keep looking for a typo
-until the beginning of buffer.  You can skip typos you don't want
-to fix with `SPC', and you can abort completely with `C-g'."
+"Create an abbrev for it with prefix `P` create local abbrev.
+Otherwise it will be global if there's nothing wrong with the
+word at point, keep looking for a typo until the beginning of
+buffer.  You can skip typos you don't want to fix with `SPC', and
+you can abort completely with `C-g'."
   (interactive "P")
   (let (bef aft)
     (save-excursion
