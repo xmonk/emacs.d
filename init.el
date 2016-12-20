@@ -115,6 +115,7 @@
 (use-package go-conf)
 (use-package org-conf)
 (use-package py-conf)
+(use-package eshell-conf)
 (use-package ocaml-conf
   :if (file-directory-p (concat (getenv "HOME") "/.opam"))
   :config
