@@ -27,15 +27,7 @@
 (require 'semantic/sb)
 (require 'semantic/ia)
 
-(global-semantic-decoration-mode t)
-(global-semantic-highlight-func-mode t)
-(global-semantic-show-unmatched-syntax-mode t)
-(global-semantic-idle-completions-mode t)
 (semantic-mode t)
-
-;; Enable srecode
-(require 'srecode)
-(srecode-minor-mode 1)
 
 (semanticdb-enable-gnu-global-databases 'c-mode t)
 (semanticdb-enable-gnu-global-databases 'c++-mode t)
