@@ -36,7 +36,8 @@
   (define-key rust-mode-map (kbd "C-c C-f") #'rustfmt-format-buffer)
   (use-package racer
     :init
-    (add-hook 'race-mode-hook #'company-mode)
+    (load-after company
+      (add-hook 'race-mode-hook #'company-mode))
     (add-hook 'rust-mode-hook #'racer-mode)
     (setq racer-cmd (concat (getenv "HOME") "/.cargo/bin/racer"))
     (setq racer-rust-src-path (concat (getenv "HOME") "/r/rust/src"))
