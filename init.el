@@ -27,14 +27,9 @@
 (setq debug-on-error nil)
 
 ;; set faces
-;; Uncomment following line and comment the second for light background
-;; (set-face-attribute 'default nil :background "#000000" :foreground "#C7C7C7" :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'mode-line nil :box nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'font-lock-comment-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
-(set-face-attribute 'font-lock-doc-face nil :font "Lucida Grande Mono" :height 120 :slant 'normal :weight 'normal)
-(set-face-attribute 'font-lock-function-name-face nil :font "Lucida Grande" :height 130 :slant 'normal :weight 'normal)
-(set-face-attribute 'cursor nil :background "#C7C7C7")
+;; themes
+(add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
+(load-theme 'jj-dark t)
 
 (defvar *site-lisp* (concat user-emacs-directory "site-lisp/")
   "Location of configuration files to be loaded at start up.")
@@ -49,10 +44,6 @@
 
 (dolist (mode '(scroll-bar-mode tool-bar-mode))
   (if (fboundp mode) (funcall mode -1)))
-
-;; themes
-(add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-;;(load-theme 'jj-dark t)
 
 ;; frame
 (when (memq window-system '(mac ns))
