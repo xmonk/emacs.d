@@ -247,8 +247,9 @@
 ;;; Markdown
 (use-package markdown-mode
   :ensure t
-  :defer t
-  :mode ("\\.\\(m\\(ark\\)?down\\|md\\)$" . markdown-mode)
+  :commands (markdown-mode gfm-mode)
+  :mode (("\\.\\(m\\(ark\\)?down\\|md\\)$" . markdown-mode)
+	 ("README\\.md\\'" . gfm-mode))
   :init
   (add-hook 'markdown-mode-hook 'flyspell-mode)
   :config
