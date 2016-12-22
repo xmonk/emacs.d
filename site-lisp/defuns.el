@@ -720,6 +720,11 @@ ARG should be one of: `dark' `light' 'nil'."
   (dolist (a package-activated-list)
     (princ (format "%s\n" a))))
 
+(defun jj/create-file (file)
+  "Create the specified FILE."
+  (if (file-exists-p file)
+      (user-error "File: %s already exists" file)
+    (write-region "" "" file)))
 
 (provide 'defuns)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
