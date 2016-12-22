@@ -339,8 +339,8 @@
 
 ;;; Save place
 (save-place-mode 1)
-(defvar save-place-version-control t)
-(defvar save-place-file (concat user-emacs-directory ".places"))
+(setq save-place-version-control t)
+(setq save-place-file (concat user-emacs-directory ".places"))
 
 ;;; winner mode
 (use-package winner
