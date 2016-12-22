@@ -41,8 +41,6 @@
   (use-package helm-flycheck :ensure t :defer)
   (use-package helm-projectile :ensure t :defer)
 
-  (helm-adaptative-mode)
-
   (setq helm-google-suggest-use-curl-p t
 	helm-scroll-amount 4 ; scroll 4 lines other window using M-<next>/M-<prior>
 	helm-quick-update t ; do not display invisible candidates
@@ -111,7 +109,7 @@
   (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; ebind tab to run persistent action
   (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
   (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
-  (define-key helm-map (kbd "C-x C-m") 'helm-M-x)
+  (global-set-key (kbd "C-x C-m") 'helm-M-x)
   (global-set-key (kbd "C-x b") 'helm-mini)
   (when (executable-find "curl")
     (setq helm-google-suggest-use-curl-p t))
