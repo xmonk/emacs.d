@@ -1,7 +1,7 @@
 # Emacs Configuration.
 
 I use emacs trunk for my daily tasks, I update it often, so my configuration
-might not work with earlier version of emacs.
+might not work with earlier version of Emacs.
 
 ## Installation
 
