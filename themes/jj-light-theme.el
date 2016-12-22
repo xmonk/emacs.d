@@ -52,10 +52,10 @@
 (let ((black "#000000")
       (white "#FFFFFF"))
   (apply 'custom-theme-set-faces 'jj-light
-	 `(font-lock-function-name-face ((t (:font "Lucida Grande" :height 140 :slant normal :weight normal))))
-	 `(font-lock-comment-face ((t (:font "Lucida Grande" :height 140 :slant normal :weight normal))))
+	 `(font-lock-function-name-face ((t (:font "Lucida Grande" :height 130 :slant normal :weight normal))))
+	 `(font-lock-comment-face ((t (:font "Lucida Grande" :height 130 :slant normal :weight normal))))
 	 `(font-doc-face ((t (:font "Lucida Grande Mono" :height 130 :slant normal :weight normal))))
-	 `(font-lock-warning-face ((t (:foreground ,black :background ,white :font "Lucida Grande" :height 140 :slant normal :weight bold))))
+	 `(font-lock-warning-face ((t (:foreground ,black :background ,white :font "Lucida Grande" :height 130 :slant normal :weight bold))))
 	 `(mode-line ((t (:foreground ,white :background ,black :box nil :font "Lucida Grande" :height 130 :slant normal :weight normal))))
 	 `(mode-line-inactive ((t (:foreground ,white :background ,black :box nil :font "Lucida Grande" :height 130 :slant normal :weight light))))
 	 `(cursor ((t (:background ,black :foreground ,black))))
