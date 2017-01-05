@@ -15,3 +15,4 @@
 /helm-adaptive-history
 /anaconda-mode/
 /auto-save-list/
+*.elc
