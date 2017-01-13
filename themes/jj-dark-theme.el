@@ -50,14 +50,15 @@
      mode-line))
 
 (let ((black "#161616")
+      (black2 "#3F3F3F")
       (white "#FFFFFF"))
   (apply 'custom-theme-set-faces 'jj-dark
-	 `(font-lock-function-name-face ((t (:font "Lucida Grande" :height 130 :slant normal :weight normal))))
-	 `(font-lock-comment-face ((t (:font "Lucida Grande" :height 130 :slant normal :weight normal))))
-	 `(font-doc-face ((t (:font "Lucida Grande Mono" :height 130 :slant normal :weight normal))))
-	 `(font-lock-warning-face ((t (:foreground ,white :background ,black :font "Lucida Grande" :height 130 :slant normal :weight bold))))
-	 `(mode-line ((t (:foreground ,black :background ,white :box nil :font "Lucida Grande" :height 130 :slant normal :weight normal))))
-	 `(mode-line-inactive ((t (:foreground ,black :background ,white :box nil :font "Lucida Grande" :height 130 :slant normal :weight light))))
+	 `(font-lock-function-name-face ((t (:font "Lucida Grande Mono" :height 120 :slant normal :weight normal))))
+	 `(font-lock-comment-face ((t (:font "Lucida Grande Mono" :height 120 :slant normal :weight normal))))
+	 `(font-doc-face ((t (:font "Lucida Grande Mono" :height 120 :slant normal :weight normal))))
+	 `(font-lock-warning-face ((t (:foreground ,white :background ,black :font "Lucida Grande Mono" :height 120 :slant normal :weight bold))))
+	 `(mode-line ((t (:foreground ,black :background ,white :box nil :font "Lucida Grande Mono" :height 120 :slant normal :weight normal))))
+	 `(mode-line-inactive ((t (:foreground ,black :background ,white :box nil :font "Lucida Grande Mono" :height 120 :slant normal :weight light))))
 	 `(cursor ((t (:background ,white :foreground ,black))))
 	 `(org-code ((t (:foreground ,white :weight bold))))
 	 `(org-verbatim ((t (:foreground ,white))))
@@ -82,20 +83,21 @@
 	 `(popup-face ((t (:inherit default))))
 	 `(popup-summary-face ((t (:inherit default))))
 	 `(popup-menu-face ((t (:inherit default))))
-	 `(popup-tip-face ((t (:background ,white :foreground ,black :bold t :font "Lucida Grande Mono Nrw" :height 130))))
+	 `(popup-tip-face ((t (:background ,white :foreground ,black :bold t :font "Lucida Grande Mono Nrw" :height 120))))
+
 	 ;; company
-	 `(company-preview ((t (:foreground ,white :underline t :font "Lucida Grande Mono Nrw" :height 130))))
+	 `(company-preview ((t (:foreground ,white :underline t :font "Lucida Grande Mono Nrw" :height 120))))
 	 `(company-preview-common ((t (:inherit company-preview))))
 	 `(company-scrollbar-black ((t (:background ,black :foreground ,white))))
 	 `(company-scrollbar-fg ((t (:background ,white :foreground ,black))))
-	 `(company-tooltip ((t (:background ,black :foreground ,white :font "Lucida Grande Mono" :height 130))))
+	 `(company-tooltip ((t (:background ,black :foreground ,white :font "Lucida Grande Mono" :height 110))))
 	 `(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
 	 `(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
-	 `(company-tooltip-selection ((t (:background ,white :foreground ,black :font "Lucida Grande Mono" :height 130))))
+	 `(company-tooltip-selection ((t (:background ,white :foreground ,black :font "Lucida Grande Mono" :height 120))))
 	 ;; eshell
 	 `(eshell-prompt ((t (:inherit default))))
 	 `(font-lock-warning-face ((t (:foreground ,black :bold t :underline t))))
-	 (mapcar (lambda (n) `(,n ((t (:background ,black :foreground ,white :font "Lucida Grande Mono" :height 130))))) jj-faces)))
+	 (mapcar (lambda (n) `(,n ((t (:background ,black :foreground ,white :font "Lucida Grande Mono" :height 120 :width normal :weight normal))))) jj-faces)))
 
 ;;;###autoload
 (when load-file-name
