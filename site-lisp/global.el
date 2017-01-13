@@ -349,6 +349,16 @@
   :init
   (winner-mode))
 
+;;; windmove
+(use-package windmove
+  :bind (("s-h" . windmove-left)
+	 ("s-l" . windmove-right)
+	 ("s-k" . windmove-up)
+	 ("s-j" . windmove-down))
+  :config
+  (windmove-default-keybindings 'super)
+  (setq windmove-wrap-around t))
+
 ;;; sessions
 (setq session-save-file (concat user-emacs-directory ".session"))
 
