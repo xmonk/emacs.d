@@ -95,7 +95,7 @@
   (server-start))
 
 (add-to-list 'load-path (expand-file-name *site-lisp*))
-(use-package defuns)
+(use-package defuns :config (init-maxframe))
 (use-package global)
 (use-package keymaps)
 (use-package cedet-conf)
