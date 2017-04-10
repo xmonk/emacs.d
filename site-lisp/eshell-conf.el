@@ -50,7 +50,7 @@
 
 (defun jj/simple-eshell-prompt ()
   (if (= (user-uid) 0)
-      "# " ":; "))
+      "# " "$ "))
 
 (load-after esh-opt
   (require 'em-prompt)
@@ -85,7 +85,7 @@
 ;;  (add-to-list 'path (concat (getenv "HOME") "/bin"))
 ;;  (setenv "PATH" (mapconcat 'identity path ":")))
 
-(setq eshell-prompt-function  'jj/simple-eshell-prompt)
+(setq eshell-prompt-function  'jj/eshell-prompt)
 
 (provide 'eshell-conf)
 
