@@ -86,7 +86,7 @@
 	 ;; company
 	 `(company-preview ((t (:foreground ,white :underline t :font "Lucida Grande Mono Nrw" :height 130))))
 	 `(company-preview-common ((t (:inherit company-preview))))
-	 `(company-scrollbar-black ((t (:background ,black :foreground ,white))))
+	 `(company-scrollbar-bg ((t (:background ,black :foreground ,white))))
 	 `(company-scrollbar-fg ((t (:background ,white :foreground ,black))))
 	 `(company-tooltip ((t (:background ,black :foreground ,white :font "Lucida Grande Mono" :height 130))))
 	 `(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
