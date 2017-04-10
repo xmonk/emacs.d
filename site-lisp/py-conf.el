@@ -36,11 +36,9 @@
   (setq-default tab-width '4)
   (setq-default indent-tabs-mode nil)
   (subword-mode +1)
+
   (when (executable-find "pyflakes")
-    (use-package flycheck-pyflakes
-      :ensure t
-      :init
-      (add-hook 'python-mode-hook #'flycheck-mode)))
+    (add-hook 'python-mode-hook 'flycheck-mode))
 
   (when (executable-find "yapf")
     (use-package py-yapf
@@ -56,7 +54,6 @@
     :config
     (load-after company
       (use-package company-anaconda
-        :disabled
         :ensure t
         :init
         (add-to-list 'company-backends 'company-anaconda))))
