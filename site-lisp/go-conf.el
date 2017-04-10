@@ -43,7 +43,6 @@
 
   (eval-after-load "company"
     (use-package company-go
-      :disabled
       :ensure t
       :config
       (add-to-list 'company-backends '(company-go))

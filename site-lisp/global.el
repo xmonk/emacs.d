@@ -116,7 +116,6 @@
 
 ;;; company
 (use-package company
-  :disabled
   :ensure t
   :bind (("C-c TAB" . company-complete))
   :diminish company-mode
@@ -124,7 +123,6 @@
   :init (global-company-mode 1)
   :config
   (use-package company-flx
-    :disabled
     :ensure t
     :init
     (add-hook 'company-mode-hook (lambda ()
@@ -370,14 +368,6 @@
 
 ;;; Mouse copy region
 (setq mouse-drag-copy-region t)
-
-;;; browser
-;; (cond ((eq window-system 'x)
-;;        (setq browse-url-browser-function 'browse-url-default-browser))
-;;       ((eq window-system 'ns)
-;;        (setq browse-url-browser-function 'browse-url-default-macosx-browser))
-;;       ((eq window-system 'nil)
-;;        (setq browse-url-browser-function 'eww-browse-url)))
 
 ;;; flycheck
 (use-package flycheck
