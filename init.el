@@ -29,7 +29,7 @@
 ;; set faces
 ;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-(load-theme 'jj-dark t)
+(set-face-attribute 'default nil :background "#000000" :foreground "#C7C7C7" :font "SF Mono" :height 130 :slant 'normal :weight 'normal)
 
 (defvar *site-lisp* (concat user-emacs-directory "site-lisp/")
   "Location of configuration files to be loaded at start up.")
@@ -95,7 +95,9 @@
   (server-start))
 
 (add-to-list 'load-path (expand-file-name *site-lisp*))
-(use-package defuns :config (init-maxframe))
+(use-package defuns
+  :config
+  (init-maxframe))
 (use-package global)
 (use-package keymaps)
 (use-package cedet-conf)
