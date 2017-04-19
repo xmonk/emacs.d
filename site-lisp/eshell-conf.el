@@ -46,7 +46,7 @@
 (defun jj/eshell-prompt()
   (concat (abbreviate-file-name (eshell/pwd))
           (if (= (user-uid) 0)
-              "# " "$ ")))
+              "# " ":; ")))
 
 (defun jj/simple-eshell-prompt ()
   (if (= (user-uid) 0)
@@ -78,7 +78,8 @@
   "Change directory to the project's root."
   (eshell/cd (locate-dominating-file default-directory "src")))
 
-(setq eshell-prompt-regexp "^[^#;$\n]*[#;] ")
+;; (setq eshell-prompt-regexp "^[^#;$\n]*[#;] ")
+(setq eshell-prompt-regexp "^[^#;\:\;\n]* [#\:\;] " )
 ;;(setq eshell-prompt-regexp "^[^#$\n]*[#$] ")
 
 ;;(let ((path (split-string (getenv "PATH") ":")))
