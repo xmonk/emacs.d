@@ -31,6 +31,7 @@
 ;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
 (set-face-attribute 'default nil :background "#000000" :foreground "#C7C7C7" :font "SF Mono Medium" :height 130 :slant 'normal :weight 'normal)
+(load-theme 'jj-dark t)
 
 (defvar *site-lisp* (concat user-emacs-directory "site-lisp/")
   "Location of configuration files to be loaded at start up.")
