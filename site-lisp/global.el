@@ -116,6 +116,7 @@
 
 ;;; company
 (use-package company
+  :defer 10
   :ensure t
   :bind (("C-c TAB" . company-complete))
   :diminish company-mode
@@ -186,23 +187,26 @@
   :defer t
   :init (cscope-setup)
   :config
-  (setq cscope-program "gtags-cscope"))
+  (setq cscope-program "cscope"))
 
 ;;; diminish
 (use-package diminish
   :ensure t)
 
 (use-package eldoc
+  :defer t
   :commands eldoc-mode
   :diminish eldoc-mode)
 
 (use-package git-timemachine
+  :defer t
   :commands git-timemachine
   :ensure t)
 
 ;;; undo-tree
 (use-package undo-tree
   :ensure t
+  :defer 5
   :diminish undo-tree-mode
   :bind (("C-x u" . undo-tree-undo)
          ("s-z" . undo-tree-undo)
@@ -216,6 +220,7 @@
 ;;; projectile
 (use-package projectile
   :ensure t
+  :defer 5
   :diminish projectile-mode
   :init (setq projectile-mode-line "Projectile")
   :bind (("C-c p p" . projectile-switch-project))
@@ -223,6 +228,7 @@
   (projectile-mode t))
 
 (use-package dired
+  :defer 10
   :commands dired
   :init
   (setq dired-listing-switches "-lahv")
@@ -230,6 +236,7 @@
 
 ;;; load dired extras
 (use-package dired-x
+  :defer 10
   :commands dired-jump)
 
 ;;; Don't allow the scratch buffer to be killed. It will delete it's contents instead.
@@ -268,6 +275,7 @@
 ;;; Expand-region
 (use-package expand-region
   :ensure t
+  :defer t
   :bind ("s-/" . er/expand-region))
 
 ;;; vc
@@ -318,6 +326,7 @@
 
 ;;; Abbrev
 (use-package abbrev
+  :defer t
   :commands abbrev-mode
   :diminish abbrev-mode
   :config
