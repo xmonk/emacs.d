@@ -69,6 +69,7 @@
   (global-ede-mode))
 
   (use-package ggtags
+    :disabled
     :ensure t
     :init
     (add-hook 'c-mode-common-hook
