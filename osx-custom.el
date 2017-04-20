@@ -56,6 +56,7 @@
  '(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
  '(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
  '(company-tooltip-selection ((t (:background "grey" :foreground "#1D1D1D" :font "SF Mono" :height 120))))
+ '(eshell-prompt ((t (:inherit default))))
  '(sp-pair-overlay-face ((t nil))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
