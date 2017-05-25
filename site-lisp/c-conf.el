@@ -63,10 +63,32 @@
     (semantic-add-system-include "/usr/include")
     (semantic-add-system-include "/usr/local/include"))
 
+  (use-package cmake-ide
+    :ensure t
+    :config
+    (use-package rtags :ensure t)
+    (use-package flycheck-rtags :ensure t)
+    (cmake-ide-setup)
+    (setq cmake-ide-build-dir "./build"))
+
+  (use-package irony
+    :ensure t
+    :config
+    (use-package irony-eldoc
+      :ensure t
+      :init
+      (add-hook 'irony-mode-hook #'irony-eldoc))
+    (use-package company-irony
+      :init
+      (add-hook 'c-mode-common-hook 'irony-mode)
+      (add-hook 'c++mode-common-hook 'irony-mode)
+      (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+      (add-to-list 'company-backends 'company-irony)))
+
   (use-package ede
-  :config
-  ;; Enable EDE only in C/C++
-  (global-ede-mode))
+    :config
+    ;; Enable EDE only in C/C++
+    (global-ede-mode))
 
   (use-package ggtags
     :disabled
@@ -91,12 +113,6 @@
       (define-key map (kbd "C-c <")   'ggtags-prev-mark)
       (define-key map (kbd "C-c >")   'ggtags-next-mark)))
 
-  ;; company-c-headers
-  (use-package company-c-headers
-    :disabled
-    :ensure t
-    :init
-    (add-to-list 'company-backends 'company-c-headers))
 
   (defun jj-c-hook()
     (load-after company
