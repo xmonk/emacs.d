@@ -26,12 +26,12 @@
 
 (autoload 'debug "debug" "emacs debugger")
 (setq debug-on-error nil)
-
+(setq load-prefer-newer t)
 ;; set faces
 ;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
 (set-face-attribute 'default nil :background "#000000" :foreground "#C7C7C7" :font "SF Mono Medium" :height 120 :slant 'normal :weight 'normal)
-;;(load-theme 'jj-dark t)
+(load-theme 'jj-dark t)
 
 (defvar *site-lisp* (concat user-emacs-directory "site-lisp/")
   "Location of configuration files to be loaded at start up.")
@@ -120,9 +120,6 @@
   (load (concat (getenv "HOME") "/.opam/system/share/emacs/site-lisp/tuareg-site-file")))
 (use-package rust-conf :disabled)
 (use-package slime-conf :disabled)
-(use-package color-theme-sanityinc-tomorrow
-  :ensure t
-  :config
-  (load-theme 'sanityinc-tomorrow-bright t))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
