@@ -16,3 +16,5 @@
 /anaconda-mode/
 /auto-save-list/
 *.elc
+*~
+irony
