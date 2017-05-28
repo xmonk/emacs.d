@@ -147,14 +147,11 @@
 	uniquify-separator ":"
 	uniquify-after-kill-buffer-p t))
 
-;;; workgroups
-(use-package workgroups2
-  :disabled
-  :defer t
-  :commands workgroups2
-  :init
-  (setq wg-session-file "~/.emacs.d/.emacs_workgroups")
-  (workgroups-mode 1))
+;;; recentf
+(use-package recentf
+  :bind (("C-x C-r" . jj/recentf-ido-find-file))
+  :config
+  (recentf-mode))
 
 ;;; paredit
 (use-package paredit
@@ -291,7 +288,7 @@
 
 ;;; Smart scan
 (use-package smartscan
-  :disabled
+  :ensure t
   :defer t
   :commands smartscan-mode
   :bind-keymap (("M-n" . smartscan-map)
