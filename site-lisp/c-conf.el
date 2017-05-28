@@ -63,16 +63,6 @@
     (semantic-add-system-include "/usr/include")
     (semantic-add-system-include "/usr/local/include"))
 
-  (use-package cmake-ide
-    :ensure t
-    :config
-    (use-package rtags
-      :ensure t)
-    (use-package flycheck-rtags
-      :ensure t)
-    (cmake-ide-setup)
-    (setq cmake-ide-build-dir (concat (getenv "HOME") "/p" "/build")))
-
   (use-package irony
     ;; To compile irony-server in macOS: cmake -DCMAKE_CXX_COMPILER=/usr/local/opt/llvm/bin/clang++
     ;; -DCMAKE_PREFIX_PATH=/usr/local/opt/llvm -DCMAKE_INSTALL_RPATH=/usr/local/opt/llvm
@@ -95,40 +85,15 @@
       (add-hook 'c-mode-common-hook 'irony-mode)
       (add-hook 'c++mode-common-hook 'irony-mode)
       (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-      (add-to-list 'company-backends '(company-irony-c-headers company-irony))))
+      (add-to-list 'company-backends '(company-irony-c-headers company-irony company-clang))))
 
   (use-package ede
     :config
     ;; Enable EDE only in C/C++
     (global-ede-mode))
 
-  (use-package ggtags
-    :disabled
-    :ensure t
-    :init
-    (add-hook 'c-mode-common-hook
-	      (lambda ()
-		(when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
-		  (ggtags-mode 1))))
-    :config
-    (ggtags-mode 1)
-
-    (dolist (map (list ggtags-mode-map))
-      (define-key map (kbd "C-c g s") 'ggtags-find-other-symbol)
-      (define-key map (kbd "C-c g h") 'ggtags-view-tag-history)
-      (define-key map (kbd "C-c g r") 'ggtags-find-reference)
-      (define-key map (kbd "C-c g f") 'ggtags-find-file)
-      (define-key map (kbd "C-c g c") 'ggtags-create-tags)
-      (define-key map (kbd "C-c g u") 'ggtags-update-tags)
-      (define-key map (kbd "M-.")     'ggtags-find-tag-dwim)
-      (define-key map (kbd "M-,")     'pop-tag-mark)
-      (define-key map (kbd "C-c <")   'ggtags-prev-mark)
-      (define-key map (kbd "C-c >")   'ggtags-next-mark)))
-
-
   (defun jj-c-hook()
     (load-after company
-      (add-to-list 'company-backends '(company-clang))
       (define-key c-mode-map  (kbd "C-c TAB") 'company-complete)
       (define-key c++-mode-map  (kbd "C-c TAB") 'company-complete))
 
