@@ -25,7 +25,7 @@
 ;;; Code:
 
 ;; stop cursor from blinking
-(blink-cursor-mode -1)
+;; (blink-cursor-mode -1)
 
 ;; don't scroll like a maniac
 (defvar mouse-wheel-scroll-amount '(1))
@@ -149,9 +149,9 @@
 
 ;;; recentf
 (use-package recentf
-  :bind (("C-x C-r" . jj/recentf-ido-find-file))
-  :config
-  (recentf-mode))
+  :bind (("C-c C-r" . jj/recentf-ido-find-file))
+  :init
+  (recentf-mode t))
 
 ;;; paredit
 (use-package paredit
