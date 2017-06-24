@@ -118,7 +118,7 @@
   :if (file-directory-p (concat (getenv "HOME") "/.opam"))
   :config
   (load (concat (getenv "HOME") "/.opam/system/share/emacs/site-lisp/tuareg-site-file")))
-(use-package rust-conf :disabled)
+(use-package rust-conf)
 (use-package slime-conf :disabled)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
