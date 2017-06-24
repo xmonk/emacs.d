@@ -153,6 +153,14 @@
   :init
   (recentf-mode t))
 
+;;; no-littering keeps .emacs.d clean.
+(use-package no-littering
+  :ensure t
+  :config
+  (require 'recentf)
+  (add-to-list 'recentf-exclude no-littering-var-directory)
+  (add-to-list 'recentf-exclude no-littering-etc-directory))
+
 ;;; paredit
 (use-package paredit
   :ensure t
