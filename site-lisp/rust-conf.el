@@ -27,21 +27,29 @@
 (use-package rust-mode
   :ensure t
   :init
-  (add-hook 'rust-mode-hook #'rustfmt-enable-on-save)
   :config
-  (use-package rustfmt
-    :ensure t)
-
-  (setq rustfmt-bin (concat (getenv "HOME") "/.cargo/bin/rustfmt"))
-  (define-key rust-mode-map (kbd "C-c C-f") #'rustfmt-format-buffer)
   (use-package racer
+    :ensure t
     :init
-    (load-after company
-      (add-hook 'race-mode-hook #'company-mode))
     (add-hook 'rust-mode-hook #'racer-mode)
+    (add-hook 'racer-mode-hook #'eldoc-mode)
+    (load-after company
+      (add-hook 'racer-mode-hook #'company-mode))
     (setq racer-cmd (concat (getenv "HOME") "/.cargo/bin/racer"))
-    (setq racer-rust-src-path (concat (getenv "HOME") "/r/rust/src"))
-    (setq company-tooltip-align-annotations t)))
+    (setq racer-rust-src-path (concat (getenv "HOME") "/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src"))
+    (setq company-tooltip-align-annotations t))
+
+  (setq rustfmt-enable-on-save t)
+
+  (use-package flycheck-rust
+    :ensure t
+    :init
+    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+
+  (use-package cargo
+    :ensure t
+    :init
+    (add-hook 'rust-mode-hook 'cargo-minor-mode)))
 
 
 (provide 'rust-conf)
