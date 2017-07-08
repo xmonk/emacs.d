@@ -232,6 +232,18 @@
   :config
   (projectile-mode t))
 
+;;; swiper
+(use-package swiper
+  :ensure t
+  :bind (("C-s" . swiper)
+	 ("C-r" . swiper))
+  :config
+  ;;advise swiper to recenter on exit
+  (defun jj/swiper-recenter (&rest args)
+    "recenter display after swiper"
+    (recenter))
+  (advice-add 'swiper :after #'jj/swiper-recenter))
+
 (use-package dired
   :defer 10
   :commands dired

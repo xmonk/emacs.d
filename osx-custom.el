@@ -29,6 +29,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("66ccea5e9c4b7fec8b653efe0656d67a21777ea98033c7094e1d001245d7435d" default)))
  '(flycheck-python-pyflakes-executable "pyflakes")
  '(gnutls-trustfiles
    (quote
@@ -38,7 +41,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (no-littering flycheck-rust cargo racer rustfmt rust-mode smartscan irony-c-headers company-irony-c-headers irony irony-eldoc irony-mode company-irony ob-go cmake-mode go-guru go-rename company-go go-errcheck go-eldoc company-anaconda anaconda-mode py-yapf go-mode magit flycheck browse-kill-ring whole-line-or-region codesearch expand-region web-mode markdown-mode projectile undo-tree git-timemachine xcscope paredit company-flx company use-package)))
+    (swiper no-littering flycheck-rust cargo racer rustfmt rust-mode smartscan irony-c-headers company-irony-c-headers irony irony-eldoc irony-mode company-irony ob-go cmake-mode go-guru go-rename company-go go-errcheck go-eldoc company-anaconda anaconda-mode py-yapf go-mode magit flycheck browse-kill-ring whole-line-or-region codesearch expand-region web-mode markdown-mode projectile undo-tree git-timemachine xcscope paredit company-flx company use-package)))
  '(temporary-file-directory "/tmp"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
