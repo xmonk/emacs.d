@@ -30,7 +30,7 @@
 ;; set faces
 ;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-(set-face-attribute 'default nil :font "-*-SF Mono-semibold-normal-normal-*-12-*-*-*-m-0-iso10646-1")
+(set-face-attribute 'default nil :font "-*-SF Mono-semibold-normal-normal-*-13-*-*-*-m-0-iso10646-1")
 (load-theme 'jj-dark t)
 
 (defvar *site-lisp* (concat user-emacs-directory "site-lisp/")
