@@ -30,6 +30,7 @@
   :config
   (use-package racer
     :ensure t
+    :after rust-mode
     :init
     (add-hook 'rust-mode-hook #'racer-mode)
     (add-hook 'racer-mode-hook #'eldoc-mode)
@@ -43,6 +44,7 @@
 
   (use-package flycheck-rust
     :ensure t
+    :after rust-mode
     :init
     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 
