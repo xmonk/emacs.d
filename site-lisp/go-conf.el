@@ -41,15 +41,15 @@
     :commands go-errcheck
     :ensure t)
 
-  (eval-after-load "company"
-    (use-package company-go
-      :ensure t
-      :config
-      (add-to-list 'company-backends 'company-go)
-      (setq company-tooltip-align-annotations t)
-      (bind-key "C-c TAB" 'company-complete go-mode-map)
-      (unless (executable-find "gocode")
-	(shell-command-to-string "go get github.com/nsf/gocode"))))
+  (use-package company-go
+    :ensure t
+    :after company
+    :config
+    (add-to-list 'company-backends 'company-go)
+    (setq company-tooltip-align-annotations t)
+    (bind-key "C-c TAB" 'company-complete go-mode-map)
+    (unless (executable-find "gocode")
+      (shell-command-to-string "go get github.com/nsf/gocode")))
 
   ;; Enable go-rename if available
   (use-package go-rename
