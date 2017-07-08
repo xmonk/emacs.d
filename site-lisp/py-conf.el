@@ -51,15 +51,17 @@
 
   (use-package anaconda-mode
     :ensure t
+    :after python-mode
     :init
     (add-hook 'python-mode-hook 'anaconda-mode)
-    (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
-    :config
-    (load-after company
-      (use-package company-anaconda
-        :ensure t
-        :init
-        (add-to-list 'company-backends 'company-anaconda))))
+    (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
+
+  (use-package company-anaconda
+    :ensure t
+    :after anaconda-mode
+    :init
+    (add-to-list 'company-backends 'company-anaconda))
+
 
   (defun jj/pydoc (name)
     "Display pydoc information for NAME in a buffer named *pydoc*."`
