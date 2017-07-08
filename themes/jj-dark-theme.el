@@ -93,6 +93,8 @@
 	 `(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
 	 `(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
 	 `(company-tooltip-selection ((t (:background ,white :foreground ,black))))
+	 ;; swiper
+	 `(swiper-match-face-1 ((t (:inherit default))))
 	 ;; eshell
 	 `(eshell-prompt ((t (:inherit default))))
 	 `(font-lock-warning-face ((t (:foreground ,black :bold t :underline t))))
