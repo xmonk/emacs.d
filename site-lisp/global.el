@@ -275,6 +275,8 @@
   :init
   (add-hook 'markdown-mode-hook 'flyspell-mode)
   :config
+  (setq markdown-fontify-code-blocks-natively t)
+  (add-to-list 'markdown-code-lang-modes '("python" . python-mode))
   (let ((markdown-cmd "peg-markdown"))
     (when (executable-find markdown-cmd)
       (setq markdown-command markdown-cmd))))
