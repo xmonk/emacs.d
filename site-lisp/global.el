@@ -308,13 +308,17 @@
 
 ;;; Smart scan
 (use-package smartscan
-  :ensure t
+  :disabled
   :defer t
   :commands smartscan-mode
-  :bind-keymap (("M-n" . smartscan-map)
-		("M-p" . smartscan-map)
-		("M-'" . smartscan-map))
-  :init (global-smartscan-mode 1))
+  :bind-keymap (("S-n" . smartscan-map)
+		("S-p" . smartscan-map)
+		("S-'" . smartscan-map))
+  :init
+  (global-smartscan-mode 1)
+  (unbind-key "M-n" smartscan-map)
+  (unbind-key "M-p" smartscan-map)
+  (unbind-key "M-'" smartscan-map))
 
 ;;; Whitespace-mode
 (setq whitespace-line-column 80
