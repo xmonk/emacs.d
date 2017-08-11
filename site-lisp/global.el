@@ -235,9 +235,15 @@
 ;;; swiper
 (use-package swiper
   :ensure t
+  :diminish ivy-mode
   :bind (("C-s" . swiper)
-	 ("C-r" . swiper))
+	 ("C-r" . swiper)
+	 ("C-c v" . ivy-push-view)
+         ("C-c V" . ivy-pop-view))
   :config
+  ;; (ivy-mode 1)
+  ;; (setq ivy-use-virtual-buffers t)
+  ;; (setq ivy-count-format "%d/%d ")
   ;;advise swiper to recenter on exit
   (defun jj/swiper-recenter (&rest args)
     "recenter display after swiper"
