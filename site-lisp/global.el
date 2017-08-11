@@ -189,7 +189,7 @@
 
 ;;; cscope
 (use-package xcscope
-  :ensure t
+  :disabled
   :defer t
   :init (cscope-setup)
   :config
