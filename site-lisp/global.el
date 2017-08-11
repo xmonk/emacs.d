@@ -235,7 +235,7 @@
 
 ;;; swiper
 (use-package swiper
-  :ensure t
+  :disabled
   :diminish ivy-mode
   :bind (("C-s" . swiper)
 	 ("C-r" . swiper)
