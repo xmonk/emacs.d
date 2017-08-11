@@ -30,8 +30,10 @@
 ;; set faces
 ;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-(set-face-attribute 'default nil :font "-*-SF Mono-semibold-normal-normal-*-13-*-*-*-m-0-iso10646-1")
-(load-theme 'jj-dark t)
+(set-face-attribute 'default nil :font "Go Mono" :height 130)
+(set-face-attribute 'default nil :background "#1d1f21" :foreground "#c5c8c6")
+
+;; (load-theme 'jj-dark t)
 
 (defvar *site-lisp* (concat user-emacs-directory "site-lisp/")
   "Location of configuration files to be loaded at start up.")
@@ -114,12 +116,18 @@
 (use-package sh-conf)
 (use-package eshell-conf)
 (use-package ocaml-conf
-  :disabled
   :if (file-directory-p (concat (getenv "HOME") "/.opam"))
   :config
   (load (concat (getenv "HOME") "/.opam/system/share/emacs/site-lisp/tuareg-site-file")))
-(use-package rust-conf)
+(use-package rust-conf
+  :disabled
+  :if (file-directory-p (concat (getenv "HOME") "/.cargo")))
 (use-package slime-conf :disabled)
+
+(use-package doom-themes
+  :ensure t
+  :config
+  (load-theme 'doom-tomorrow-night t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
