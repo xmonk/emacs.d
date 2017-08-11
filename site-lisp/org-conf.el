@@ -102,7 +102,7 @@
      (perl . t)
      (ruby . t)
      (lisp . t)
-     (sh . t)
+     (shell . t)
      (C . t)
      (go . t)
      (emacs-lisp . t)
