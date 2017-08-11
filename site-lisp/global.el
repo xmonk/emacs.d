@@ -116,8 +116,8 @@
 
 ;;; company
 (use-package company
-  :defer 10
   :ensure t
+  :defer 10
   :bind (("C-c TAB" . company-complete))
   :diminish company-mode
   :defer t
@@ -125,6 +125,7 @@
   :config
   (use-package company-flx
     :ensure t
+	:after company
     :init
     (add-hook 'company-mode-hook (lambda ()
 				   (add-to-list 'company-backends 'company-capf)))
