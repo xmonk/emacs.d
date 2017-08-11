@@ -63,14 +63,19 @@
     (semantic-add-system-include "/usr/include")
     (semantic-add-system-include "/usr/local/include"))
 
+
   (use-package irony
-    ;; To compile irony-server in macOS: cmake -DCMAKE_CXX_COMPILER=/usr/local/opt/llvm/bin/clang++
+    ;; To compile irony-server in macOS: cmake -DCMAKE_CXX_COMPILER=/usr/local/opt/llvm/bin/clang++ij
     ;; -DCMAKE_PREFIX_PATH=/usr/local/opt/llvm -DCMAKE_INSTALL_RPATH=/usr/local/opt/llvm
     ;; -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DCMAKE_INSTALL_PREFIX=/Users/jj/.emacs.d/var/irony/
     ;; /Users/jj/.emacs.d/elpa/irony-20170627.1045/server && cmake --build . --use-stderr --config
     ;; Release --target install
     :ensure t
     :after cc-mode
+    :init
+    (add-hook 'c-mode-common-hook 'irony-mode)
+    (add-hook 'c++mode-common-hook 'irony-mode)
+    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
     :config
     (use-package irony-eldoc
       :ensure t
@@ -85,15 +90,12 @@
       :ensure t
       :after company-mode
       :init
-      (add-hook 'c-mode-common-hook 'irony-mode)
-      (add-hook 'c++mode-common-hook 'irony-mode)
-      (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
       (add-to-list 'company-backends '(company-irony-c-headers company-irony company-clang))))
 
-  (use-package ede
-    :config
-    ;; Enable EDE only in C/C++
-    (global-ede-mode))
+  ;; (use-package ede
+  ;;   :config
+  ;;   ;; Enable EDE only in C/C++
+  ;;   (global-ede-mode))
 
   (defun jj-c-hook()
     (load-after company
