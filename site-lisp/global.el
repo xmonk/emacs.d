@@ -278,11 +278,11 @@
   :ensure t
   :commands (markdown-mode gfm-mode)
   :mode (("\\.\\(m\\(ark\\)?down\\|md\\)$" . markdown-mode)
-	 ("README\\.md\\'" . gfm-mode))
+	     ("README\\.md\\'" . gfm-mode))
   :init
   (add-hook 'markdown-mode-hook 'flyspell-mode)
-  :config
   (setq markdown-fontify-code-blocks-natively t)
+  :config
   (add-to-list 'markdown-code-lang-modes '("python" . python-mode))
   (let ((markdown-cmd "peg-markdown"))
     (when (executable-find markdown-cmd)
