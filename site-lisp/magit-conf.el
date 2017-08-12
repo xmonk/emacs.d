@@ -27,10 +27,15 @@
 (use-package magit
   :commands (magit-status mgit)
   :ensure t
-  :init (setq magit-last-seen-setup-instructions "1.4.0")
+  :init
+  (setq magit-repository-directories
+	'(("~/.emacs.d" . 0)
+	  ("~/w/" . 1)
+	  ("~/.files" . 0)
+	  ("~/p" . 0)
+	  ("~/g/src/github.com/xmonk" . 1)))
   :config
   (defalias 'mgit 'magit-status)
-  (defalias 'mquit 'magit-quit-session)
 
   (defadvice magit-status (around magit-fullscreen activate)
     (window-configuration-to-register :magit-fullscreen)
