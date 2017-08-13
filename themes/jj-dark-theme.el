@@ -49,9 +49,9 @@
      fringe
      mode-line))
 
-(let ((black "#192637")
-      (black0 "#161616")
-      (black2 "#3F3F3F")
+(let ((blue "#192637")
+      (black "#161616")
+      (black1 "#3F3F3F")
       (white "#FFFFFF"))
   (apply 'custom-theme-set-faces 'jj-dark
 	 `(font-lock-function-name-face ((t (:slant normal :weight normal))))
