@@ -52,6 +52,9 @@
 (global-set-key (kbd "C-c h f") 'outline-hide-entry)
 (global-set-key (kbd "C-c s f") 'outline-show-entry)
 
+;; Use dired instead of list-directory.
+(global-set-key (kbd "C-x C-d") 'ido-dired)
+
 ;; zap to chars
 (global-set-key (kbd "M-z") 'zap-to-char)
 (global-set-key (kbd "M-Z") 'zap-up-to-char)
