@@ -29,6 +29,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(dired-async-mode t)
  '(flycheck-python-pyflakes-executable "pyflakes")
  '(gnutls-trustfiles
    (quote
@@ -38,7 +39,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (doom-themes org no-littering rustfmt irony-c-headers company-irony-c-headers irony irony-eldoc irony-mode company-irony ob-go cmake-mode go-guru go-rename company-go go-errcheck go-eldoc company-anaconda anaconda-mode py-yapf go-mode magit flycheck browse-kill-ring whole-line-or-region codesearch expand-region web-mode markdown-mode projectile undo-tree git-timemachine xcscope paredit company-flx company use-package)))
+    (org no-littering rustfmt irony-c-headers company-irony-c-headers irony irony-eldoc irony-mode company-irony ob-go cmake-mode go-guru go-rename company-go go-errcheck go-eldoc company-anaconda anaconda-mode py-yapf go-mode magit flycheck browse-kill-ring whole-line-or-region codesearch expand-region web-mode markdown-mode projectile undo-tree git-timemachine xcscope paredit company-flx company use-package)))
  '(temporary-file-directory "/tmp"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
