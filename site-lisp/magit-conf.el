@@ -34,9 +34,8 @@
 	  ("~/.files" . 0)
 	  ("~/p" . 0)
 	  ("~/g/src/github.com/xmonk" . 1)))
-  :config
   (defalias 'mgit 'magit-status)
-
+  :config
   (defadvice magit-status (around magit-fullscreen activate)
     (window-configuration-to-register :magit-fullscreen)
     ad-do-it
