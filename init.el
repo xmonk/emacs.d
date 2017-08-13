@@ -73,6 +73,12 @@
   (message "ERROR: No custom file found or specified"))
 
 ;; ido
+(setq ido-enable-flex-matching t)
+(setq ido-enable-prefix nil
+      ido-create-new-buffer 'always
+      ido-use-filename-at-point 'guess
+      ido-use-virtual-buffers t
+      ido-max-prospects 10)
 (ido-mode t)
 (ido-everywhere 1)
 
