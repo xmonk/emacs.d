@@ -39,7 +39,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (org no-littering rustfmt irony-c-headers company-irony-c-headers irony irony-eldoc irony-mode company-irony ob-go cmake-mode go-guru go-rename company-go go-errcheck go-eldoc company-anaconda anaconda-mode py-yapf go-mode magit flycheck browse-kill-ring whole-line-or-region codesearch expand-region web-mode markdown-mode projectile undo-tree git-timemachine xcscope paredit company-flx company use-package)))
+    (whole-line-or-region ibuffer-vc org no-littering rustfmt irony-c-headers company-irony-c-headers irony irony-eldoc irony-mode company-irony ob-go cmake-mode go-guru go-rename company-go go-errcheck go-eldoc company-anaconda anaconda-mode py-yapf go-mode magit flycheck browse-kill-ring codesearch expand-region web-mode markdown-mode projectile undo-tree git-timemachine xcscope paredit company-flx company use-package)))
  '(temporary-file-directory "/tmp"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
