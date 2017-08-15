@@ -353,7 +353,7 @@
 	 ("M-w" . whole-line-or-region-kill-ring-save))
   :diminish whole-line-or-region-mode
   :init
-  (whole-line-or-region-mode))
+  (whole-line-or-region-mode t))
 
 ;;; Kill ring
 (use-package browse-kill-ring
