@@ -65,7 +65,7 @@
 
 ;; Insert a shebang to the beginning of buffer.
 (defun jj/insert-shebang(arg)
-  "Inserts the shebang you specify in it's proper location"
+  "Insert the `ARG` you specify in it's proper location."
   (interactive "sEnter the shebang you want: ")
   (goto-char (point-min))
   (insert (concat arg "\n")))
@@ -176,10 +176,10 @@
   (if (looking-at "$")
       (backward-word 1)))
 
-  (defadvice he-substitute-string (after he-paredit-fix)
-    "remove extra paren when expanding line in paredit"
-    (if (and paredit-mode (equal (substring str -1) ")"))
-        (progn (backward-delete-char 1) (forward-char))))
+(defadvice he-substitute-string (after he-paredit-fix)
+  "Remove extra paren when expanding line in paredit."
+  (if (and paredit-mode (equal (substring str -1) ")"))
+      (progn (backward-delete-char 1) (forward-char))))
 
 ;; Match beginning.
 (defun jj/goto-match-beginning()
@@ -474,12 +474,11 @@ a region."
       (jump-to-register :term-fullscreen)
     (progn
       (window-configuration-to-register :term-fullscreen)
-      (ansi-term (getenv "SHELL"))
+      (ansi-term (getenv "SHELL") "term")
       (delete-other-windows))))
 
 (defun jj/start-or-switch(func buffer-name)
-  "Call func if there is no buffer with buffer-name, or switch to buffer-name.
-   Don't clobber current buffer."
+  "Call `FUNC` if there is no buffer with `BUFFER-NAME` or switch to `BUFFER-NAME`. Don't clobber current buffer."
   (if (not (get-buffer buffer-name))
       (progn
         (split-window-sensibly (selected-window))
