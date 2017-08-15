@@ -37,6 +37,11 @@
   (switch-to-buffer (get-buffer-create "*scratch*"))
   (and (emacs-lisp-mode) (lisp-interaction-mode)))
 
+(defun new-vbuffer (name)
+  "Create a new virtual buffer with `NAME`."
+  (interactive "sBuffer name: ")
+  (switch-to-buffer (get-buffer-create name)))
+
 (defun jj/immortal-scratch-buffer()
   "Don't allow the scratch buffer to be kill"
   (if (equal (buffer-name (current-buffer)) "*scratch*")
