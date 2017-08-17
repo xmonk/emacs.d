@@ -121,7 +121,7 @@
 
 ;;; tramp
 (defvar tramp-default-method "ssh")
-(defvar tramp-ssh-controlmaster-options "")
+(defvar tramp-ssh-controlmaster-options nil)
 
 ;;; company
 (use-package company
