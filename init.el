@@ -73,6 +73,7 @@
   (message "ERROR: No custom file found or specified"))
 
 ;; ido
+(require 'ido nil t)
 (setq ido-enable-flex-matching t)
 (setq ido-enable-prefix nil
       ido-create-new-buffer 'always
