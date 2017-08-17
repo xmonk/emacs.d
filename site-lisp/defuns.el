@@ -28,11 +28,12 @@
   (require 'cl-lib))
 
 (defun jj/compile-config()
+  "Compile `.el` file in `SITE-LISP`."
   (interactive)
   (byte-recompile-directory *site-lisp* 0))
 
 (defun jj/create-scratch-buffer()
-  "create a scratch buffer"
+  "Create a scratch buffer."
   (interactive)
   (switch-to-buffer (get-buffer-create "*scratch*"))
   (and (emacs-lisp-mode) (lisp-interaction-mode)))
@@ -61,15 +62,13 @@
     t))
 
 (defun jj/smart-split-helper(w)
-  "Helper function to split a given window into two, the first of which has
-   80 columns."
+  "Helper function to split a given window `W` into two, the first of which has 80 columns."
   (if (> (window-width w) (* 2 81))
       (let ((w2 (split-window w 82 t)))
         (jj/smart-split-helper w2))))
 
 (defun jj/smart-split()
-  "Split the frame into 80-column sub-windows, and make sure no
-   window has fewer than 80 columns."
+  "Split the frame into 80-column sub-windows, and make sure no window has fewer than 80 columns."
   (interactive)
   (jj/smart-split-helper nil))
 
