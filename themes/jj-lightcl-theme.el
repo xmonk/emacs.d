@@ -29,8 +29,8 @@
 (defvar jj-faces
   `(default))
 
-(let ((white "white")
-      (black "black"))
+(let ((white "#FFFFF")
+      (black "#00000"))
   (apply 'custom-theme-set-faces 'jj-lightcl
 	 `(company-preview ((t (:foreground ,black :underline t))))
 	 `(company-preview-common ((t (:inherit company-preview))))
