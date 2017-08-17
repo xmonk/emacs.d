@@ -42,8 +42,18 @@
   (interactive "sBuffer name: ")
   (switch-to-buffer (get-buffer-create name)))
 
+(defun buffer-abspath ()
+  "Print the absolute path of the current buffer."
+  (interactive)
+  (princ (format "%s" (buffer-file-name))))
+
+(defun buffer-dirpath ()
+  "Print the directory path of the current buffer."
+  (interactive)
+  (princ (format "%s" (file-name-directory (expand-file-name (buffer-name))))))
+
 (defun jj/immortal-scratch-buffer()
-  "Don't allow the scratch buffer to be kill"
+  "Don't allow the scratch buffer to be kill."
   (if (equal (buffer-name (current-buffer)) "*scratch*")
       (progn
         (delete-region (point-min) (point-max))
