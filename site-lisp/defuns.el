@@ -244,13 +244,14 @@ a region."
 ;; Misc functions
 
 ;; insert a path into current buffer.
-(defun jj/insert-path(file)
+(defun jj/insert-path(path)
+  "Insert the specified PATH to the current buffer."
   (interactive "FPath: ")
-  (insert (expand-file-name file)))
+  (insert (expand-file-name path)))
 
 ;;  Never understood why Emacs doesn't have this function.
 (defun jj/rename-file-and-buffer(new-name)
-  "Renames both current buffer and file it's visiting to new-name."
+  "Rename both the current buffer and file it's visiting to NEW-NAME."
   (interactive "sNew name: ")
   (let ((name (buffer-name))
         (filename (buffer-file-name)))
@@ -269,7 +270,7 @@ a region."
 
 ;;  Never understood why Emacs doesn't have this function, either.
 (defun jj/move-buffer-file(dir)
-  "Moves both current buffer and file it's visiting to DIR."
+  "Move both the current buffer and file it's visiting to DIR."
   (interactive "DNew directory: ")
   (let* ((name (buffer-name))
          (filename (buffer-file-name))
@@ -301,7 +302,7 @@ a region."
           (kill-buffer))))))
 
 (defun jj/kill-other-buffers()
-  "kill buried buffers, except for the special buffers."
+  "Kill buried buffers, except special buffers."
   (interactive)
   (dolist (buffer (buffer-list))
     (unless (or (eql buffer (current-buffer)) (not (buffer-file-name buffer)))
@@ -309,7 +310,7 @@ a region."
 
 ;; Copied from Miguel de Icaza's config.
 (defun jj/swap-window()
-  "swaps windows place"
+  "Swap windows place."
   (interactive)
   (if (not (one-window-p))
       (let ((first-buffer  0)
@@ -325,7 +326,7 @@ a region."
 
 ;; Disable the query when killing a buffer.
 (defun jj/kill-buffer()
-  "kill buffer without confirmation."
+  "Kill buffer without confirmation."
   (interactive)
   (kill-buffer nil))
 
@@ -340,21 +341,21 @@ a region."
   (insert (current-time-string)))
 
 ;; Insert document info
-(defun insert-document-info(titleandauthor)
-  "Insert title, author, date modified."
+(defun insert-document-info(info)
+  "Insert title, author INFO, and date modified."
   (interactive "*sTitle and author: ")
-  (if titleandauthor
-      (insert titleandauthor "\nLast modified: "
+  (if info
+      (insert info "\nLast modified: "
               (format-time-string "%d/%m %Y (%H:%M:%S)"))))
 
 (defun dos-unix()
-  "convert file from dos to unix"
+  "Convert file from dos to unix."
   (interactive)
   (goto-char (point-min))
   (while (search-forward "\r" nil t) (replace-match "")))
 
 (defun unix-dos()
-  "convert file from unix termination to dos"
+  "Convert file from unix termination to dos."
   (interactive)
   (goto-char (point-min))
   (while (search-forward "\n" nil t)
@@ -364,22 +365,26 @@ a region."
 
 ;; Insert text from clipboard.
 (defun x-insert-selection()
+  "Insert text from clipboard to current buffer."
   (interactive)
   (insert(gui-get-selection 'CLIPBOARD)))
 
 ;; Get rid of that annoying prompt that requires one to type in YES and then press the enter key to
 ;; confirm.
 (defun yes-or-no-p(PROMPT)
+  "Modify default PROMPT."
   (beep)
   (y-or-n-p PROMPT))
 
 ;; Auto compile .emacs
 (defun compile-init-file()
+  "Compile init file."
   (let ((byte-compile-warnings '(unresolved)))
     (byte-compile-file user-init-file)
     (message "Emacs init file saved and compiled.")))
 
 (defun jj/refresh-init-elc()
+  "Recompile init file."
   (if (file-newer-than-file-p (concat user-emacs-directory "init.el")
                               (concat user-emacs-directory "init.elc"))
       (byte-compile-file (concat user-emacs-directory "init.el")))
@@ -409,16 +414,16 @@ a region."
   (message "Refreshed open files."))
 
 (defun jj/flymake-show-help()
-  "prints at point message in the minibuffer"
+  "Print message at point in the minibuffer."
   (when (get-char-property (point) 'flymake-overlay)
     (let ((help (get-char-property (point) 'help-echo)))
       (if help (message "%s" help)))))
 
-(defun jj/swap(l)
-  "Utility function used by jj/ido-jump-to-window"
-  (if (cdr l)
-      (cons (cadr l) (cons (car l) (cddr l)))
-    l))
+(defun jj/swap(win)
+  "Swap WIN used by jj/ido-jump-to-window."
+  (if (cdr win)
+      (cons (cadr win) (cons (car win) (cddr win)))
+    win))
 
 ;; taken and modified from emacswiki.
 (defun jj/ido-jump-to-window ()
@@ -450,7 +455,7 @@ a region."
       (find-file file))))
 
 (defun jj/pretty-lambdas()
-  "Inserts lambda instead of the word `Lambda`"
+  "Insert lambda instead of the word LAMBDA."
   (font-lock-add-keywords
    nil `(("(?\\(lambda\\>\\)"
           (0 (progn (compose-region (match-beginning 1) (match-end 1)
@@ -458,10 +463,12 @@ a region."
                     nil))))))
 
 (defun jj/local-comment-auto-fill()
+  "Make 'comment-auto-fill-only-comments' file local."
   (set (make-local-variable 'comment-auto-fill-only-comments) t)
   (auto-fill-mode t))
 
 (defun jj/add-watchwords()
+  "Set watch words."
   (font-lock-add-keywords
    nil '(("\\<\\(FIXME\\|TODO\\|HACK\\|REFACTOR\\|NOCOMMIT\\|OPTIMIZE\\)"
           1 font-lock-warning-face t))))
@@ -487,7 +494,7 @@ a region."
       (delete-other-windows))))
 
 (defun jj/start-or-switch(func buffer-name)
-  "Call `FUNC` if there is no buffer with `BUFFER-NAME` or switch to `BUFFER-NAME`. Don't clobber current buffer."
+  "Call FUNC if there is no buffer with `BUFFER-NAME` or switch to `BUFFER-NAME`.  Don't clobber current buffer."
   (if (not (get-buffer buffer-name))
       (progn
         (split-window-sensibly (selected-window))
@@ -524,13 +531,14 @@ a region."
                          (read-string "Google: "))))))
 
 (defun jj/path-from-shell()
+  "Set EMACS path from the shell."
   (interactive)
   (let ((pshell (replace-regexp-in-string "[ \t\n]*$" "" (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
     (setenv "PATH" pshell)
     (setq exec-path (split-string pshell path-separator))))
 
 (defmacro jj/goto(func path)
-  "Macro creates func() which uses path to jump to that path in a dired buffer."
+  "Macro to create FUNC which use PATH to jump to that PATH in a dired buffer."
   `(defun ,func ()
      (interactive)
      (dired-x-find-file ,path)))
@@ -596,12 +604,12 @@ a region."
                commands)))
 
 (defun jj/prev-buffer()
-  "Jumps to previous buffer"
+  "Jump to previous buffer."
   (interactive)
   (previous-buffer))
 
 (defun jj/next-buffer()
-  "Jumps to next buffer"
+  "Jump to next buffer."
   (interactive)
   (next-buffer))
 
@@ -624,7 +632,7 @@ active, apply to active region instead."
     (back-to-indentation)))
 
 (defun replace-in-region(from-string to-string)
-  "Replaces FROM-STRING with TO-STRING if found in region."
+  "Replace FROM-STRING with TO-STRING if found in region."
   (interactive "sReplace: \nsReplace: %s With: ")
   (save-excursion (save-restriction
                     (narrow-to-region (mark) (point))
@@ -633,7 +641,7 @@ active, apply to active region instead."
                       (replace-match to-string nil t)))))
 
   (defun jj/fullscreen (&optional f)
-    "make emacs fullscreen"
+    "Make EMACS fullscreen."
     (interactive)
     (if (fboundp 'ns-toggle-fullscreen)
         (ns-toggle-fullscreen)
@@ -671,7 +679,7 @@ active, apply to active region instead."
   (pyenv-mode-unset))
 
 (defun init-maxframe()
-  "maximize frame on start."
+  "Maximize frame on start."
   (let ((px (display-pixel-width))
       (py (display-pixel-height))
       (fx (frame-char-width))
