@@ -729,7 +729,7 @@ ARG should be one of: `dark' `light' 'nil'."
 
 (defun jj/pwd ()
   "Prints the current working directory."
-  (car (cdr (split-string (pwd) " "))))
+  (cadr (split-string (pwd) " ")))
 
 (defun jj/ls_selected_packages ()
   "List of all user selected packages."
@@ -746,6 +746,16 @@ ARG should be one of: `dark' `light' 'nil'."
   (if (file-exists-p file)
       (user-error "File: %s already exists" file)
     (write-region "" "" file)))
+
+
+(defun up_emacs ()
+  "Update EMACS source tree."
+  (interactive)
+  (if (file-directory-p "~/t/emacs")
+      (let ((cwd (jj/pwd)))
+	(and (cd "~/t/emacs")
+	     (vc-git-pull nil))
+	(cd cwd))))
 
 (provide 'defuns)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
