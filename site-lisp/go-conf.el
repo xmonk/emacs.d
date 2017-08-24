@@ -27,6 +27,10 @@
 (use-package go-mode
   :commands go-mode
   :ensure t
+  :init
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  (add-hook 'go-mode-hook 'jj/go-init-hook)
+  (add-hook 'go-mode-hook #'flycheck-mode)
   :config
   (setenv "GOPATH" (concat (getenv "HOME") "/g"))
   ;; gofmt command
@@ -65,11 +69,7 @@
     ;; go-mode enables this by default argh!
     (flyspell-mode-off)
     (setq-default tab-width 8)
-    (setq-default indent-tabs-mode t)
-    (add-hook 'before-save-hook 'gofmt-before-save))
-
-  (add-hook 'go-mode-hook 'jj/go-init-hook)
-  (add-hook 'go-mode-hook #'flycheck-mode))
+    (setq-default indent-tabs-mode t)))
 
 (provide 'go-conf)
 
