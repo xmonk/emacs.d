@@ -25,6 +25,7 @@
 ;;; Code:
 
 (use-package rust-mode
+  :if (file-directory-p (concat (getenv "HOME") "/.cargo"))
   :ensure t
   :init
   :config
