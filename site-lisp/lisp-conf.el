@@ -45,6 +45,7 @@
     (hs-minor-mode))
 
   (use-package slime
+    :if (file-directory-p "~/quicklisp")
     :commands slime
     :init
     ;; Replace "sbcl" with the path to your implementation

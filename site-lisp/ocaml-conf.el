@@ -25,6 +25,7 @@
 ;;; Code:
 
 (use-package tuareg
+  :if (file-directory-p "~/.opam")
   :commands tuareg-mode
   :init
   ;; Update the emacs load path
