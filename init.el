@@ -1,4 +1,4 @@
-;;; init.el --- Emacs configuration.
+;;; init.el --- Emacs configuration. -*- lexical-binding: t; -*-
 ;;
 ;; Filename: init.el
 ;; Description:
@@ -27,17 +27,18 @@
 (autoload 'debug "debug" "emacs debugger")
 (setq debug-on-error nil)
 (setq load-prefer-newer t)
-;; set faces
-;; themes
-(add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-(set-face-attribute 'default nil :font "Go Mono" :height 130)
-(load-theme 'jj-darkcl t)
 
 (defvar *site-lisp* (concat user-emacs-directory "site-lisp/")
   "Location of configuration files to be loaded at start up.")
 
 (defvar *vendor* (concat user-emacs-directory "vendor/")
   "Location of third-party files to be loaded at start up.")
+
+;; set faces
+;; themes
+(add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
+(set-face-attribute 'default nil :font "Go Mono" :height 130)
+(load-theme 'jj-lightcl t)
 
 ;; 20MB let's see how well it works.
 (setq gc-cons-threshold 20000000)
@@ -95,13 +96,14 @@
       '(("melpa" . "https://melpa.org/packages/")
         ("org" . "http://orgmode.org/elpa/")))
 (package-initialize)
+(setq package-enable-at-startup nil)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
 
 (eval-when-compile
- (require 'use-package))
+  (require 'use-package))
 (defvar use-package-verbose nil)
 
 (add-to-list 'load-path (expand-file-name *site-lisp*))
@@ -120,14 +122,8 @@
 (use-package py-conf)
 (use-package sh-conf)
 (use-package eshell-conf)
-(use-package ocaml-conf
-  :if (file-directory-p  "~/.opam")
-  :config
-  (load "~/.opam/system/share/emacs/site-lisp/tuareg-site-file"))
-;; (use-package rust-conf
-;;   :disabled
-;;   :if (file-directory-p (concat (getenv "HOME") "/.cargo")))
-;; (use-package slime-conf :disabled)
+(use-package ocaml-conf)
+(use-package rust-conf)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
