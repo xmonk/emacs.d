@@ -29,8 +29,10 @@
 (defvar jj-faces
   `(default))
 
-(let ((white "#FFFFF")
-      (black "#00000"))
+(let ((white "#FFFFFFF")
+      (black "#000000")
+      (sblue "#87ceeb")
+      (lsblue "#87cefa"))
   (apply 'custom-theme-set-faces 'jj-lightcl
 	 `(company-preview ((t (:foreground ,black :underline t))))
 	 `(company-preview-common ((t (:inherit company-preview))))
@@ -39,7 +41,7 @@
 	 `(company-tooltip ((t (:background ,white :foreground ,black))))
 	 `(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
 	 `(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
-	 `(company-tooltip-selection ((t (:background ,black :foreground ,white))))
+	 `(company-tooltip-selection ((t (:background ,lsblue :foreground ,black :weight bold))))
          ;; eshell
 	 `(eshell-prompt ((t (:inherit default))))
 	 (mapcar (lambda (n) `(,n ((t (:background ,white :foreground ,black))))) jj-faces)))
