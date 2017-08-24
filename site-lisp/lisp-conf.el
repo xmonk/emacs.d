@@ -50,7 +50,7 @@
     ;; Replace "sbcl" with the path to your implementation
     (setq inferior-lisp-program "sbcl"
           slime-contribs '(slime-fancy))
-    (load (expand-file-name "~/quicklisp/slime-helper.el"))
+    (load (expand-file-name "slime-helper.el" "~/quicklisp"))
     :config
     (slime-mode t)))
 
