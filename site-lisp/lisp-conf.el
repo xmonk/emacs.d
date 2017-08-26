@@ -42,7 +42,7 @@
     (setq-default tab-width 2)
     (setq-default indent-tabs-mode nil)
     (abbrev-mode 1)
-    (hs-minor-mode))
+    (hs-minor-mode 1))
 
   (use-package slime
     :if (file-directory-p "~/quicklisp")
