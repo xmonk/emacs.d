@@ -61,9 +61,6 @@
 
 ;; GUI specific keymaps
 (when window-system
-  (global-set-key [(control ?=)] (lambda() (interactive) (text-scale-increase 1)))
-  (global-set-key [(control ?-)] (lambda() (interactive) (text-scale-decrease 1)))
-  (global-set-key [(control ?0)] (lambda() (interactive) (text-scale-increase 0)))
   (global-set-key (kbd "<f11>") 'jj/fullscreen))
 
 (provide 'keymaps)
