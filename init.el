@@ -24,10 +24,6 @@
 ;;
 ;;; Code:
 
-(autoload 'debug "debug" "emacs debugger")
-(setq debug-on-error nil)
-(setq load-prefer-newer t)
-
 (defvar *site-lisp* (concat user-emacs-directory "site-lisp/")
   "Location of configuration files to be loaded at start up.")
 
@@ -37,9 +33,9 @@
 ;; set faces
 ;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-(set-face-attribute 'default nil :font "Go Mono" :height 130)
 (load-theme 'jj-lightcl t)
 
+(setq load-prefer-newer t)
 ;; 20MB let's see how well it works.
 (setq gc-cons-threshold 20000000)
 
@@ -48,6 +44,7 @@
 
 ;; frame
 (when (memq window-system '(mac ns))
+  (set-face-attribute 'default nil :font "Go Mono" :height 130)
   (dolist (mode '(scroll-bar-mode tool-bar-mode))
     (if (fboundp mode) (funcall mode -1)))
 
@@ -107,9 +104,7 @@
 (defvar use-package-verbose nil)
 
 (add-to-list 'load-path (expand-file-name *site-lisp*))
-(use-package defuns
-  :config
-  (init-maxframe))
+(use-package defuns)
 (use-package global)
 (use-package keymaps)
 (use-package cedet-conf :defer t)
@@ -121,9 +116,12 @@
 (use-package org-conf)
 (use-package py-conf)
 (use-package sh-conf)
-(use-package eshell-conf)
+(use-package eshell-conf :defer t)
 (use-package ocaml-conf)
 (use-package rust-conf)
+
+;; resize frame to my specification.
+(init-maxframe)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
