@@ -119,6 +119,11 @@
 ;;; sensible zap to char
 (autoload 'zap-up-to-char "misc" "Kill up to, but not including ARGth occurrence of CHAR.")
 
+;;; git vc backend
+(use-package vc-git
+  :init
+  (add-to-list 'vc-handled-backends 'Git))
+
 ;;; tramp
 (defvar tramp-default-method "ssh")
 (defvar tramp-ssh-controlmaster-options nil)
