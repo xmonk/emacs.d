@@ -25,6 +25,7 @@
 ;;; Code:
 
 (use-package cc-mode
+  :commands (c-mode c++mode)
   :init
   (add-hook 'c-mode-common-hook 'jj-c-hook)
   (add-hook 'c-mode-common-hook #'flycheck-mode)
@@ -71,7 +72,7 @@
     ;; /Users/jj/.emacs.d/elpa/irony-20170627.1045/server && cmake --build . --use-stderr --config
     ;; Release --target install
     :ensure t
-    :after cc-mode
+    :after (c-mode c++-mode)
     :init
     (add-hook 'c-mode-common-hook 'irony-mode)
     (add-hook 'c++mode-common-hook 'irony-mode)
