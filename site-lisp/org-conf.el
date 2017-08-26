@@ -30,7 +30,7 @@
   :init
   (add-hook 'org-mode-hook 'jj/org-mode-hook)
   :config
-  (use-package ox-md)
+  (use-package ox-md :defer t)
 
   (defun jj/org-mode-hook()
     (auto-fill-mode 1)
@@ -92,7 +92,8 @@
   (setq-default org-babel-default-header-args:python '((:exports . "code")
                                                        (:tangle  . "yes")))
   (use-package ob-go
-    :ensure t)
+    :ensure t
+    :defer t)
 
   ;; load languages.
   (org-babel-do-load-languages
