@@ -93,12 +93,12 @@
     (forward-char col)))
 
 (defun jj/move-line-up(n)
-  "Moves current line N (1) lines up leaving point in place."
+  "Move current line N (1) lines up leaving point in place."
   (interactive "p")
   (jj/move-line (if (null n) -1 (- n))))
 
 (defun jj/move-line-down(n)
-  "Moves current line N (1) lines down leaving point in place."
+  "Move current line N (1) lines down leaving point in place."
   (interactive "p")
   (jj/move-line (if (null n) 1 n)))
 
@@ -192,22 +192,22 @@
 
 ;; Match beginning.
 (defun jj/goto-match-beginning()
-  "Backtracks to the match at the begining"
+  "Backtrack to the match at the beginning."
   (when isearch-forward (goto-char isearch-other-end)))
 
 ;; Vi does this, now emacs does too, insert a new line no matter where you are.
-(defun jj/vi-open-previous-line(arg)
-  "Inserts a new line above your current line."
+(defun jj/vi-open-previous-line(n)
+  "Insert a new line above the current line.  With argument N insert N new lines."
   (interactive "p")
   (beginning-of-line)
-  (open-line arg)
+  (open-line n)
   (indent-according-to-mode))
 
-(defun jj/vi-open-next-line(arg)
-  "Move to the next line (like vi) and then opens a line."
+(defun jj/vi-open-next-line(n)
+  "Move to the next line (like vi) and open a line.  With argument N insert N new lines."
   (interactive "p")
   (end-of-line)
-  (open-line arg)
+  (open-line n)
   (forward-line 1)
   (indent-according-to-mode))
 
@@ -732,7 +732,6 @@ ARG should be one of: `dark' `light' 'nil'."
   (if (file-exists-p file)
       (user-error "File: %s already exists" file)
     (write-region "" "" file)))
-
 
 (defun up_emacs ()
   "Update EMACS source tree."
