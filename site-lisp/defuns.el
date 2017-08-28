@@ -664,20 +664,6 @@ active, apply to active region instead."
       (codesearch-search pattern file-pattern))
      (setq codesearch-csearchindex "~/.csearchindex")))
 
-;; FIXME: Not tested.
-;; Projectile + pyenv utility functions.
-(defun projectile-pyenv-mode-set ()
-  "Set the pyenv based on  the project."
-  (pyenv-mode-set (projectile-project-name))
-  (unless (eq python-shell-virtualenv-path nil)
-    (setenv "PATH" (concat (concat python-shell-virtualenv-path ":") (getenv "PATH")))))
-
-(defun projectile-pyenv-mode-unset ()
-  "Unset the pyenv."
-  (unless (eq python-shell-virtualenv-path nil)
-    (setenv "PATH" (mapconcat 'identity (delete python-shell-virtualenv-path (split-string (getenv "PATH") path-separator)) ":")))
-  (pyenv-mode-unset))
-
 (defun init-maxframe()
   "Maximize frame on start."
   (let ((px (display-pixel-width))
