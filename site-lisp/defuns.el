@@ -399,7 +399,7 @@ a region."
              (name (buffer-name buffer)))
         (and (not (string-equal name "*shell*"))
              (not (string-equal name "*Org Agenda*"))
-             (not (string-equal name "todo.org"))
+             (not (string-match "\.org" name))
              (kill-buffer buffer)))
       (setq list (cdr list))))
   (cd "~/"))
