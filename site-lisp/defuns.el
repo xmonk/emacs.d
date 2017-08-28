@@ -757,6 +757,16 @@ ARG should be one of: `dark' `light' 'nil'."
 	     (vc-git-pull nil))
 	(cd cwd))))
 
+(defun jj/show-projects ()
+  "List projectile known projects in a *project* buffer."
+  (interactive)
+  (switch-to-buffer "*projects*")
+  (org-mode)
+  (insert "#+TITLE: Projects\n\n")
+  (dolist (project (projectile-relevant-known-projects))
+    (insert (concat "* "  "[" "[file:" project "]" "["(file-name-nondirectory (directory-file-name project)) "]" "]" "\n")))
+  (goto-char (point-min)))
+
 (provide 'defuns)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; defuns.el ends here
