@@ -108,7 +108,7 @@
   "Variable to hold line number from the last `ffap-file-at-point' call.")
 
 (defadvice ffap-file-at-point (after ffap-store-line-number activate)
-  "Search `ffap-string-at-point' for a line number pattern and save it in `ffap-file-at-point-line-number' variable."
+  "Search function `ffap-string-at-point' for a line number pattern and save it in `ffap-file-at-point-line-number' variable."
   (let* ((string (ffap-string-at-point)) ;; string/name definition copied from `ffap-string-at-point'
          (name
           (or (condition-case nil
