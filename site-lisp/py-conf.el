@@ -27,7 +27,7 @@
 (use-package python
   :commands python-mode
   :config
-  (setq python-shell-interpreter "python"
+  (setq python-shell-interpreter "python3"
         python-shell-interpreter-args "-i"
         comint-process-echoes t
         python-shell-completion-native-enable nil)
