@@ -147,13 +147,11 @@
     (company-flx-mode +1))
 
   (setq company-tooltip-limit 20
-        company-quickhelp-idle-delay 4
-        company-minimum-prefix-length 3
+		company-minimum-prefix-length 3
         company-idle-delay .3
         company-echo-delay 0
-	;;company-transformers '(company-sort-by-backend-importance)
-	company-auto-complete nil
-	company-begin-commands nil))
+		company-auto-complete nil
+		company-begin-commands nil))
 
 ;;; on duplicate filenames, show path names.
 (use-package uniquify
