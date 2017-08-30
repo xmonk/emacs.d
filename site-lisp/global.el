@@ -292,14 +292,15 @@
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
-  :mode (("\\.\\(m\\(ark\\)?down\\|md\\)$" . markdown-mode)
-	     ("README\\.md\\'" . gfm-mode))
+  :mode (("README\\.md\\'" . gfm-mode)
+		 ("\\.md\\'" . markdown-mode)
+		 ("\\.markdown\\'" . markdown-mode))
   :init
   (add-hook 'markdown-mode-hook 'flyspell-mode)
   (setq markdown-fontify-code-blocks-natively t)
+  (setq markdown-enable-math t)
   :config
-  (add-to-list 'markdown-code-lang-modes '("python" . python-mode))
-  (let ((markdown-cmd "peg-markdown"))
+  (let ((markdown-cmd "multimarkdown"))
     (when (executable-find markdown-cmd)
       (setq markdown-command markdown-cmd))))
 
