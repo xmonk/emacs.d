@@ -119,7 +119,8 @@
 ;;; sensible zap to char
 (autoload 'zap-up-to-char "misc" "Kill up to, but not including ARGth occurrence of CHAR.")
 
-;;; git vc backend
+;;; vc backend
+(setq vc-follow-symlinks t)
 (use-package vc-git
   :init
   (add-to-list 'vc-handled-backends 'Git))
@@ -317,9 +318,6 @@
   :ensure t
   :defer t
   :bind ("s-/" . er/expand-region))
-
-;;; vc
-(setq vc-follow-symlinks t)
 
 ;;; codesearch http://code.google.com/p/codesearch/
 (use-package codesearch
