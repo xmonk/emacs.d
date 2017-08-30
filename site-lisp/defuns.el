@@ -30,7 +30,7 @@
 (defun jj/compile-config()
   "Compile `.el` file in `SITE-LISP`."
   (interactive)
-  (byte-recompile-directory *site-lisp* 0))
+  (byte-recompile-directory (concat user-emacs-directory "/site-lisp") 0))
 
 (defun jj/create-scratch-buffer()
   "Create a scratch buffer."
@@ -388,7 +388,7 @@ a region."
   (if (file-newer-than-file-p (concat user-emacs-directory "init.el")
                               (concat user-emacs-directory "init.elc"))
       (byte-compile-file (concat user-emacs-directory "init.el")))
-  (byte-recompile-directory *site-lisp*) 0)
+  (byte-recompile-directory (concat user-emacs-directory "/site-lisp")) 0)
 
 (defun jj/clear-buffers ()
   "Kill all buffers, asking permission on unmodified ones."

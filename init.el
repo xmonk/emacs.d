@@ -1,4 +1,4 @@
-;;; init.el --- Emacs configuration. -*- lexical-binding: t; -*-
+;;; init.el --- Emacs configuration.
 ;;
 ;; Filename: init.el
 ;; Description:
@@ -24,18 +24,13 @@
 ;;
 ;;; Code:
 
-(defvar *site-lisp* (concat user-emacs-directory "site-lisp/")
-  "Location of configuration files to be loaded at start up.")
-
-(defvar *vendor* (concat user-emacs-directory "vendor/")
-  "Location of third-party files to be loaded at start up.")
+(setq load-prefer-newer t)
 
 ;; set faces
 ;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
 (load-theme 'jj-lightcl t)
 
-(setq load-prefer-newer t)
 ;; 20MB let's see how well it works.
 (setq gc-cons-threshold 20000000)
 
@@ -103,7 +98,7 @@
   (require 'use-package))
 (defvar use-package-verbose nil)
 
-(add-to-list 'load-path (expand-file-name *site-lisp*))
+(add-to-list 'load-path (expand-file-name (concat user-emacs-directory "/site-lisp")))
 (use-package defuns)
 (use-package global)
 (use-package keymaps)
