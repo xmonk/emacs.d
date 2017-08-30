@@ -7,7 +7,7 @@ might not work with earlier version of Emacs.
 
 If you already have .emacs.d directory do:
 
-	mv ~/.emacs.d ~/.my.emacs.d
+	mv ~/.emacs.d ~/dot.emacs.d
 
 then:
 
