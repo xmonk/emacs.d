@@ -98,10 +98,10 @@
   :ensure t
   :init
   (add-hook 'ibuffer-hook
-	    (lambda ()
-	      (ibuffer-vc-set-filter-groups-by-vc-root)
-	      (unless (eq ibuffer-sorting-mode 'alphabetic)
-		(ibuffer-do-sort-by-alphabetic)))))
+			(lambda ()
+			  (ibuffer-vc-set-filter-groups-by-vc-root)
+			  (unless (eq ibuffer-sorting-mode 'alphabetic)
+				(ibuffer-do-sort-by-alphabetic)))))
 
 ;; set-goal-column
 (put 'set-goal-column 'disabled nil)
@@ -132,7 +132,6 @@
 ;;; company
 (use-package company
   :ensure t
-  :defer t
   :bind (("C-c TAB" . company-complete))
   :diminish company-mode
   :init (global-company-mode 1)
@@ -142,7 +141,7 @@
 	:after company
     :init
     (add-hook 'company-mode-hook (lambda ()
-				   (add-to-list 'company-backends 'company-capf)))
+								   (add-to-list 'company-backends 'company-capf)))
     (company-flx-mode +1))
 
   (setq company-tooltip-limit 20
@@ -157,8 +156,8 @@
   :defer 5
   :init
   (setq uniquify-buffer-name-style 'post-forward
-	uniquify-separator ":"
-	uniquify-after-kill-buffer-p t))
+		uniquify-separator ":"
+		uniquify-after-kill-buffer-p t))
 
 ;;; recentf
 (use-package recentf
@@ -217,14 +216,12 @@
   :diminish eldoc-mode)
 
 (use-package git-timemachine
-  :defer t
   :commands git-timemachine
   :ensure t)
 
 ;;; undo-tree
 (use-package undo-tree
   :ensure t
-  :defer 5
   :diminish undo-tree-mode
   :bind (("C-x u" . undo-tree-undo)
          ("s-z" . undo-tree-undo)
@@ -238,7 +235,6 @@
 ;;; projectile
 (use-package projectile
   :ensure t
-  :defer 5
   :diminish projectile-mode
   :init (setq projectile-mode-line "Projectile")
   :bind (("C-c p p" . projectile-switch-project))
@@ -299,12 +295,12 @@
 ;;; Web-mode
 (use-package web-mode
   :ensure t
-  :defer t
+  :commands web-mode
   :mode (("\\.html$" . web-mode)
-	 ("\\.xhtml$" . web-mode))
+		 ("\\.xhtml$" . web-mode))
   :init
   (add-hook 'web-mode-hook (lambda ()
-			     (setq web-mode-markup-indent-offset 2))))
+							 (setq web-mode-markup-indent-offset 2))))
 
 ;;; Expand-region
 (use-package expand-region
@@ -322,17 +318,12 @@
 
 ;;; Smart scan
 (use-package smartscan
-  :disabled
-  :defer t
+  :ensure t
   :commands smartscan-mode
-  :bind-keymap (("S-n" . smartscan-map)
-		("S-p" . smartscan-map)
-		("S-'" . smartscan-map))
   :init
-  (global-smartscan-mode 1)
-  (unbind-key "M-n" smartscan-map)
-  (unbind-key "M-p" smartscan-map)
-  (unbind-key "M-'" smartscan-map))
+  (dolist (hook '(eshell-mode-hook shell-mode-hook))
+	(add-hook hook '(lambda () (smartscan-mode -1))))
+  (global-smartscan-mode 1))
 
 ;;; Whitespace-mode
 (setq whitespace-line-column 80
@@ -346,7 +337,7 @@
   :ensure t
   :defer t
   :bind (("C-y" . whole-line-or-region-yank)
-	 ("M-w" . whole-line-or-region-kill-ring-save))
+		 ("M-w" . whole-line-or-region-kill-ring-save))
   :diminish whole-line-or-region-local-mode
   :init
   (whole-line-or-region-global-mode t))
@@ -387,16 +378,16 @@
 ;;; winner mode
 (use-package winner
   :bind (("C-c <left>" . winner-undo)
-	 ("C-c <right>" . winner-redo))
+		 ("C-c <right>" . winner-redo))
   :init
   (winner-mode))
 
 ;;; windmove
 (use-package windmove
   :bind (("s-h" . windmove-left)
-	 ("s-l" . windmove-right)
-	 ("s-k" . windmove-up)
-	 ("s-j" . windmove-down))
+		 ("s-l" . windmove-right)
+		 ("s-k" . windmove-up)
+		 ("s-j" . windmove-down))
   :config
   (windmove-default-keybindings 'super)
   (setq windmove-wrap-around t))
@@ -406,7 +397,6 @@
 
 ;;; Paste at point NOT at cursor
 (use-package mwheel
-  :defer t
   :init
   (setq mouse-yank-at-point 't))
 
@@ -501,7 +491,7 @@
 
 ;; If images are supported than display them when visiting them.
 (when (fboundp 'auto-image-file-mode)
-    (auto-image-file-mode 1))
+  (auto-image-file-mode 1))
 
 (add-hook 'prog-mode-hook 'jj/pretty-lambdas)
 (add-hook 'prog-mode-hook 'jj/local-comment-auto-fill)
