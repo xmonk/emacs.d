@@ -132,10 +132,9 @@
 ;;; company
 (use-package company
   :ensure t
-  :defer 10
+  :defer t
   :bind (("C-c TAB" . company-complete))
   :diminish company-mode
-  :defer t
   :init (global-company-mode 1)
   :config
   (use-package company-flx
