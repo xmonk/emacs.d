@@ -41,6 +41,7 @@
   (defun jj/lisp-mode-hook()
     (setq-default tab-width 2)
     (setq-default indent-tabs-mode nil)
+    (paredit-mode 1)
     (abbrev-mode 1)
     (hs-minor-mode 1))
 
