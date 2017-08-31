@@ -27,6 +27,8 @@
 (use-package tuareg
   :if (file-directory-p "~/.opam")
   :commands tuareg-mode
+  :mode (("\\.ml[ily]?$" . tuareg-mode)
+         ("\\.topml$" . tuareg-mode))
   :init
   ;; Update the emacs load path
   (add-to-list 'load-path (expand-file-name "../../share/emacs/site-lisp" (getenv "OCAML_TOPLEVEL_PATH")))
@@ -37,22 +39,26 @@
     (setenv (car var) (cadr var)))
   ;; Update the emacs path
   (setq exec-path (append (parse-colon-path (getenv "PATH"))
-			  (list exec-directory)))
+						  (list exec-directory)))
   :config
   (use-package utop
+	:init
+	(add-hook 'tuareg-mode-hook 'utop-minor-mode)
     :config
     ;; Automatically load utop.el
     (autoload 'utop "utop" "Toplevel for OCaml" t)
     (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
-    (add-hook 'tuareg-mode-hook 'utop-minor-mode)
-    (setq utop-command "opam config exec -- utop -emacs"))
+	(setq utop-command "opam config exec -- utop -emacs"))
 
   (use-package ocp-indent
-    :config
+	:config
     (ocp-setup-indent))
 
   ;; Load merlin-mode
   (use-package merlin
+	:init
+	(add-hook 'tuareg-mode-hook 'merlin-mode)
+    (add-hook 'caml-mode-hook 'merlin-mode)
     :config
     (load-after company
       (add-to-list 'company-backends 'merlin-company-backend)
@@ -60,20 +66,9 @@
       (add-hook 'merlin-mode-hook 'company-mode)
       (bind-key "C-c TAB" 'company-complete merlin-mode-map))
 
-    ;; Start merlin on ocaml files
-    (add-hook 'tuareg-mode-hook 'merlin-mode t)
-    (add-hook 'caml-mode-hook 'merlin-mode t)
-    ;; Use opam switch to lookup ocamlmerlin binary
+	;; Use opam switch to lookup ocamlmerlin binary
     (setq merlin-command 'opam)
-    (setq merlin-use-auto-complete-mode nil)
-
-    (add-hook 'tuareg-mode-hook 'merlin-mode)
-    (add-hook 'caml-mode-hook 'merlin-mode))
-
-  (setq auto-mode-alist
-        (append '(("\\.ml[ily]?$" . tuareg-mode)
-                  ("\\.topml$" . tuareg-mode))
-                auto-mode-alist)))
+    (setq merlin-use-auto-complete-mode nil)))
 
 (provide 'ocaml-conf)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
