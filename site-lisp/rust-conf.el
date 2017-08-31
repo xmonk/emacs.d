@@ -27,7 +27,6 @@
 (use-package rust-mode
   :if (file-directory-p (concat (getenv "HOME") "/.cargo"))
   :ensure t
-  :init
   :config
   (use-package racer
     :ensure t
@@ -51,6 +50,7 @@
 
   (use-package cargo
     :ensure t
+	:after rust-mode
     :init
     (add-hook 'rust-mode-hook 'cargo-minor-mode)))
 
