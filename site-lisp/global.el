@@ -236,10 +236,18 @@
 (use-package projectile
   :ensure t
   :diminish projectile-mode
-  :init (setq projectile-mode-line "Projectile")
+  :init
+  (setq projectile-mode-line "Projectile")
   :bind (("C-c p p" . projectile-switch-project))
   :config
   (projectile-mode t))
+
+;;; flx-ido
+(use-package flx-ido
+  :after ido
+  :ensure t
+  :init
+  (flx-ido-mode t))
 
 ;;; swiper
 (use-package swiper
