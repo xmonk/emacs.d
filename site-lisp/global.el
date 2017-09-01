@@ -25,7 +25,7 @@
 ;;; Code:
 
 ;; stop cursor from blinking
-;; (blink-cursor-mode -1)
+(blink-cursor-mode -1)
 
 ;; don't scroll like a maniac
 (defvar mouse-wheel-scroll-amount '(1))
@@ -138,7 +138,7 @@
   :config
   (use-package company-flx
     :ensure t
-	:after company
+    :after company
     :init
     (add-hook 'company-mode-hook (lambda ()
 								   (add-to-list 'company-backends 'company-capf)))
@@ -263,7 +263,7 @@
   (advice-add 'swiper :after #'jj/swiper-recenter))
 
 (use-package dired
-  :defer 10
+  :defer t
   :commands dired
   :init
   (setq dired-listing-switches "-lahv")
@@ -271,8 +271,8 @@
 
 ;;; load dired extras
 (use-package dired-x
-  :defer 10
-  :commands dired-jump)
+  :commands dired-jump
+  :bind (("C-x C-j" . dired-jump)))
 
 ;;; Don't allow the scratch buffer to be killed. It will delete it's contents instead.
 (add-hook 'kill-buffer-query-functions 'jj/immortal-scratch-buffer)
@@ -282,6 +282,7 @@
 
 ;;; Doc-view
 (use-package doc-view
+  :defer t
   :commands doc-view)
 
 ;;; Markdown
@@ -429,7 +430,7 @@
 ;;; backup
 ;; Save all my backup files in a specific directory
 (defconst use-backup-dir t)
-(setq backup-directory-alist (quote ((".*" . "~/.emacs.d/.backup")))
+(setq backup-directory-alist (quote ((".*" . "~/.emacs.d/var/backup")))
       version-control t        ;; use version number for backups
       kept-new-versions 6      ;; number of newest version to keep
       kept-old-versions 2      ;; number of oldest version to keep
