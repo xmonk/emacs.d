@@ -28,12 +28,6 @@
   :commands (magit-status mgit)
   :ensure t
   :init
-  (setq magit-repository-directories
-	'(("~/.emacs.d" . 0)
-	  ("~/w/" . 1)
-	  ("~/.files" . 0)
-	  ("~/p" . 0)
-	  ("~/g/src/github.com/xmonk" . 1)))
   (defalias 'mgit 'magit-status)
   :config
   (defadvice magit-status (around magit-fullscreen activate)
