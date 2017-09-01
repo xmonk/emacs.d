@@ -326,11 +326,15 @@
 
 ;;; Smart scan
 (use-package smartscan
+  :defer t
   :ensure t
   :commands smartscan-mode
+  :bind (("M-'" . smartscan-symbol-replace)
+		 ("M-p" . smartscan-symbol-go-forward)
+		 ("M-n" . smartscan-symbol-go-backward))
   :init
   (dolist (hook '(eshell-mode-hook shell-mode-hook))
-	(add-hook hook '(lambda () (smartscan-mode -1))))
+    (add-hook hook '(lambda () (smartscan-mode -1))))
   (global-smartscan-mode 1))
 
 ;;; Whitespace-mode
