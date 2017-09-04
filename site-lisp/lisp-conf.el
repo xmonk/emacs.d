@@ -38,23 +38,26 @@
      :ignore-case t
      :doc-spec '(("(ansicl)Symbol Index" nil nil nil))))
 
+  (use-package slime
+	  :ensure t
+	  :commands slime
+    :init
+	  (setq inferior-lisp-program "sbcl")
+	  (setq slime-contribs '(slime-repl slime-fuzzy slime-company))
+	  :config
+    (bind-key "C-c TAB" 'company-complete slime-mode-indirect-map)
+	  (slime-setup))
+
   (defun jj/lisp-mode-hook()
     (setq-default tab-width 2)
     (setq-default indent-tabs-mode nil)
-    (paredit-mode 1)
     (abbrev-mode 1)
-    (hs-minor-mode 1))
+	  (paredit-mode 1))
 
-  (use-package slime
-    :if (file-directory-p "~/quicklisp")
-    :commands slime
-    :init
-    ;; Replace "sbcl" with the path to your implementation
-    (setq inferior-lisp-program "sbcl"
-          slime-contribs '(slime-fancy))
-    (load (expand-file-name "slime-helper.el" "~/quicklisp"))
-    :config
-    (slime-mode t)))
+  (defun jj/inferior-lisp-mode-hook()
+    (when (fboundp 'inferior-slime-mode)
+      (inferior-slime-mode t)
+	    (paredit-mode 1))))
 
 (provide 'lisp-conf)
 
