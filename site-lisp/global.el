@@ -121,9 +121,14 @@
 (autoload 'zap-up-to-char "misc" "Kill up to, but not including ARGth occurrence of CHAR.")
 
 ;;; vc backend
-(add-hook 'git-commit-mode-hook 'disable-paredit-mode)
-(global-git-commit-mode t)
-(setq vc-follow-symlinks t)
+(use-package vc
+  :defer
+  :init
+  (add-hook 'git-commit-mode-hook 'disable-paredit-mode)
+  (setq vc-follow-symlinks t)
+  :config
+  (global-git-commit-mode t))
+
 (use-package vc-git
   :init
   (add-to-list 'vc-handled-backends 'Git))
