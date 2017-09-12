@@ -43,19 +43,22 @@
 	  :commands slime
     :init
 	  (setq inferior-lisp-program "sbcl")
-	  (setq slime-contribs '(slime-repl slime-fuzzy slime-company))
+	  (setq slime-contribs '(slime-repl slime-fuzzy inferior-slime slime-mdot-fu slime-company)) ;;slime-sbcl-exts
 	  :config
-    (bind-key "C-c TAB" 'company-complete slime-mode-indirect-map)
-	  (slime-setup))
+      (bind-key "C-c TAB" 'company-complete slime-mode-indirect-map)
+	  (bind-key "C-c TAB" 'company-complete slime-repl-mode-map)
+      (slime-setup))
 
   (defun jj/lisp-mode-hook()
     (setq-default tab-width 2)
     (setq-default indent-tabs-mode nil)
+    (bind-key "<return>" 'newline-and-indent)
     (abbrev-mode 1)
-	  (paredit-mode 1))
+	(paredit-mode 1))
 
   (defun jj/inferior-lisp-mode-hook()
     (when (fboundp 'inferior-slime-mode)
+	  (bind-key "<return>" 'slime-repl-return inferior-slime-mode-map)
       (inferior-slime-mode t)
 	    (paredit-mode 1))))
 
