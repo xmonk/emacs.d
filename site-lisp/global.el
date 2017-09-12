@@ -149,7 +149,7 @@
     :after company
     :init
     (add-hook 'company-mode-hook (lambda ()
-								   (add-to-list 'company-backends 'company-capf)))
+				   (add-to-list 'company-backends 'company-capf)))
     (company-flx-mode +1))
 
   (setq company-tooltip-limit 20
