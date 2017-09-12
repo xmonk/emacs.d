@@ -27,96 +27,96 @@
 ;; 20MB let's see how well it works.
 (setq gc-cons-threshold 20000000)
 
-(let ((file-name-handler-alist nil))
-  (setq load-prefer-newer t)
+(setq load-prefer-newer t)
 
-  ;; set faces
-  ;; themes
-  (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-  (load-theme 'jj-lightcl t)
+;; set faces
+;; themes
+(add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
+(load-theme 'jj-darkcl t)
 
-  (unless window-system
-	(menu-bar-mode -1))
+(unless window-system
+  (menu-bar-mode -1))
 
-  ;; frame
-  (when (memq window-system '(mac ns))
-	(set-face-attribute 'default nil :font "Go Mono" :height 130)
-	(dolist (mode '(scroll-bar-mode tool-bar-mode))
-      (if (fboundp mode) (funcall mode -1)))
+;; frame
+(when (memq window-system '(mac ns))
+  (set-face-attribute 'default nil :font "Go Mono" :height 130)
+  (dolist (mode '(scroll-bar-mode tool-bar-mode))
+    (if (fboundp mode) (funcall mode -1)))
 
-	(cond ((boundp 'mac-option-modifier)
-		   (setq mac-option-modifier 'meta))
-		  ((boundp 'mac-command-modifier)
-		   (setq mac-command-modifier 'super)))
-	(setq mac-allow-anti-aliasing t)
-	(setenv "TMPDIR" "/tmp") ;; os x sets it to /var/tmp/...
-	(let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
-      (setenv "PATH" path)
-      (setq exec-path (split-string path path-separator))))
+  (cond ((boundp 'mac-option-modifier)
+		 (setq mac-option-modifier 'meta))
+		((boundp 'mac-command-modifier)
+		 (setq mac-command-modifier 'super)))
+  (setq mac-allow-anti-aliasing t)
+  (setenv "TMPDIR" "/tmp") ;; os x sets it to /var/tmp/...
+  (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
+    (setenv "PATH" path)
+    (setq exec-path (split-string path path-separator))))
 
-  ;; Load customization's
-  (cond ((eql system-type 'darwin)
-		 (setq custom-file (concat user-emacs-directory "osx-custom.el")))
-		((eql system-type 'berkeley-unix)
-		 (setq custom-file (concat user-emacs-directory "obsd-custom.el")))
-		((eql system-type 'gnu/linux)
-		 (setq custom-file (concat user-emacs-directory "linux-custom.el"))))
+;; Load customization's
+(cond ((eql system-type 'darwin)
+       (setq custom-file (concat user-emacs-directory "osx-custom.el")))
+      ((eql system-type 'berkeley-unix)
+       (setq custom-file (concat user-emacs-directory "obsd-custom.el")))
+      ((eql system-type 'gnu/linux)
+       (setq custom-file (concat user-emacs-directory "linux-custom.el"))))
 
-  (if (file-exists-p custom-file)
-      (load-file custom-file)
-	(message "ERROR: No custom file found or specified"))
+(if (file-exists-p custom-file)
+    (load-file custom-file)
+  (message "ERROR: No custom file found or specified"))
 
-  ;; ido
-  (require 'ido nil t)
-  (setq ido-enable-flex-matching t)
-  (setq ido-enable-prefix nil
-		ido-create-new-buffer 'always
-		ido-use-filename-at-point 'guess
-		ido-use-virtual-buffers t
-		ido-max-prospects 10)
-  (ido-mode t)
-  (ido-everywhere 1)
+;; ido
+(require 'ido nil t)
+(setq ido-enable-flex-matching t)
+(setq ido-enable-prefix nil
+      ido-create-new-buffer 'always
+      ido-use-filename-at-point 'guess
+      ido-use-virtual-buffers t
+      ido-max-prospects 10)
+(ido-mode t)
+(ido-everywhere 1)
 
 ;;; Server
-  (require 'server nil t)
-  (when (and (>= emacs-major-version 23) (not (server-running-p)))
-	(server-start))
+(require 'server nil t)
+(when (and (>= emacs-major-version 23) (not (server-running-p)))
+  (server-start))
 
-  ;; package
-  (autoload 'package "package" nil t)
+;; package
+(autoload 'package "package" nil t)
 
-  (setq package-archives
-		'(("melpa" . "https://melpa.org/packages/")
-          ("org" . "http://orgmode.org/elpa/")))
-  (package-initialize)
-  (setq package-enable-at-startup nil)
+(setq package-archives
+      '(("elpa" . "https://elpa.gnu.org/packages/")
+		("melpa" . "https://melpa.org/packages/")
+        ("org" . "http://orgmode.org/elpa/")))
+(package-initialize)
+(setq package-enable-at-startup nil)
 
-  (unless (package-installed-p 'use-package)
-	(package-refresh-contents)
-	(package-install 'use-package))
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
-  (eval-when-compile
-	(require 'use-package))
-  (defvar use-package-verbose t)
+(eval-when-compile
+  (require 'use-package))
+(defvar use-package-verbose t)
 
-  (add-to-list 'load-path (expand-file-name (concat user-emacs-directory "/site-lisp")))
-  (use-package defuns)
-  (use-package global)
-  (use-package keymaps)
-  (use-package cedet-conf :defer t)
-  (use-package elisp-conf)
-  (use-package lisp-conf)
-  (use-package magit-conf)
-  (use-package c-conf)
-  (use-package go-conf)
-  (use-package org-conf)
-  (use-package py-conf)
-  (use-package sh-conf)
-  (use-package eshell-conf :defer t)
-  (use-package ocaml-conf)
-  (use-package rust-conf)
-  ;; resize frame
-  (init-maxframe))
+(add-to-list 'load-path (expand-file-name (concat user-emacs-directory "/site-lisp")))
+(use-package defuns)
+(use-package global)
+(use-package keymaps)
+(use-package cedet-conf :defer t)
+(use-package elisp-conf)
+(use-package lisp-conf)
+(use-package magit-conf)
+(use-package c-conf)
+(use-package go-conf)
+(use-package org-conf)
+(use-package py-conf)
+(use-package sh-conf)
+(use-package eshell-conf :defer t)
+(use-package ocaml-conf)
+(use-package rust-conf)
+;; resize frame
+(init-maxframe)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
