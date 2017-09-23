@@ -32,14 +32,14 @@
 ;; set faces
 ;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-(load-theme 'jj-darkcl t)
+(load-theme 'jj-dark t)
 
 (unless window-system
   (menu-bar-mode -1))
 
 ;; frame
 (when (memq window-system '(mac ns))
-  (set-face-attribute 'default nil :font "Go Mono" :height 130)
+  (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 130)
   (dolist (mode '(scroll-bar-mode tool-bar-mode))
     (if (fboundp mode) (funcall mode -1)))
 
@@ -112,7 +112,7 @@
 (use-package org-conf)
 (use-package py-conf)
 (use-package sh-conf)
-(use-package eshell-conf :defer t)
+(use-package eshell-conf)
 (use-package ocaml-conf)
 (use-package rust-conf)
 ;; resize frame
