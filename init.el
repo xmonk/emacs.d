@@ -27,8 +27,6 @@
 ;; 20MB let's see how well it works.
 (setq gc-cons-threshold 20000000)
 
-(setq load-prefer-newer t)
-
 ;; set faces
 ;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
