@@ -42,9 +42,9 @@
     (if (fboundp mode) (funcall mode -1)))
 
   (cond ((boundp 'mac-option-modifier)
-		 (setq mac-option-modifier 'meta))
-		((boundp 'mac-command-modifier)
-		 (setq mac-command-modifier 'super)))
+	 (setq mac-option-modifier 'meta))
+	((boundp 'mac-command-modifier)
+	 (setq mac-command-modifier 'super)))
   (setq mac-allow-anti-aliasing t)
   (setenv "TMPDIR" "/tmp") ;; os x sets it to /var/tmp/...
   (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
