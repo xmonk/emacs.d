@@ -30,7 +30,7 @@
 ;; set faces
 ;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-(load-theme 'jj-dark t)
+(load-theme 'jj-lightcl t)
 
 (unless window-system
   (menu-bar-mode -1))
