@@ -752,6 +752,18 @@ ARG should be one of: `dark' `light' 'nil'."
     (insert (concat "* "  "[" "[file:" project "]" "["(file-name-nondirectory (directory-file-name project)) "]" "]" "\n")))
   (goto-char (point-min)))
 
+;; from http://www.wilfred.me.uk/.emacs.d/init.html#orgb130ee0
+(defun beginning-of-line-dwim ()
+  "Toggle between moving point to the first non-whitespace character, and the start of the line."
+  (interactive)
+  (let ((start-position (point)))
+    ;; Move to the first non-whitespace character.
+    (back-to-indentation)
+    ;; If we haven't moved position, go to start of the line.
+    (when (= (point) start-position)
+      (move-beginning-of-line nil))))
+
+
 (provide 'defuns)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; defuns.el ends here
