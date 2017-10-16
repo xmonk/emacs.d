@@ -30,7 +30,7 @@
   :init
   (add-hook 'org-mode-hook 'jj/org-mode-hook)
   :config
-  (use-package ox-md :defer t)
+  (use-package ox-md)
 
   (defun jj/org-mode-hook()
     (auto-fill-mode 1)
