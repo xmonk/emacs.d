@@ -100,13 +100,13 @@
   :commands ibuffer
   :config
   (use-package ibuffer-vc
-	:ensure t
-	:init
-	(add-hook 'ibuffer-hook
-			  (lambda ()
-				(ibuffer-vc-set-filter-groups-by-vc-root)
-				(unless (eq ibuffer-sorting-mode 'alphabetic)
-				  (ibuffer-do-sort-by-alphabetic))))))
+    :ensure t
+    :init
+    (add-hook 'ibuffer-hook
+	      (lambda ()
+		(ibuffer-vc-set-filter-groups-by-vc-root)
+		(unless (eq ibuffer-sorting-mode 'alphabetic)
+		  (ibuffer-do-sort-by-alphabetic))))))
 
 ;; set-goal-column
 (put 'set-goal-column 'disabled nil)
@@ -157,19 +157,19 @@
     (company-flx-mode +1))
 
   (setq company-tooltip-limit 20
-		company-minimum-prefix-length 3
+	company-minimum-prefix-length 3
         company-idle-delay .3
         company-echo-delay 0
-		company-auto-complete nil
-		company-begin-commands nil))
+	company-auto-complete nil
+	company-begin-commands nil))
 
 ;;; on duplicate filenames, show path names.
 (use-package uniquify
   :defer 5
   :init
   (setq uniquify-buffer-name-style 'post-forward
-		uniquify-separator ":"
-		uniquify-after-kill-buffer-p t))
+	uniquify-separator ":"
+	uniquify-after-kill-buffer-p t))
 
 ;;; recentf
 (use-package recentf
@@ -258,7 +258,7 @@
   :ensure t
   :diminish ivy-mode
   :bind (("C-s" . swiper)
-		 ("C-r" . swiper))
+	 ("C-r" . swiper))
   :config
   ;;advise swiper to recenter on exit
   (defun jj/swiper-recenter (&rest args)
@@ -294,8 +294,8 @@
   :ensure t
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
-		 ("\\.md\\'" . markdown-mode)
-		 ("\\.markdown\\'" . markdown-mode))
+	 ("\\.md\\'" . markdown-mode)
+	 ("\\.markdown\\'" . markdown-mode))
   :init
   (add-hook 'markdown-mode-hook 'flyspell-mode)
   (setq markdown-fontify-code-blocks-natively t)
@@ -310,10 +310,10 @@
   :ensure t
   :commands web-mode
   :mode (("\\.html$" . web-mode)
-		 ("\\.xhtml$" . web-mode))
+	 ("\\.xhtml$" . web-mode))
   :init
   (add-hook 'web-mode-hook (lambda ()
-							 (setq web-mode-markup-indent-offset 2))))
+			     (setq web-mode-markup-indent-offset 2))))
 
 ;;; Expand-region
 (use-package expand-region
@@ -323,11 +323,11 @@
 
 ;;; codesearch http://code.google.com/p/codesearch/
 (use-package codesearch
+  :disabled
   :ensure t
   :commands (codesearch-search codesearch-reset codesearch-list-directories)
   :init
-  (jj/codesearcher codesearch-goodbed "~/.goodbedindex")
-  (jj/codesearcher codesearch-colmapp "~/.tns.csindex"))
+  (jj/codesearcher codesearch-goodbed "~/.goodbedindex"))
 
 ;;; Smart scan
 (use-package smartscan
@@ -335,8 +335,8 @@
   :ensure t
   :commands smartscan-mode
   :bind (("M-'" . smartscan-symbol-replace)
-		 ("M-p" . smartscan-symbol-go-forward)
-		 ("M-n" . smartscan-symbol-go-backward))
+	 ("M-p" . smartscan-symbol-go-forward)
+	 ("M-n" . smartscan-symbol-go-backward))
   :init
   (dolist (hook '(eshell-mode-hook shell-mode-hook inferior-python-mode-hook))
     (add-hook hook '(lambda () (smartscan-mode -1))))
@@ -352,13 +352,14 @@
 
 ;;; whole-line-or-region-mode
 (use-package whole-line-or-region
+  :disabled
   :ensure t
   :defer t
   :bind (("C-y" . whole-line-or-region-yank)
-		 ("M-w" . whole-line-or-region-kill-ring-save))
+	 ("M-w" . whole-line-or-region-kill-ring-save))
   :diminish whole-line-or-region-local-mode
-  :init
-  (whole-line-or-region-global-mode t))
+  :config
+  (whole-line-or-region-global-mode-cmhh))
 
 ;;; Kill ring
 (use-package browse-kill-ring
@@ -389,6 +390,7 @@
   (auto-compression-mode 1))
 
 ;;; Save place
+(require 'saveplace)
 (save-place-mode 1)
 (setq save-place-version-control t)
 (setq save-place-file (concat user-emacs-directory ".places"))
@@ -396,16 +398,16 @@
 ;;; winner mode
 (use-package winner
   :bind (("C-c <left>" . winner-undo)
-		 ("C-c <right>" . winner-redo))
+	 ("C-c <right>" . winner-redo))
   :init
   (winner-mode))
 
 ;;; windmove
 (use-package windmove
   :bind (("s-h" . windmove-left)
-		 ("s-l" . windmove-right)
-		 ("s-k" . windmove-up)
-		 ("s-j" . windmove-down))
+	 ("s-l" . windmove-right)
+	 ("s-k" . windmove-up)
+	 ("s-j" . windmove-down))
   :config
   (windmove-default-keybindings 'super)
   (setq windmove-wrap-around t))
@@ -430,12 +432,13 @@
   ;; Override default flycheck triggers
   (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled)
         flycheck-idle-change-delay 0.3)
+  (setq flycheck-highlighting-mode 'lines)
   (setq flycheck-display-errors-function #'flycheck-display-error-messages-unless-error-list))
 
 ;;; backup
 ;; Save all my backup files in a specific directory
 (defconst use-backup-dir t)
-(setq backup-directory-alist (quote ((".*" . "~/.emacs.d/var/backup")))
+(setq backup-directory-alist (quote ((".*" . "~/.emacs.d/backup")))
       version-control t        ;; use version number for backups
       kept-new-versions 6      ;; number of newest version to keep
       kept-old-versions 2      ;; number of oldest version to keep
@@ -444,6 +447,7 @@
 (setq auto-save-default t)
 
 ;;; revert all buffer when file is modified in disk
+(require 'autorevert)
 (setq global-auto-revert-mode t)
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
@@ -451,6 +455,7 @@
 ;; backtracks search to beginning of buffer.
 (add-hook 'isearch-mode-end-hook 'jj/goto-match-beginning)
 
+(require 'desktop nil t)
 ;; only use desktop mode and timers on server
 (when (and (>= emacs-major-version 23) (daemonp))
   ;; use desktop save mode. state is king!
@@ -461,7 +466,7 @@
         desktop-restore-eager 0
         desktop-lazy-idle-delay 0
         desktop-lazy-verbose nil
-        desktop-save-buffer t          ; "auxiliary buffer status
+        desktop-save-buffer t			; "auxiliary buffer status
         desktop-load-locked-desktop t
         desktop-save-mode 1)
   ;; save history and desktop periodically, since emacs is often killed,
@@ -477,7 +482,6 @@
   :commands ispell
   :config
   (setq ispell-program-name "aspell")
-  (setq ispell-exta-args '("--sug-mode=ultra"))
   (use-package flyspell
     :diminish flyspell-mode
     :commands flyspell-mode
@@ -494,12 +498,9 @@
 (use-package info
   :commands info
   :init
-  (info-initialize)
-  (setq initial-info-path Info-directory-list)
-  (setq Info-directory-list (append (getenv "INFOPATH") initial-info-path)))
+  (info-initialize))
 
 ;;; Ediff
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq diff-switches "-Nu")
 
 ;;;Mail related stuff.
