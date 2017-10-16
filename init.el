@@ -64,13 +64,15 @@
   (message "ERROR: No custom file found or specified"))
 
 ;; ido
-(require 'ido nil t)
+(require 'ido)
+(setq ido-create-new-buffer (quote always))
 (setq ido-enable-flex-matching t)
-(setq ido-enable-prefix nil
-      ido-create-new-buffer 'always
-      ido-use-filename-at-point 'guess
-      ido-use-virtual-buffers t
-      ido-max-prospects 10)
+(setq ido-enable-prefix nil)
+(setq ido-enable-regexp t)
+(setq ido-max-prospects 7)
+(setq ido-use-filename-at-point (quote guess))
+(setq ido-use-virtual-buffers t)
+(setq ido-work-directory-match-only t)
 (ido-mode t)
 (ido-everywhere 1)
 
