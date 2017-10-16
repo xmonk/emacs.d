@@ -36,7 +36,7 @@
   (setq c-default-style "linux")
   ;; use gdb-many-windows by default
   (setq gdb-many-windows t
-	gdb-show-main t)
+		gdb-show-main t)
 
   (setq-default tab-width '8)
   (setq-default indent-tabs-mode t)
@@ -74,6 +74,7 @@
     :ensure t
     :after (c-mode c++-mode)
     :init
+	(setq irony-user-dir (concat user-emacs-directory "var/irony"))
     (add-hook 'c-mode-common-hook 'irony-mode)
     (add-hook 'c++mode-common-hook 'irony-mode)
     (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
@@ -111,8 +112,8 @@
     (define-key c-mode-base-map (kbd "C-c C-s") 'semantic-ia-show-summary)
 
     (set (make-local-variable 'compile-command)
-	 (concat "gcc -g -fsanitize=address " (buffer-file-name)
-		 " -o " (file-name-sans-extension buffer-file-name)))))
+		 (concat "gcc -g -fsanitize=address " (buffer-file-name)
+				 " -o " (file-name-sans-extension buffer-file-name)))))
 
 
 (provide 'c-conf)
