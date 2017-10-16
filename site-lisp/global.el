@@ -95,14 +95,18 @@
 ;; make ibuffer the default
 (defalias 'list-buffers 'ibuffer)
 
-(use-package ibuffer-vc
-  :ensure t
-  :init
-  (add-hook 'ibuffer-hook
-			(lambda ()
-			  (ibuffer-vc-set-filter-groups-by-vc-root)
-			  (unless (eq ibuffer-sorting-mode 'alphabetic)
-				(ibuffer-do-sort-by-alphabetic)))))
+
+(use-package ibuffer
+  :commands ibuffer
+  :config
+  (use-package ibuffer-vc
+	:ensure t
+	:init
+	(add-hook 'ibuffer-hook
+			  (lambda ()
+				(ibuffer-vc-set-filter-groups-by-vc-root)
+				(unless (eq ibuffer-sorting-mode 'alphabetic)
+				  (ibuffer-do-sort-by-alphabetic))))))
 
 ;; set-goal-column
 (put 'set-goal-column 'disabled nil)
