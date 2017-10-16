@@ -33,16 +33,16 @@
  '(flycheck-python-pyflakes-executable "pyflakes")
  '(gnutls-trustfiles
    (quote
-    ("/etc/ssl/ca-bundle.pem" "/usr/local/etc/openssl/cert.pem" "~/.certs/ca-certificates.pem")))
+	("/etc/ssl/ca-bundle.pem" "/usr/local/etc/openssl/cert.pem" "~/.certs/ca-certificates.pem")))
  '(indent-tabs-mode t)
  '(magit-item-highlight-face nil)
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (company-anaconda anaconda-mode rust-mode flx-ido smartscan swiper elisp-slime-nav flycheck-rust whole-line-or-region ibuffer-vc org no-littering irony-c-headers company-irony-c-headers irony irony-eldoc irony-mode company-irony ob-go cmake-mode go-guru go-rename company-go go-errcheck go-eldoc py-yapf go-mode magit flycheck browse-kill-ring codesearch expand-region web-mode markdown-mode projectile undo-tree git-timemachine xcscope paredit company-flx company use-package)))
+	(company-anaconda anaconda-mode rust-mode flx-ido smartscan swiper elisp-slime-nav flycheck-rust whole-line-or-region ibuffer-vc org irony-c-headers company-irony-c-headers irony irony-eldoc irony-mode company-irony ob-go cmake-mode go-guru go-rename company-go go-errcheck go-eldoc py-yapf go-mode magit flycheck browse-kill-ring codesearch expand-region web-mode markdown-mode projectile undo-tree git-timemachine xcscope paredit company-flx company use-package)))
  '(projectile-globally-ignored-directories
    (quote
-    (".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "elpa" "venv" ".egg*" "__pycache__" "var" "etc")))
+	(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "elpa" "venv" ".egg*" "__pycache__" "var" "etc")))
  '(projectile-globally-ignored-files (quote ("TAGS" ".DS_Store" ".elc" ".pyc")))
  '(slime-company-completion (quote fuzzy))
  '(temporary-file-directory "/tmp")
