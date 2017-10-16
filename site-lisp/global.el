@@ -169,17 +169,9 @@
 
 ;;; recentf
 (use-package recentf
-  :bind (("C-c C-r" . jj/recentf-ido-find-file))
+  :bind (("C-x C-r" . jj/recentf-ido-find-file))
   :init
   (recentf-mode t))
-
-;;; no-littering keeps .emacs.d clean.
-(use-package no-littering
-  :ensure t
-  :config
-  (require 'recentf)
-  (add-to-list 'recentf-exclude no-littering-var-directory)
-  (add-to-list 'recentf-exclude no-littering-etc-directory))
 
 ;;; paredit
 (use-package paredit
