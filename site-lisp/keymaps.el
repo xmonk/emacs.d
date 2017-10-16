@@ -27,6 +27,7 @@
 (unless (boundp 'smex)
   (global-set-key (kbd "C-x C-m") 'execute-extended-command)
   (global-set-key (kbd "C-x m") 'execute-extended-command))
+(global-set-key (kbd "C-a") 'beginning-of-line-dwim)
 (global-set-key (kbd "C-c C-f") 'hexl-find-file)
 (global-set-key (kbd "C-c m") 'gnus)
 (global-set-key (kbd "M-g") 'goto-line)
