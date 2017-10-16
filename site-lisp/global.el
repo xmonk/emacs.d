@@ -342,7 +342,7 @@
 		 ("M-p" . smartscan-symbol-go-forward)
 		 ("M-n" . smartscan-symbol-go-backward))
   :init
-  (dolist (hook '(eshell-mode-hook shell-mode-hook))
+  (dolist (hook '(eshell-mode-hook shell-mode-hook inferior-python-mode-hook))
     (add-hook hook '(lambda () (smartscan-mode -1))))
   (global-smartscan-mode 1))
 
