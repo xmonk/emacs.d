@@ -342,11 +342,12 @@
     (add-hook hook '(lambda () (smartscan-mode -1))))
   (global-smartscan-mode 1))
 
-;;; Whitespace-mode
-(setq whitespace-line-column 80
-      whitespace-style '(trailing lines space-before-tab
-                                  indentation space-after-tab))
-;;; Remove trailing whitespace
+;;; white space mode
+(use-package whitespace
+  :config
+  (setq whitespace-line-column 80)
+  (setq whitespace-style '(trailing lines space-before-tab indentation space-after-tab)))
+;;; Remove trailing white space
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;;; whole-line-or-region-mode
