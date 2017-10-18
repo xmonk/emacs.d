@@ -24,6 +24,8 @@
 ;;
 ;;; Code:
 
+(require 'dired)
+
 (eval-when-compile
   (require 'cl-lib))
 
@@ -225,11 +227,11 @@ a region."
   (save-excursion
     (if (equal mark-active nil)
         (push-mark nil nil -1))
-    (setq string (read-from-minibuffer "Shell command on region: " nil nil nil
-                                       'shell-command-history))
-    (shell-command-on-region (region-beginning) (region-end) string -1)
-    ;; Get rid of final newline cause I normally did by hand anyway.
-    (delete-char -1)))
+    (let ((string (read-from-minibuffer "Shell command on region: " nil nil nil
+					'shell-command-history)))
+      (shell-command-on-region (region-beginning) (region-end) string -1)
+      ;; Get rid of final newline cause I normally did by hand anyway.
+      (delete-char -1))))
 
 ;; Matching parenthesis using % as in Vi.
 (defun jj/match-paren (&optional arg)
@@ -447,13 +449,6 @@ a region."
                        (window-list))))
       (select-window (car window-of-buffer)))))
 
-(defun jj/recentf-ido-find-file ()
-  "Find a recent file using ido."
-  (interactive)
-  (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
-    (when file
-      (find-file file))))
-
 (defun jj/pretty-lambdas()
   "Insert lambda instead of the word LAMBDA."
   (font-lock-add-keywords
@@ -640,15 +635,15 @@ active, apply to active region instead."
                     (while (search-forward from-string nil t)
                       (replace-match to-string nil t)))))
 
-  (defun jj/fullscreen (&optional f)
-    "Make EMACS fullscreen."
-    (interactive)
-    (if (fboundp 'ns-toggle-fullscreen)
-        (ns-toggle-fullscreen)
-      (set-frame-parameter f 'fullscreen
-                           (if (frame-parameter f 'fullscreen)
-                               nil
-                             'fullboth))))
+(defun jj/fullscreen (&optional f)
+  "Make EMACS frame `F` full screen."
+  (interactive)
+  (if (fboundp 'ns-toggle-fullscreen)
+      (ns-toggle-fullscreen)
+    (set-frame-parameter f 'fullscreen
+                         (if (frame-parameter f 'fullscreen)
+                             nil
+                           'fullboth))))
 
 (defmacro jj/codesearcher (name index)
   "Create a codesearch function of NAME that use INDEX."
@@ -667,18 +662,18 @@ active, apply to active region instead."
 (defun init-maxframe()
   "Maximize frame on start."
   (let ((px (display-pixel-width))
-      (py (display-pixel-height))
-      (fx (frame-char-width))
-      (fy (frame-char-height))
-      tx ty)
-  (setq tx (- (/ px fx) 11))
-  (setq ty (- (/ py fy) 4))
-  (setq initial-frame-alist '((top . 2) (right . 2)))
-  (add-to-list 'default-frame-alist (cons 'width tx))
-  (add-to-list 'default-frame-alist (cons 'height ty))))
+	(py (display-pixel-height))
+	(fx (frame-char-width))
+	(fy (frame-char-height))
+	tx ty)
+    (setq tx (- (/ px fx) 11))
+    (setq ty (- (/ py fy) 4))
+    (setq initial-frame-alist '((top . 2) (right . 2)))
+    (add-to-list 'default-frame-alist (cons 'width tx))
+    (add-to-list 'default-frame-alist (cons 'height ty))))
 
 (defun endless/ispell-word-then-abbrev (p)
-"Create an abbrev for it with prefix `P` create local abbrev.
+  "Create an abbrev for it with prefix `P` create local abbrev.
 Otherwise it will be global if there's nothing wrong with the
 word at point, keep looking for a typo until the beginning of
 buffer.  You can skip typos you don't want to fix with `SPC', and
@@ -732,25 +727,6 @@ ARG should be one of: `dark' `light' 'nil'."
   (if (file-exists-p file)
       (user-error "File: %s already exists" file)
     (write-region "" "" file)))
-
-(defun up_emacs ()
-  "Update EMACS source tree."
-  (interactive)
-  (if (file-directory-p "~/t/emacs")
-      (let ((cwd (jj/pwd)))
-	(and (cd "~/t/emacs")
-	     (vc-git-pull nil))
-	(cd cwd))))
-
-(defun jj/show-projects ()
-  "List projectile known projects in a *project* buffer."
-  (interactive)
-  (switch-to-buffer "*projects*")
-  (org-mode)
-  (insert "#+TITLE: Projects\n\n")
-  (dolist (project (projectile-relevant-known-projects))
-    (insert (concat "* "  "[" "[file:" project "]" "["(file-name-nondirectory (directory-file-name project)) "]" "]" "\n")))
-  (goto-char (point-min)))
 
 ;; from http://www.wilfred.me.uk/.emacs.d/init.html#orgb130ee0
 (defun beginning-of-line-dwim ()
