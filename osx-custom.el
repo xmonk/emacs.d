@@ -29,23 +29,24 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(Info-directory-list (append (getenv "INFOPATH") initial-info-path) t)
+ '(custom-safe-themes
+   (quote
+	("1f1ded5a5dfda5b9da339ae7ce49d41c470cbc34099f9bdb9342c0183ab49ff1" default)))
  '(dired-async-mode t)
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(flycheck-python-pyflakes-executable "pyflakes")
  '(gnutls-trustfiles
    (quote
-    ("/etc/ssl/ca-bundle.pem" "/usr/local/etc/openssl/cert.pem" "~/.certs/ca-certificates.pem")))
+	("/etc/ssl/ca-bundle.pem" "/usr/local/etc/openssl/cert.pem" "~/.certs/ca-certificates.pem")))
  '(indent-tabs-mode t)
- '(initial-info-path Info-directory-list)
  '(magit-item-highlight-face nil)
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (company-anaconda anaconda-mode rust-mode flx-ido smartscan swiper elisp-slime-nav flycheck-rust whole-line-or-region ibuffer-vc org irony-c-headers company-irony-c-headers irony irony-eldoc irony-mode company-irony ob-go cmake-mode go-guru go-rename company-go go-errcheck go-eldoc py-yapf go-mode magit flycheck browse-kill-ring codesearch expand-region web-mode markdown-mode projectile undo-tree git-timemachine xcscope paredit company-flx company use-package)))
+	(rg cargo racer company-anaconda anaconda-mode flx-ido smartscan swiper elisp-slime-nav flycheck-rust whole-line-or-region ibuffer-vc org irony-c-headers company-irony-c-headers irony irony-eldoc irony-mode company-irony ob-go cmake-mode go-guru go-rename company-go go-errcheck go-eldoc py-yapf go-mode magit flycheck browse-kill-ring codesearch expand-region web-mode markdown-mode projectile undo-tree git-timemachine xcscope paredit company-flx company use-package)))
  '(projectile-globally-ignored-directories
    (quote
-    (".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "elpa" "venv" ".egg*" "__pycache__" "var" "etc")))
+	(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "elpa" "venv" ".egg*" "__pycache__" "var" "etc")))
  '(projectile-globally-ignored-files (quote ("TAGS" ".DS_Store" ".elc" ".pyc")))
  '(slime-company-completion (quote fuzzy))
  '(temporary-file-directory "/tmp")
