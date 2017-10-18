@@ -24,13 +24,13 @@
 ;;
 ;;; Code:
 
-;; 20MB let's see how well it works.
-(setq gc-cons-threshold 20000000)
+;; 10MB let's see how well it works.
+(setq gc-cons-threshold (* 10 1024 1024))
 
 ;; set faces
 ;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-(load-theme 'jj-lightcl t)
+(load-theme 'jj-light t)
 
 (unless window-system
   (menu-bar-mode -1))
