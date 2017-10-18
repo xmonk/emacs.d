@@ -14,7 +14,10 @@
 /projectile-bookmarks.eld
 /helm-adaptive-history
 /anaconda-mode/
+/projectile/
+/semantic/
 /auto-save-list/
+/irony/
 *.elc
 *~
-irony
+recentf-save.el
