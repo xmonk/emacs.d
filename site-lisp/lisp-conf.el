@@ -31,6 +31,7 @@
   (add-hook 'after-save-hook 'check-parens nil t)
   :config
   (use-package info-look
+	:functions info-lookup-add-help
     :config
     (info-lookup-add-help
      :mode 'lisp-mode
@@ -42,6 +43,7 @@
     :if (file-directory-p "~/quicklisp")
     :disabled
     :commands slime
+	:defines inferior-slime-mode-map
     :init
     (setq inferior-lisp-program "sbcl")
     (setq slime-contribs '(slime-repl slime-fuzzy inferior-slime slime-mdot-fu slime-company)) ;;slime-sbcl-exts
