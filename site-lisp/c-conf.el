@@ -24,18 +24,27 @@
 ;;
 ;;; Code:
 
+
 (use-package cc-mode
   :commands (c-mode c++mode)
+  :bind (
+	 :map c-mode-base-map
+	 ("C-c C-c" . compile)
+	 ("C-c i" . c-insert-include)
+	 ("C-c I" . c-insert-local-include)
+	 ("C-c f" . ff-find-other-file)
+	 ("C-c C-j" . semantic-ia-fast-jump)
+	 ("C-c C-s" . semantic-ia-show-summary))
   :init
-  (add-hook 'c-mode-common-hook 'jj-c-hook)
   (add-hook 'c-mode-common-hook #'flycheck-mode)
-  (add-hook 'c++mode-common-hook 'jj-c-hook)
   (add-hook 'c++mode-common-hook #'flycheck-mode)
   :config
+
   ;; set style to "linux"
   (setq c-default-style "linux")
+
   ;; use gdb-many-windows by default
-  (setq gdb-many-windows t
+  (setq-default gdb-many-windows t
 		gdb-show-main t)
 
   (setq-default tab-width '8)
@@ -46,21 +55,27 @@
   (setq-default turn-on-auto-fill t)
   (setq-default c-electric-pound-behavior (quote(alignleft)))
 
+
   (defun c-insert-include()
     (interactive)
-    (insert "#include <.h>")
-    (backward-char 3))
+    (insert "#include <>")
+    (backward-char 1))
 
   (defun c-insert-local-include()
     (interactive)
-    (insert "#include \".h\"")
-    (backward-char 3))
+    (insert "#include \"\"")
+    (backward-char 1))
+
+  (use-package semantic/db-mode :after cc-mode)
+  (use-package semantic/idle :after cc-mode)
 
   (use-package semantic
-    :config
+    :functions (global-semanticdb-minor-mode global-semantic-idle-scheduler-mode semantic-add-system-include)
+    :init
+	(semantic-mode 1)
     (global-semanticdb-minor-mode 1)
     (global-semantic-idle-scheduler-mode 1)
-    (semantic-mode 1)
+    :config
     (semantic-add-system-include "/usr/include")
     (semantic-add-system-include "/usr/local/include"))
 
@@ -74,7 +89,6 @@
     :ensure t
     :after (c-mode c++-mode)
     :init
-	(setq irony-user-dir (concat user-emacs-directory "var/irony"))
     (add-hook 'c-mode-common-hook 'irony-mode)
     (add-hook 'c++mode-common-hook 'irony-mode)
     (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
@@ -92,28 +106,7 @@
       :ensure t
       :after company-mode
       :init
-      (add-to-list 'company-backends '(company-irony-c-headers company-irony company-clang))))
-
-  ;; (use-package ede
-  ;;   :config
-  ;;   ;; Enable EDE only in C/C++
-  ;;   (global-ede-mode))
-
-  (defun jj-c-hook()
-    (load-after company
-      (define-key c-mode-map  (kbd "C-c TAB") 'company-complete)
-      (define-key c++-mode-map  (kbd "C-c TAB") 'company-complete))
-
-    (define-key c-mode-base-map (kbd "C-c i") 'c-insert-include)
-    (define-key c-mode-base-map (kbd "C-c I") 'c-insert-local-include)
-    (define-key c-mode-base-map (kbd "C-c C-c") 'compile)
-    (define-key c-mode-base-map (kbd "C-c f") 'ff-find-other-file)
-    (define-key c-mode-base-map (kbd "C-c C-j") 'semantic-ia-fast-jump)
-    (define-key c-mode-base-map (kbd "C-c C-s") 'semantic-ia-show-summary)
-
-    (set (make-local-variable 'compile-command)
-		 (concat "gcc -g -fsanitize=address " (buffer-file-name)
-				 " -o " (file-name-sans-extension buffer-file-name)))))
+      (add-to-list 'company-backends '(company-irony-c-headers company-irony company-clang)))))
 
 
 (provide 'c-conf)
