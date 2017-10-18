@@ -25,35 +25,35 @@
 ;;; Code:
 
 (use-package rust-mode
-  :if (file-directory-p (concat (getenv "HOME") "/.cargo"))
+  :if (file-directory-p "~/.cargo")
+  :commands rust-mode
   :ensure t
   :config
-  (use-package racer
-    :ensure t
-    :after rust-mode
-    :init
-    (add-hook 'rust-mode-hook #'racer-mode)
-    (add-hook 'racer-mode-hook #'eldoc-mode)
-    (load-after company
-      (add-hook 'racer-mode-hook #'company-mode))
-    (setq racer-cmd (concat (getenv "HOME") "/.cargo/bin/racer"))
-    (setq racer-rust-src-path (concat (getenv "HOME") "/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src"))
-    (setq company-tooltip-align-annotations t))
-
   (setq rustfmt-enable-on-save t)
+  (use-package racer
+	:ensure t
+	:after rust-mode
+	:init
+	(add-hook 'rust-mode-hook #'racer-mode)
+	(add-hook 'racer-mode-hook #'eldoc-mode)
+	(eval-after-load "company"
+      (add-hook 'racer-mode-hook #'company-mode))
+	:config
+	(setq racer-cmd (concat (getenv "HOME") "/.cargo/bin/racer"))
+	(setq racer-rust-src-path (concat (getenv "HOME") "/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src"))
+	(setq company-tooltip-align-annotations t))
 
   (use-package flycheck-rust
-    :ensure t
-    :after rust-mode
-    :init
-    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+	:ensure t
+	:after rust-mode
+	:init
+	(add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 
   (use-package cargo
-    :ensure t
+	:ensure t
 	:after rust-mode
-    :init
-    (add-hook 'rust-mode-hook 'cargo-minor-mode)))
-
+	:init
+	(add-hook 'rust-mode-hook 'cargo-minor-mode)))
 
 (provide 'rust-conf)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
