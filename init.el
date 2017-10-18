@@ -100,7 +100,7 @@
 
 (add-to-list 'load-path (expand-file-name (concat user-emacs-directory "/site-lisp")))
 (use-package defuns)
-(use-package global)
+(use-package global :after defuns)
 (use-package keymaps)
 (use-package cedet-conf :defer t)
 (use-package elisp-conf)
