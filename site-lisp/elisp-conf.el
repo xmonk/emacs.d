@@ -35,13 +35,12 @@
   :config
   (if (string-equal buffer-file-name (expand-file-name user-init-file))
       (add-hook 'after-save-hook 'compile-init-file t t))
-
+  ;;; elisp-nav
   (use-package elisp-slime-nav
-    :ensure t
-    :commands elisp-slime-nav-mode
-    :diminish elisp-slime-nav
-    :init
-    (dolist (hook '(emacs-lisp-mode-hook lisp-interaction-mode-hook ielm-mode-hook))
+	:commands elisp-slime-nav-mode
+	:diminish elisp-slime-nav
+    :config
+    (dolist (hook '(emacs-lisp-mode-hook lisp-interaction-mode-hook))
       (add-hook hook 'turn-on-elisp-slime-nav-mode))))
 
 (provide 'elisp-conf)
