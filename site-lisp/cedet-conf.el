@@ -33,7 +33,7 @@
 (semanticdb-enable-gnu-global-databases 'c++-mode t)
 (semanticdb-enable-gnu-global-databases 'python-mode t)
 
-(semantic-add-system-include "/Library/Python/2.7/site-packages:/Users/jj/Library/Python/2.7/lib/python/site-packages" 'python-mode)
+(semantic-add-system-include "/Users/jj/Library/Python/2.7/lib/python/site-packages:/usr/local/lib/python3.6/site-packages" 'python-mode)
 
 (provide 'cedet-conf)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
