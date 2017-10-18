@@ -223,7 +223,7 @@
 
   (defun jj/org-refile-done()
     (interactive)
-    (beginning-of-buffer)
+    (goto-char (point-min))
     (re-search-forward "DONE")
     (if (match-beginning 0)
         (let ((org-refile-targets '((nil :maxlevel . 5))))
