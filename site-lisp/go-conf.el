@@ -64,6 +64,11 @@
     :init
     (add-hook 'go-mode-hook 'go-guru-hl-identifier-mode))
 
+  (defun jj/go-test()
+    (interactive)
+    (cd (file-name-directory (buffer-file-name)))
+    (compile "go test -v"))
+
   (defun jj/go-init-hook()
     (subword-mode +1)
     ;; go-mode enables this by default argh!
