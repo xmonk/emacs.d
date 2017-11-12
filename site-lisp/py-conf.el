@@ -30,7 +30,7 @@
   (setq python-shell-interpreter "python3"
         python-shell-interpreter-args "-i"
         comint-process-echoes t
-        python-shell-completion-native-enable nil)
+        python-shell-completion-native-enable t)
 
   (autoload 'doctest-mode "doctest-mode" "Python doctest editing mode." t)
   (setq-default tab-width '4)
