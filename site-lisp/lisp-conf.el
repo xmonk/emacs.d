@@ -31,7 +31,7 @@
   (add-hook 'after-save-hook 'check-parens nil t)
   :config
   (use-package info-look
-	:functions info-lookup-add-help
+    :functions info-lookup-add-help
     :config
     (info-lookup-add-help
      :mode 'lisp-mode
@@ -43,7 +43,7 @@
     :if (file-directory-p "~/quicklisp")
     :disabled
     :commands slime
-	:defines inferior-slime-mode-map
+    :defines inferior-slime-mode-map
     :init
     (setq inferior-lisp-program "sbcl")
     (setq slime-contribs '(slime-repl slime-fuzzy inferior-slime slime-mdot-fu slime-company)) ;;slime-sbcl-exts
@@ -57,13 +57,13 @@
     (setq-default indent-tabs-mode nil)
     (bind-key "<return>" 'newline-and-indent)
     (abbrev-mode 1)
-	(paredit-mode 1))
+    (paredit-mode 1))
 
   (defun jj/inferior-lisp-mode-hook()
     (when (fboundp 'inferior-slime-mode)
-	  (bind-key "<return>" 'slime-repl-return inferior-slime-mode-map)
+      (bind-key "<return>" 'slime-repl-return inferior-slime-mode-map)
       (inferior-slime-mode t)
-	  (paredit-mode 1))))
+      (paredit-mode 1))))
 
 (provide 'lisp-conf)
 
