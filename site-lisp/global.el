@@ -142,10 +142,10 @@
     "Update EMACS source tree."
     (interactive)
     (if (file-directory-p "~/t/emacs")
-	(let ((cwd (jj/pwd)))
-	  (and (cd "~/t/emacs")
-	       (vc-git-pull nil))
-	  (cd cwd)))))
+		(let ((cwd (jj/pwd)))
+		  (and (cd "~/t/emacs")
+			   (vc-git-pull nil))
+		  (cd cwd)))))
 
 ;;; tramp
 (defvar tramp-default-method "ssh")
@@ -191,7 +191,7 @@
     "Use `ido-completing-read' to \\[find-file] a recent file"
     (interactive)
     (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-	(message "Opening file...")
+		(message "Opening file...")
       (message "Aborting"))))
 
 ;;; paredit
