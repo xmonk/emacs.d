@@ -58,7 +58,7 @@
 
   (use-package company-anaconda
     :ensure t
-    :after anaconda-mode
+    :after anaconda-mode company
     :init
     (add-to-list 'company-backends 'company-anaconda))
 
