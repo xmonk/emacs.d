@@ -76,8 +76,7 @@
     (flyspell-mode-off)
     (setq-default tab-width 8)
     (setq-default indent-tabs-mode t)
-    (set (make-local-variable 'compile-command)
-	 (concat "go " "build" ))
+    (set (make-local-variable 'compile-command) (concat "go " "build" ))
     (define-key go-mode-map (kbd "C-c C-c") 'compile)))
 
 (provide 'go-conf)
