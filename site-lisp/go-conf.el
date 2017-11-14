@@ -31,6 +31,7 @@
   (add-hook 'before-save-hook 'gofmt-before-save)
   (add-hook 'go-mode-hook 'jj/go-init-hook)
   (add-hook 'go-mode-hook #'flycheck-mode)
+  (add-hook 'go-mode-hook 'cscope-minor-mode)
   :config
   (setenv "GOPATH" (concat (getenv "HOME") "/g"))
   ;; gofmt command
