@@ -40,8 +40,8 @@
   (when (executable-find "pyflakes")
     (add-hook 'python-mode-hook 'flycheck-mode))
 
-  ;; (when (executable-find "cscope")
-  ;;   (add-hook 'python-mode-hook 'cscope-minor-mode))
+  (when (executable-find "cscope")
+    (add-hook 'python-mode-hook 'cscope-minor-mode))
 
   (when (executable-find "yapf")
     (use-package py-yapf
