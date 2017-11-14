@@ -45,7 +45,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-	(rust-mode rg cargo racer company-anaconda anaconda-mode flx-ido smartscan swiper elisp-slime-nav flycheck-rust whole-line-or-region ibuffer-vc org irony-c-headers company-irony-c-headers irony irony-eldoc irony-mode company-irony ob-go cmake-mode go-guru go-rename company-go go-errcheck go-eldoc py-yapf go-mode magit flycheck browse-kill-ring codesearch expand-region web-mode markdown-mode projectile undo-tree git-timemachine xcscope paredit company-flx company use-package)))
+	(xcscope web-mode use-package undo-tree swiper smartscan racer py-yapf projectile paredit ob-go markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flycheck-rust flx-ido fish-mode expand-region company-irony-c-headers company-irony company-go company-flx company-anaconda codesearch cargo browse-kill-ring)))
  '(projectile-globally-ignored-directories
    (quote
 	(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "elpa" "venv" ".egg*" "__pycache__" "var" "etc")))
