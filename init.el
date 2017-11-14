@@ -113,7 +113,7 @@
 (use-package sh-conf)
 (use-package eshell-conf)
 (use-package ocaml-conf)
-(use-package rust-conf)
+(use-package rust-conf :defer t)
 ;; resize frame
 (init-maxframe)
 
