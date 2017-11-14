@@ -45,7 +45,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-	(xcscope web-mode use-package undo-tree swiper smartscan racer py-yapf projectile paredit ob-go markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flycheck-rust flx-ido fish-mode expand-region company-irony-c-headers company-irony company-go company-flx company-anaconda codesearch cargo browse-kill-ring)))
+	(fish-mode xcscope web-mode use-package undo-tree swiper smartscan racer py-yapf projectile paredit ob-go markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flycheck-rust flx-ido expand-region company-irony-c-headers company-irony company-go company-flx company-anaconda codesearch cargo browse-kill-ring)))
  '(projectile-globally-ignored-directories
    (quote
 	(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "elpa" "venv" ".egg*" "__pycache__" "var" "etc")))
