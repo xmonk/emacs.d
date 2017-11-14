@@ -221,11 +221,12 @@
 
 ;;; cscope
 (use-package xcscope
-  :disabled
+  :ensure t
   :defer t
   :init (cscope-setup)
   :config
-  (setq cscope-program "cscope"))
+  (setq cscope-program "cscope")
+  (setq cscope-database-regexps '(("~/.cscope/"))))
 
 ;;; diminish
 (use-package diminish
