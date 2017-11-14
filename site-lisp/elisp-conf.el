@@ -33,8 +33,10 @@
   (add-hook 'after-save-hook 'check-parens)
   (add-hook 'emacs-lisp-mode-hook #'flycheck-mode)
   :config
+  (setq-default tab-width '2)
+  (setq-default indent-tabs-mode nil)
   (if (string-equal buffer-file-name (expand-file-name user-init-file))
-      (add-hook 'after-save-hook 'compile-init-file t t))
+	  (add-hook 'after-save-hook 'compile-init-file t t))
   ;;; elisp-nav
   (use-package elisp-slime-nav
 	:commands elisp-slime-nav-mode
