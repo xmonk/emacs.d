@@ -35,6 +35,24 @@
 (unless window-system
   (menu-bar-mode -1))
 
+;; package
+(autoload 'package "package" nil t)
+
+(setq package-archives
+      '(("elpa" . "https://elpa.gnu.org/packages/")
+        ("org" . "http://orgmode.org/elpa/")
+        ("melpa" . "https://melpa.org/packages/")))
+(package-initialize)
+(setq package-enable-at-startup nil)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(eval-when-compile
+  (require 'use-package))
+(defvar use-package-verbose t)
+
 ;; frame
 (when (memq window-system '(mac ns))
   (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 130)
@@ -42,14 +60,15 @@
     (if (fboundp mode) (funcall mode -1)))
 
   (cond ((boundp 'mac-option-modifier)
-	 (setq mac-option-modifier 'meta))
-	((boundp 'mac-command-modifier)
-	 (setq mac-command-modifier 'super)))
+         (setq mac-option-modifier 'meta))
+        ((boundp 'mac-command-modifier)
+         (setq mac-command-modifier 'super)))
   (setq mac-allow-anti-aliasing t)
   (setenv "TMPDIR" "/tmp") ;; os x sets it to /var/tmp/...
-  (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
-    (setenv "PATH" path)
-    (setq exec-path (split-string path path-separator))))
+  (use-package exec-path-from-shell
+    :ensure t
+    :init
+    (exec-path-from-shell-initialize)))
 
 ;; Load customization's
 (cond ((eql system-type 'darwin)
@@ -80,24 +99,6 @@
 (require 'server nil t)
 (when (and (>= emacs-major-version 23) (not (server-running-p)))
   (server-start))
-
-;; package
-(autoload 'package "package" nil t)
-
-(setq package-archives
-      '(("elpa" . "https://elpa.gnu.org/packages/")
-	("org" . "http://orgmode.org/elpa/")
-	("melpa" . "https://melpa.org/packages/")))
-(package-initialize)
-(setq package-enable-at-startup nil)
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(eval-when-compile
-  (require 'use-package))
-(defvar use-package-verbose t)
 
 (add-to-list 'load-path (expand-file-name (concat user-emacs-directory "/site-lisp")))
 (use-package defuns)
