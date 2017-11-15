@@ -282,11 +282,11 @@
 
 ;;; swiper
 (use-package swiper
-  :ensure t
+  :disabled
   :diminish ivy-mode
   :functions jj/swiper-recenter
   :bind (("C-s" . swiper)
-		 ("C-r" . swiper))
+	 ("C-r" . swiper))
   :config
   ;;advise swiper to recenter on exit
   (defun jj/swiper-recenter (&rest args)
@@ -493,7 +493,7 @@
   ;; use desktop save mode. state is king!
   (setq desktop-dirname (concat user-emacs-directory ".desktop"))
   (unless (file-directory-p desktop-dirname)
-    (make-directory desktop-dirname))
+    (mkdir desktop-dirname))
   (setq desktop-save t
         desktop-restore-eager 0
         desktop-lazy-idle-delay 0
