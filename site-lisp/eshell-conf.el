@@ -33,63 +33,63 @@
   (setq pcomplete-cycle-completions t)
 
   (use-package em-ls
-	:init
-	(setq eshell-ls-use-colors nil))
+    :init
+    (setq eshell-ls-use-colors nil))
 
   (use-package em-smart
-	:config
-	(setq eshell-where-to-jump 'begin
-		  eshell-review-quick-commands nil
-		  eshell-smart-space-goes-to-end t))
+    :config
+    (setq eshell-where-to-jump 'begin
+	  eshell-review-quick-commands nil
+	  eshell-smart-space-goes-to-end t))
 
 
   (use-package em-hist
-	:init
-	(setq eshell-history-size 500
-		  eshell-save-history-on-exit t))
+    :init
+    (setq eshell-history-size 500
+	  eshell-save-history-on-exit t))
 
 
   (defun jj/eshell-mode-hook()
-	(define-key eshell-mode-map "\C-a" 'eshell-bol)
-	(define-key eshell-mode-map "\t" 'pcomplete-list)
-	(define-key eshell-mode-map (kbd "<up>") 'previous-line)
-	(define-key eshell-mode-map (kbd "<down>") 'next-line))
+    (define-key eshell-mode-map "\C-a" 'eshell-bol)
+    (define-key eshell-mode-map "\t" 'pcomplete-list)
+    (define-key eshell-mode-map (kbd "<up>") 'previous-line)
+    (define-key eshell-mode-map (kbd "<down>") 'next-line))
 
   (setenv "PAGER" "cat")
   (unless (string= (getenv "PROMPT_COMMAND") "")
     (setenv "PROMPT_COMMAND" ""))
 
   (use-package em-term
-	:config
-	(add-to-list 'eshell-visual-commands "ssh")
-	(add-to-list 'eshell-visual-commands "tail"))
+    :config
+    (add-to-list 'eshell-visual-commands "ssh")
+    (add-to-list 'eshell-visual-commands "tail"))
 
   (use-package em-cmpl
-	:config
-	(add-to-list 'eshell-command-completions-alist '("gunzip" "gz\\'"))
-	(add-to-list 'eshell-command-completions-alist '("tar" "\\(\\.tar|\\.tgz\\|\\.tar\\.gz\\)\\'"))
-	(setq eshell-cmpl-cycle-completions t)
-	(setq eshell-cmpl-dir-ignore "\\`\\(\\.\\.?\\|CVS\\|\\.svn\\|\\.hg\\|\\.git\\)/\\'"))
+    :config
+    (add-to-list 'eshell-command-completions-alist '("gunzip" "gz\\'"))
+    (add-to-list 'eshell-command-completions-alist '("tar" "\\(\\.tar|\\.tgz\\|\\.tar\\.gz\\)\\'"))
+    (setq eshell-cmpl-cycle-completions t)
+    (setq eshell-cmpl-dir-ignore "\\`\\(\\.\\.?\\|CVS\\|\\.svn\\|\\.hg\\|\\.git\\)/\\'"))
 
 
   (use-package em-prompt
-	:after em-dirs
-	:config
-	(setq eshell-prompt-regexp "^[^#%\n]*[#%] ")
-	(setq eshell-prompt-function  'jj/eshell-prompt))
+    :after em-dirs
+    :config
+    (setq eshell-prompt-regexp "^[^#%\n]*[#%] ")
+    (setq eshell-prompt-function  'jj/eshell-prompt))
 
   (use-package em-dirs
-	:functions eshell/pwd
-	:functions eshell/cd
-	:config
-	(defun jj/eshell-prompt()
-	  (concat (abbreviate-file-name (eshell/pwd))
-			  (if (= (user-uid) 0)
-				  "# " "% ")))
+    :functions eshell/pwd
+    :functions eshell/cd
+    :config
+    (defun jj/eshell-prompt()
+      (concat (abbreviate-file-name (eshell/pwd))
+	      (if (= (user-uid) 0)
+		  "# " "% ")))
 
-	(defun jj/simple-eshell-prompt ()
-	  (if (= (user-uid) 0)
-		  "# " "% "))))
+    (defun jj/simple-eshell-prompt ()
+      (if (= (user-uid) 0)
+	  "# " "% "))))
 
 
 (provide 'eshell-conf)

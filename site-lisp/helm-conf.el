@@ -63,7 +63,7 @@
 	ido-use-virtual-buffers t      ; Needed in helm-buffers-list
 	helm-buffers-fuzzy-matching t          ; fuzzy matching buffer names when non--nil
 	helm-recentf-fuzzy-match    t   ; useful in helm-mini that lists buffers
-   )
+	)
 
   (setq helm-display-header-line nil)
   (set-face-attribute 'helm-source-header nil :height 0.1)
