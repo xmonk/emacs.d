@@ -27,25 +27,23 @@
 
 (use-package cc-mode
   :commands (c-mode c++mode)
-  :bind (
-		 :map c-mode-base-map
-		 ("C-c C-c" . compile)
-		 ("C-c i" . c-insert-include)
-		 ("C-c I" . c-insert-local-include)
-		 ("C-c f" . ff-find-other-file)
-		 ("C-c C-j" . semantic-ia-fast-jump)
-		 ("C-c C-s" . semantic-ia-show-summary))
   :init
   (add-hook 'c-mode-common-hook #'flycheck-mode)
   (add-hook 'c++mode-common-hook #'flycheck-mode)
   :config
+  (bind-key "C-c C-c" 'compile c-mode-base-map)
+  (bind-key "C-c i" 'c-insert-include c-mode-base-map)
+  (bind-key "C-c I" 'c-insert-local-include c-mode-base-map)
+  (bind-key "C-c f" 'ff-find-other-file c-mode-base-map)
+  (bind-key "C-c C-j" 'semantic-ia-fast-jump c-mode-base-map)
+  (bind-key "C-c C-s" 'semantic-ia-show-summary c-mode-base-map)
 
   ;; set style to "linux"
   (setq c-default-style "linux")
 
   ;; use gdb-many-windows by default
   (setq-default gdb-many-windows t
-				gdb-show-main t)
+		gdb-show-main t)
 
   (setq-default tab-width '8)
   (setq-default indent-tabs-mode t)
