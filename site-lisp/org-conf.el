@@ -38,11 +38,7 @@
     (flyspell-mode 1)
     (local-set-key "\C-ca" 'org-agenda))
 
-  (setq org-directory "~/.org")
   (setq org-default-notes-file (concat org-directory "/notes.org"))
-  (setq org-mobile-directory "~/Dropbox/MobileOrg")
-  (setq org-mobile-inbox-for-pull "~/Dropbox/MobileOrg/inbox.org")
-  (setq org-mobile-force-id-on-agenda-items nil)
   (setq org-todo-keywords
         '((type "TODO(t)" "STARTED(s)" "WAITING(w)" "APPT(a)" "PENDING(p)" "|"
                 "CANCELLED(c)"  "DEFERRED(e)" "DONE(d)")
@@ -53,25 +49,9 @@
   (setq org-level-color-stars-only nil)
   (setq org-fontify-emphasized-text t)
   (setq org-hide-leading-stars t)
-  (setq org-completion-use-ido t)
   (setq org-log-done 'time)
-  (setq org-agenda-start-on-weekday nil)
-  (setq org-agenda-ndays 7)
-  (setq org-agenda-skip-scheduled-if-done t)
-  (setq org-agenda-skip-deadline-if-done t)
-  (setq org-agenda-skip-timestamp-if-done t)
-  (setq org-agenda-todo-ignore-scheduled t)
-  (setq org-agenda-todo-ignore-deadlines t)
-  (setq org-agenda-todo-ignore-timestamp t)
-  (setq org-agenda-todo-ignore-with-date t)
-  (setq org-agenda-start-on-weekday nil) ;; start on current day
-  (setq org-upcoming-deadline '(:foreground "blue" :weight bold))
-
   (setq org-deadline-warning-days 0)
   (setq org-fontify-done-headline t)
-
-  (setq org-agenda-files '("~/.org/personal.org"
-                           "~/.org/work.org"))
 
   ;; org-capture
   (define-key global-map "\C-cr" 'org-capture)
@@ -89,7 +69,6 @@
   ;; showcase example Org-mode syntax.
   (setq-default org-babel-default-header-args:org '((:results . "raw silent")
                                                     (:exports . "code")))
-
   (setq-default org-babel-default-header-args:python '((:exports . "code")
                                                        (:tangle  . "yes")))
   (use-package ob-go
@@ -111,7 +90,7 @@
      (sqlite . t)))
 
   ;; do not evaluate code on export by default
-  (setq org-export-babel-evaluate nil)
+  (setq org-export-use-babel nil)
   ;; enable prompt-free code running
   (setq org-confirm-babel-evaluate nil)
   (setq org-confirm-elisp-link-function nil)
@@ -131,11 +110,6 @@
         (cons '(:exports . "both")
               (assq-delete-all :exports org-babel-default-header-args)))
 
-  ;; get pydoc in a link [[pydoc:os]], and go [[godoc:os]]
-  (setq org-link-abbrev-alist
-        '(("pydoc" . "shell:pydoc %s")
-          ("godoc" . "shell:godoc %s")))
-
   ;; The following displays the contents of code blocks in Org-mode files
   ;; using the major-mode of the code.  It also changes the behavior of
   ;; =TAB= to as if it were used in the appropriate major mode.
@@ -154,12 +128,6 @@
                   ("nref" "#+NAME: ?\n#+BEGIN_SRC :noweb-ref <name> :tangle no\n\n#+END_SRC")
                   ("ntan" "#+NAME: ?\n#+BEGIN_SRC :noweb tangle :tangle yes\n\n#+END_SRC"))))
 
-  ;; Encrypt all entries before saving
-  (use-package org-crypt
-    :config
-    (org-crypt-use-before-save-magic)
-    (setq org-tags-exclude-from-inheritance (quote ("crypt")))
-    (setq org-crypt-disable-auto-save nil))
 
 ;;; Usefull functions for org-mode.
 ;;; Taken from irreal.org. Thanks to jcs from  http://irreal.org/blog
@@ -193,33 +161,17 @@
                            (file-name-sans-extension(buffer-file-name))) "\n")
       (insert "#+AUTHOR: " (user-full-name) "\n\n")))
 
-  (defun jj/new-org()
-    (interactive)
-    (let ((name (concat "~/.org/" (read-string "New org file: " "tmp.org"))))
-      (find-file "~/.org/_template.org")
-      (write-file name)))
-
   ;; Sort todo-list
   (defun jj/org-sort-todo-list()
     "Sort buffer in todo order."
     (interactive)
     (save-excursion
-      (mark-whole-buffer)
+      (push-mark)
+      (push-mark (point-max) nil t)
       (org-sort-entries nil ?o))
     (org-overview))
 
   (setq org-refile-use-outline-path "Finished")
-
-  (defun jj/journal-entry()
-    " add a new journal entry "
-    (interactive)
-    (defvar journal-file "~/.org/journal.org")
-    (find-file journal-file)
-    (goto-char (point-min))
-    (org-insert-heading)
-    (org-insert-time-stamp (current-time) nil t)
-    (open-line 2)
-    (insert " "))
 
   (defun jj/org-refile-done()
     (interactive)
