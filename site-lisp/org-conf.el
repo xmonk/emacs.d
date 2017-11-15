@@ -26,7 +26,7 @@
 
 (use-package org
   :ensure t
-  :commands org-mode
+  ;; :commands org-mode
   :functions jj/find-org-markers
   :init
   (add-hook 'org-mode-hook 'jj/org-mode-hook)
@@ -56,11 +56,11 @@
   ;; org-capture
   (define-key global-map "\C-cr" 'org-capture)
   (setq org-capture-templates
-        `(("t" "Tasks" entry (file+headline "~/.org/work.org" "Tasks") "* TODO %^{Task}    %^g\nSCHEDULED: %^t %? \n")
-          ("f" "Future Todo" entry (file+headline "~/.org/future-work.org" "Inbox") "* TODO %?\n %i\n %^T\n %a" :prepend t)
-          ("j" "Journal" entry (file+datetree "~/.org/journal.org") "* %u %?\n\n" :prepend t)
-          ("i" "Idea" entry (file+headline "~/.org/notes.org" "New Ideas") "* %^{Title}\n %i\n %a" :prepend t)
-          ("x" "org-capture" entry (file+headline "~/.org/archive/www.org" "Archived Content") "* %^{Title}p: %:description\n\n Source: %U %c\n\n %i")))
+        `(("t" "Tasks" entry (file+headline "~/org/work.org" "Tasks") "* TODO %^{Task}    %^g\nSCHEDULED: %^t %? \n")
+          ("f" "Future Todo" entry (file+headline "~/org/future-work.org" "Inbox") "* TODO %?\n %i\n %^T\n %a" :prepend t)
+          ("j" "Journal" entry (file+olp+datetree "~/org/journal.org") "* %u %?\n\n" :prepend t)
+          ("i" "Idea" entry (file+headline "~/org/notes.org" "New Ideas") "* %^{Title}\n %i\n %a" :prepend t)
+          ("x" "org-capture" entry (file+headline "~/org/archive/www.org" "Archived Content") "* %^{Title}p: %:description\n\n Source: %U %c\n\n %i")))
 
 
   ;; org-babel configuration based on emacs-starter-kit-org.org
