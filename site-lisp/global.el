@@ -101,13 +101,13 @@
   :config
   (use-package ibuffer-vc
     :ensure t
-	:functions ibuffer-do-sort-by-alphabetic
+    :functions ibuffer-do-sort-by-alphabetic
     :init
     (add-hook 'ibuffer-hook
-			  (lambda ()
-				(ibuffer-vc-set-filter-groups-by-vc-root)
-				(unless (eq ibuffer-sorting-mode 'alphabetic)
-				  (ibuffer-do-sort-by-alphabetic))))))
+	      (lambda ()
+		(ibuffer-vc-set-filter-groups-by-vc-root)
+		(unless (eq ibuffer-sorting-mode 'alphabetic)
+		  (ibuffer-do-sort-by-alphabetic))))))
 
 ;; set-goal-column
 (put 'set-goal-column 'disabled nil)
@@ -142,10 +142,10 @@
     "Update EMACS source tree."
     (interactive)
     (if (file-directory-p "~/t/emacs")
-		(let ((cwd (jj/pwd)))
-		  (and (cd "~/t/emacs")
-			   (vc-git-pull nil))
-		  (cd cwd)))))
+	(let ((cwd (jj/pwd)))
+	  (and (cd "~/t/emacs")
+	       (vc-git-pull nil))
+	  (cd cwd)))))
 
 ;;; tramp
 (defvar tramp-default-method "ssh")
@@ -163,23 +163,23 @@
     :after company
     :init
     (add-hook 'company-mode-hook (lambda ()
-								   (add-to-list 'company-backends 'company-capf)))
+				   (add-to-list 'company-backends 'company-capf)))
     (company-flx-mode +1))
 
   (setq company-tooltip-limit 20
-		company-minimum-prefix-length 3
+	company-minimum-prefix-length 3
         company-idle-delay .3
         company-echo-delay 0
-		company-auto-complete nil
-		company-begin-commands nil))
+	company-auto-complete nil
+	company-begin-commands nil))
 
 ;;; on duplicate filenames, show path names.
 (use-package uniquify
   :defer 5
   :init
   (setq uniquify-buffer-name-style 'post-forward
-		uniquify-separator ":"
-		uniquify-after-kill-buffer-p t))
+	uniquify-separator ":"
+	uniquify-after-kill-buffer-p t))
 
 ;;; recentf
 (use-package recentf
@@ -191,7 +191,7 @@
     "Use `ido-completing-read' to \\[find-file] a recent file"
     (interactive)
     (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-		(message "Opening file...")
+	(message "Opening file...")
       (message "Aborting"))))
 
 ;;; paredit
@@ -264,14 +264,14 @@
   (setq projectile-mode-line "Projectile")
   (projectile-mode t)
   (defun jj/show-projects ()
-	"List projectile known projects in a *project* buffer."
-	(interactive)
-	(switch-to-buffer "*projects*")
-	(org-mode)
-	(insert "#+TITLE: Projects\n\n")
-	(dolist (project (projectile-relevant-known-projects))
+    "List projectile known projects in a *project* buffer."
+    (interactive)
+    (switch-to-buffer "*projects*")
+    (org-mode)
+    (insert "#+TITLE: Projects\n\n")
+    (dolist (project (projectile-relevant-known-projects))
       (insert (concat "* "  "[" "[file:" project "]" "["(file-name-nondirectory (directory-file-name project)) "]" "]" "\n")))
-	(goto-char (point-min))))
+    (goto-char (point-min))))
 
 ;;; flx-ido
 (use-package flx-ido
@@ -322,8 +322,8 @@
   :ensure t
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
-		 ("\\.md\\'" . markdown-mode)
-		 ("\\.markdown\\'" . markdown-mode))
+	 ("\\.md\\'" . markdown-mode)
+	 ("\\.markdown\\'" . markdown-mode))
   :init
   (add-hook 'markdown-mode-hook 'flyspell-mode)
   :config
@@ -338,10 +338,10 @@
   :ensure t
   :commands web-mode
   :mode (("\\.html$" . web-mode)
-		 ("\\.xhtml$" . web-mode))
+	 ("\\.xhtml$" . web-mode))
   :init
   (add-hook 'web-mode-hook (lambda ()
-							 (setq web-mode-markup-indent-offset 2))))
+			     (setq web-mode-markup-indent-offset 2))))
 
 ;;; Expand-region
 (use-package expand-region
@@ -364,8 +364,8 @@
   :ensure t
   :commands smartscan-mode
   :bind (("M-'" . smartscan-symbol-replace)
-		 ("M-p" . smartscan-symbol-go-forward)
-		 ("M-n" . smartscan-symbol-go-backward))
+	 ("M-p" . smartscan-symbol-go-forward)
+	 ("M-n" . smartscan-symbol-go-backward))
   :init
   (dolist (hook '(eshell-mode-hook shell-mode-hook inferior-python-mode-hook))
     (add-hook hook '(lambda () (smartscan-mode -1))))
@@ -385,7 +385,7 @@
   :ensure t
   :defer t
   :bind (("C-y" . whole-line-or-region-yank)
-		 ("M-w" . whole-line-or-region-kill-ring-save))
+	 ("M-w" . whole-line-or-region-kill-ring-save))
   :diminish whole-line-or-region-local-mode
   :config
   (whole-line-or-region-global-mode-cmhh))
@@ -428,16 +428,16 @@
 ;;; winner mode
 (use-package winner
   :bind (("C-c <left>" . winner-undo)
-		 ("C-c <right>" . winner-redo))
+	 ("C-c <right>" . winner-redo))
   :init
   (winner-mode))
 
 ;;; windmove
 (use-package windmove
   :bind (("s-h" . windmove-left)
-		 ("s-l" . windmove-right)
-		 ("s-k" . windmove-up)
-		 ("s-j" . windmove-down))
+	 ("s-l" . windmove-right)
+	 ("s-k" . windmove-up)
+	 ("s-j" . windmove-down))
   :config
   (windmove-default-keybindings 'super)
   (setq windmove-wrap-around t))
@@ -493,7 +493,7 @@
   ;; use desktop save mode. state is king!
   (setq desktop-dirname (concat user-emacs-directory ".desktop"))
   (unless (file-directory-p desktop-dirname)
-    (mkdir desktop-dirname))
+    (make-directory desktop-dirname))
   (setq desktop-save t
         desktop-restore-eager 0
         desktop-lazy-idle-delay 0
