@@ -39,14 +39,14 @@
   (use-package em-smart
     :config
     (setq eshell-where-to-jump 'begin
-	  eshell-review-quick-commands nil
-	  eshell-smart-space-goes-to-end t))
+		  eshell-review-quick-commands nil
+		  eshell-smart-space-goes-to-end t))
 
 
   (use-package em-hist
     :init
     (setq eshell-history-size 500
-	  eshell-save-history-on-exit t))
+		  eshell-save-history-on-exit t))
 
 
   (defun jj/eshell-mode-hook()
@@ -84,12 +84,12 @@
     :config
     (defun jj/eshell-prompt()
       (concat (abbreviate-file-name (eshell/pwd))
-	      (if (= (user-uid) 0)
-		  "# " "% ")))
+			  (if (= (user-uid) 0)
+				  "# " "% ")))
 
     (defun jj/simple-eshell-prompt ()
       (if (= (user-uid) 0)
-	  "# " "% "))))
+		  "# " "% "))))
 
 
 (provide 'eshell-conf)

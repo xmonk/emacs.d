@@ -39,7 +39,7 @@
     (setenv (car var) (cadr var)))
   ;; Update the emacs path
   (setq exec-path (append (parse-colon-path (getenv "PATH"))
-			  (list exec-directory)))
+						  (list exec-directory)))
   :config
   (use-package utop
     :init

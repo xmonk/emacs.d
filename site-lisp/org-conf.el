@@ -26,7 +26,7 @@
 
 (use-package org
   :ensure t
-  ;; :commands org-mode
+  :commands org-mode
   :functions jj/find-org-markers
   :init
   (add-hook 'org-mode-hook 'jj/org-mode-hook)

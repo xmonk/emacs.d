@@ -43,7 +43,7 @@
 
   ;; use gdb-many-windows by default
   (setq-default gdb-many-windows t
-		gdb-show-main t)
+				gdb-show-main t)
 
   (setq-default tab-width '8)
   (setq-default indent-tabs-mode t)
