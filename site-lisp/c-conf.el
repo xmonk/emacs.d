@@ -64,9 +64,6 @@
     (insert "#include \"\"")
     (backward-char 1))
 
-  (use-package semantic/db-mode :after cc-mode)
-  (use-package semantic/idle :after cc-mode)
-
   (use-package semantic
     :functions (global-semanticdb-minor-mode global-semantic-idle-scheduler-mode semantic-add-system-include)
     :init
@@ -77,6 +74,8 @@
     (semantic-add-system-include "/usr/include")
     (semantic-add-system-include "/usr/local/include"))
 
+  (use-package semantic/db-mode :after cc-mode)
+  (use-package semantic/idle :after cc-mode)
 
   (use-package irony
     ;; To compile irony-server in macOS: cmake -DCMAKE_CXX_COMPILER=/usr/local/opt/llvm/bin/clang++
@@ -85,7 +84,6 @@
     ;; /Users/jj/.emacs.d/elpa/irony-20170627.1045/server && cmake --build . --use-stderr --config
     ;; Release --target install
     :ensure t
-    :after (c-mode c++-mode)
     :init
     (add-hook 'c-mode-common-hook 'irony-mode)
     (add-hook 'c++mode-common-hook 'irony-mode)
