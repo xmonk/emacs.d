@@ -94,6 +94,7 @@
 	 `(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
 	 `(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
 	 `(company-tooltip-selection ((t (:background ,white :foreground ,black))))
+	 `(company-tooltip-annotation ((t (:foreground "gray31" :weight bold))))
 	 ;; swiper
 	 `(swiper-match-face-1 ((t (:inherit default))))
 	 ;; eshell

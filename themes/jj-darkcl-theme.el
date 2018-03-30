@@ -42,7 +42,8 @@
    `(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
    `(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
    `(company-tooltip-selection ((t (:background ,white :foreground ,black :height 120))))
-   ;;; eshell
+   `(company-tooltip-annotation ((t (:foreground "gray31" :weight bold))))
+;;; eshell
    `(eshell-prompt ((t (:inherit default))))
   (mapcar (lambda (n) `(,n ((t (:background ,black :foreground ,white))))) jj-faces)))
 
