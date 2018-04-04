@@ -42,8 +42,6 @@
       '(("elpa" . "https://elpa.gnu.org/packages/")
         ("org" . "http://orgmode.org/elpa/")
         ("melpa" . "https://melpa.org/packages/")))
-(package-initialize)
-(setq package-enable-at-startup nil)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -66,11 +64,7 @@
   (setq mac-allow-anti-aliasing t)
   (setenv "TMPDIR" "/tmp") ;; os x sets it to /var/tmp/...
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
-  (setenv "GOPATH" (concat (getenv "HOME") "/g"))
-  ;; (use-package exec-path-from-shell
-  ;;   :ensure t
-  ;;   :init
-  ;;   (exec-path-from-shell-initialize))
+
   (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
     (setenv "PATH" path)
     (setq exec-path (split-string path path-separator))))
