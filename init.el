@@ -119,8 +119,8 @@
 (use-package py-conf)
 (use-package sh-conf)
 (use-package eshell-conf)
-(use-package ocaml-conf)
-(use-package rust-conf :defer t)
+(use-package ocaml-conf :disabled)
+(use-package rust-conf :disabled)
 ;; resize frame
 (init-maxframe)
 
