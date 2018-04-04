@@ -45,8 +45,9 @@
  '(indent-tabs-mode t)
  '(magit-item-highlight-face nil)
  '(package-enable-at-startup t)
+ '(package-quickstart t)
  '(package-selected-packages
-   '(diminish exec-path-from-shell org elisp-slime-nav php-mode irony anaconda-mode go-mode flycheck company fish-mode xcscope web-mode use-package undo-tree swiper smartscan racer py-yapf projectile paredit ob-go markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flycheck-rust flx-ido expand-region company-irony-c-headers company-irony company-go company-flx company-anaconda codesearch cargo browse-kill-ring))
+   '(diminish org elisp-slime-nav irony anaconda-mode go-mode flycheck company xcscope web-mode use-package undo-tree smartscan py-yapf projectile paredit ob-go markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flx-ido expand-region company-irony-c-headers company-irony company-go company-flx company-anaconda codesearch browse-kill-ring))
  '(projectile-globally-ignored-directories
    '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "elpa" "venv" ".egg*" "__pycache__" "var" "etc"))
  '(projectile-globally-ignored-files '("TAGS" ".DS_Store" ".elc" ".pyc"))
