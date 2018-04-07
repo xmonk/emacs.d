@@ -281,18 +281,18 @@
   (flx-ido-mode t))
 
 ;;; swiper
-;; (use-package swiper
-;;   :disabled
-;;   :diminish ivy-mode
-;;   :functions jj/swiper-recenter
-;;   :bind (("C-s" . swiper)
-;; 		 ("C-r" . swiper))
-;;   :config
-;;   ;;advise swiper to recenter on exit
-;;   (defun jj/swiper-recenter (&rest args)
-;;     "recenter display after swiper"
-;;     (recenter))
-;;   (advice-add 'swiper :after #'jj/swiper-recenter))
+(use-package swiper
+  :ensure t
+  :diminish ivy-mode
+  :functions jj/swiper-recenter
+  :bind (("C-s" . swiper)
+	 ("C-r" . swiper))
+  :config
+  ;;advise swiper to recenter on exit
+  (defun jj/swiper-recenter (&rest args)
+    "recenter display after swiper"
+    (recenter))
+  (advice-add 'swiper :after #'jj/swiper-recenter))
 
 (use-package dired
   :defer t
