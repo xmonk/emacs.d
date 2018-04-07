@@ -30,9 +30,9 @@
   (setq-default tab-width 4)
   (setq-default indent-tabs-mode t)
   (setq-default sh-basic-offset 4
-				sh-indentation 4
-				sh-indent-for-case-label 0
-				sh-indent-for-case-alt '+))
+		sh-indentation 4
+		sh-indent-for-case-label 0
+		sh-indent-for-case-alt '+))
 
 (provide 'sh-conf)
 

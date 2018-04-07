@@ -228,7 +228,7 @@ a region."
     (if (equal mark-active nil)
         (push-mark nil nil -1))
     (let ((string (read-from-minibuffer "Shell command on region: " nil nil nil
-										'shell-command-history)))
+					'shell-command-history)))
       (shell-command-on-region (region-beginning) (region-end) string -1)
       ;; Get rid of final newline cause I normally did by hand anyway.
       (delete-char -1))))
@@ -660,12 +660,12 @@ active, apply to active region instead."
      (setq codesearch-csearchindex "~/.csearchindex")))
 
 (defun init-maxframe()
-  "Maximize frame on start."
+  "Resize frame on init."
   (let ((px (display-pixel-width))
-		(py (display-pixel-height))
-		(fx (frame-char-width))
-		(fy (frame-char-height))
-		tx ty)
+	(py (display-pixel-height))
+	(fx (frame-char-width))
+	(fy (frame-char-height))
+	tx ty)
     (setq tx (- (/ px fx) 11))
     (setq ty (- (/ py fy) 4))
     (setq initial-frame-alist '((top . 2) (right . 2)))
@@ -684,7 +684,7 @@ you can abort completely with `C-g'."
       (while (if (setq bef (thing-at-point 'word))
                  ;; Word was corrected or used quit.
                  (if (ispell-word nil 'quiet)
-                     nil		; End the loop.
+                     nil				; End the loop.
                    ;; Also end if we reach `bob'.
                    (not (bobp)))
                ;; If there's no word at point, keep looking
