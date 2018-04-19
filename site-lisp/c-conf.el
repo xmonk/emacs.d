@@ -53,6 +53,12 @@
   (setq-default turn-on-auto-fill t)
   (setq-default c-electric-pound-behavior (quote(alignleft)))
 
+  (use-package clang-format
+    :ensure t
+    :after cc-mode
+    :commands (clang-format clang-format-buffer clang-format-region)
+    :config
+    (setq clang-format-executable "/usr/local/opt/llvm/bin/clang-format"))
 
   (defun c-insert-include()
     (interactive)
