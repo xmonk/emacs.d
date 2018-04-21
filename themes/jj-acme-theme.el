@@ -56,11 +56,12 @@
       (black1 "#3F3F3F")
       (white "#FFFFFF"))
   (apply 'custom-theme-set-faces 'jj-acme
+		 `(default ((t (:background ,acme :foreground ,black))))
 		 `(font-lock-function-name-face ((t (:slant normal :weight normal))))
 		 `(font-lock-comment-face ((t (:slant normal :weight normal))))
 		 `(font-doc-face ((t (:slant normal :weight normal))))
 		 `(font-lock-warning-face ((t (:foreground ,black :background ,acme :slant normal :weight bold))))
-		 `(mode-line ((t (:foreground ,black :background ,blue :box nil :slant normal :weight normal))))
+		 `(mode-line ((t (:foreground ,black :background ,blue :box t :slant normal :weight normal))))
 		 `(mode-line-inactive ((t (:foreground ,black :background ,blue :box nil :slant normal :weight light))))
 		 `(region ((t (:foreground ,black :background ,region))))
 		 `(highlight ((t (:foreground , black :background ,region))))
