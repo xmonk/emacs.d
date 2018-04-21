@@ -28,11 +28,11 @@
 (setq gc-cons-threshold (* 10 1024 1024))
 
 ;; set faces
-(set-face-attribute 'default nil :background "black" :foreground "white")
 (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 130)
 
 ;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
+(load-theme 'jj-acme t)
 
 (unless window-system
   (menu-bar-mode -1))
@@ -45,8 +45,7 @@
         ("org" . "http://orgmode.org/elpa/")
         ("melpa" . "https://melpa.org/packages/")))
 
-(when (<= emacs-major-version 26)
-	   (package-initialize))
+(package-initialize)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -104,11 +103,6 @@
 (when (and (>= emacs-major-version 23) (not (server-running-p)))
   (server-start))
 
-(use-package color-theme-sanityinc-tomorrow
-  :ensure t
-  :config
-  (load-theme 'sanityinc-tomorrow-bright t))
-
 (add-to-list 'load-path (expand-file-name (concat user-emacs-directory "/site-lisp")))
 (use-package defuns)
 (use-package global :after defuns)
@@ -123,10 +117,11 @@
 (use-package py-conf)
 (use-package sh-conf)
 (use-package eshell-conf)
-(use-package ocaml-conf :disabled)
+(use-package ocaml-conf)
 (use-package rust-conf :disabled)
 ;; resize frame
 (init-maxframe)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
