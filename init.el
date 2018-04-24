@@ -29,17 +29,17 @@
 (add-hook 'after-init-hook (lambda ()
                              ;; restore after startup
                              (setq gc-cons-threshold 800000)))
-;; set faces
+;;; set faces
 (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 130)
 
-;; themes
+;;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
 (load-theme 'jj-acme t)
 
 (unless window-system
   (menu-bar-mode -1))
 
-;; package
+;;; package
 (autoload 'package "package" nil t)
 
 (setq package-archives
@@ -58,7 +58,8 @@
   (require 'use-package))
 (defvar use-package-verbose t)
 
-;; frame
+;;; frame
+;; macOs
 (when (memq window-system '(mac ns))
   (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 130)
   (dolist (mode '(scroll-bar-mode tool-bar-mode))
@@ -70,8 +71,16 @@
          (setq mac-command-modifier 'super)))
   (setq mac-allow-anti-aliasing t)
   (setenv "TMPDIR" "/tmp") ;; os x sets it to /var/tmp/...
-  (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
+  (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
+    (setenv "PATH" path)
+    (setq exec-path (split-string path path-separator))))
 
+(setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
+
+;; linux
+(when (memq window-system '(x))
+  (dolist (mode '(menu-bar-mode scroll-bar-mode tool-bar-mode))
+    (if (fboundp mode) (funcall mode -1)))
   (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
     (setenv "PATH" path)
     (setq exec-path (split-string path path-separator))))
@@ -88,7 +97,7 @@
     (load-file custom-file)
   (message "ERROR: No custom file found or specified"))
 
-;; ido
+;;; ido
 (require 'ido)
 (setq ido-create-new-buffer (quote always))
 (setq ido-enable-flex-matching t)
