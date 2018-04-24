@@ -43,7 +43,7 @@
 
   ;; use gdb-many-windows by default
   (setq-default gdb-many-windows t
-		gdb-show-main t)
+				gdb-show-main t)
 
   (setq-default tab-width '8)
   (setq-default indent-tabs-mode t)
@@ -57,8 +57,12 @@
     :ensure t
     :after cc-mode
     :commands (clang-format clang-format-buffer clang-format-region)
+	:init
+	(add-hook 'before-save-hook 'clang-format-buffer)
     :config
-    (setq clang-format-executable "/usr/local/opt/llvm/bin/clang-format"))
+	(if (eq system-type 'darwin)
+		(setq clang-format-executable "/usr/local/opt/llvm/bin/clang-format")
+      (setq clang-format-executable "clang-format-5.0")))
 
   (defun c-insert-include()
     (interactive)
