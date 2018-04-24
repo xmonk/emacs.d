@@ -26,7 +26,9 @@
 
 ;; 10MB let's see how well it works.
 (setq gc-cons-threshold (* 10 1024 1024))
-
+(add-hook 'after-init-hook (lambda ()
+                             ;; restore after startup
+                             (setq gc-cons-threshold 800000)))
 ;; set faces
 (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 130)
 
