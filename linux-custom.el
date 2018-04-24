@@ -1,18 +1,3 @@
-;;; linux-custom.el --- Custom configration
-;;
-;; Filename: linux-custom.el
-;; Description:
-;; Author: Juan Fuentes
-;; Maintainer:
-;; Created: Wed Mar  9 15:13:07 2016 (-0500)
-;; Version:
-;; Package-Requires: ()
-;; Last-Updated:
-;;           By:
-;;     Update #: 3
-;; URL:
-;; Doc URL:
-;; Keywords:
 ;; Compatibility:
 ;;
 ;;
@@ -29,27 +14,36 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(frame-background-mode (quote dark))
+ '(clang-format-style
+   "{BasedOnStyle: llvm, UseTab: Always, IndentWidth: 8, AllowShortFunctionsOnASingleLine: None, KeepEmptyLinesAtTheStartOfBlocks: false}")
+ '(dired-async-mode t)
+ '(ediff-window-setup-function 'ediff-setup-windows-plain)
+ '(flycheck-python-pyflakes-executable "pyflakes")
+ '(grep-command "/usr/bin/rg")
+ '(grep-find-command '("find . -type f -exec /usr/bin/rg \\{\\} +" . 39))
+ '(grep-find-template
+   "find <D> <X> -type f <F> -exec /usr/local/bin/rg -e <R> \\{\\} +")
+ '(grep-highlight-matches 'always)
+ '(grep-program (executable-find "rg") t)
+ '(indent-tabs-mode t)
  '(magit-item-highlight-face nil)
  '(package-enable-at-startup nil)
+ '(package-quickstart t)
  '(package-selected-packages
-   (quote
-    (workgroups2 ob-go tuareg company-anaconda anaconda-mode go-mode magit flycheck browse-kill-ring whole-line-or-region smartscan codesearch expand-region web-mode markdown-mode projectile undo-tree git-timemachine xcscope paredit company use-package))))
+   '(xcscope web-mode use-package undo-tree swiper smartscan py-yapf projectile paredit org ob-go markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flycheck flx-ido expand-region elisp-slime-nav diminish company-irony-c-headers company-irony company-go company-flx company-anaconda codesearch clang-format browse-kill-ring))
+ '(projectile-globally-ignored-directories
+   '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "elpa" "venv" ".egg*" "__pycache__" "var" "etc"))
+ '(projectile-globally-ignored-files '("TAGS" ".DS_Store" ".elc" ".pyc"))
+ '(slime-company-completion 'fuzzy)
+ '(temporary-file-directory "/tmp")
+ '(tramp-syntax 'default nil (tramp)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(company-preview ((t (:background "black" :foreground "white" :underline t :font "Lucida Grande Mono" :height 120))))
- '(company-preview-common ((t (:inherit company-preview))))
- '(company-scrollbar-bg ((t (:background "white" :foreground "black"))))
- '(company-scrollbar-fg ((t (:foreground "white" :background "black"))))
- '(company-tooltip ((t (:background "black" :foreground "white" :font "Lucida Grande Mono" :height 120))))
- '(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
- '(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
- '(company-tooltip-selection ((t (:background "white" :foreground "#1D1D1D" :font "Lucida Grande Mono" :height 120))))
- '(sp-pair-overlay-face ((t nil)))
- '(eshell-prompt ((t (:inherit default)))))
+ '(eshell-prompt ((t (:inherit default))))
+ '(sp-pair-overlay-face ((t nil))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; linux-custom.el ends here
