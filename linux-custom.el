@@ -1,4 +1,18 @@
-;; Compatibility:
+;;; linux-custom.el --- Linux custom file.
+;;
+;; Filename: linux-custom.el
+;; Description:
+;; Author: Juan Fuentes
+;; Maintainer:
+;; Created: Fri Aug 21 09:14:29 2015 (-0400)
+;; Version:
+;; Package-Requires: ()
+;; Last-Updated:
+;;           By:
+;;     Update #: 9
+;; URL:
+;; Doc URL:
+;; Keywords:;; Compatibility:
 ;;
 ;;
 ;;; Commentary:
@@ -19,10 +33,10 @@
  '(dired-async-mode t)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(flycheck-python-pyflakes-executable "pyflakes")
- '(grep-command "/usr/bin/rg")
- '(grep-find-command '("find . -type f -exec /usr/bin/rg \\{\\} +" . 39))
+ '(grep-command "/snap/bin/rg")
+ '(grep-find-command '("find . -type f -exec /snap/bin/rg \\{\\} +" . 39))
  '(grep-find-template
-   "find <D> <X> -type f <F> -exec /usr/local/bin/rg -e <R> \\{\\} +")
+   "find <D> <X> -type f <F> -exec /snap/bin/rg -e <R> \\{\\} +")
  '(grep-highlight-matches 'always)
  '(grep-program (executable-find "rg") t)
  '(indent-tabs-mode t)
