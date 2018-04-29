@@ -57,11 +57,9 @@
     :ensure t
     :after cc-mode
     :commands (clang-format clang-format-buffer clang-format-region)
-	:init
-	(add-hook 'before-save-hook 'clang-format-buffer)
-    :config
-	(if (eq system-type 'darwin)
-		(setq clang-format-executable "/usr/local/opt/llvm/bin/clang-format")
+    :init
+    (if (eq system-type 'darwin)
+	(setq clang-format-executable "/usr/local/opt/llvm/bin/clang-format")
       (setq clang-format-executable "clang-format-5.0")))
 
   (defun c-insert-include()
