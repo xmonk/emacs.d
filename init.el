@@ -59,6 +59,12 @@
 (defvar use-package-verbose t)
 
 ;;; frame
+(when (window-system)
+  (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
+  (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
+    (setenv "PATH" path)
+    (setq exec-path (split-string path path-separator))))
+
 ;; macOs
 (when (memq window-system '(mac ns))
   (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 130)
@@ -70,20 +76,13 @@
         ((boundp 'mac-command-modifier)
          (setq mac-command-modifier 'super)))
   (setq mac-allow-anti-aliasing t)
-  (setenv "TMPDIR" "/tmp") ;; os x sets it to /var/tmp/...
-  (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
-    (setenv "PATH" path)
-    (setq exec-path (split-string path path-separator))))
-
-(setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
+  ;; os x sets it to /var/tmp/...
+  (setenv "TMPDIR" "/tmp"))
 
 ;; linux
 (when (memq window-system '(x))
   (dolist (mode '(menu-bar-mode scroll-bar-mode tool-bar-mode))
-    (if (fboundp mode) (funcall mode -1)))
-  (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
-    (setenv "PATH" path)
-    (setq exec-path (split-string path path-separator))))
+    (if (fboundp mode) (funcall mode -1))))
 
 ;; Load customization's
 (cond ((eql system-type 'darwin)
