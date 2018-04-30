@@ -1,4 +1,4 @@
-;;; global.el ---  Global emacs configuration.
+;;; global.el ---  Global emacs configuration. -*- lexical-binding: t; -*-
 ;;
 ;; Filename: global.el
 ;; Description:
@@ -92,17 +92,16 @@
 ;; seed the random-number generator
 (random t)
 
-;; make ibuffer the default
-(defalias 'list-buffers 'ibuffer)
-
-
 (use-package ibuffer
   :commands ibuffer
   :config
   (use-package ibuffer-vc
     :ensure t
+    :after ibuffer
     :functions ibuffer-do-sort-by-alphabetic
     :init
+    ;; make ibuffer the default
+    (defalias 'list-buffers 'ibuffer)
     (add-hook 'ibuffer-hook
 	      (lambda ()
 		(ibuffer-vc-set-filter-groups-by-vc-root)
@@ -135,6 +134,8 @@
   (global-git-commit-mode t))
 
 (use-package vc-git
+  :defer
+  :after vc
   :functions vc-git-pull jj/pwd
   :init
   (add-to-list 'vc-handled-backends 'Git)
@@ -165,21 +166,20 @@
     (add-hook 'company-mode-hook (lambda ()
 				   (add-to-list 'company-backends 'company-capf)))
     (company-flx-mode +1))
-
-  (setq company-tooltip-limit 20
-	company-minimum-prefix-length 3
-        company-idle-delay .3
-        company-echo-delay 0
-	company-auto-complete nil
-	company-begin-commands nil))
+  (setq company-tooltip-limit 20)
+  (setq company-idle-delay .3)
+  (setq company-echo-delay 0)
+  (setq company-auto-complete nil)
+  (setq  company-begin-commands nil)
+  (setq company-minimum-prefix-length 3))
 
 ;;; on duplicate filenames, show path names.
 (use-package uniquify
   :defer 5
   :init
-  (setq uniquify-buffer-name-style 'post-forward
-	uniquify-separator ":"
-	uniquify-after-kill-buffer-p t))
+  (setq uniquify-separator ":")
+  (setq uniquify-after-kill-buffer-p t)
+  (setq uniquify-buffer-name-style 'post-forward))
 
 ;;; recentf
 (use-package recentf
@@ -197,7 +197,6 @@
 ;;; paredit
 (use-package paredit
   :ensure t
-  :defer t
   :commands paredit-mode
   :diminish paredit-mode
   :config
@@ -222,7 +221,7 @@
 ;;; cscope
 (use-package xcscope
   :ensure t
-  :defer t
+  :defer
   :init (cscope-setup)
   :config
   (setq cscope-program "cscope")
@@ -230,16 +229,16 @@
 
 ;;; diminish
 (use-package diminish
+  :commands diminish
   :ensure t)
 
 (use-package eldoc
-  :defer t
   :commands eldoc-mode
   :diminish eldoc-mode)
 
 (use-package git-timemachine
-  :commands git-timemachine
-  :ensure t)
+  :ensure t
+  :commands git-timemachine)
 
 ;;; undo-tree
 (use-package undo-tree
@@ -275,6 +274,7 @@
 
 ;;; flx-ido
 (use-package flx-ido
+  :commands flx-ido-mode
   :after ido
   :ensure t
   :init
@@ -295,7 +295,6 @@
   (advice-add 'swiper :after #'jj/swiper-recenter))
 
 (use-package dired
-  :defer t
   :commands dired
   :init
   (setq dired-listing-switches "-lahv")
@@ -310,11 +309,10 @@
 (add-hook 'kill-buffer-query-functions 'jj/immortal-scratch-buffer)
 
 ;;; Byte-compile on exit
-(add-hook 'kill-emacs-query-functions 'jj/refresh-init-elc)
+;; (add-hook 'kill-emacs-query-functions 'jj/refresh-init-elc)
 
 ;;; Doc-view
 (use-package doc-view
-  :defer t
   :commands doc-view)
 
 ;;; Markdown
@@ -351,6 +349,7 @@
 
 ;;; codesearch http://code.google.com/p/codesearch/
 (use-package codesearch
+  :disabled
   :ensure t
   :defines codesearch-goodbed
   :functions jj/codesearcher
@@ -373,17 +372,15 @@
 
 ;;; white space mode
 (use-package whitespace
+  :init
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
   :config
   (setq whitespace-line-column 80)
   (setq whitespace-style '(trailing lines space-before-tab indentation space-after-tab)))
-;;; Remove trailing white space
-;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;;; whole-line-or-region-mode
 (use-package whole-line-or-region
-  :disabled
   :ensure t
-  :defer t
   :bind (("C-y" . whole-line-or-region-yank)
 	 ("M-w" . whole-line-or-region-kill-ring-save))
   :diminish whole-line-or-region-local-mode
