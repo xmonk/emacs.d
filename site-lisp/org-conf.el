@@ -71,9 +71,6 @@
                                                     (:exports . "code")))
   (setq-default org-babel-default-header-args:python '((:exports . "code")
                                                        (:tangle  . "yes")))
-  (use-package ob-go
-    :ensure t
-    :defer t)
 
   ;; load languages.
   (org-babel-do-load-languages
@@ -85,7 +82,6 @@
      (lisp . t)
      (shell . t)
      (C . t)
-     (go . t)
      (emacs-lisp . t)
      (sqlite . t)))
 
