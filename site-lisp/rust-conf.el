@@ -25,7 +25,6 @@
 ;;; Code:
 
 (use-package rust-mode
-  :if (file-directory-p "~/.cargo")
   :commands rust-mode
   :ensure t
   :config
