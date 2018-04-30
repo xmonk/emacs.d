@@ -40,11 +40,12 @@
   (when (executable-find "pyflakes")
     (add-hook 'python-mode-hook 'flycheck-mode))
 
-  (when (executable-find "cscope")
+  (when (find-library-name "xcscope")
     (add-hook 'python-mode-hook 'cscope-minor-mode))
 
   (when (executable-find "yapf")
     (use-package py-yapf
+      :after python
       :ensure t
       :init
       (add-hook 'python-mode-hook 'py-yapf-enable-on-save)))
@@ -57,11 +58,10 @@
     (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
 
   (use-package company-anaconda
-	:ensure t
-    :after anaconda-mode company
+    :ensure t
+    :after (anaconda-mode company)
     :init
     (add-to-list 'company-backends 'company-anaconda))
-
 
   (defun jj/pydoc (name)
     "Display pydoc information for NAME in a buffer named *pydoc*."`
