@@ -116,9 +116,8 @@
 
 (add-to-list 'load-path (expand-file-name (concat user-emacs-directory "/site-lisp")))
 (use-package defuns)
-(use-package global :after defuns)
+(use-package global)
 (use-package keymaps)
-(use-package cedet-conf :defer t)
 (use-package elisp-conf)
 (use-package lisp-conf)
 (use-package magit-conf)
@@ -129,10 +128,8 @@
 (use-package sh-conf)
 (use-package eshell-conf)
 (use-package ocaml-conf)
-(use-package rust-conf :disabled)
-;; resize frame
+(use-package rust-conf :when (file-directory-p (expand-file-name "~/.cargo")))
 (init-maxframe)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
