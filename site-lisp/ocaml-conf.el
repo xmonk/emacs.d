@@ -25,7 +25,6 @@
 ;;; Code:
 
 (use-package tuareg
-  :if (file-directory-p "~/.opam")
   :commands tuareg-mode
   :mode (("\\.ml[ily]?$" . tuareg-mode)
          ("\\.topml$" . tuareg-mode))
@@ -42,6 +41,7 @@
 						  (list exec-directory)))
   :config
   (use-package utop
+    :after tuareg
     :init
     (add-hook 'tuareg-mode-hook 'utop-minor-mode)
     :config
@@ -51,11 +51,13 @@
     (setq utop-command "opam config exec -- utop -emacs"))
 
   (use-package ocp-indent
+    :after tuareg
     :config
     (ocp-setup-indent))
 
   ;; Load merlin-mode
   (use-package merlin
+    :after tuareg
     :init
     (add-hook 'tuareg-mode-hook 'merlin-mode)
     (add-hook 'caml-mode-hook 'merlin-mode)
