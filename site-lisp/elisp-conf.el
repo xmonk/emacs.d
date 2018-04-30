@@ -30,8 +30,8 @@
   (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
   (add-hook 'lisp-interaction-mode-hook #'paredit-mode)
   (add-hook 'ielm-mode-hook #'paredit-mode)
-  (add-hook 'after-save-hook 'check-parens)
   (add-hook 'emacs-lisp-mode-hook #'flycheck-mode)
+  (add-hook 'after-save-hook 'check-parens)
   :config
   (setq-default tab-width '2)
   (setq-default indent-tabs-mode nil)
@@ -39,6 +39,7 @@
       (add-hook 'after-save-hook 'compile-init-file t t))
   ;;; elisp-nav
   (use-package elisp-slime-nav
+    :after emacs-lisp-mode
     :ensure t
     :commands elisp-slime-nav-mode
     :diminish elisp-slime-nav
