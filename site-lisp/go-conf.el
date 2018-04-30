@@ -31,24 +31,26 @@
   (add-hook 'before-save-hook 'gofmt-before-save)
   (add-hook 'go-mode-hook 'jj/go-init-hook)
   (add-hook 'go-mode-hook #'flycheck-mode)
-  (add-hook 'go-mode-hook 'cscope-minor-mode)
+  ;; (add-hook 'go-mode-hook 'cscope-minor-mode)
   :config
   (setenv "GOPATH" (concat (getenv "HOME") "/g"))
   ;; gofmt command
   (setq gofmt-command "goimports")
 
   (use-package go-eldoc
+    :after go-mode
     :ensure t
     :init
     (add-hook 'go-mode-hook 'go-eldoc-setup))
 
   (use-package go-errcheck
+    :after go-mode
     :commands go-errcheck
     :ensure t)
 
   (use-package company-go
     :ensure t
-    :after company
+    :after (go-mode company)
     :config
     (add-to-list 'company-backends 'company-go)
     (setq company-go-show-annotation t)
@@ -59,9 +61,11 @@
 
   ;; Enable go-rename if available
   (use-package go-rename
+    :after go-mode
     :ensure t)
 
   (use-package "go-guru"
+    :after go-mode
     :ensure t
     :init
     (add-hook 'go-mode-hook 'go-guru-hl-identifier-mode))
