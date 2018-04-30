@@ -378,15 +378,6 @@
   (setq whitespace-line-column 80)
   (setq whitespace-style '(trailing lines space-before-tab indentation space-after-tab)))
 
-;;; whole-line-or-region-mode
-(use-package whole-line-or-region
-  :ensure t
-  :bind (("C-y" . whole-line-or-region-yank)
-	 ("M-w" . whole-line-or-region-kill-ring-save))
-  :diminish whole-line-or-region-local-mode
-  :config
-  (whole-line-or-region-global-mode-cmhh))
-
 ;;; Kill ring
 (use-package browse-kill-ring
   :ensure t
