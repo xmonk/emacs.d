@@ -29,9 +29,6 @@
 (add-hook 'after-init-hook (lambda ()
                              ;; restore after startup
                              (setq gc-cons-threshold 800000)))
-;;; set faces
-(set-face-attribute 'default nil :font "Lucida Grande Mono" :height 130)
-
 ;;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
 (load-theme 'jj-acme t)
@@ -41,6 +38,7 @@
   (menu-bar-mode -1))
 
 (when (window-system)
+  ;; set font
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
   (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
     (setenv "PATH" path)
@@ -49,13 +47,14 @@
   (cond
    ((memq window-system '(mac ns))
 	(set-face-attribute 'default nil :font "Lucida Grande Mono" :height 130)
+	(setq mac-allow-anti-aliasing t)
+
 	(dolist (mode '(scroll-bar-mode tool-bar-mode))
 	  (if (fboundp mode) (funcall mode -1)))
 	(cond ((boundp 'mac-option-modifier)
 		   (setq mac-option-modifier 'meta))
 		  ((boundp 'mac-command-modifier)
 		   (setq mac-command-modifier 'super)))
-	(setq mac-allow-anti-aliasing t)
 	;; os x sets it to /var/tmp/...
 	(setenv "TMPDIR" "/tmp"))
    ;; linux
