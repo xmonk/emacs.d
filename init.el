@@ -36,8 +36,32 @@
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
 (load-theme 'jj-acme t)
 
+;;; frame
 (unless window-system
   (menu-bar-mode -1))
+
+(when (window-system)
+  (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
+  (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
+    (setenv "PATH" path)
+    (setq exec-path (split-string path path-separator)))
+  ;; macOs
+  (cond
+   ((memq window-system '(mac ns))
+	(set-face-attribute 'default nil :font "Lucida Grande Mono" :height 130)
+	(dolist (mode '(scroll-bar-mode tool-bar-mode))
+	  (if (fboundp mode) (funcall mode -1)))
+	(cond ((boundp 'mac-option-modifier)
+		   (setq mac-option-modifier 'meta))
+		  ((boundp 'mac-command-modifier)
+		   (setq mac-command-modifier 'super)))
+	(setq mac-allow-anti-aliasing t)
+	;; os x sets it to /var/tmp/...
+	(setenv "TMPDIR" "/tmp"))
+   ;; linux
+   ((memq window-system '(x))
+	(dolist (mode '(menu-bar-mode scroll-bar-mode tool-bar-mode))
+	  (if (fboundp mode) (funcall mode -1))))))
 
 ;;; package
 (autoload 'package "package" nil t)
@@ -56,33 +80,6 @@
 
 (eval-when-compile
   (require 'use-package))
-(defvar use-package-verbose t)
-
-;;; frame
-(when (window-system)
-  (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
-  (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
-    (setenv "PATH" path)
-    (setq exec-path (split-string path path-separator))))
-
-;; macOs
-(when (memq window-system '(mac ns))
-  (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 130)
-  (dolist (mode '(scroll-bar-mode tool-bar-mode))
-    (if (fboundp mode) (funcall mode -1)))
-
-  (cond ((boundp 'mac-option-modifier)
-         (setq mac-option-modifier 'meta))
-        ((boundp 'mac-command-modifier)
-         (setq mac-command-modifier 'super)))
-  (setq mac-allow-anti-aliasing t)
-  ;; os x sets it to /var/tmp/...
-  (setenv "TMPDIR" "/tmp"))
-
-;; linux
-(when (memq window-system '(x))
-  (dolist (mode '(menu-bar-mode scroll-bar-mode tool-bar-mode))
-    (if (fboundp mode) (funcall mode -1))))
 
 ;; Load customization's
 (cond ((eql system-type 'darwin)
