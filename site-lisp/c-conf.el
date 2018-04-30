@@ -30,6 +30,8 @@
   :init
   (add-hook 'c-mode-common-hook #'flycheck-mode)
   (add-hook 'c++mode-common-hook #'flycheck-mode)
+  (dolist (hook '(c-mode-common-hook c++-mode-hook))
+    (add-hook hook #'flycheck-mode))
   :config
   (bind-key "C-c C-c" 'compile c-mode-base-map)
   (bind-key "C-c i" 'c-insert-include c-mode-base-map)
@@ -42,8 +44,8 @@
   (setq c-default-style "linux")
 
   ;; use gdb-many-windows by default
-  (setq-default gdb-many-windows t
-		gdb-show-main t)
+  (setq-default gdb-many-windows t)
+  (setq-default gdb-show-main t)
 
   (setq-default tab-width '8)
   (setq-default indent-tabs-mode t)
@@ -79,11 +81,13 @@
     (global-semanticdb-minor-mode 1)
     (global-semantic-idle-scheduler-mode 1)
     :config
+    (semantic-mode t)
     (semantic-add-system-include "/usr/include")
-    (semantic-add-system-include "/usr/local/include"))
-
-  (use-package semantic/db-mode :after cc-mode)
-  (use-package semantic/idle :after cc-mode)
+    (semantic-add-system-include "/usr/local/include")
+    (require 'semantic/sb)
+    (require 'semantic/ia)
+    (use-package semantic/db-mode :after cc-mode)
+    (use-package semantic/idle :after cc-mode))
 
   (use-package irony
     ;; To compile irony-server in macOS: cmake -DCMAKE_CXX_COMPILER=/usr/local/opt/llvm/bin/clang++
