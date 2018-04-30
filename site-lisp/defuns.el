@@ -1,4 +1,4 @@
-;;; defuns.el ---  Generic macros and functions.
+;;; defuns.el ---  Generic macros and functions. -*- lexical-binding: t; -*-
 ;;
 ;; Filename: defuns.el
 ;; Description:
@@ -561,13 +561,6 @@ a region."
   (declare (indent 1) (debug t))
   `(eval-after-load ',feature
      '(progn ,@body)))
-
-(defmacro require-if (feature &rest body)
-  "Require if FEATURE is installed, and eval BODY if provided."
-  (declare (indent t) (debug t))
-  `(when (locate-library (symbol-name ,feature))
-     (require ,feature nil t)
-     ,@body))
 
 (defun load-path-ls ()
   "Prints the 'load-path' variable."
