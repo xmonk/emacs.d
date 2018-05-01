@@ -100,13 +100,13 @@
     :after ibuffer
     :functions ibuffer-do-sort-by-alphabetic
     :init
+    (defun jj/ibuffer-vc-setup ()
+      (ibuffer-vc-set-filter-groups-by-vc-root)
+      (unless (eq ibuffer-sorting-mode 'alphabetic)
+	(ibuffer-do-sort-by-alphabetic)))
     ;; make ibuffer the default
     (defalias 'list-buffers 'ibuffer)
-    (add-hook 'ibuffer-hook
-			  (lambda ()
-				(ibuffer-vc-set-filter-groups-by-vc-root)
-				(unless (eq ibuffer-sorting-mode 'alphabetic)
-				  (ibuffer-do-sort-by-alphabetic))))))
+    (add-hook 'ibuffer-hook 'jj/ibuffer-vc-setup)))
 
 ;; set-goal-column
 (put 'set-goal-column 'disabled nil)
@@ -134,19 +134,17 @@
   (global-git-commit-mode t))
 
 (use-package vc-git
-  :defer
-  :after vc
-  :functions vc-git-pull jj/pwd
+  :functions vc-git-pull jj/pwd up_emacs
   :init
   (add-to-list 'vc-handled-backends 'Git)
   (defun up_emacs ()
     "Update EMACS source tree."
     (interactive)
     (if (file-directory-p "~/t/emacs")
-		(let ((cwd (jj/pwd)))
-		  (and (cd "~/t/emacs")
-			   (vc-git-pull nil))
-		  (cd cwd)))))
+	(let ((cwd (jj/pwd)))
+	  (and (cd "~/t/emacs")
+	       (vc-git-pull nil))
+	  (cd cwd)))))
 
 ;;; tramp
 (defvar tramp-default-method "ssh")
@@ -172,8 +170,7 @@
     (setq  company-begin-commands nil)
     (setq company-minimum-prefix-length 3)
     (company-flx-mode +1)
-    (add-hook 'company-mode-hook (lambda ()
-								   (add-to-list 'company-backends 'company-capf)))))
+    (add-hook 'company-mode-hook (lambda () (add-to-list 'company-backends 'company-capf)))))
 
 ;;; on duplicate filenames, show path names.
 (use-package uniquify
@@ -193,7 +190,7 @@
     "Use `ido-completing-read' to \\[find-file] a recent file"
     (interactive)
     (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-		(message "Opening file...")
+	(message "Opening file...")
       (message "Aborting"))))
 
 ;;; paredit
@@ -288,7 +285,7 @@
   :diminish ivy-mode
   :functions jj/swiper-recenter
   :bind (("C-s" . swiper)
-		 ("C-r" . swiper))
+	 ("C-r" . swiper))
   :config
   ;;advise swiper to recenter on exit
   (defun jj/swiper-recenter ()
@@ -370,8 +367,8 @@
   :ensure t
   :commands smartscan-mode
   :bind (("M-'" . smartscan-symbol-replace)
-		 ("M-p" . smartscan-symbol-go-forward)
-		 ("M-n" . smartscan-symbol-go-backward))
+	 ("M-p" . smartscan-symbol-go-forward)
+	 ("M-n" . smartscan-symbol-go-backward))
   :init
   (dolist (hook '(eshell-mode-hook shell-mode-hook inferior-python-mode-hook))
     (add-hook hook '(lambda () (smartscan-mode -1))))
