@@ -322,35 +322,31 @@
   :ensure t
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
-		 ("\\.md\\'" . markdown-mode)
-		 ("\\.markdown\\'" . markdown-mode))
+	 ("\\.md\\'" . markdown-mode)
+	 ("\\.markdown\\'" . markdown-mode))
   :init
+  (setq markdown-command "multimarkdown"
+	markdown-fontify-code-blocks-natively t
+	markdown-enable-math t
+	markdown-header-scaling t
+        markdown-hide-urls t
+        markdown-marginalize-headers t
+        markdown-marginalize-headers-margin-width 4
+        markdown-fontify-code-blocks-natively t)
   (add-hook 'markdown-mode-hook 'flyspell-mode)
   :config
-  (setq markdown-fontify-code-blocks-natively t)
-  (setq markdown-enable-math t)
-  (let ((markdown-cmd "multimarkdown"))
-    (when (executable-find markdown-cmd)
-      (setq markdown-command markdown-cmd))))
-
-(use-package edit-indirect
-  :ensure t
-  :defer)
-
-(use-package markdown-preview-mode
-  :ensure t
-  :after markdown-mode
-  :commands (markdown-preview-mode))
+  (use-package edit-indirect
+    :ensure t
+    :defer))
 
 ;;; Web-mode
 (use-package web-mode
   :ensure t
   :commands web-mode
   :mode (("\\.html$" . web-mode)
-		 ("\\.xhtml$" . web-mode))
+	 ("\\.xhtml$" . web-mode))
   :init
-  (add-hook 'web-mode-hook (lambda ()
-							 (setq web-mode-markup-indent-offset 2))))
+  (add-hook 'web-mode-hook (lambda () (setq web-mode-markup-indent-offset 2))))
 
 ;;; Expand-region
 (use-package expand-region
@@ -427,16 +423,16 @@
 ;;; winner mode
 (use-package winner
   :bind (("C-c <left>" . winner-undo)
-		 ("C-c <right>" . winner-redo))
+	 ("C-c <right>" . winner-redo))
   :init
-  (winner-mode))
+  (winner-mode 1))
 
 ;;; windmove
 (use-package windmove
   :bind (("s-h" . windmove-left)
-		 ("s-l" . windmove-right)
-		 ("s-k" . windmove-up)
-		 ("s-j" . windmove-down))
+	 ("s-l" . windmove-right)
+	 ("s-k" . windmove-up)
+	 ("s-j" . windmove-down))
   :config
   (windmove-default-keybindings 'super)
   (setq windmove-wrap-around t))
