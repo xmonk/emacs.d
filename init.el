@@ -38,7 +38,6 @@
   (menu-bar-mode -1))
 
 (when (window-system)
-  ;; set font
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
   (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
     (setenv "PATH" path)
@@ -46,7 +45,8 @@
   ;; macOs
   (cond
    ((memq window-system '(mac ns))
-	(set-face-attribute 'default nil :font "Lucida Grande Mono" :height 130)
+	;; set font
+	(set-face-attribute 'default nil :font "Lucida Grande Mono" :height 140)
 	(setq mac-allow-anti-aliasing t)
 
 	(dolist (mode '(scroll-bar-mode tool-bar-mode))
@@ -111,7 +111,7 @@
   (server-start))
 
 (add-to-list 'load-path (expand-file-name (concat user-emacs-directory "/site-lisp")))
-(use-package defuns)
+(use-package defuns :functions init-maxframe)
 (use-package global)
 (use-package keymaps)
 (use-package elisp-conf)
