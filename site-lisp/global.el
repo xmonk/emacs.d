@@ -333,15 +333,25 @@
     (when (executable-find markdown-cmd)
       (setq markdown-command markdown-cmd))))
 
+(use-package edit-indirect
+  :ensure t
+  :defer
+  :after markdown-mode)
+
+(use-package markdown-preview-mode
+  :ensure t
+  :after markdown-mode
+  :commands (markdown-preview-mode))
+
 ;;; Web-mode
 (use-package web-mode
   :ensure t
   :commands web-mode
   :mode (("\\.html$" . web-mode)
-		 ("\\.xhtml$" . web-mode))
+	 ("\\.xhtml$" . web-mode))
   :init
   (add-hook 'web-mode-hook (lambda ()
-							 (setq web-mode-markup-indent-offset 2))))
+			     (setq web-mode-markup-indent-offset 2))))
 
 ;;; Expand-region
 (use-package expand-region
