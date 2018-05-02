@@ -26,29 +26,28 @@
 
 (use-package python
   :commands python-mode
-  :config
+  :init
+  (setq-default tab-width '4
+				indent-tabs-mode nil)
   (setq python-shell-interpreter "python3"
         python-shell-interpreter-args "-i"
         comint-process-echoes t
         python-shell-completion-native-enable t)
-
   (autoload 'doctest-mode "doctest-mode" "Python doctest editing mode." t)
-  (setq-default tab-width '4)
-  (setq-default indent-tabs-mode nil)
   (subword-mode +1)
-
+  :config
   (when (executable-find "pyflakes")
     (add-hook 'python-mode-hook 'flycheck-mode))
 
   (when (find-library-name "xcscope")
     (add-hook 'python-mode-hook 'cscope-minor-mode))
 
-  (when (executable-find "yapf")
-    (use-package py-yapf
-      :after python
-      :ensure t
-      :init
-      (add-hook 'python-mode-hook 'py-yapf-enable-on-save)))
+  (use-package py-yapf
+    :after python
+	:when (executable-find "yapf")
+    :ensure t
+    :init
+    (add-hook 'python-mode-hook 'py-yapf-enable-on-save))
 
   (use-package anaconda-mode
     :ensure t
@@ -89,7 +88,7 @@
     (split-line)
     (insert python--ipdb-breakpoint-string))
 
-  (define-key python-mode-map (kbd "<f5>") 'python-insert-breakpoint))
+  (bind-key (kbd "<f5>") 'python-insert-breakpoint python-mode-map))
 
 (provide 'py-conf)
 
