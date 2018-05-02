@@ -67,7 +67,7 @@
 
 (setq package-archives
       '(("elpa" . "https://elpa.gnu.org/packages/")
-        ("org" . "http://orgmode.org/elpa/")
+        ("org" . "https://orgmode.org/elpa/")
         ("melpa" . "https://melpa.org/packages/")))
 
 (when (<= emacs-major-version 26)
