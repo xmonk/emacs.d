@@ -92,21 +92,8 @@
 ;; seed the random-number generator
 (random t)
 
-(use-package ibuffer
-  :commands ibuffer
-  :config
-  (use-package ibuffer-vc
-    :ensure t
-    :after ibuffer
-    :functions ibuffer-do-sort-by-alphabetic
-    :init
-    (defun jj/ibuffer-vc-setup ()
-      (ibuffer-vc-set-filter-groups-by-vc-root)
-      (unless (eq ibuffer-sorting-mode 'alphabetic)
-	(ibuffer-do-sort-by-alphabetic)))
-    ;; make ibuffer the default
-    (defalias 'list-buffers 'ibuffer)
-    (add-hook 'ibuffer-hook 'jj/ibuffer-vc-setup)))
+;; Mouse copy region
+(setq mouse-drag-copy-region t)
 
 ;; set-goal-column
 (put 'set-goal-column 'disabled nil)
@@ -121,8 +108,56 @@
 ;; Don't ask for confirmation of new buffers.
 (setq confirm-nonexistent-file-or-buffer nil)
 
-;;; sensible zap to char
+;; add system clipboard to kill-ring
+(setq save-interprogram-paste-before-kill t)
+
+;; Ediff
+(setq diff-switches "-Nu")
+;; Mail related stuff.
+(setq mail-user-agent (quote gnus-user-agent))
+(setq read-mail-command (quote gnus))
+(setq mail-yank-prefix ">")
+
+;; If images are supported than display them when visiting them.
+(when (fboundp 'auto-image-file-mode)
+  (auto-image-file-mode 1))
+
+(add-hook 'prog-mode-hook 'jj/pretty-lambdas)
+(add-hook 'prog-mode-hook 'jj/local-comment-auto-fill)
+(add-hook 'prog-mode-hook 'jj/add-watchwords)
+
+;; sensible zap to char
 (autoload 'zap-up-to-char "misc" "Kill up to, but not including ARGth occurrence of CHAR.")
+
+;; Don't allow the scratch buffer to be killed. It will delete it's contents instead.
+(add-hook 'kill-buffer-query-functions 'jj/immortal-scratch-buffer)
+
+;; backtracks search to beginning of buffer.
+(add-hook 'isearch-mode-end-hook 'jj/goto-match-beginning)
+
+;;; sessions
+(defvar session-save-file (concat user-emacs-directory ".session"))
+
+;;; tramp
+(defvar tramp-default-method "ssh")
+(defvar tramp-ssh-controlmaster-options nil)
+
+;;; ibuffer
+(use-package ibuffer
+  :commands ibuffer)
+
+(use-package ibuffer-vc
+  :ensure t
+  :after ibuffer
+  :functions ibuffer-do-sort-by-alphabetic
+  :init
+  (defun jj/ibuffer-vc-setup ()
+    (ibuffer-vc-set-filter-groups-by-vc-root)
+    (unless (eq ibuffer-sorting-mode 'alphabetic)
+      (ibuffer-do-sort-by-alphabetic)))
+  ;; make ibuffer the default
+  (defalias 'list-buffers 'ibuffer)
+  (add-hook 'ibuffer-hook 'jj/ibuffer-vc-setup))
 
 ;;; vc backend
 (use-package vc
@@ -141,36 +176,33 @@
     "Update EMACS source tree."
     (interactive)
     (if (file-directory-p "~/t/emacs")
-	(let ((cwd (jj/pwd)))
-	  (and (cd "~/t/emacs")
-	       (vc-git-pull nil))
-	  (cd cwd)))))
-
-;;; tramp
-(defvar tramp-default-method "ssh")
-(defvar tramp-ssh-controlmaster-options nil)
+        (let ((cwd (jj/pwd)))
+          (and (cd "~/t/emacs")
+               (vc-git-pull nil))
+          (cd cwd)))))
 
 ;;; company
 (use-package company
   :ensure t
+  :commands company-complete
   :bind (("C-c TAB" . company-complete))
   :diminish company-mode
   :init
   (setq company-tooltip-align-annotations t)
-  (global-company-mode 1)
-  :config
-  (use-package company-flx
-    :ensure t
-    :after company
-    :init
-    (setq company-tooltip-limit 20)
-    (setq company-idle-delay .3)
-    (setq company-echo-delay 0)
-    (setq company-auto-complete nil)
-    (setq  company-begin-commands nil)
-    (setq company-minimum-prefix-length 3)
-    (company-flx-mode +1)
-    (add-hook 'company-mode-hook (lambda () (add-to-list 'company-backends 'company-capf)))))
+  (global-company-mode 1))
+
+(use-package company-flx
+  :ensure t
+  :after company
+  :init
+  (setq company-tooltip-limit 20)
+  (setq company-idle-delay .3)
+  (setq company-echo-delay 0)
+  (setq company-auto-complete nil)
+  (setq  company-begin-commands nil)
+  (setq company-minimum-prefix-length 3)
+  (company-flx-mode +1)
+  (add-hook 'company-mode-hook (lambda () (add-to-list 'company-backends 'company-capf))))
 
 ;;; on duplicate filenames, show path names.
 (use-package uniquify
@@ -185,12 +217,11 @@
   :bind (("C-x C-r" . ido-recentf-open))
   :init
   (recentf-mode t)
-  :config
   (defun ido-recentf-open ()
     "Use `ido-completing-read' to \\[find-file] a recent file"
     (interactive)
     (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-	(message "Opening file...")
+        (message "Opening file...")
       (message "Aborting"))))
 
 ;;; paredit
@@ -221,10 +252,10 @@
 (use-package xcscope
   :ensure t
   :defer
-  :init (cscope-setup)
-  :config
+  :init
   (setq cscope-program "cscope")
-  (setq cscope-database-regexps '(("~/.cscope/"))))
+  (setq cscope-database-regexps '(("~/.cscope/")))
+  (cscope-setup))
 
 ;;; diminish
 (use-package diminish
@@ -246,7 +277,7 @@
   :bind (("C-x u" . undo-tree-undo)
          ("s-z" . undo-tree-undo)
          ("s-r" . undo-tree-redo))
-  :config
+  :init
   (undo-tree-mode t)
   (global-undo-tree-mode t)
   (setq undo-tree-visualizer-relative-timestamps t)
@@ -285,8 +316,8 @@
   :diminish ivy-mode
   :functions jj/swiper-recenter
   :bind (("C-s" . swiper)
-	 ("C-r" . swiper))
-  :config
+         ("C-r" . swiper))
+  :init
   ;;advise swiper to recenter on exit
   (defun jj/swiper-recenter ()
     "recenter display after swiper"
@@ -304,12 +335,6 @@
   :commands dired-jump
   :bind (("C-x C-j" . dired-jump)))
 
-;;; Don't allow the scratch buffer to be killed. It will delete it's contents instead.
-(add-hook 'kill-buffer-query-functions 'jj/immortal-scratch-buffer)
-
-;;; Byte-compile on exit
-;; (add-hook 'kill-emacs-query-functions 'jj/refresh-init-elc)
-
 ;;; Doc-view
 (use-package doc-view
   :commands doc-view)
@@ -319,29 +344,29 @@
   :ensure t
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
-	 ("\\.md\\'" . markdown-mode)
-	 ("\\.markdown\\'" . markdown-mode))
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
   :init
   (setq markdown-command "multimarkdown"
-	markdown-fontify-code-blocks-natively t
-	markdown-enable-math t
-	markdown-header-scaling t
+        markdown-fontify-code-blocks-natively t
+        markdown-enable-math t
+        markdown-header-scaling t
         markdown-hide-urls t
         markdown-marginalize-headers t
         markdown-marginalize-headers-margin-width 4
         markdown-fontify-code-blocks-natively t)
-  (add-hook 'markdown-mode-hook 'flyspell-mode)
-  :config
-  (use-package edit-indirect
-    :ensure t
-    :defer))
+  (add-hook 'markdown-mode-hook 'flyspell-mode))
+
+(use-package edit-indirect
+  :ensure t
+  :defer)
 
 ;;; Web-mode
 (use-package web-mode
   :ensure t
   :commands web-mode
   :mode (("\\.html$" . web-mode)
-	 ("\\.xhtml$" . web-mode))
+         ("\\.xhtml$" . web-mode))
   :init
   (add-hook 'web-mode-hook (lambda () (setq web-mode-markup-indent-offset 2))))
 
@@ -361,19 +386,6 @@
   :init
   (jj/codesearcher codesearch-goodbed "~/.goodbedindex"))
 
-;;; Smart scan
-(use-package smartscan
-  :defer t
-  :ensure t
-  :commands smartscan-mode
-  :bind (("M-'" . smartscan-symbol-replace)
-	 ("M-p" . smartscan-symbol-go-forward)
-	 ("M-n" . smartscan-symbol-go-backward))
-  :init
-  (dolist (hook '(eshell-mode-hook shell-mode-hook inferior-python-mode-hook))
-    (add-hook hook '(lambda () (smartscan-mode -1))))
-  (global-smartscan-mode 1))
-
 ;;; white space mode
 (use-package whitespace
   :init
@@ -387,16 +399,13 @@
   :ensure t
   :bind ("C-c k" . browse-kill-ring))
 
-;; add system clipboard to kill-ring
-(setq save-interprogram-paste-before-kill t)
-
 ;;; Abbrev
 (use-package abbrev
   :defer t
   :commands abbrev-mode
   :diminish abbrev-mode
   :functions jj/create-file
-  :config
+  :init
   (setq abbrev-file-name (concat user-emacs-directory "abbrevs"))
   (unless (file-exists-p abbrev-file-name)
     (jj/create-file abbrev-file-name))
@@ -408,7 +417,7 @@
 ;;; needed packages
 (use-package jka-compr
   :defer t
-  :config
+  :init
   (auto-compression-mode 1))
 
 ;;; Save place
@@ -420,30 +429,24 @@
 ;;; winner mode
 (use-package winner
   :bind (("C-c <left>" . winner-undo)
-	 ("C-c <right>" . winner-redo))
+         ("C-c <right>" . winner-redo))
   :init
   (winner-mode 1))
 
 ;;; windmove
 (use-package windmove
   :bind (("s-h" . windmove-left)
-	 ("s-l" . windmove-right)
-	 ("s-k" . windmove-up)
-	 ("s-j" . windmove-down))
-  :config
-  (windmove-default-keybindings 'super)
-  (setq windmove-wrap-around t))
-
-;;; sessions
-(defvar session-save-file (concat user-emacs-directory ".session"))
+         ("s-l" . windmove-right)
+         ("s-k" . windmove-up)
+         ("s-j" . windmove-down))
+  :init
+  (setq windmove-wrap-around t)
+  (windmove-default-keybindings 'super))
 
 ;;; Paste at point NOT at cursor
 (use-package mwheel
   :init
   (setq mouse-yank-at-point 't))
-
-;;; Mouse copy region
-(setq mouse-drag-copy-region t)
 
 ;;; flycheck
 (use-package flycheck
@@ -471,13 +474,10 @@
 
 ;;; revert all buffer when file is modified in disk
 (use-package autorevert
-  :config
+  :init
   (setq global-auto-revert-mode t)
   (setq global-auto-revert-non-file-buffers t)
   (setq auto-revert-verbose nil))
-
-;; backtracks search to beginning of buffer.
-(add-hook 'isearch-mode-end-hook 'jj/goto-match-beginning)
 
 (require 'desktop nil t)
 ;; only use desktop mode and timers on server
@@ -490,7 +490,7 @@
         desktop-restore-eager 0
         desktop-lazy-idle-delay 0
         desktop-lazy-verbose nil
-        desktop-save-buffer t			; "auxiliary buffer status
+        desktop-save-buffer t                   ; "auxiliary buffer status
         desktop-load-locked-desktop t
         desktop-save-mode 1)
   ;; save history and desktop periodically, since emacs is often killed,
@@ -504,14 +504,14 @@
 ;;; spelling
 (use-package ispell
   :commands ispell
-  :config
+  :init
   (setq ispell-program-name "aspell"))
 
 (use-package flyspell
   :diminish flyspell-mode
   :commands flyspell-mode
   :after ispell
-  :config
+  :init
   ;; automatically check spelling for text
   (add-hook 'text-mode-hook 'flyspell-mode)
   ;; spell check comments and strings when programming
@@ -525,22 +525,6 @@
   :commands info
   :init
   (info-initialize))
-
-;;; Ediff
-(setq diff-switches "-Nu")
-
-;;;Mail related stuff.
-(setq mail-user-agent (quote gnus-user-agent))
-(setq read-mail-command (quote gnus))
-(setq mail-yank-prefix ">")
-
-;; If images are supported than display them when visiting them.
-(when (fboundp 'auto-image-file-mode)
-  (auto-image-file-mode 1))
-
-(add-hook 'prog-mode-hook 'jj/pretty-lambdas)
-(add-hook 'prog-mode-hook 'jj/local-comment-auto-fill)
-(add-hook 'prog-mode-hook 'jj/add-watchwords)
 
 (provide 'global)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
