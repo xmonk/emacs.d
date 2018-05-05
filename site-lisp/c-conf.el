@@ -106,7 +106,7 @@
       :ensure t
       :after company-irony
       :init
-      (add-to-list 'company-backends '(company-irony-c-headers)))
+      (add-to-list 'company-backends 'company-irony-c-headers))
 
     (use-package company-irony
       :ensure t
