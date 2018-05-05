@@ -28,7 +28,7 @@
   :commands python-mode
   :init
   (setq-default tab-width '4
-				indent-tabs-mode nil)
+                indent-tabs-mode nil)
   (setq python-shell-interpreter "python3"
         python-shell-interpreter-args "-i"
         comint-process-echoes t
@@ -44,7 +44,7 @@
 
   (use-package py-yapf
     :after python
-	:when (executable-find "yapf")
+    :when (executable-find "yapf")
     :ensure t
     :init
     (add-hook 'python-mode-hook 'py-yapf-enable-on-save))
