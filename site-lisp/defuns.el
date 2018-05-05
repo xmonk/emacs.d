@@ -710,10 +710,16 @@ ARG should be one of: `dark' `light' 'nil'."
   (dolist (p package-selected-packages)
     (princ (format "%s\n" p))))
 
+(defun jj/ls_activated_packages ()
+  "List all activated packages."
+  (dolist (a (seq-uniq package-activated-list))
+    (princ (format "%s\n" a))))
+
 (defun jj/ls_installed_packages ()
   "List all installed packages."
-  (dolist (a package-activated-list)
-    (princ (format "%s\n" a))))
+  (dolist (a package-selected-packages)
+    (and (package-installed-p a)
+         (princ (format "%s\n" a)))))
 
 (defun jj/create-file (file)
   "Create the specified FILE."
