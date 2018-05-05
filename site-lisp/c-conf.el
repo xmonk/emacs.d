@@ -29,9 +29,6 @@
   :commands (c-mode c++mode)
   :init
   (add-hook 'c-mode-common-hook #'flycheck-mode)
-  (add-hook 'c++mode-common-hook #'flycheck-mode)
-  (dolist (hook '(c-mode-common-hook c++-mode-hook))
-    (add-hook hook #'flycheck-mode))
   :config
   (bind-key "C-c C-c" 'compile c-mode-base-map)
   (bind-key "C-c i" 'c-insert-include c-mode-base-map)
@@ -98,7 +95,6 @@
     :ensure t
     :init
     (add-hook 'c-mode-common-hook 'irony-mode)
-    (add-hook 'c++mode-common-hook 'irony-mode)
     (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
     :config
     (use-package irony-eldoc
@@ -108,13 +104,15 @@
 
     (use-package company-irony-c-headers
       :ensure t
-      :after company-irony)
+      :after company-irony
+      :init
+      (add-to-list 'company-backends '(company-irony-c-headers)))
 
     (use-package company-irony
       :ensure t
       :after company-mode
       :init
-      (add-to-list 'company-backends '(company-irony-c-headers company-irony company-clang)))))
+      (add-to-list 'company-backends '(company-irony company-clang)))))
 
 
 (provide 'c-conf)
