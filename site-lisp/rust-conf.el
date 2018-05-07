@@ -35,8 +35,7 @@
     :init
     (add-hook 'rust-mode-hook #'racer-mode)
     (add-hook 'racer-mode-hook #'eldoc-mode)
-    (eval-after-load "company"
-      (add-hook 'racer-mode-hook #'company-mode))
+    (add-hook 'racer-mode-hook #'company-mode)
     :config
     (setq racer-cmd (concat (getenv "HOME") "/.cargo/bin/racer"))
     (setq racer-rust-src-path (concat (getenv "HOME") "/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src"))
