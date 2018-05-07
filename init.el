@@ -83,7 +83,7 @@
 
 (if (file-exists-p custom-file)
     (load-file custom-file)
-  (message "ERROR: No custom file found or specified"))
+  (message (format "ERROR: custom file: %s not found or not specified" custom-file)))
 
 ;;; ido
 (require 'ido)
