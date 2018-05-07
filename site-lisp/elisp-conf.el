@@ -27,11 +27,15 @@
 (use-package emacs-lisp-mode
   :commands (emacs-lisp-mode ielm)
   :init
-  (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
-  (add-hook 'lisp-interaction-mode-hook #'paredit-mode)
-  (add-hook 'ielm-mode-hook #'paredit-mode)
+  (add-hook 'emacs-lisp-mode-hook 'jj/elisp-hook)
+  (add-hook 'lisp-interaction-mode-hook 'jj/elisp-hook)
+  (add-hook 'ielm-mode-hook 'jj/elisp-hook)
   (add-hook 'emacs-lisp-mode-hook #'flycheck-mode)
   (add-hook 'after-save-hook 'check-parens)
+  (defun jj/elisp-hook ()
+    (paredit-mode 1)
+	  (setq-default indent-tabs-mode nil
+				          tab-width 2))
   :config
   ;;; elisp-nav
   (use-package elisp-slime-nav
