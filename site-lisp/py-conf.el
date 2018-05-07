@@ -49,6 +49,13 @@
     :init
     (add-hook 'python-mode-hook 'py-yapf-enable-on-save))
 
+  (use-package pipenv
+    :ensure t
+	:hook (python-mode . pipenv-mode)
+	:init
+	(setq pipenv-projectile-after-switch-function
+		  #'pipenv-projectile-after-switch-extended))
+
   (use-package anaconda-mode
     :ensure t
     :after python
