@@ -43,24 +43,17 @@
     (setenv "PATH" path)
     (setq exec-path (split-string path path-separator)))
   ;; macOs
-  (cond
-   ((memq window-system '(mac ns))
-	;; set font
-	(set-face-attribute 'default nil :font "Lucida Grande Mono" :height 140)
-	(setq mac-allow-anti-aliasing t)
-
-	(dolist (mode '(scroll-bar-mode tool-bar-mode))
-	  (if (fboundp mode) (funcall mode -1)))
-	(cond ((boundp 'mac-option-modifier)
-		   (setq mac-option-modifier 'meta))
-		  ((boundp 'mac-command-modifier)
-		   (setq mac-command-modifier 'super)))
-	;; os x sets it to /var/tmp/...
-	(setenv "TMPDIR" "/tmp"))
-   ;; linux
-   ((memq window-system '(x))
-	(dolist (mode '(menu-bar-mode scroll-bar-mode tool-bar-mode))
-	  (if (fboundp mode) (funcall mode -1))))))
+  (cond ((memq window-system '(mac ns))
+         ;; set font
+         (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 140)
+         (dolist (mode '(scroll-bar-mode tool-bar-mode))
+           (if (fboundp mode) (funcall mode -1)))
+         ;; os x sets it to /var/tmp/...
+         (setenv "TMPDIR" "/tmp"))
+        ;; linux
+        ((memq window-system '(x))
+         (dolist (mode '(menu-bar-mode scroll-bar-mode tool-bar-mode))
+           (if (fboundp mode) (funcall mode -1))))))
 
 ;;; package
 (autoload 'package "package" nil t)
