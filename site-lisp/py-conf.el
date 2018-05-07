@@ -27,21 +27,19 @@
 (use-package python
   :commands python-mode
   :init
-  (setq-default tab-width '4
-                indent-tabs-mode nil)
-  (setq python-shell-interpreter "python3"
-        python-shell-interpreter-args "-i"
-        comint-process-echoes t
-        python-shell-completion-native-enable t)
-  (autoload 'doctest-mode "doctest-mode" "Python doctest editing mode." t)
-  (subword-mode +1)
+  (add-hook 'python-mode-hook 'jj/py-hook)
+  (add-hook 'python-mode-hook 'flycheck-mode)
+  (add-hook 'python-mode-hook 'cscope-minor-mode)
+  (defun jj/py-hook ()
+    (setq-default tab-width '4
+                  indent-tabs-mode nil)
+    (setq python-shell-interpreter "python3"
+          python-shell-interpreter-args "-i"
+          comint-process-echoes t
+          python-shell-completion-native-enable t)
+    (autoload 'doctest-mode "doctest-mode" "Python doctest editing mode." t)
+    (subword-mode +1))
   :config
-  (when (executable-find "pyflakes")
-    (add-hook 'python-mode-hook 'flycheck-mode))
-
-  (when (find-library-name "xcscope")
-    (add-hook 'python-mode-hook 'cscope-minor-mode))
-
   (use-package py-yapf
     :after python
     :when (executable-find "yapf")
@@ -51,10 +49,9 @@
 
   (use-package pipenv
     :ensure t
-	:hook (python-mode . pipenv-mode)
-	:init
-	(setq pipenv-projectile-after-switch-function
-		  #'pipenv-projectile-after-switch-extended))
+    :hook (python-mode . pipenv-mode)
+    :init
+    (setq pipenv-projectile-after-switch-function #'pipenv-projectile-after-switch-extended))
 
   (use-package anaconda-mode
     :ensure t
