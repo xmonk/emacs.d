@@ -48,8 +48,6 @@
 ;;; system configuration
 (setq-default kill-whole-line t)
 (setq-default fill-column 100)
-(setq-default indent-tabs-mode t)
-(setq-default tab-width '8)
 (setq-default transient-mark-mode t)
 ;; don't break lines
 (setq-default truncate-lines t)
