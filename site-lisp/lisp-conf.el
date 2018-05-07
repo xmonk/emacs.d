@@ -55,7 +55,6 @@
   (defun jj/lisp-mode-hook()
     (setq-default tab-width 2)
     (setq-default indent-tabs-mode nil)
-    (bind-key "<return>" 'newline-and-indent)
     (abbrev-mode 1)
     (paredit-mode 1))
 
