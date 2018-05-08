@@ -30,6 +30,11 @@
   :init
   (defalias 'mgit 'magit-status)
   :config
+  (use-package magithub
+    :ensure t
+    :after magit
+    :config
+    (magithub-feature-autoinject t))
   (defadvice magit-status (around magit-fullscreen activate)
     (window-configuration-to-register :magit-fullscreen)
     ad-do-it
@@ -37,6 +42,7 @@
 
   (defadvice magit-mode-quit-window (after magit-restore-screen activate)
     (jump-to-register :magit-fullscreen)))
+
 
 (provide 'magit-conf)
 
