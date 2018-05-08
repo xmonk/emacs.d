@@ -381,11 +381,10 @@
 (use-package codesearch
   :disabled
   :ensure t
-  :defines codesearch-goodbed
-  :functions jj/codesearcher
-  :commands (codesearch-search codesearch-reset codesearch-list-directories)
+  :commands (listing-codesearch-search listing-codesearch-list-directories codesearch-reset codesearch-update-index codesearch-build-index)
   :init
-  (jj/codesearcher codesearch-goodbed "~/.goodbedindex"))
+  (setq codesearch-csearchindex ".csearchindex")
+  (setq codesearch-global-csearchindex nil))
 
 ;;; white space mode
 (use-package whitespace
