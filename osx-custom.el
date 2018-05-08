@@ -34,6 +34,8 @@
  '(dired-async-mode t)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(flycheck-python-pyflakes-executable "pyflakes")
+ '(gdb-many-windows t)
+ '(gdb-show-main t)
  '(gnutls-trustfiles
    '("/etc/ssl/ca-bundle.pem" "/usr/local/etc/openssl/cert.pem" "~/.certs/ca-certificates.pem"))
  '(grep-command "/usr/local/bin/rg")
@@ -44,10 +46,8 @@
  '(grep-program (executable-find "rg") t)
  '(indent-tabs-mode t)
  '(magit-item-highlight-face nil)
- '(package-enable-at-startup t)
- '(package-quickstart t)
  '(package-selected-packages
-   '(pipenv flycheck-irony cmake-mode edit-indirect clang-format swiper diminish org elisp-slime-nav irony anaconda-mode go-mode flycheck company xcscope web-mode use-package undo-tree py-yapf projectile paredit markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flx-ido expand-region company-irony-c-headers company-irony company-go company-flx company-anaconda codesearch browse-kill-ring))
+   '(magithub pipenv flycheck-irony cmake-mode edit-indirect clang-format swiper diminish org elisp-slime-nav irony anaconda-mode go-mode flycheck company xcscope web-mode use-package undo-tree py-yapf projectile paredit markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flx-ido expand-region company-irony-c-headers company-irony company-go company-flx company-anaconda codesearch browse-kill-ring))
  '(projectile-globally-ignored-directories
    '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "elpa" "venv" ".egg*" "__pycache__" "var" "etc"))
  '(projectile-globally-ignored-files '("TAGS" ".DS_Store" ".elc" ".pyc"))
