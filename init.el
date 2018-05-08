@@ -93,7 +93,7 @@
 (setq ido-enable-regexp t)
 (setq ido-max-prospects 7)
 (setq ido-use-filename-at-point (quote guess))
-(setq ido-use-virtual-buffers nil)
+(setq ido-use-virtual-buffers t)
 (setq ido-work-directory-match-only t)
 (ido-mode t)
 (ido-everywhere 1)
