@@ -29,6 +29,18 @@
   :commands (c-mode c++mode)
   :init
   (add-hook 'c-mode-common-hook #'flycheck-mode)
+  (add-hook 'c-mode-common-hook 'jj/c-hook)
+  (defun jj/c-hook ()
+    ;; set style to "linux"
+    (setq c-default-style "linux")
+    ;; use gdb-many-windows by default
+    (setq-local tab-width '8)
+    (setq-local indent-tabs-mode t)
+    (setq fill-column 80)
+    (setq comment-style 'extra-line)
+    (setq comment-column 72)
+    (turn-on-auto-fill)
+    (setq-local c-electric-pound-behavior (quote(alignleft))))
   :config
   (bind-key "C-c C-c" 'compile c-mode-base-map)
   (bind-key "C-c i" 'c-insert-include c-mode-base-map)
@@ -37,28 +49,13 @@
   (bind-key "C-c C-j" 'semantic-ia-fast-jump c-mode-base-map)
   (bind-key "C-c C-s" 'semantic-ia-show-summary c-mode-base-map)
 
-  ;; set style to "linux"
-  (setq c-default-style "linux")
-
-  ;; use gdb-many-windows by default
-  (setq-default gdb-many-windows t)
-  (setq-default gdb-show-main t)
-
-  (setq-default tab-width '8)
-  (setq-default indent-tabs-mode t)
-  (setq fill-column 80)
-  (setq comment-style 'extra-line)
-  (setq comment-column 72)
-  (setq-default turn-on-auto-fill t)
-  (setq-default c-electric-pound-behavior (quote(alignleft)))
-
   (use-package clang-format
     :ensure t
     :after cc-mode
     :commands (clang-format clang-format-buffer clang-format-region)
     :init
     (if (eq system-type 'darwin)
-	(setq clang-format-executable "/usr/local/opt/llvm/bin/clang-format")
+	      (setq clang-format-executable "/usr/local/opt/llvm/bin/clang-format")
       (setq clang-format-executable "clang-format-5.0")))
 
   (defun c-insert-include()
