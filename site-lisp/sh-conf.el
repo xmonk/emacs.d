@@ -25,14 +25,15 @@
 ;;; Code:
 
 (use-package sh-mode
+  :defines (sh-basic-offset sh-indentation sh-indent-for-case-label sh-indent-for-case-alt)
   :commands (sh-mode shell-script-mode)
   :init
-  (setq-default tab-width 4)
-  (setq-default indent-tabs-mode t)
-  (setq-default sh-basic-offset 4
-		sh-indentation 4
-		sh-indent-for-case-label 0
-		sh-indent-for-case-alt '+))
+  (setq-local tab-width 4)
+  (setq-local indent-tabs-mode t)
+  (setq-local sh-basic-offset 4)
+  (setq-local sh-indentation 4)
+  (setq-local sh-indent-for-case-label 0)
+  (setq-local sh-indent-for-case-alt '+))
 
 (provide 'sh-conf)
 

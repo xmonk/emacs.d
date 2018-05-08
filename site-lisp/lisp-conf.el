@@ -53,14 +53,13 @@
     (slime-setup))
 
   (defun jj/lisp-mode-hook()
-    (setq-default tab-width 2)
-    (setq-default indent-tabs-mode nil)
+    (setq-local tab-width 2)
+    (setq-local indent-tabs-mode nil)
     (abbrev-mode 1)
     (paredit-mode 1))
 
   (defun jj/inferior-lisp-mode-hook()
     (when (fboundp 'inferior-slime-mode)
-      (bind-key "<return>" 'slime-repl-return inferior-slime-mode-map)
       (inferior-slime-mode t)
       (paredit-mode 1))))
 

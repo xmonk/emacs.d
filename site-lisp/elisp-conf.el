@@ -34,8 +34,8 @@
   (add-hook 'after-save-hook 'check-parens)
   (defun jj/elisp-hook ()
     (paredit-mode 1)
-	  (setq-default indent-tabs-mode nil
-				          tab-width 2))
+	  (setq-local indent-tabs-mode nil)
+    (setq-local tab-width 2))
   :config
   ;;; elisp-nav
   (use-package elisp-slime-nav

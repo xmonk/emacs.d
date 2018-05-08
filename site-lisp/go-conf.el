@@ -78,8 +78,8 @@
     (subword-mode +1)
     ;; go-mode enables this by default argh!
     (flyspell-mode-off)
-    (setq-default tab-width 8)
-    (setq-default indent-tabs-mode t)
+    (setq-local tab-width 8)
+    (setq-local indent-tabs-mode t)
     (set (make-local-variable 'compile-command) (concat "go " "build" ))
     (define-key go-mode-map (kbd "C-c C-c") 'compile)))
 

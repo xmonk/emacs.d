@@ -31,8 +31,8 @@
   (add-hook 'python-mode-hook 'flycheck-mode)
   (add-hook 'python-mode-hook 'cscope-minor-mode)
   (defun jj/py-hook ()
-    (setq-default tab-width '4
-                  indent-tabs-mode nil)
+    (setq-local tab-width '4)
+    (setq-local indent-tabs-mode nil)
     (setq python-shell-interpreter "python3"
           python-shell-interpreter-args "-i"
           comint-process-echoes t
