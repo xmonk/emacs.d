@@ -146,6 +146,7 @@
 
 (use-package ibuffer-vc
   :ensure t
+  :defer
   :after ibuffer
   :functions ibuffer-do-sort-by-alphabetic
   :init
@@ -167,7 +168,8 @@
   (global-git-commit-mode t))
 
 (use-package vc-git
-  :functions vc-git-pull jj/pwd up_emacs
+  :functions up_emacs
+  :commands up_emacs
   :init
   (add-to-list 'vc-handled-backends 'Git)
   (defun up_emacs ()
@@ -191,6 +193,7 @@
 
 (use-package company-flx
   :ensure t
+  :commands company-flx-mode
   :after company
   :init
   (setq company-tooltip-limit 20)
