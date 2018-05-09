@@ -104,6 +104,9 @@
   (interactive "p")
   (jj/move-line (if (null n) 1 n)))
 
+(defadvice load-theme (before clear-previous-themes activate)
+  "Clear existing theme settings instead of layering them"
+  (mapc #'disable-theme custom-enabled-themes))
 
 ;; Help find-file-at-point understand: `file:linenumber` and do the right thing.
 (defvar ffap-file-at-point-line-number nil
