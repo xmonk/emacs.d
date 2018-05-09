@@ -168,13 +168,15 @@
   (global-git-commit-mode t))
 
 (use-package vc-git
-  :functions up_emacs
+  :functions up_emacs vc-git-pull
   :commands up_emacs
   :init
   (add-to-list 'vc-handled-backends 'Git)
   (defun up_emacs ()
     "Update EMACS source tree."
     (interactive)
+    (unless (fboundp 'vc-git-pull)
+      (require 'vc-git nil t))
     (if (file-directory-p "~/t/emacs")
         (let ((cwd (jj/pwd)))
           (and (cd "~/t/emacs")
