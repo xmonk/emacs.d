@@ -26,8 +26,6 @@
 
 (use-package eshell
   :commands (eshell jj/esh)
-  :custom-face
-  (eshell-prompt ((t (:inherit default))))
   :init
   (add-hook 'eshell-mode-hook 'jj/eshell-mode-hook)
   ;; (add-to-list 'eshell-output-filter-functions 'eshell-handle-ansi-color)
@@ -46,13 +44,11 @@
 	  eshell-review-quick-commands nil
 	  eshell-smart-space-goes-to-end t))
 
-
   (use-package em-hist
     :after eshell
     :init
     (setq eshell-history-size 500
 	  eshell-save-history-on-exit t))
-
 
   (defun jj/eshell-mode-hook()
     (define-key eshell-mode-map "\C-a" 'eshell-bol)
@@ -78,7 +74,6 @@
     (setq eshell-cmpl-cycle-completions t)
     (setq eshell-cmpl-dir-ignore "\\`\\(\\.\\.?\\|CVS\\|\\.svn\\|\\.hg\\|\\.git\\)/\\'"))
 
-
   (use-package em-prompt
     :after em-dirs
     :config
@@ -98,7 +93,6 @@
     (defun jj/simple-eshell-prompt ()
       (if (= (user-uid) 0)
 	  "# " "% "))))
-
 
 (provide 'eshell-conf)
 
