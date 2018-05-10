@@ -133,6 +133,9 @@
 ;; backtracks search to beginning of buffer.
 (add-hook 'isearch-mode-end-hook 'jj/goto-match-beginning)
 
+;; makes editing git commits less painful.
+(add-hook 'git-commit-mode-hook 'disable-paredit-mode)
+
 ;;; sessions
 (defvar session-save-file (concat user-emacs-directory ".session"))
 
@@ -140,15 +143,6 @@
 (defvar tramp-default-method "ssh")
 (defvar tramp-ssh-controlmaster-options nil)
 
-;;; helpful
-(use-package helpful
-  :ensure t
-  :bind (("C-h f" . helpful-callable)
-         ("C-h v" . helpful-variable)
-         ("C-h k" . helpful-key)
-         ("C-c C-d" . helpful-at-point)
-         ("C-h F" . helpful-function)
-         ("C-h C" . helpful-command)))
 ;;; ibuffer
 (use-package ibuffer
   :commands ibuffer)
@@ -168,35 +162,15 @@
   (add-hook 'ibuffer-hook 'jj/ibuffer-vc-setup))
 
 ;;; vc backend
-(use-package vc
-  :defer
-  :init
-  (add-hook 'git-commit-mode-hook 'disable-paredit-mode)
-  (setq vc-follow-symlinks t)
-  :config
-  (global-git-commit-mode t))
-
 (use-package vc-git
-  :functions up_emacs vc-git-pull
-  :commands up_emacs
   :init
-  (add-to-list 'vc-handled-backends 'Git)
-  (defun up_emacs ()
-    "Update EMACS source tree."
-    (interactive)
-    (unless (fboundp 'vc-git-pull)
-      (require 'vc-git nil t))
-    (if (file-directory-p "~/t/emacs")
-        (let ((cwd (jj/pwd)))
-          (and (cd "~/t/emacs")
-               (vc-git-pull nil))
-          (cd cwd)))))
+  (global-git-commit-mode t))
 
 ;;; company
 (use-package company
   :ensure t
   :commands company-complete
-  :bind (("C-c TAB" . company-complete))
+  :bind (("C-<tab>" . company-complete))
   :diminish company-mode
   :init
   (setq company-tooltip-align-annotations t)
@@ -301,6 +275,12 @@
   :diminish projectile-mode
   :bind (("C-c p p" . projectile-switch-project))
   :functions projectile-relevant-known-projects
+  :custom
+  (projectile-globally-ignored-directories '(".idea" ".ensime_cache" ".eunit" ".git" ".hg"
+                                                  ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox"
+                                                  ".svn" ".stack-work" "elpa" "venv" ".egg*"
+                                                  "__pycache__" "var" "etc"))
+  (projectile-globally-ignored-files '("TAGS" ".DS_Store" ".elc" ".pyc"))
   :init
   (setq projectile-mode-line "Projectile")
   (projectile-mode t)
@@ -321,20 +301,6 @@
   :ensure t
   :init
   (flx-ido-mode t))
-
-;;; swiper
-(use-package swiper
-  :ensure t
-  :diminish ivy-mode
-  :functions jj/swiper-recenter
-  :bind (("C-s" . swiper)
-         ("C-r" . swiper))
-  :init
-  ;;advise swiper to recenter on exit
-  (defun jj/swiper-recenter ()
-    "recenter display after swiper"
-    (recenter))
-  (advice-add 'swiper :after #'jj/swiper-recenter))
 
 (use-package dired
   :commands dired
@@ -486,11 +452,11 @@
 (setq auto-save-default t)
 
 ;;; revert all buffer when file is modified in disk
-(use-package autorevert
-  :init
-  (setq global-auto-revert-mode t)
-  (setq global-auto-revert-non-file-buffers t)
-  (setq auto-revert-verbose nil))
+;; (use-package autorevert
+;;   :init
+;;   (setq global-auto-revert-mode nil)
+;;   (setq global-auto-revert-non-file-buffers nil)
+;;   (setq auto-revert-verbose t))
 
 (require 'desktop nil t)
 ;; only use desktop mode and timers on server
