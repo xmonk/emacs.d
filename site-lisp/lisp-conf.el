@@ -48,8 +48,6 @@
     (setq inferior-lisp-program "sbcl")
     (setq slime-contribs '(slime-repl slime-fuzzy inferior-slime slime-mdot-fu slime-company)) ;;slime-sbcl-exts
     :config
-    (bind-key "C-c TAB" 'company-complete slime-mode-indirect-map)
-    (bind-key "C-c TAB" 'company-complete slime-repl-mode-map)
     (slime-setup))
 
   (defun jj/lisp-mode-hook()

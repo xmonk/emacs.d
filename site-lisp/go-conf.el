@@ -54,7 +54,6 @@
     (add-to-list 'company-backends 'company-go)
     (setq company-go-show-annotation t)
     (setq company-tooltip-align-annotations t)
-    (bind-key "C-c TAB" 'company-complete go-mode-map)
     (unless (executable-find "gocode")
       (shell-command-to-string "go get github.com/nsf/gocode")))
 

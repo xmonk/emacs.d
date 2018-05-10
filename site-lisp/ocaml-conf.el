@@ -38,7 +38,7 @@
     (setenv (car var) (cadr var)))
   ;; Update the emacs path
   (setq exec-path (append (parse-colon-path (getenv "PATH"))
-						  (list exec-directory)))
+						              (list exec-directory)))
   :config
   (use-package utop
     :after tuareg
@@ -66,7 +66,7 @@
       (add-to-list 'company-backends 'merlin-company-backend)
       (setq merlin-use-auto-complete-mode 'easy)
       (add-hook 'merlin-mode-hook 'company-mode)
-      (bind-key "C-c TAB" 'company-complete merlin-mode-map))
+      (bind-key "C-<tab>" 'company-complete merlin-mode-map))
 
     ;; Use opam switch to lookup ocamlmerlin binary
     (setq merlin-command 'opam)
