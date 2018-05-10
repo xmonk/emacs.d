@@ -29,7 +29,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-  '(dired-async-mode t)
+ '(dired-async-mode t)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(flycheck-python-pyflakes-executable "pyflakes")
  '(gnutls-trustfiles
@@ -52,7 +52,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-  '(sp-pair-overlay-face ((t nil))))
+ '(eshell-prompt ((t (:inherit default))))
+ '(sp-pair-overlay-face ((t nil))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; osx-custom.el ends here
