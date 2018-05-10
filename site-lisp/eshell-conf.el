@@ -26,6 +26,8 @@
 
 (use-package eshell
   :commands (eshell jj/esh)
+  :custom-face
+  (eshell-prompt ((t (:inherit default))))
   :init
   (add-hook 'eshell-mode-hook 'jj/eshell-mode-hook)
   ;; (add-to-list 'eshell-output-filter-functions 'eshell-handle-ansi-color)

@@ -27,6 +27,9 @@
 
 (use-package cc-mode
   :commands (c-mode c++mode)
+  :custom
+  (gdb-many-windows t)
+  (gdb-show-main t)
   :init
   (add-hook 'c-mode-common-hook #'flycheck-mode)
   (add-hook 'c-mode-common-hook 'jj/c-hook)
@@ -52,6 +55,9 @@
   (use-package clang-format
     :ensure t
     :after cc-mode
+    :custom
+    (clang-format-style
+     "{BasedOnStyle: llvm, UseTab: Always, IndentWidth: 8, AllowShortFunctionsOnASingleLine: None, KeepEmptyLinesAtTheStartOfBlocks: false}")
     :commands (clang-format clang-format-buffer clang-format-region)
     :init
     (if (eq system-type 'darwin)
