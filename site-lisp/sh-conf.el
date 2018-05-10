@@ -27,12 +27,14 @@
 (use-package sh-mode
   :commands (sh-mode shell-script-mode)
   :init
-  (setq-local tab-width 4)
-  (setq-local indent-tabs-mode t)
-  (setq-default sh-basic-offset 4)
-  (setq-default sh-indentation 4)
-  (setq-default sh-indent-for-case-label 0)
-  (setq-default sh-indent-for-case-alt '+))
+  (defun jj/sh-hook ()
+    (setq-local tab-width 4)
+    (setq-local indent-tabs-mode t)
+    (setq-default sh-basic-offset 4)
+    (setq-default sh-indentation 4)
+    (setq-default sh-indent-for-case-label 0)
+    (setq-default sh-indent-for-case-alt '+))
+  (add-hook 'sh-mode-hook 'jj/sh-hook))
 
 (provide 'sh-conf)
 
