@@ -75,17 +75,6 @@
 ;; fringe
 (set-default 'indicate-empty-lines nil)
 (column-number-mode)
-;; setup the mode-line as I like it.
-;; (setq-default mode-line-format
-;;               (list (purecopy "")
-;;                     'mode-line-modified
-;;                     'mode-line-buffer-identification
-;;                     (purecopy ":%l   ")
-;;                     'global-mode-string
-;;                     'vc-mode
-;;                     (purecopy "   %[(")
-;;                     'mode-name 'minor-mode-alist (purecopy "%n") 'mode-line-process
-;;                     (purecopy ")%]----%p-%-")))
 
 ;; seed the random-number generator
 (random t)
@@ -275,12 +264,6 @@
   :diminish projectile-mode
   :bind (("C-c p p" . projectile-switch-project))
   :functions projectile-relevant-known-projects
-  :custom
-  (projectile-globally-ignored-directories '(".idea" ".ensime_cache" ".eunit" ".git" ".hg"
-                                                  ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox"
-                                                  ".svn" ".stack-work" "elpa" "venv" ".egg*"
-                                                  "__pycache__" "var" "etc"))
-  (projectile-globally-ignored-files '("TAGS" ".DS_Store" ".elc" ".pyc"))
   :init
   (setq projectile-mode-line "Projectile")
   (projectile-mode t)
@@ -394,15 +377,16 @@
   :defer t
   :commands abbrev-mode
   :diminish abbrev-mode
-  :functions jj/create-file
+  :functions (jj/create-file quietly-read-abbrev-file)
   :init
   (setq abbrev-file-name (concat user-emacs-directory "abbrevs"))
-  (unless (file-exists-p abbrev-file-name)
-    (jj/create-file abbrev-file-name))
-  (quietly-read-abbrev-file)
   (setq save-abbrevs 'silently)
   (setq-default abbrev-mode t)
-  (setq save-abbrevs t))
+  (setq save-abbrevs t)
+  :config
+  (unless (file-exists-p abbrev-file-name)
+    (jj/create-file abbrev-file-name))
+  (quietly-read-abbrev-file))
 
 ;;; needed packages
 (use-package jka-compr
@@ -449,7 +433,7 @@
   (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled)
         flycheck-idle-change-delay 0.3)
   (setq flycheck-highlighting-mode 'lines)
-  (setq flycheck-display-errors-function #'flycheck-display-error-messages-unless-error-list)
+  (setq flycheck-display-errors-function 'flycheck-display-error-messages-unless-error-list)
   :config
   (setq flycheck-checkers (--remove (eq it 'emacs-lisp-checkdoc) flycheck-checkers)))
 
@@ -515,8 +499,7 @@
 ;;Add the init-path tree to the Info path
 (use-package info
   :commands info
-  :init
-  (info-initialize))
+  :init (info-initialize))
 
 (provide 'global)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
