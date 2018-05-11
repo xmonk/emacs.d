@@ -189,17 +189,19 @@
 (defun jj/vi-open-previous-line(n)
   "Insert a new line above the current line.  With argument N insert N new lines."
   (interactive "p")
-  (beginning-of-line)
-  (open-line n)
-  (indent-according-to-mode))
+  (save-excursion
+    (beginning-of-line)
+    (open-line n)
+    (indent-according-to-mode)))
 
 (defun jj/vi-open-next-line(n)
   "Move to the next line (like vi) and open a line.  With argument N insert N new lines."
   (interactive "p")
-  (end-of-line)
-  (open-line n)
-  (forward-line 1)
-  (indent-according-to-mode))
+  (save-excursion
+    (end-of-line)
+    (open-line n)
+    (forward-line 1)
+    (indent-according-to-mode)))
 
 ;; A somewhat insanely powerful trick, evaluate a region via a shell command and replace the region
 ;; with the resulting output. Normally you would access this command via C-u M-| but since we're
