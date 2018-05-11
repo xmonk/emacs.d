@@ -354,9 +354,17 @@
   :defer t
   :bind ("s-/" . er/expand-region))
 
+;;; whole-line-or-region
+(use-package whole-line-or-region
+  :ensure t
+  :bind (("C-y" . whole-line-or-region-yank)
+         ("M-w" . whole-line-or-region-kill-ring-save))
+  :diminish whole-line-or-region-local-mode
+  :init
+  (whole-line-or-region-global-mode t))
+
 ;;; codesearch http://code.google.com/p/codesearch/
 (use-package codesearch
-  :disabled
   :ensure t
   :commands (listing-codesearch-search listing-codesearch-list-directories codesearch-reset codesearch-update-index codesearch-build-index)
   :init

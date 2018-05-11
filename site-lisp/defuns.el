@@ -170,21 +170,6 @@
                                )
                             fn))) files)))
 
-;; Copy or cut the line you are at without having to set the mark.
-(defadvice kill-ring-save(before slickcopy activate compile)
-  "When called interactively with no active region, copy a single line instead."
-  (interactive
-   (if mark-active (list (region-beginning) (region-end))
-     (list (line-beginning-position)
-           (line-beginning-position 2)))))
-
-(defadvice kill-region (before slick-cut activate compile)
-  "When called interactively with no active region, kill a single line instead."
-  (interactive
-   (if mark-active (list (region-beginning) (region-end))
-     (list (line-beginning-position)
-           (line-beginning-position 2)))))
-
 (defadvice transpose-words (before jj/transpose-words activate compile)
   "Transpose las two words when at end of line."
   (if (looking-at "$")
