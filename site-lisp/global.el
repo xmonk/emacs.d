@@ -333,11 +333,16 @@
         markdown-marginalize-headers t
         markdown-marginalize-headers-margin-width 4
         markdown-fontify-code-blocks-natively t)
-  (add-hook 'markdown-mode-hook 'flyspell-mode))
+  (add-hook 'markdown-mode-hook #'flyspell-mode))
 
 (use-package edit-indirect
   :ensure t
   :defer)
+
+;;; yaml-mode
+(use-package yaml-mode
+  :ensure t
+  :commands yaml-mode)
 
 ;;; Web-mode
 (use-package web-mode
