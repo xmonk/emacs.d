@@ -584,12 +584,14 @@ a region."
 (defun jj/prev-buffer()
   "Jump to previous buffer."
   (interactive)
-  (previous-buffer))
+  (save-excursion
+    (previous-buffer)))
 
 (defun jj/next-buffer()
   "Jump to next buffer."
   (interactive)
-  (next-buffer))
+  (save-excursion
+    (next-buffer)))
 
 (defun endless/comment-line-or-region (n)
   "Comment or uncomment current line and leave point after it.
