@@ -159,7 +159,7 @@
 (use-package company
   :ensure t
   :commands company-complete
-  :bind (("C-<tab>" . company-complete))
+  :bind (("C-c TAB" . company-complete))
   :diminish company-mode
   :init
   (setq company-tooltip-align-annotations t)
