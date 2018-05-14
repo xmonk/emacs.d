@@ -28,3 +28,4 @@ elpa/*.signed
 elpa/gnupg
 /package-quickstart.el
 /magithub/
+/bookmarks
