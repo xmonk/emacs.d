@@ -2,7 +2,6 @@
 /.places
 /.backup
 /abbrevs
-/elpa/
 /ido.last
 /init.elc
 /.desktop/
@@ -21,3 +20,9 @@
 *.elc
 *~
 recentf-save.el
+
+# ELPA metadata
+elpa/*.txt
+elpa/archives
+elpa/*.signed
+elpa/gnupg
