@@ -35,7 +35,6 @@
 (global-set-key (kbd "C-;") #'endless/comment-line-or-region)
 (define-key ctl-x-map "\C-i" #'endless/ispell-word-then-abbrev)
 (global-set-key (kbd "C-w") 'backward-kill-word)
-(global-set-key (kbd "C-x C-k") 'kill-region)
 (global-set-key (kbd "C-c C-k") 'kill-region)
 (global-set-key (kbd "C-c j") 'join-line)
 (global-set-key (kbd "M-<up>") 'jj/move-line-up)
