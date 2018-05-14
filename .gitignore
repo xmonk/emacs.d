@@ -26,3 +26,4 @@ elpa/*.txt
 elpa/archives
 elpa/*.signed
 elpa/gnupg
+/package-quickstart.el
