@@ -29,3 +29,4 @@ elpa/gnupg
 /package-quickstart.el
 /magithub/
 /bookmarks
+/.emacs.desktop
