@@ -38,14 +38,14 @@
   (menu-bar-mode -1))
 
 (when (window-system)
+  ;; set font
+  (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120)
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
   (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
     (setenv "PATH" path)
     (setq exec-path (split-string path path-separator)))
   ;; macOs
   (cond ((memq window-system '(mac ns))
-         ;; set font
-         (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 140)
          (dolist (mode '(scroll-bar-mode tool-bar-mode))
            (if (fboundp mode) (funcall mode -1)))
          ;; os x sets it to /var/tmp/...
@@ -118,7 +118,6 @@
 (use-package eshell-conf)
 (use-package ocaml-conf :when (file-directory-p (expand-file-name "~/.opam")))
 (use-package rust-conf :when (file-directory-p (expand-file-name "~/.cargo")))
-(init-maxframe)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
