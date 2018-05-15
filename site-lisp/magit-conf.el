@@ -31,6 +31,7 @@
   (defalias 'mgit 'magit-status)
   :config
   (use-package magithub
+    :disabled
     :ensure t
     :after magit
     :config
