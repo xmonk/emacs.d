@@ -228,6 +228,7 @@
   :ensure t
   :defer
   :init
+  (add-hook 'prog-mode-hook 'cscope-minor-mode)
   (setq cscope-program "cscope")
   (setq cscope-database-regexps '(("~/.cscope/")))
   (cscope-setup))
