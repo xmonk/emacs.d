@@ -39,7 +39,7 @@
 
 (when (window-system)
   ;; set font
-  (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 120)
+  (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 130)
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
   (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
     (setenv "PATH" path)
