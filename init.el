@@ -41,23 +41,22 @@
   ;; set font
   (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 130)
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
-  (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
-    (setenv "PATH" path)
-    (setq exec-path (split-string path path-separator)))
-  ;; macOs
+
+  ;; macOS
   (cond ((memq window-system '(mac ns))
          (dolist (mode '(scroll-bar-mode tool-bar-mode))
-           (if (fboundp mode) (funcall mode -1)))
-         ;; os x sets it to /var/tmp/...
-         (setenv "TMPDIR" "/tmp"))
-        ;; linux
+           (if (fboundp mode) (funcall mode -1))) ;; os x sets it to /var/tmp/...
+         (setenv "TMPDIR" "/tmp")
+         (use-package exec-path-from-shell
+           :ensure t
+           :init
+           (exec-path-from-shell-initialize)))
         ((memq window-system '(x))
          (dolist (mode '(menu-bar-mode scroll-bar-mode tool-bar-mode))
            (if (fboundp mode) (funcall mode -1))))))
 
 ;;; package
 (autoload 'package "package" nil t)
-
 (setq package-archives
       '(("elpa" . "https://elpa.gnu.org/packages/")
         ("org" . "https://orgmode.org/elpa/")
