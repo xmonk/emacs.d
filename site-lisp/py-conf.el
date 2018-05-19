@@ -67,7 +67,7 @@
     (add-to-list 'company-backends 'company-anaconda))
 
   (defun jj/pydoc (name)
-    "Display pydoc information for NAME in a buffer named *pydoc*."`
+    "Display pydoc information for NAME in a buffer named *pydoc*."
     (interactive "sName of function or module: ")
     (switch-to-buffer-other-window "*pydoc*")
     (erase-buffer)
