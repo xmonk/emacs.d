@@ -47,12 +47,6 @@
     :init
     (add-hook 'python-mode-hook 'py-yapf-enable-on-save))
 
-  (use-package pipenv
-    :ensure t
-    :hook (python-mode . pipenv-mode)
-    :init
-    (setq pipenv-projectile-after-switch-function #'pipenv-projectile-after-switch-extended))
-
   (use-package anaconda-mode
     :ensure t
     :after python
@@ -67,11 +61,11 @@
     (add-to-list 'company-backends 'company-anaconda))
 
   (defun jj/pydoc (name)
-    "Display pydoc information for NAME in a buffer named *pydoc*."`
+    "Display pydoc information for NAME in a buffer named *pydoc*."
     (interactive "sName of function or module: ")
     (switch-to-buffer-other-window "*pydoc*")
     (erase-buffer)
-    (insert (shell-command-to-string (format "python -m pydoc %s" name)))
+    (insert (shell-command-to-string (format "%s -m pydoc %s" python-shell-interpreter name)))
     (goto-char (point-min)))
 
   (defun python--add-debug-highlight()

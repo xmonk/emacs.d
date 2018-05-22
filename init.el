@@ -31,7 +31,7 @@
                              (setq gc-cons-threshold 800000)))
 ;;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-(load-theme #'sanityinc-tomorrow-night t)
+(load-theme 'doom-tomorrow-night t)
 
 ;;; frame
 (unless window-system
@@ -39,12 +39,12 @@
 
 (when (window-system)
   ;; set font
-  (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 130)
+  (if (= 5760 (display-pixel-width))
+      (set-face-attribute 'default nil :font "Lucida Grande Mono" :height (floor (* 10 9.5)))
+    (set-face-attribute 'default nil :font "Lucida Grande Mono" :height (floor (* 10 11.5))))
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
-  (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
-    (setenv "PATH" path)
-    (setq exec-path (split-string path path-separator)))
-  ;; macOs
+
+  ;; macOS
   (cond ((memq window-system '(mac ns))
          (dolist (mode '(scroll-bar-mode tool-bar-mode))
            (if (fboundp mode) (funcall mode -1)))

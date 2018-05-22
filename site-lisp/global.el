@@ -132,6 +132,17 @@
 (defvar tramp-default-method "ssh")
 (defvar tramp-ssh-controlmaster-options nil)
 
+(use-package fish-mode
+  :ensure t
+  :commands fish-mode
+  :when (executable-find "fish"))
+
+(use-package fish-completion
+  :ensure t
+  :when (executable-find "fish")
+  :config
+  (global-fish-completion-mode))
+
 ;;; ibuffer
 (use-package ibuffer
   :commands ibuffer)
@@ -277,6 +288,20 @@
     (dolist (project (projectile-relevant-known-projects))
       (insert (concat "* "  "[" "[file:" project "]" "["(file-name-nondirectory (directory-file-name project)) "]" "]" "\n")))
     (goto-char (point-min))))
+
+;;; swiper
+(use-package swiper
+  :ensure t
+  :diminish ivy-mode
+  :functions jj/swiper-recenter
+  :bind (("C-s" . swiper)
+         ("C-r" . swiper))
+  :init
+  ;;advise swiper to recenter on exit
+  (defun jj/swiper-recenter ()
+    "recenter display after swiper"
+    (recenter))
+  (advice-add 'swiper :after #'jj/swiper-recenter))
 
 ;;; flx-ido
 (use-package flx-ido
