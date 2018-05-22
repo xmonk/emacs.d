@@ -136,12 +136,12 @@
 (use-package fish-mode
   :ensure t
   :commands fish-mode
-  :when (and (executable-find "fish") (string= "fish" (ff-basename (getenv "SHELL")))))
+  :when (executable-find "fish"))
 
 (use-package fish-completion
   :ensure t
   :defer
-  :when (and (executable-find "fish") (string= "fish" (ff-basename (getenv "SHELL"))))
+  :when (executable-find "fish")
   :init
   (fish-completion-mode))
 
