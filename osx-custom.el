@@ -29,9 +29,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default bold shadow italic underline bold bold-italic bold])
+ '(beacon-color "#cc6666")
  '(dired-async-mode t)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
+ '(flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
  '(flycheck-python-pyflakes-executable "pyflakes")
+ '(frame-background-mode 'dark)
  '(gdb-many-windows t t)
  '(gdb-show-main t t)
  '(gnutls-trustfiles
@@ -46,7 +51,7 @@
  '(package-enable-at-startup t)
  '(package-quickstart t)
  '(package-selected-packages
-   '(pipenv exec-path-from-shell whole-line-or-region yaml-mode color-theme-sanityinc-tomorrow magithub flycheck-irony cmake-mode edit-indirect clang-format diminish org elisp-slime-nav irony anaconda-mode go-mode flycheck company xcscope web-mode use-package undo-tree py-yapf projectile paredit markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flx-ido expand-region company-irony-c-headers company-irony company-go company-flx company-anaconda codesearch browse-kill-ring))
+   '(fish-completion fish-mode doom-themes swiper pipenv exec-path-from-shell whole-line-or-region yaml-mode magithub flycheck-irony cmake-mode edit-indirect clang-format diminish org elisp-slime-nav irony anaconda-mode go-mode flycheck company xcscope web-mode use-package undo-tree py-yapf projectile paredit markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flx-ido expand-region company-irony-c-headers company-irony company-go company-flx company-anaconda browse-kill-ring))
  '(projectile-globally-ignored-directories
    '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "elpa" "venv" ".egg*" "__pycache__" "var" "etc"))
  '(projectile-globally-ignored-files '("TAGS" ".DS_Store" ".elc" ".pyc"))

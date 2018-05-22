@@ -132,6 +132,19 @@
 (defvar tramp-default-method "ssh")
 (defvar tramp-ssh-controlmaster-options nil)
 
+;;; fish
+(use-package fish-mode
+  :ensure t
+  :commands fish-mode
+  :when (and (executable-find "fish") (string= "fish" (ff-basename (getenv "SHELL")))))
+
+(use-package fish-completion
+  :ensure t
+  :defer
+  :when (and (executable-find "fish") (string= "fish" (ff-basename (getenv "SHELL"))))
+  :init
+  (fish-completion-mode))
+
 ;;; ibuffer
 (use-package ibuffer
   :commands ibuffer)
@@ -351,14 +364,6 @@
   :diminish whole-line-or-region-local-mode
   :init
   (whole-line-or-region-global-mode t))
-
-;;; codesearch http://code.google.com/p/codesearch/
-(use-package codesearch
-  :ensure t
-  :commands (listing-codesearch-search listing-codesearch-list-directories codesearch-reset codesearch-update-index codesearch-build-index)
-  :init
-  (setq codesearch-csearchindex ".csearchindex")
-  (setq codesearch-global-csearchindex nil))
 
 ;;; white space mode
 (use-package whitespace
