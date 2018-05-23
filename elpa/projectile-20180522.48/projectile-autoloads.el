@@ -274,6 +274,13 @@ regular expression.
 
 \(fn SEARCH-TERM &optional ARG)" t nil)
 
+(autoload 'projectile-ripgrep "projectile" "\
+Run a Ripgrep search with `SEARCH-TERM' at current project root.
+
+SEARCH-TERM is a regexp.
+
+\(fn SEARCH-TERM)" t nil)
+
 (autoload 'projectile-regenerate-tags "projectile" "\
 Regenerate the project's [e|g]tags.
 
