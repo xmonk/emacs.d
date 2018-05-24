@@ -475,7 +475,7 @@ a region."
       (jump-to-register :term-fullscreen)
     (progn
       (window-configuration-to-register :term-fullscreen)
-      (ansi-term (getenv "SHELL") "term")
+      (shell)
       (delete-other-windows))))
 
 (defun jj/start-or-switch(func buffer-name)
