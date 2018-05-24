@@ -41,6 +41,7 @@
     (subword-mode +1))
   :config
   (use-package py-yapf
+    :disabled
     :after python
     :when (executable-find "yapf")
     :ensure t
