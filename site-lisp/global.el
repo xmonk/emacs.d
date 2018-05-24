@@ -143,6 +143,12 @@
   :config
   (global-fish-completion-mode))
 
+(use-package smex
+  :bind (("C-x C-m" . smex)
+         ("C-x m" . smex))
+  :init
+  (smex-initialize))
+
 ;;; ibuffer
 (use-package ibuffer
   :commands ibuffer)
