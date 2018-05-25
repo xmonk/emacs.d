@@ -40,17 +40,15 @@
 (when (window-system)
   ;; set font
   (if (= 5760 (display-pixel-width))
-      (set-face-attribute 'default nil :font "Lucida Grande Mono" :height (floor (* 10 9.5)))
+      (set-face-attribute 'default nil :font "Source Code Variable" :height (floor (* 10 9.5)))
     (set-face-attribute 'default nil :font "Lucida Grande Mono" :height (floor (* 10 11.5))))
-  (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
+  (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/" ".ripgreprc"))
 
-  ;; macOS
   (cond ((memq window-system '(mac ns))
          (dolist (mode '(scroll-bar-mode tool-bar-mode))
            (if (fboundp mode) (funcall mode -1)))
-         ;; os x sets it to /var/tmp/...
+         ;; macOS sets it to /var/tmp/...
          (setenv "TMPDIR" "/tmp"))
-        ;; linux
         ((memq window-system '(x))
          (dolist (mode '(menu-bar-mode scroll-bar-mode tool-bar-mode))
            (if (fboundp mode) (funcall mode -1))))))
@@ -63,7 +61,8 @@
         ("org" . "https://orgmode.org/elpa/")
         ("melpa" . "https://melpa.org/packages/")))
 
-(when (<= emacs-major-version 26)
+(when (or (<= emacs-major-version 26)
+          (not package--initialized))
   (package-initialize))
 
 (unless (package-installed-p 'use-package)
@@ -106,18 +105,11 @@
 (add-to-list 'load-path (expand-file-name (concat user-emacs-directory "/site-lisp")))
 (use-package defuns :functions init-maxframe)
 (use-package global)
+(use-package company-conf)
 (use-package keymaps)
-(use-package elisp-conf)
-(use-package lisp-conf)
-(use-package magit-conf)
-(use-package c-conf)
-(use-package go-conf)
-(use-package org-conf)
-(use-package py-conf)
-(use-package sh-conf)
-(use-package eshell-conf)
-(use-package ocaml-conf :when (file-directory-p (expand-file-name "~/.opam")))
-(use-package rust-conf :when (file-directory-p (expand-file-name "~/.cargo")))
+(use-package window)
+(use-package utils)
+(use-package prog-conf)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here

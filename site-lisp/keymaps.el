@@ -44,8 +44,10 @@
 (global-set-key (kbd "M-<?!>") 'custom-shell-command-on-region)
 (global-set-key (kbd "s-e") 'jj/esh)
 (global-set-key (kbd "s-s") 'jj/term)
-(global-set-key (kbd "C-c w") 'jj/ido-jump-to-window)
 (global-set-key (kbd "M-/") 'hippie-expand)
+;; multiframe movements..
+;; (global-set-key (kbd "C-c w n") 'next-multiframe-window)
+;; (global-set-key (kbd "C-c w p") 'previous-multiframe-window)
 ;; This might conflict in certain modes.
 (global-set-key (kbd "C-c h b") 'outline-hide-body)
 (global-set-key (kbd "C-c s b") 'outline-show-all)
