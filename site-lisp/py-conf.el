@@ -61,6 +61,13 @@
     :init
     (add-to-list 'company-backends 'company-anaconda))
 
+  (use-package auto-virtualenvwrapper
+    :ensure t
+    :after python projectile
+    :init
+    (add-hook 'python-mode-hook #'auto-virtualenvwrapper-activate)
+    (add-hook 'projectile-after-switch-project-hook #'auto-virtualenvwrapper-activate))
+
   (defun jj/pydoc (name)
     "Display pydoc information for NAME in a buffer named *pydoc*."
     (interactive "sName of function or module: ")
