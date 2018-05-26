@@ -142,12 +142,11 @@
 
 ;;; backup
 ;; Save all my backup files in a specific directory
-
 (defconst use-backup-dir t)
 (setq backup-directory-alist (quote ((".*" . "~/.emacs.d/backup")))
       version-control t        ;; use version number for backups
       kept-new-versions 6      ;; number of newest version to keep
-      kept-old-versions 2      ;; number of oldest version to keep
+      kept-old-versions 4      ;; number of oldest version to keep
       delete-old-versions t    ;; ask to delete excess backup versions
       backup-by-copying-when-linked t) ;;copy linked files, don't rename.
 (setq auto-save-default t)
