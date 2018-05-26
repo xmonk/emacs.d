@@ -29,32 +29,6 @@
 (add-hook 'after-init-hook (lambda ()
                              ;; restore after startup
                              (setq gc-cons-threshold 800000)))
-;;; themes
-(add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-(load-theme 'doom-tomorrow-night t)
-
-;;; frame
-(unless window-system
-  (menu-bar-mode -1))
-
-(when (window-system)
-  ;; set font
-  (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 130)
-  (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
-
-  ;; macOS
-  (cond ((memq window-system '(mac ns))
-         (dolist (mode '(scroll-bar-mode tool-bar-mode))
-           (if (fboundp mode) (funcall mode -1))) ;; os x sets it to /var/tmp/...
-         (setenv "TMPDIR" "/tmp")
-         (use-package exec-path-from-shell
-           :ensure t
-           :init
-           (exec-path-from-shell-initialize)))
-        ((memq window-system '(x))
-         (dolist (mode '(menu-bar-mode scroll-bar-mode tool-bar-mode))
-           (if (fboundp mode) (funcall mode -1))))))
-
 ;;; package
 (autoload 'package "package" nil t)
 (setq package-archives
@@ -71,6 +45,26 @@
 
 (eval-when-compile
   (require 'use-package))
+
+;;; themes
+(add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
+(load-theme 'doom-tomorrow-night t)
+
+(when (window-system)
+  ;; set font
+  (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 130)
+  (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
+  ;; (let ((path (shell-command-to-string "$SHELL -cl \"printf %s \\\"\\\$PATH\\\"\"")))
+  ;;   (setenv "PATH" path)
+  ;;   (setq exec-path (split-string path path-separator)))
+  ;; macOS
+  (cond ((memq window-system '(mac ns))
+         (dolist (mode '(scroll-bar-mode tool-bar-mode))
+           (if (fboundp mode) (funcall mode -1))) ;; os x sets it to /var/tmp/...
+         (setenv "TMPDIR" "/tmp"))
+        ((memq window-system '(x))
+         (dolist (mode '(menu-bar-mode scroll-bar-mode tool-bar-mode))
+           (if (fboundp mode) (funcall mode -1))))))
 
 ;; Load customization's
 (cond ((eql system-type 'darwin)
@@ -103,20 +97,16 @@
   (server-start))
 
 (add-to-list 'load-path (expand-file-name (concat user-emacs-directory "/site-lisp")))
-(use-package defuns :functions init-maxframe)
+(use-package defuns)
 (use-package global)
 (use-package keymaps)
-(use-package elisp-conf)
-(use-package lisp-conf)
-(use-package magit-conf)
-(use-package c-conf)
-(use-package go-conf)
+(use-package windows)
+(use-package utils)
+(use-package markdown-conf)
 (use-package org-conf)
-(use-package py-conf)
-(use-package sh-conf)
-(use-package eshell-conf)
-(use-package ocaml-conf :when (file-directory-p (expand-file-name "~/.opam")))
-(use-package rust-conf :when (file-directory-p (expand-file-name "~/.cargo")))
+(use-package company-conf)
+(use-package prog-conf)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
