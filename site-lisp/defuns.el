@@ -730,17 +730,6 @@ ARG should be one of: `dark' `light' 'nil'."
     (when (= (point) start-position)
       (move-beginning-of-line nil))))
 
-(defun up_emacs ()
-  "Update EMACS source tree."
-  (interactive)
-  (unless (fboundp 'vc-git-pull)
-    (require 'vc-git nil t))
-  (if (file-directory-p "~/t/emacs")
-      (let ((cwd (jj/pwd)))
-        (and (cd "~/t/emacs")
-             (vc-git-pull nil))
-        (cd cwd))))
-
 (provide 'defuns)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; defuns.el ends here
