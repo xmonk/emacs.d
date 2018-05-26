@@ -51,7 +51,7 @@
  '(package-enable-at-startup t)
  '(package-quickstart t)
  '(package-selected-packages
-   '(fish-completion fish-mode doom-themes swiper pipenv exec-path-from-shell whole-line-or-region yaml-mode magithub flycheck-irony cmake-mode edit-indirect clang-format diminish org elisp-slime-nav irony anaconda-mode go-mode flycheck company xcscope web-mode use-package undo-tree py-yapf projectile paredit markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flx-ido expand-region company-irony-c-headers company-irony company-go company-flx company-anaconda browse-kill-ring))
+   '(exec-path-from-shell doom-themes swiper pipenv whole-line-or-region yaml-mode magithub flycheck-irony cmake-mode edit-indirect clang-format diminish org elisp-slime-nav irony anaconda-mode go-mode flycheck company xcscope web-mode use-package undo-tree py-yapf projectile paredit markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flx-ido expand-region company-irony-c-headers company-irony company-go company-flx company-anaconda browse-kill-ring))
  '(projectile-globally-ignored-directories
    '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "elpa" "venv" ".egg*" "__pycache__" "var" "etc"))
  '(projectile-globally-ignored-files '("TAGS" ".DS_Store" ".elc" ".pyc"))
