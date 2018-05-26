@@ -35,10 +35,10 @@
   (add-hook 'c-mode-common-hook 'jj/c-hook)
   (defun jj/c-hook ()
     ;; set style to "linux"
-    (setq c-default-style "linux")
+    (c-set-style "linux")
     ;; use gdb-many-windows by default
-    (setq-local tab-width '8)
-    (setq-local indent-tabs-mode t)
+    (setq tab-width '8)
+    (setq indent-tabs-mode t)
     (setq fill-column 80)
     (setq comment-style 'extra-line)
     (setq comment-column 72)
