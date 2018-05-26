@@ -92,15 +92,6 @@
 
 ;; Ediff
 (setq diff-switches "-Nu")
-;; Mail related stuff.
-;; (setq mail-user-agent (quote gnus-user-agent))
-;; (setq read-mail-command (quote gnus))
-;; (setq mail-yank-prefix ">")
-
-;; If images are supported than display them when visiting them.
-;; (when (fboundp 'auto-image-file-mode)
-;;   (auto-image-file-mode 1))
-
 ;; sensible zap to char
 (autoload 'zap-up-to-char "misc" "Kill up to, but not including ARGth occurrence of CHAR.")
 
