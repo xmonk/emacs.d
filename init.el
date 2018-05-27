@@ -101,7 +101,7 @@
 (use-package utils)
 (use-package markdown-conf)
 (use-package org-conf)
-(use-package company-conf)
+(use-package company-conf :disabled)
 (use-package prog-conf)
 
 
