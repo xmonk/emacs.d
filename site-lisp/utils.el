@@ -41,29 +41,6 @@
   (setq undo-tree-visualizer-relative-timestamps t)
   (setq undo-tree-visualizer-timestamps t))
 
-;;; flx-ido
-(use-package flx-ido
-  :ensure t
-  :commands flx-ido-mode
-  :after ido
-  :init
-  (flx-ido-mode t))
-
-;;; swiper
-(use-package swiper
-  :ensure t
-  :diminish ivy-mode
-  :functions jj/swiper-recenter
-  :bind (("C-s" . swiper)
-         ("C-r" . swiper))
-  :init
-  ;;advise swiper to recenter on exit
-  (defun jj/swiper-recenter ()
-    "recenter display after swiper"
-    (recenter))
-  (advice-add 'swiper :after #'jj/swiper-recenter))
-
-
 ;;; Expand-region
 (use-package expand-region
   :ensure t
