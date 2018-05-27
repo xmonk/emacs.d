@@ -62,9 +62,12 @@
 
   (use-package em-term
     :after eshell
+    :custom
+    (eshell-destroy-buffer-when-process-dies t)
     :config
-    (add-to-list 'eshell-visual-commands "ssh")
-    (add-to-list 'eshell-visual-commands "tail"))
+    (add-to-list 'eshell-visual-commands '("ssh" "tail" "top" "htop"))
+    (add-to-list 'eshell-visual-options '("git" "--help"))
+    (add-to-list 'eshell-visual-subcommands '("git" "log" "diff" "show")))
 
   (use-package em-cmpl
     :after eshell
