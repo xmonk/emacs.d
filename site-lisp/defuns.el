@@ -468,14 +468,14 @@ a region."
       (eshell)
       (delete-other-windows))))
 
-(defun jj/term()
+(defun jj/shell()
   "Bring up a full-screen terminal or restore previous config."
   (interactive)
-  (if (string= "term-mode" major-mode)
-      (jump-to-register :term-fullscreen)
+  (if (string= "shell-mode" major-mode)
+      (jump-to-register :shell-fullscreen)
     (progn
-      (window-configuration-to-register :term-fullscreen)
-      (ansi-term (getenv "SHELL") "term")
+      (window-configuration-to-register :shell-fullscreen)
+      (shell "shell")
       (delete-other-windows))))
 
 (defun jj/start-or-switch(func buffer-name)
