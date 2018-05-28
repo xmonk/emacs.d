@@ -61,8 +61,7 @@
         ("org" . "https://orgmode.org/elpa/")
         ("melpa" . "https://melpa.org/packages/")))
 
-(when (or (<= emacs-major-version 26)
-          (not package--initialized))
+(when (<= emacs-major-version 26)
   (package-initialize))
 
 (unless (package-installed-p 'use-package)
