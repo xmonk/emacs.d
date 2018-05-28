@@ -29,7 +29,7 @@
   :init
   (defun jj/sh-hook ()
     (setq-local tab-width 4)
-    (setq-local indent-tabs-mode t)
+    (setq-local indent-tabs-mode nil)
     (setq-default sh-basic-offset 4)
     (setq-default sh-indentation 4)
     (setq-default sh-indent-for-case-label 0)
