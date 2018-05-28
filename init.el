@@ -104,10 +104,13 @@
 (add-to-list 'load-path (expand-file-name (concat user-emacs-directory "/site-lisp")))
 (use-package defuns :functions init-maxframe)
 (use-package global)
-(use-package company-conf)
+(use-package magit-conf)
 (use-package keymaps)
-(use-package window)
+(use-package windows)
 (use-package utils)
+(use-package markdown-conf)
+(use-package org-conf)
+(use-package company-conf)
 (use-package prog-conf)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
