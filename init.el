@@ -111,7 +111,7 @@
 (use-package markdown-conf)
 (use-package org-conf)
 (use-package company-conf)
-(use-package evil-conf)
+(use-package evil-conf :disabled)
 (use-package prog-conf)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
