@@ -715,6 +715,26 @@ ARG should be one of: `dark' `light' 'nil'."
       (user-error "File: %s already exists" file)
     (write-region "" "" file)))
 
+(defun jj/copy-filename ()
+  "Copy the current buffer file name to the clipboard."
+  (interactive)
+  (let ((filename (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-file-name))))
+    (when filename
+      (kill-new filename)
+      (message "Copied buffer file name '%s' to the clipboard." filename))))
+
+(defun jj/copy-filename-at-point ()
+  "Copy the current buffer file name and line to the clipboard."
+  (interactive)
+  (let ((filename (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (format "%s::%d" (buffer-file-name) (point)))))
+    (when filename
+      (kill-new filename)
+      (message "Copied buffer file name '%s' to the clipboard." filename))))
+
 ;; from http://www.wilfred.me.uk/.emacs.d/init.html#orgb130ee0
 (defun beginning-of-line-dwim ()
   "Toggle between moving point to the first non-whitespace character, and the start of the line."
