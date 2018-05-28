@@ -132,7 +132,6 @@
         (message "Opening file...")
       (message "Aborting"))))
 
-
 (use-package dired
   :commands dired
   :init
