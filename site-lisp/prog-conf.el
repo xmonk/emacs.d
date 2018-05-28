@@ -3,14 +3,10 @@
 (add-hook 'prog-mode-hook 'jj/local-comment-auto-fill)
 (add-hook 'prog-mode-hook 'jj/add-watchwords)
 
-;; makes editing git commits less painful.
-(add-hook 'git-commit-mode-hook 'disable-paredit-mode)
-
 (use-package paredit-conf)
 (use-package c-conf)
 (use-package elisp-conf)
 (use-package lisp-conf)
-(use-package magit-conf)
 (use-package c-conf)
 (use-package go-conf)
 (use-package org-conf)
