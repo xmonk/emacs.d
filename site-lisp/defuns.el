@@ -138,24 +138,20 @@
     (setq ffap-file-at-point-line-number nil)))
 
 ;; Open files with path:line:col format.
-(defadvice find-file (around find-file-line-number (path &optional wildcards) activate)
-  "Turn files like file.js:14:10 into file.js and going to line 14, col 10."
+(defun find-file--line-number (orig-fun filename &optional wildcards)
+  "Turn files like file.cpp:14 into file.cpp and going to the 14-th line."
   (save-match-data
-    (let* ((match (string-match "^\\(.*?\\):\\([0-9]+\\):?\\([0-9]*\\)$" path))
-           (line-no (and match
-                         (match-string 2 path)
-                         (string-to-number (match-string 2 path))))
-           (col-no (and match
-                        (match-string 3 path)
-                        (string-to-number (match-string 3 path))))
-           (path (if match (match-string 1 path) path)))
-      ad-do-it
-      (when line-no
+    (let* ((matched (string-match "^\\(.*\\):\\([0-9]+\\):?$" filename))
+           (line-number (and matched
+                             (match-string 2 filename)
+                             (string-to-number (match-string 2 filename))))
+           (filename (if matched (match-string 1 filename) filename)))
+      (apply orig-fun (list filename wildcards))
+      (when line-number
         ;; goto-line is for interactive use
         (goto-char (point-min))
-        (forward-line (1- line-no))
-        (when (> col-no 0)
-          (forward-char (1- col-no)))))))
+        (forward-line (1- line-number))))))
+(advice-add 'find-file :around #'find-file--line-number)
 
 (defadvice server-visit-files (before parse-numbers-in-lines (files proc &optional nowait) activate)
   "Look for file names like file:line or file:line:position and parse name in such a manner that move to line:position in file."
