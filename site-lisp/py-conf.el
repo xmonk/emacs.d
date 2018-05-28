@@ -36,8 +36,8 @@
   (defun jj/py-hook ()
     (setq-local tab-width '4)
     (setq-local indent-tabs-mode nil)
-    (setq python-shell-interpreter "python3"
-          python-shell-interpreter-args "-i"
+    (setq python-shell-interpreter "ipython3"
+          python-shell-interpreter-args "--simple-prompt -i"
           comint-process-echoes t
           python-shell-completion-native-enable t)
     (autoload 'doctest-mode "doctest-mode" "Python doctest editing mode." t)
