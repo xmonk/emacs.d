@@ -2064,8 +2064,8 @@ using three `C-u' prefix arguments.
 
 ;;;***
 
-;;;### (autoloads nil "org-version" "org-version.el" (23298 3080
-;;;;;;  44259 263000))
+;;;### (autoloads nil "org-version" "org-version.el" (23307 18059
+;;;;;;  92102 178000))
 ;;; Generated autoloads from org-version.el
 
 (autoload 'org-release "org-version" "\
