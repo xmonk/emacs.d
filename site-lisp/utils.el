@@ -3,13 +3,6 @@
   :commands diminish
   :ensure t)
 
-;;; smex
-(use-package smex
-  :bind (("C-x C-m" . smex)
-         ("C-x m" . smex))
-  :init
-  (smex-initialize))
-
 ;;; ibuffer
 (use-package ibuffer
   :commands ibuffer)
@@ -27,7 +20,6 @@
   ;; make ibuffer the default
   (defalias 'list-buffers 'ibuffer)
   (add-hook 'ibuffer-hook 'jj/ibuffer-vc-setup))
-
 
 (use-package git-timemachine
   :ensure t
