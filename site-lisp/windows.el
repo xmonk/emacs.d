@@ -1,7 +1,7 @@
-;;; ace-window
-(use-package ace-window
-  :ensure t
-  :bind (("M-o" . ace-window)))
+;; don't scroll like a maniac
+(defvar mouse-wheel-scroll-amount '(1))
+(defvar mouse-wheel-progressive-speed nil)
+(setq scroll-preserve-screen-position 'always)
 
 ;;; winner mode
 (use-package winner
@@ -25,4 +25,9 @@
   :init
   (setq mouse-yank-at-point 't))
 
-(provide 'window)
+;;; ace-window
+(use-package ace-window
+  :ensure t
+  :bind (("M-o" . ace-window)))
+
+(provide 'windows)
