@@ -25,12 +25,7 @@
 ;;; Code:
 
 ;; stop cursor from blinking
-(blink-cursor-mode -1)
-
-;; don't scroll like a maniac
-(defvar mouse-wheel-scroll-amount '(1))
-(defvar mouse-wheel-progressive-speed nil)
-(setq scroll-preserve-screen-position 'always)
+;; (blink-cursor-mode -1)
 
 ;;; Encoding
 ;; utf-8
@@ -98,19 +93,8 @@
 ;; add system clipboard to kill-ring
 (setq save-interprogram-paste-before-kill t)
 
-;; vc-git
-(global-git-commit-mode t)
 ;; Ediff
 (setq diff-switches "-Nu")
-
-;; Mail related stuff.
-(setq mail-user-agent (quote gnus-user-agent))
-(setq read-mail-command (quote gnus))
-(setq mail-yank-prefix ">")
-
-;; If images are supported than display them when visiting them.
-(when (fboundp 'auto-image-file-mode)
-  (auto-image-file-mode 1))
 
 ;; sensible zap to char
 (autoload 'zap-up-to-char "misc" "Kill up to, but not including ARGth occurrence of CHAR.")
@@ -127,17 +111,6 @@
 ;;; tramp
 (defvar tramp-default-method "ssh")
 (defvar tramp-ssh-controlmaster-options nil)
-
-(use-package fish-mode
-  :ensure t
-  :commands fish-mode
-  :when (executable-find "fish"))
-
-(use-package fish-completion
-  :ensure t
-  :when (executable-find "fish")
-  :config
-  (global-fish-completion-mode))
 
 ;;; on duplicate filenames, show path names.
 (use-package uniquify
