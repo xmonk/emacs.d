@@ -83,8 +83,6 @@
   :ensure t
   :commands paredit-mode
   :diminish paredit-mode
-  :init
-  (add-hook 'git-commit-mode-hook 'disable-paredit-mode)
   :config
   (bind-key "C-M-l" 'paredit-recentre-on-sexp paredit-mode-map)
   (bind-key ")" 'paredit-close-round-and-newline paredit-mode-map)

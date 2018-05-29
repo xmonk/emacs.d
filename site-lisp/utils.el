@@ -1,6 +1,3 @@
-;;; Git
-;; (global-git-commit-mode t)
-
 ;;; ibuffer
 (use-package ibuffer
   :commands ibuffer)
