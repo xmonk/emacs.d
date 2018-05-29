@@ -750,6 +750,24 @@ ARG should be one of: `dark' `light' 'nil'."
       (kill-new filename)
       (message "Copied buffer file name '%s' to the clipboard." filename))))
 
+(defun jj/emacs-version ()
+  "Display Emacs version and system details in a temporary buffer."
+  (interactive)
+  (let ((buffer-name "*version*"))
+    (with-help-window buffer-name
+      (with-current-buffer buffer-name
+        (insert (format "%s" (emacs-version)))
+        (when emacs-repository-version
+          (insert "\nRepository revision: " emacs-repository-version "\n"))
+        (when (and system-configuration-options
+                   (not (equal system-configuration-options "")))
+          (insert "\nConfigured using:\n"
+                  system-configuration-options))
+        (when (and system-configuration-features
+                   (not (equal system-configuration-features "")))
+          (insert "\nFeatures:\n"
+                  system-configuration-features))))))
+
 (provide 'defuns)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; defuns.el ends here
