@@ -745,7 +745,7 @@ ARG should be one of: `dark' `light' 'nil'."
   (interactive)
   (let ((filename (if (equal major-mode 'dired-mode)
                       default-directory
-                    (format "%s::%d" (buffer-file-name) (point)))))
+                    (format "%s::%d" (buffer-file-name) (line-number-at-pos (point))))))
     (when filename
       (kill-new filename)
       (message "Copied buffer file name '%s' to the clipboard." filename))))
