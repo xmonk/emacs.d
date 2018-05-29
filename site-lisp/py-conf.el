@@ -28,6 +28,7 @@
   :commands python-mode
   :custom
   (flycheck-flake8rc (concat (getenv "HOME") "/" ".config" "/" "flake8"))
+  (flycheck-python-flake8-executable (executable-find "flake8"))
   :init
   (add-hook 'python-mode-hook 'jj/py-hook)
   (add-hook 'python-mode-hook 'flycheck-mode)
