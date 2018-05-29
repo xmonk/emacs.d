@@ -6,12 +6,11 @@
 ;; load programming configs.
 (use-package elisp-conf)
 (use-package lisp-conf )
-(use-package magit-conf)
 (use-package c-conf)
 (use-package go-conf)
 (use-package py-conf)
-(use-package sh-conf)
 (use-package eshell-conf)
+(use-package sh-conf)
 (use-package ocaml-conf :when (file-directory-p (expand-file-name "~/.opam")))
 (use-package rust-conf :when (file-directory-p (expand-file-name "~/.cargo")))
 
