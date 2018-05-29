@@ -730,6 +730,26 @@ ARG should be one of: `dark' `light' 'nil'."
     (when (= (point) start-position)
       (move-beginning-of-line nil))))
 
+(defun jj/copy-filename ()
+  "Copy the current buffer file name to the clipboard."
+  (interactive)
+  (let ((filename (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-file-name))))
+    (when filename
+      (kill-new filename)
+      (message "Copied buffer file name '%s' to the clipboard." filename))))
+
+(defun jj/copy-filename-at-point ()
+  "Copy the current buffer file name and line to the clipboard."
+  (interactive)
+  (let ((filename (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (format "%s::%d" (buffer-file-name) (point)))))
+    (when filename
+      (kill-new filename)
+      (message "Copied buffer file name '%s' to the clipboard." filename))))
+
 (provide 'defuns)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; defuns.el ends here
