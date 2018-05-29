@@ -171,7 +171,7 @@
                             fn))) files)))
 
 (defadvice transpose-words (before jj/transpose-words activate compile)
-  "Transpose las two words when at end of line."
+  "Transpose last two words when at end of line."
   (if (looking-at "$")
       (backward-word 1)))
 
