@@ -30,4 +30,11 @@
   :ensure t
   :bind (("M-o" . ace-window)))
 
+;;; perspective
+(use-package persp-mode
+  :ensure t
+  :init
+  (setq persp-keymap-prefix (kbd "C-x x"))
+  (persp-mode t))
+
 (provide 'windows)
