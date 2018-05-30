@@ -34,7 +34,8 @@
     (setq-default sh-indentation 4)
     (setq-default sh-indent-for-case-label 0)
     (setq-default sh-indent-for-case-alt '+))
-  (add-hook 'sh-mode-hook 'jj/sh-hook))
+  (add-hook 'sh-mode-hook 'jj/sh-hook)
+  (add-hook 'sh-mode-hook 'flycheck-mode))
 
 (provide 'sh-conf)
 
