@@ -94,7 +94,7 @@
   (server-start))
 
 (add-to-list 'load-path (expand-file-name (concat user-emacs-directory "/site-lisp")))
-(use-package defuns)
+(use-package defuns :functions init-maxframe)
 (use-package global)
 (use-package magit-conf)
 (use-package keymaps)
@@ -104,7 +104,7 @@
 (use-package org-conf)
 (use-package prog-conf)
 (use-package evil-conf :disabled)
-(use-package company-conf :disabled)
-
+(use-package company-conf)
+(init-maxframe)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
