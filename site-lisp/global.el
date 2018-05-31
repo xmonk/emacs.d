@@ -173,8 +173,8 @@
         desktop-save-buffer t                   ; "auxiliary buffer status
         desktop-load-locked-desktop t
         desktop-save-mode 1)
-;;   ;; save history and desktop periodically, since emacs is often killed,
-;;   ;; and not quite nicely.
+  ;; save history and desktop periodically, since emacs is often killed,
+  ;; and not quite nicely.
   (defun jj/save-desktop()
     (desktop-save-in-desktop-dir)
     ;; clear the "Desktop saved in..." message
