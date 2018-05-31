@@ -52,7 +52,7 @@
 
 (when (window-system)
   ;; set font
-  (set-face-attribute 'default nil :font "Lucida Grande Mono" :height 130)
+  (set-face-attribute 'default nil :font "PragmataPro" :height 145)
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
   ;; macOS
   (cond ((memq window-system '(mac ns))
