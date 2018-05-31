@@ -144,6 +144,7 @@
 ;; Save all my backup files in a specific directory
 (defconst use-backup-dir t)
 (setq backup-directory-alist (quote ((".*" . "~/.emacs.d/backup")))
+      vc-make-backup-files t   ;; make backup of files in version control
       version-control t        ;; use version number for backups
       kept-new-versions 6      ;; number of newest version to keep
       kept-old-versions 4      ;; number of oldest version to keep
@@ -152,11 +153,11 @@
 (setq auto-save-default t)
 
 ;;; revert all buffer when file is modified in disk
-;; (use-package autorevert
-;;   :init
-;;   (setq global-auto-revert-mode nil)
-;;   (setq global-auto-revert-non-file-buffers nil)
-;;   (setq auto-revert-verbose t))
+(use-package autorevert
+  :init
+  (setq global-auto-revert-mode nil)
+  (setq global-auto-revert-non-file-buffers nil)
+  (setq auto-revert-verbose t))
 
 (require 'desktop nil t)
 ;; ;;;; only use desktop mode and timers on server
