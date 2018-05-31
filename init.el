@@ -40,8 +40,8 @@
 (when (window-system)
   ;; set font
   (if (= 5760 (display-pixel-width))
-      (set-face-attribute 'default nil :font "Source Code Variable" :height (floor (* 10 9.5)))
-    (set-face-attribute 'default nil :font "Lucida Grande Mono" :height (floor (* 10 11.5))))
+      (set-face-attribute 'default nil :font "PragmataPro" :height (floor (* 10 9.5)))
+    (set-face-attribute 'default nil :font "PragmataPro" :height (floor (* 10 11.5))))
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/" ".ripgreprc"))
 
   (cond ((memq window-system '(mac ns))
