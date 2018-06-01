@@ -42,10 +42,12 @@
  '(indent-tabs-mode t)
  '(magit-item-highlight-face nil)
  '(package-selected-packages
-   '(persp-mode eybrowse ace-window auto-virtualenvwrapper pylint doom-themes lua-mode whole-line-or-region yaml-mode edit-indirect xcscope web-mode use-package undo-tree swiper smartscan py-yapf projectile paredit org ob-go markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flycheck flx-ido expand-region elisp-slime-nav diminish company-irony-c-headers company-irony company-go company-flx company-anaconda codesearch clang-format browse-kill-ring))
+   '(pyvenv persp-mode eybrowse ace-window pylint doom-themes lua-mode whole-line-or-region yaml-mode edit-indirect xcscope web-mode use-package undo-tree swiper smartscan py-yapf projectile paredit org ob-go markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flycheck flx-ido expand-region elisp-slime-nav diminish company-irony-c-headers company-irony company-go company-flx company-anaconda codesearch clang-format browse-kill-ring))
  '(projectile-globally-ignored-directories
    '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "elpa" "venv" ".egg*" "__pycache__" "var" "etc"))
  '(projectile-globally-ignored-files '("TAGS" ".DS_Store" ".elc" ".pyc"))
+ '(safe-local-variable-values
+   '((pyvenv-workon "moosetalk-web")))
  '(slime-company-completion 'fuzzy)
  '(temporary-file-directory "/tmp")
  '(tramp-syntax 'default nil (tramp))
