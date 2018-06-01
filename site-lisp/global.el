@@ -27,6 +27,9 @@
 ;; stop cursor from blinking
 ;; (blink-cursor-mode -1)
 
+(when (string= "DRL01834" (system-name))
+  (setq frame-title-format '(multiple-frames "%b" ("" "%b @ notvim"))))
+
 ;;; Encoding
 ;; utf-8
 (prefer-coding-system 'utf-8-unix)
