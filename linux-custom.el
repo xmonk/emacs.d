@@ -31,6 +31,7 @@
  '(dired-async-mode t)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(flycheck-python-pyflakes-executable "pyflakes")
+ '(flycheck-python-pycompile-executable "python3")
  '(gdb-many-windows t t)
  '(gdb-show-main t t)
  '(grep-command "/usr/bin/rg")
