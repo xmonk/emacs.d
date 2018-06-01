@@ -30,7 +30,7 @@ to perform almost all of their daily version control tasks directly from
 within Emacs.  While many fine Git clients exist, only Magit and Git
 itself deserve to be called porcelains.
 
-This manual is for Magit version 2.12.1 (2.12.1-114-gfd19cb8d+1).
+This manual is for Magit version 2.12.1 (2.12.1-144-g9058b223+1).
 
      Copyright (C) 2015-2018 Jonas Bernoulli <jonas@bernoul.li>
 
@@ -1313,9 +1313,9 @@ Any of the functions listed below can be used as members of this hook.
 
      Delay before automatically updating the other window.
 
-     When moving around in certain buffers certain other buffers, which
-     are being displayed in another window, may optionally be updated to
-     display information about the section at point.
+     When moving around in certain buffers, then certain other buffers,
+     which are being displayed in another window, may optionally be
+     updated to display information about the section at point.
 
      When holding down a key to move by more than just one section, then
      that would update that buffer for each section on the way.  To
@@ -3386,10 +3386,20 @@ File: magit.info,  Node: Diff Buffer,  Next: Diff Options,  Prev: Refreshing Dif
      where that line still existed.  Otherwise visit the blob for the
      commit whose changes are being shown.
 
-     When the file or blob to be displayed is already being displayed in
-     another window of the same frame, then just select that window and
-     adjust point.  Otherwise, or with a prefix argument, display the
-     buffer in another window.
+     Interactively, when the file or blob to be displayed is already
+     being displayed in another window of the same frame, then just
+     select that window and adjust point.  Otherwise, or with a prefix
+     argument, display the buffer in another window.  The meaning of the
+     prefix argument can be inverted or further modified using the
+     option ‘magit-display-file-buffer-function’.
+
+     Non-interactively the optional OTHER-WINDOW argument is taken
+     literally.  DISPLAY-FN can be used to specify the display function
+     explicitly, in which case OTHER-WINDOW is ignored.
+
+     The optional FORCE-WORKTREE means to force visiting the worktree
+     version of the file.  To do this interactively use the command
+     ‘magit-diff-visit-file-worktree’ instead.
 
  -- User Option: magit-diff-visit-previous-blob
 
@@ -5002,6 +5012,13 @@ features are available from separate popups.
 
         • ‘branch.<name>.pullRequest’ is set to the pull-request number.
 
+        • ‘branch.<name>.pullRequestRemote’ is set to the remote on
+          which the pull-request branch is located.
+
+        • ‘branch.<name>.pushRemote’ is set to the same remote as
+          ‘branch.<name>.pullRequestRemote’ if that is possible,
+          otherwise it is set to the upstream remote.
+
         • ‘branch.<name>.description’ is set to the pull-request title.
 
         • ‘branch.<name>.rebase’ is set to ‘true’ because there should
@@ -5029,17 +5046,13 @@ features are available from separate popups.
      fork/new-feature".
 
         • If the pull-request branch is located in the upstream
-          repository, then it is not necessary to configure the
-          push-target.
-
-          (If you have push access to the upstream repository, then it
-          is usually a good idea to configure that as the push-remote
-          using ‘remote.pushDefault’.  However even if you are not using
-          that recommended setting, then it is still easy enough to set
-          ‘branch.<name>.pushRemote’ while pushing using ‘P p’.)
+          repository, then you probably have set ‘remote.pushDefault’ to
+          that repository.  However some users like to set that variable
+          to their personal fork, even if they have push access to the
+          upstream, so ‘branch.<name>.pushRemote’ is set anyway.
 
         • If the pull-request branch is located inside a fork, then you
-          usually are able to push to that branch, because Github by
+          are usually able to push to that branch, because Github by
           default allows the recipient of a pull-request to push to the
           remote pull-request branch even if it is located in a fork.
           The contributor has to explicitly disable this.
@@ -5056,8 +5069,8 @@ features are available from separate popups.
                merge something like "fork/master" into "origin/master".
                The special push permission mentioned above is never
                granted for the branch that is the repository’s default
-               branch, and that is almost certainly be the case in this
-               scenario.
+               branch, and that would almost certainly be the case in
+               this scenario.
 
                To enable you to easily push somewhere anyway, the local
                branch is named "pr-N" (where ‘N’ is the pull-request
@@ -5073,8 +5086,8 @@ features are available from separate popups.
           ‘branch.<name>.pushRemote’, even if the used value is
           identical to that of ‘remote.pushDefault’, just in case you
           change the value of the latter later on.  Additionally the
-          variable ‘branch.<name>.pullRequestRemote’ is set to the fork
-          remote.
+          variable ‘branch.<name>.pullRequestRemote’ is set to the
+          remote on which the pull-request branch is located.
 
      When you later delete the local pull-request branch, then you are
      offered to also delete the corresponding remote, provided it is not
@@ -7767,39 +7780,4 @@ command provided by your own Magit extension, then checkout
 * Section Plumbing::
 * Refreshing Buffers::
 * Conventions::
-
-
-File: magit.info,  Node: Calling Git,  Next: Section Plumbing,  Up: Plumbing
-
-10.1 Calling Git
-================
-
-Magit provides many specialized functions for calling Git.  All of these
-functions are defined in either ‘magit-git.el’ or ‘magit-process.el’ and
-have one of the prefixes ‘magit-run-’, ‘magit-call-’, ‘magit-start-’, or
-‘magit-git-’ (which is also used for other things).
-
-   All of these functions accept an indefinite number of arguments,
-which are strings that specify command line arguments for Git (or in
-some cases an arbitrary executable).  These arguments are flattened
-before being passed on to the executable; so instead of strings they can
-also be lists of strings and arguments that are ‘nil’ are silently
-dropped.  Some of these functions also require a single mandatory
-argument before these command line arguments.
-
-   Roughly speaking, these functions run Git either to get some value or
-for side-effects.  The functions that return a value are useful to
-collect the information necessary to populate a Magit buffer, while the
-others are used to implement Magit commands.
-
-   The functions in the value-only group always run synchronously, and
-they never trigger a refresh.  The function in the side-effect group can
-be further divided into subgroups depending on whether they run Git
-synchronously or asynchronously, and depending on whether they trigger a
-refresh when the executable has finished.
-
-* Menu:
-
-* Getting a Value from Git::
-* Calling Git for Effect::
 

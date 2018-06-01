@@ -17,6 +17,41 @@ START-INFO-DIR-ENTRY
 END-INFO-DIR-ENTRY
 
 
+File: magit.info,  Node: Calling Git,  Next: Section Plumbing,  Up: Plumbing
+
+10.1 Calling Git
+================
+
+Magit provides many specialized functions for calling Git.  All of these
+functions are defined in either ‘magit-git.el’ or ‘magit-process.el’ and
+have one of the prefixes ‘magit-run-’, ‘magit-call-’, ‘magit-start-’, or
+‘magit-git-’ (which is also used for other things).
+
+   All of these functions accept an indefinite number of arguments,
+which are strings that specify command line arguments for Git (or in
+some cases an arbitrary executable).  These arguments are flattened
+before being passed on to the executable; so instead of strings they can
+also be lists of strings and arguments that are ‘nil’ are silently
+dropped.  Some of these functions also require a single mandatory
+argument before these command line arguments.
+
+   Roughly speaking, these functions run Git either to get some value or
+for side-effects.  The functions that return a value are useful to
+collect the information necessary to populate a Magit buffer, while the
+others are used to implement Magit commands.
+
+   The functions in the value-only group always run synchronously, and
+they never trigger a refresh.  The function in the side-effect group can
+be further divided into subgroups depending on whether they run Git
+synchronously or asynchronously, and depending on whether they trigger a
+refresh when the executable has finished.
+
+* Menu:
+
+* Getting a Value from Git::
+* Calling Git for Effect::
+
+
 File: magit.info,  Node: Getting a Value from Git,  Next: Calling Git for Effect,  Up: Calling Git
 
 10.1.1 Getting a Value from Git
@@ -1181,16 +1216,16 @@ Appendix C Keystroke Index
 * b c:                                   The Branch Popup.    (line  55)
 * B g:                                   Bisecting.           (line  36)
 * B k:                                   Bisecting.           (line  41)
-* b k:                                   The Branch Popup.    (line 237)
+* b k:                                   The Branch Popup.    (line 240)
 * b l:                                   The Branch Popup.    (line  62)
 * b n:                                   The Branch Popup.    (line  45)
 * B r:                                   Bisecting.           (line  47)
-* b r:                                   The Branch Popup.    (line 243)
+* b r:                                   The Branch Popup.    (line 246)
 * B s:                                   Bisecting.           (line  24)
 * b s:                                   The Branch Popup.    (line  85)
-* b x:                                   The Branch Popup.    (line 221)
+* b x:                                   The Branch Popup.    (line 224)
 * b Y:                                   The Branch Popup.    (line 113)
-* b y:                                   The Branch Popup.    (line 215)
+* b y:                                   The Branch Popup.    (line 218)
 * c:                                     Blaming.             (line 120)
 * c <1>:                                 Initiating a Commit. (line   8)
 * c <2>:                                 Editing Rebase Sequences.
@@ -1204,7 +1239,7 @@ Appendix C Keystroke Index
 * c s:                                   Initiating a Commit. (line  54)
 * c S:                                   Initiating a Commit. (line  62)
 * c w:                                   Initiating a Commit. (line  32)
-* C-<return>:                            Diff Buffer.         (line  36)
+* C-<return>:                            Diff Buffer.         (line  46)
 * C-<tab>:                               Section Visibility.  (line  13)
 * C-c C-a:                               Editing Commit Messages.
                                                               (line 128)
@@ -1286,7 +1321,7 @@ Appendix C Keystroke Index
 * d w:                                   Diffing.             (line  43)
 * D w:                                   Refreshing Diffs.    (line  28)
 * DEL:                                   Log Buffer.          (line  43)
-* DEL <1>:                               Diff Buffer.         (line  68)
+* DEL <1>:                               Diff Buffer.         (line  78)
 * DEL <2>:                               Blaming.             (line  73)
 * DEL <3>:                               Editing Rebase Sequences.
                                                               (line  28)
@@ -1320,7 +1355,7 @@ Appendix C Keystroke Index
                                                               (line  22)
 * G:                                     Automatic Refreshing of Magit Buffers.
                                                               (line  31)
-* j:                                     Diff Buffer.         (line  58)
+* j:                                     Diff Buffer.         (line  68)
 * k:                                     Viewing Git Output.  (line  24)
 * k <1>:                                 Applying.            (line  40)
 * k <2>:                                 Editing Rebase Sequences.
@@ -1477,7 +1512,7 @@ Appendix C Keystroke Index
                                                               (line  59)
 * S-<tab>:                               Section Visibility.  (line  22)
 * SPC:                                   Log Buffer.          (line  33)
-* SPC <1>:                               Diff Buffer.         (line  64)
+* SPC <1>:                               Diff Buffer.         (line  74)
 * SPC <2>:                               Blaming.             (line  63)
 * SPC <3>:                               Editing Rebase Sequences.
                                                               (line  21)
@@ -1654,20 +1689,20 @@ Appendix D Command Index
 * magit-branch-config-popup:             The Branch Popup.    (line  29)
 * magit-branch-config-popup <1>:         The Branch Config Popup.
                                                               (line   6)
-* magit-branch-delete:                   The Branch Popup.    (line 237)
-* magit-branch-or-checkout:              The Branch Popup.    (line 347)
-* magit-branch-orphan:                   The Branch Popup.    (line 342)
+* magit-branch-delete:                   The Branch Popup.    (line 240)
+* magit-branch-or-checkout:              The Branch Popup.    (line 350)
+* magit-branch-orphan:                   The Branch Popup.    (line 345)
 * magit-branch-popup:                    The Branch Popup.    (line  12)
 * magit-branch-pull-request:             The Branch Popup.    (line 113)
-* magit-branch-rename:                   The Branch Popup.    (line 243)
-* magit-branch-reset:                    The Branch Popup.    (line 221)
+* magit-branch-rename:                   The Branch Popup.    (line 246)
+* magit-branch-reset:                    The Branch Popup.    (line 224)
 * magit-branch-shelve:                   Auxillary Branch Commands.
                                                               (line   8)
 * magit-branch-spinoff:                  The Branch Popup.    (line  85)
 * magit-branch-unshelve:                 Auxillary Branch Commands.
                                                               (line  19)
 * magit-checkout:                        The Branch Popup.    (line  37)
-* magit-checkout-pull-request:           The Branch Popup.    (line 215)
+* magit-checkout-pull-request:           The Branch Popup.    (line 218)
 * magit-cherry:                          Cherries.            (line  17)
 * magit-cherry-apply:                    Cherry Picking.      (line  23)
 * magit-cherry-donate:                   Cherry Picking.      (line  53)
@@ -1723,8 +1758,8 @@ Appendix D Command Index
 * magit-diff-toggle-refine-hunk:         Refreshing Diffs.    (line  36)
 * magit-diff-unstaged:                   Diffing.             (line  55)
 * magit-diff-visit-file:                 Diff Buffer.         (line   6)
-* magit-diff-visit-file-other-window:    Diff Buffer.         (line  53)
-* magit-diff-visit-file-worktree:        Diff Buffer.         (line  36)
+* magit-diff-visit-file-other-window:    Diff Buffer.         (line  63)
+* magit-diff-visit-file-worktree:        Diff Buffer.         (line  46)
 * magit-diff-while-committing:           Refreshing Diffs.    (line  80)
 * magit-diff-while-committing <1>:       Editing Commit Messages.
                                                               (line  57)
@@ -1767,7 +1802,7 @@ Appendix D Command Index
 * magit-go-forward:                      Log Buffer.          (line  23)
 * magit-go-forward <1>:                  Refreshing Diffs.    (line  94)
 * magit-init:                            Repository Setup.    (line   6)
-* magit-jump-to-diffstat-or-diff:        Diff Buffer.         (line  58)
+* magit-jump-to-diffstat-or-diff:        Diff Buffer.         (line  68)
 * magit-kill-this-buffer:                Minor Mode for Buffers Visiting Blobs.
                                                               (line  20)
 * magit-list-repositories:               Repository List.     (line   6)
@@ -1997,8 +2032,8 @@ Appendix D Command Index
 * magit-wip-commit:                      Wip Modes.           (line 129)
 * magit-wip-log:                         Wip Modes.           (line  69)
 * magit-wip-log-current:                 Wip Modes.           (line  77)
-* scroll-down:                           Diff Buffer.         (line  68)
-* scroll-up:                             Diff Buffer.         (line  64)
+* scroll-down:                           Diff Buffer.         (line  78)
+* scroll-up:                             Diff Buffer.         (line  74)
 * with-editor-cancel:                    Editing Commit Messages.
                                                               (line  24)
 * with-editor-cancel <1>:                Editing Rebase Sequences.
@@ -2042,8 +2077,8 @@ Appendix E Function Index
 * magit-blame-reverse:                   Blaming.             (line  46)
 * magit-branch-config-popup:             The Branch Config Popup.
                                                               (line   6)
-* magit-branch-or-checkout:              The Branch Popup.    (line 347)
-* magit-branch-orphan:                   The Branch Popup.    (line 342)
+* magit-branch-or-checkout:              The Branch Popup.    (line 350)
+* magit-branch-orphan:                   The Branch Popup.    (line 345)
 * magit-branch-shelve:                   Auxillary Branch Commands.
                                                               (line   8)
 * magit-branch-unshelve:                 Auxillary Branch Commands.
@@ -2061,7 +2096,7 @@ Appendix E Function Index
 * magit-define-section-jumper:           Creating Sections.   (line  77)
 * magit-diff-scope:                      Matching Sections.   (line 111)
 * magit-diff-type:                       Matching Sections.   (line  88)
-* magit-diff-visit-file-other-window:    Diff Buffer.         (line  53)
+* magit-diff-visit-file-other-window:    Diff Buffer.         (line  63)
 * magit-display-buffer:                  Switching Buffers.   (line   6)
 * magit-display-buffer-fullcolumn-most-v1: Switching Buffers. (line  72)
 * magit-display-buffer-fullframe-status-topleft-v1: Switching Buffers.
@@ -2290,10 +2325,10 @@ Appendix F Variable Index
 * magit-blame-styles:                    Blaming.             (line 128)
 * magit-blame-time-format:               Blaming.             (line 140)
 * magit-branch-adjust-remote-upstream-alist: The Branch Popup.
-                                                              (line 300)
+                                                              (line 303)
 * magit-branch-popup-show-variables:     The Branch Popup.    (line  21)
-* magit-branch-prefer-remote-upstream:   The Branch Popup.    (line 255)
-* magit-branch-read-upstream-first:      The Branch Popup.    (line 249)
+* magit-branch-prefer-remote-upstream:   The Branch Popup.    (line 258)
+* magit-branch-read-upstream-first:      The Branch Popup.    (line 252)
 * magit-buffer-name-format:              Naming Buffers.      (line  27)
 * magit-bury-buffer-function:            Quitting Windows.    (line  11)
 * magit-cherry-margin:                   Cherries.            (line  22)
@@ -2314,7 +2349,7 @@ Appendix F Variable Index
 * magit-diff-paint-whitespace:           Diff Options.        (line  38)
 * magit-diff-refine-hunk:                Diff Options.        (line   6)
 * magit-diff-unmarked-lines-keep-foreground: Diff Options.    (line  97)
-* magit-diff-visit-previous-blob:        Diff Buffer.         (line  25)
+* magit-diff-visit-previous-blob:        Diff Buffer.         (line  35)
 * magit-display-buffer-function:         Switching Buffers.   (line  23)
 * magit-display-buffer-noselect:         Switching Buffers.   (line  14)
 * magit-dwim-selection:                  Completion and Confirmation.
