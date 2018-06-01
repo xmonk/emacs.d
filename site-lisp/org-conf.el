@@ -40,8 +40,8 @@
 
   (setq org-default-notes-file (concat org-directory "/notes.org"))
   (setq org-todo-keywords
-        '((type "TODO(t)" "STARTED(s)" "WAITING(w)" "APPT(a)" "PENDING(p)" "|"
-                "CANCELLED(c)"  "DEFERRED(e)" "DONE(d)")
+        '((type "TODO(t)" "STARTED(s)" "WAITING(w)" "APPT(a)" "PENDING(p)" "BUG(g)" "FIX(f)" "|"
+                "CANCELLED(c)"  "DEFERRED(e)" "DONE(d)" "SOLVED(v)")
           (sequence "PROJECT(j)" "|" "FINISHED(f)")
           (sequence "BILLED(b)" "INVOICED(i)" "SENT(n)" "|"
                     "RCVD(r)")))
