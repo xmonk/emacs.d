@@ -48,7 +48,11 @@
 
 ;;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-(load-theme 'doom-tomorrow-night t)
+
+(use-package doom-themes
+  :ensure t
+  :config
+  (load-theme 'doom-tomorrow-night t))
 
 (when (window-system)
   ;; set font
@@ -105,6 +109,8 @@
 (use-package prog-conf)
 (use-package evil-conf :disabled)
 (use-package company-conf)
+(use-package fish-conf)
 (init-maxframe)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
