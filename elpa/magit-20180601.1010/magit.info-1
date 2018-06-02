@@ -30,7 +30,7 @@ to perform almost all of their daily version control tasks directly from
 within Emacs.  While many fine Git clients exist, only Magit and Git
 itself deserve to be called porcelains.
 
-This manual is for Magit version 2.12.1 (2.12.1-114-gfd19cb8d+1).
+This manual is for Magit version 2.12.1 (2.12.1-149-g8a758dbb+1).
 
      Copyright (C) 2015-2018 Jonas Bernoulli <jonas@bernoul.li>
 
@@ -225,6 +225,7 @@ Miscellaneous
 * Notes::
 * Submodules::
 * Subtree::
+* Worktree::
 * Common Commands::
 * Wip Modes::
 * Minor Mode for Buffers Visiting Files::
@@ -1313,9 +1314,9 @@ Any of the functions listed below can be used as members of this hook.
 
      Delay before automatically updating the other window.
 
-     When moving around in certain buffers certain other buffers, which
-     are being displayed in another window, may optionally be updated to
-     display information about the section at point.
+     When moving around in certain buffers, then certain other buffers,
+     which are being displayed in another window, may optionally be
+     updated to display information about the section at point.
 
      When holding down a key to move by more than just one section, then
      that would update that buffer for each section on the way.  To
@@ -2443,6 +2444,14 @@ default the following functions are also members of that hook:
 
      Insert a tree of tracked files.
 
+ -- Function: magit-insert-ignored-files
+
+     Insert a tree of ignored files.
+
+     If the first element of ‘magit-diff-section-arguments’ is a
+     directory, then limit the list to files below that.  The value of
+     that variable can be set using ‘D = f <DIRECTORY> RET g’.
+
  -- Function: magit-insert-unpulled-or-recent-commits
 
      Insert section showing unpulled or recent commits.  If an upstream
@@ -3372,6 +3381,8 @@ File: magit.info,  Node: Diff Buffer,  Next: Diff Options,  Prev: Refreshing Dif
 5.4.2 Diff Buffer
 -----------------
 
+These commands are available in diff buffers.
+
 ‘RET’     (‘magit-diff-visit-file’)
 
      From a diff, visit the corresponding file at the appropriate
@@ -3386,10 +3397,20 @@ File: magit.info,  Node: Diff Buffer,  Next: Diff Options,  Prev: Refreshing Dif
      where that line still existed.  Otherwise visit the blob for the
      commit whose changes are being shown.
 
-     When the file or blob to be displayed is already being displayed in
-     another window of the same frame, then just select that window and
-     adjust point.  Otherwise, or with a prefix argument, display the
-     buffer in another window.
+     Interactively, when the file or blob to be displayed is already
+     being displayed in another window of the same frame, then just
+     select that window and adjust point.  Otherwise, or with a prefix
+     argument, display the buffer in another window.  The meaning of the
+     prefix argument can be inverted or further modified using the
+     option ‘magit-display-file-buffer-function’.
+
+     Non-interactively the optional OTHER-WINDOW argument is taken
+     literally.  DISPLAY-FN can be used to specify the display function
+     explicitly, in which case OTHER-WINDOW is ignored.
+
+     The optional FORCE-WORKTREE means to force visiting the worktree
+     version of the file.  To do this interactively use the command
+     ‘magit-diff-visit-file-worktree’ instead.
 
  -- User Option: magit-diff-visit-previous-blob
 
@@ -3423,6 +3444,29 @@ File: magit.info,  Node: Diff Buffer,  Next: Diff Options,  Prev: Refreshing Dif
 
      From a diff, visit the corresponding file at the appropriate
      position in another window.
+
+‘C-c C-t’     (‘magit-diff-trace-definition’)
+
+     From a diff, show log for the definition at point.
+
+‘C-c C-e’     (‘magit-diff-edit-hunk-commit’)
+
+     From a hunk, edit the respective commit and visit the file.
+
+     First visit the file being modified by the hunk at the correct
+     location using ‘magit-diff-visit-file’.  This actually visits a
+     blob.  When point is on a diff header, not within an individual
+     hunk, then this visits the blob the first hunk is about.
+
+     Then invoke ‘magit-edit-line-commit’, which uses an interactive
+     rebase to make the commit editable, or if that is not possible
+     because the commit is not reachable from ‘HEAD’ by checking out
+     that commit directly.  This also causes the actual worktree file to
+     be visited.
+
+     Neither the blob nor the file buffer are killed when finishing the
+     rebase.  If that is undesirable, then it might be better to use
+     ‘magit-rebase-edit-command’ instead of this command.
 
 ‘j’     (‘magit-jump-to-diffstat-or-diff’)
 
@@ -5002,6 +5046,13 @@ features are available from separate popups.
 
         • ‘branch.<name>.pullRequest’ is set to the pull-request number.
 
+        • ‘branch.<name>.pullRequestRemote’ is set to the remote on
+          which the pull-request branch is located.
+
+        • ‘branch.<name>.pushRemote’ is set to the same remote as
+          ‘branch.<name>.pullRequestRemote’ if that is possible,
+          otherwise it is set to the upstream remote.
+
         • ‘branch.<name>.description’ is set to the pull-request title.
 
         • ‘branch.<name>.rebase’ is set to ‘true’ because there should
@@ -5029,17 +5080,13 @@ features are available from separate popups.
      fork/new-feature".
 
         • If the pull-request branch is located in the upstream
-          repository, then it is not necessary to configure the
-          push-target.
-
-          (If you have push access to the upstream repository, then it
-          is usually a good idea to configure that as the push-remote
-          using ‘remote.pushDefault’.  However even if you are not using
-          that recommended setting, then it is still easy enough to set
-          ‘branch.<name>.pushRemote’ while pushing using ‘P p’.)
+          repository, then you probably have set ‘remote.pushDefault’ to
+          that repository.  However some users like to set that variable
+          to their personal fork, even if they have push access to the
+          upstream, so ‘branch.<name>.pushRemote’ is set anyway.
 
         • If the pull-request branch is located inside a fork, then you
-          usually are able to push to that branch, because Github by
+          are usually able to push to that branch, because Github by
           default allows the recipient of a pull-request to push to the
           remote pull-request branch even if it is located in a fork.
           The contributor has to explicitly disable this.
@@ -5056,8 +5103,8 @@ features are available from separate popups.
                merge something like "fork/master" into "origin/master".
                The special push permission mentioned above is never
                granted for the branch that is the repository’s default
-               branch, and that is almost certainly be the case in this
-               scenario.
+               branch, and that would almost certainly be the case in
+               this scenario.
 
                To enable you to easily push somewhere anyway, the local
                branch is named "pr-N" (where ‘N’ is the pull-request
@@ -5073,8 +5120,8 @@ features are available from separate popups.
           ‘branch.<name>.pushRemote’, even if the used value is
           identical to that of ‘remote.pushDefault’, just in case you
           change the value of the latter later on.  Additionally the
-          variable ‘branch.<name>.pullRequestRemote’ is set to the fork
-          remote.
+          variable ‘branch.<name>.pullRequestRemote’ is set to the
+          remote on which the pull-request branch is located.
 
      When you later delete the local pull-request branch, then you are
      offered to also delete the corresponding remote, provided it is not
@@ -6800,6 +6847,7 @@ File: magit.info,  Node: Miscellaneous,  Next: Customizing,  Prev: Transferring,
 * Notes::
 * Submodules::
 * Subtree::
+* Worktree::
 * Common Commands::
 * Wip Modes::
 * Minor Mode for Buffers Visiting Files::
@@ -6832,6 +6880,20 @@ Also see *note (gitman)git-tag::.
 ‘t p’     (‘magit-tag-prune’)
 
      Offer to delete tags missing locally from REMOTE, and vice versa.
+
+ -- Command: magit-tag-release
+
+     Create an opinionated release tag.
+
+     Assume version tags that match "\\‘v?[0-9]\*\\’".  Prompt for the
+     name of the new tag using the highest existing tag as initial input
+     and call "git tag –annotate –sign -m MSG" TAG, regardless of
+     whether these arguments are enabled in the popup.  Given a TAG
+     "v1.2.3" and a repository "/path/to/foo-bar", the MESSAGE would be
+     "Foo-Bar 1.2.3".
+
+     Because it is so opinionated, this command is not available from
+     the tag popup by default.
 
 
 File: magit.info,  Node: Notes,  Next: Submodules,  Prev: Tagging,  Up: Miscellaneous
@@ -7030,7 +7092,7 @@ modules.
      argument fetch all remotes.
 
 
-File: magit.info,  Node: Subtree,  Next: Common Commands,  Prev: Submodules,  Up: Miscellaneous
+File: magit.info,  Node: Subtree,  Next: Worktree,  Prev: Submodules,  Up: Miscellaneous
 
 8.4 Subtree
 ===========
@@ -7075,9 +7137,50 @@ used.  Otherwise the prefix is read in the minibuffer.
      Extract the history of the subtree PREFIX.
 
 
-File: magit.info,  Node: Common Commands,  Next: Wip Modes,  Prev: Subtree,  Up: Miscellaneous
+File: magit.info,  Node: Worktree,  Next: Common Commands,  Prev: Subtree,  Up: Miscellaneous
 
-8.5 Common Commands
+8.5 Worktree
+============
+
+Also see *note (gitman)git-worktree::.
+
+‘%’     (‘magit-worktree-popup’)
+
+     This prefix command shows the following suffix commands in a popup
+     buffer.
+
+‘% b’     (‘magit-worktree-checkout’)
+
+     Checkout BRANCH in a new worktree at PATH.
+
+‘% c’     (‘magit-worktree-branch’)
+
+     Create a new BRANCH and check it out in a new worktree at PATH.
+
+‘% p’     (‘magit-worktree-checkout-pull-request’)
+
+     Create, configure and checkout a new worktree from a pull-request.
+
+     This is like ‘magit-checkout-pull-request’ (which see) except that
+     it also creates a new worktree.
+
+‘% k’     (‘magit-worktree-delete’)
+
+     Delete a worktree, defaulting to the worktree at point.  The
+     primary worktree cannot be deleted.
+
+‘% g’     (‘magit-worktree-status’)
+
+     Show the status for the worktree at point.
+
+     If there is no worktree at point, then read one in the minibuffer.
+     If the worktree at point is the one whose status is already being
+     displayed in the current buffer, then show it in Dired instead.
+
+
+File: magit.info,  Node: Common Commands,  Next: Wip Modes,  Prev: Worktree,  Up: Miscellaneous
+
+8.6 Common Commands
 ===================
 
 These are some of the commands that can be used in all buffers whose
@@ -7117,7 +7220,7 @@ above.
 
 File: magit.info,  Node: Wip Modes,  Next: Minor Mode for Buffers Visiting Files,  Prev: Common Commands,  Up: Miscellaneous
 
-8.6 Wip Modes
+8.7 Wip Modes
 =============
 
 Git keeps *committed* changes around long enough for users to recover
@@ -7274,7 +7377,7 @@ files are being committed.
 
 File: magit.info,  Node: Minor Mode for Buffers Visiting Files,  Next: Minor Mode for Buffers Visiting Blobs,  Prev: Wip Modes,  Up: Miscellaneous
 
-8.7 Minor Mode for Buffers Visiting Files
+8.8 Minor Mode for Buffers Visiting Files
 =========================================
 
 The ‘magit-file-mode’ enables certain Magit features in file-visiting
@@ -7342,16 +7445,46 @@ few key bindings, but this might be extended in the future.
      or when ‘--follow’ is part of ‘magit-log-arguments’.  When the
      region is active, the log is restricted to the selected line range.
 
+‘C-c M-g t’     (‘magit-log-trace-definition’)
+
+     This command shows the log for the definition at point.
+
  -- User Option: magit-log-buffer-file-locked
 
      This option controls whether ‘magit-log-buffer-file’ uses a
      dedicated buffer.  See *note Modes and Buffers::.
 
-‘C-c M-g b’     (‘magit-blame-popup’)
+‘C-c M-g B’     (‘magit-blame-popup’)
 
-     This prefix command shows the ‘magit-blame’ suffix command along
-     with the appropriate infix arguments in a popup buffer.  See *note
-     Initiating a Commit::.
+     This prefix command shows all blaming suffix command along with the
+     appropriate infix arguments in a popup buffer.  See *note
+     Blaming::.
+
+‘C-c M-g b’     (‘magit-blame’)
+
+     This command shows for each line the revision in which it was
+     added.
+
+‘C-c M-g r’     (‘magit-blame-removal’)
+
+     This command shows for each line the revision in which it was
+     removed.  This command is only available in blob-visiting buffers.
+
+‘C-c M-g f’     (‘magit-blame-reverse’)
+
+     This command shows for each line the last revision in which it
+     still exists.  This command is only available in blob-visiting
+     buffers.
+
+‘C-c M-g e’     (‘magit-edit-line-commit’)
+
+     This command makes the commit editable that added the current line.
+
+     With a prefix argument it makes the commit editable that removes
+     the line, if any.  The commit is determined using ‘git blame’ and
+     made editable using ‘git rebase --interactive’ if it is reachable
+     from ‘HEAD’, or by checking out the commit (or a branch that points
+     at it) otherwise.
 
 ‘C-c M-g p’     (‘magit-blob-previous’)
 
@@ -7360,7 +7493,7 @@ few key bindings, but this might be extended in the future.
 
 File: magit.info,  Node: Minor Mode for Buffers Visiting Blobs,  Prev: Minor Mode for Buffers Visiting Files,  Up: Miscellaneous
 
-8.8 Minor Mode for Buffers Visiting Blobs
+8.9 Minor Mode for Buffers Visiting Blobs
 =========================================
 
 The ‘magit-blob-mode’ enables certain Magit features in blob-visiting
@@ -7677,129 +7810,4 @@ performing unnecessary work:
 another version control system:
 
      (setq vc-handled-backends (delq 'Git vc-handled-backends))
-
-
-File: magit.info,  Node: Microsoft Windows Performance,  Next: MacOS Performance,  Up: Performance
-
-Microsoft Windows Performance
-.............................
-
-In order to update the status buffer, ‘git’ has to be run a few dozen
-times.  That is problematic on Microsoft Windows, because that operating
-system is exceptionally slow at starting processes.  Sadly this is an
-issue that can only be fixed by Microsoft itself, and they don’t appear
-to be particularly interested in doing so.
-
-   Beside the subprocess issue, there are also other Windows-specific
-performance issues.  Some of these have workarounds.  The maintainers of
-"Git for Windows" try to improve performance on Windows.  Always use the
-latest release in order to benefit from the latest performance tweaks.
-Magit too tries to work around some Windows-specific issues.
-
-   According to some sources, setting the following Git variables can
-also help.
-
-     git config --global core.preloadindex true   # default since v2.1
-     git config --global core.fscache true        # default since v2.8
-     git config --global gc.auto 256
-
-   You should also check whether an anti-virus program is affecting
-performance.
-
-
-File: magit.info,  Node: MacOS Performance,  Prev: Microsoft Windows Performance,  Up: Performance
-
-MacOS Performance
-.................
-
-On macOS Emacs currently creates child processes using ‘fork’.  It
-appears that this also copies GUI resources.  The result is that forking
-takes about 30 times as long on Darwin than on Linux.  And because Magit
-starts many ‘git’ processes even when doing simple things, that makes
-quite a difference.
-
-   On the ‘master’ branch Emacs now uses ‘vfork’ when possible, like
-this was already done on Linux, and now child creation only takes about
-twice as long on Darwin.  See (1) for more information.
-
-   Nobody knows when the changes on the ‘master’ branch will be released
-as ‘26.1’, but it is still a long way off.  You might want to get your
-hands on this change before then.  The easiest way to get a patched
-Emacs is to install the ‘emacs-plus’ formula (2) using ‘homebrew’.  The
-change has been backported, so you get it not only when using ‘--HEAD’,
-but also when using ‘--devel’ or when installing the latest release (by
-not using a version argument).
-
-   Alternatively you can apply the backport (3) manually.
-
-   ---------- Footnotes ----------
-
-   (1) 
-<https://lists.gnu.org/archive/html/bug-gnu-emacs/2017-04/msg00201.html>
-
-   (2) <https://github.com/d12frosted/homebrew-emacs-plus>
-
-   (3) 
-<https://gist.githubusercontent.com/aaronjensen/f45894ddf431ecbff78b1bcf533d3e6b/raw/6a5cd7f57341aba673234348d8b0d2e776f86719/Emacs-25-OS-X-use-vfork.patch>
-
-
-File: magit.info,  Node: Plumbing,  Next: FAQ,  Prev: Customizing,  Up: Top
-
-10 Plumbing
-***********
-
-The following sections describe how to use several of Magit’s core
-abstractions to extend Magit itself or implement a separate extension.
-
-   A few of the low-level features used by Magit have been factored out
-into separate libraries/packages, so that they can be used by other
-packages, without having to depend on Magit.  These libraries are
-described in separate manuals, see *note (with-editor)Top:: and *note
-(magit-popup)Top::.
-
-   If you are trying to find an unused key that you can bind to a
-command provided by your own Magit extension, then checkout
-<https://github.com/magit/magit/wiki/Plugin-Dispatch-Key-Registry>.
-
-* Menu:
-
-* Calling Git::
-* Section Plumbing::
-* Refreshing Buffers::
-* Conventions::
-
-
-File: magit.info,  Node: Calling Git,  Next: Section Plumbing,  Up: Plumbing
-
-10.1 Calling Git
-================
-
-Magit provides many specialized functions for calling Git.  All of these
-functions are defined in either ‘magit-git.el’ or ‘magit-process.el’ and
-have one of the prefixes ‘magit-run-’, ‘magit-call-’, ‘magit-start-’, or
-‘magit-git-’ (which is also used for other things).
-
-   All of these functions accept an indefinite number of arguments,
-which are strings that specify command line arguments for Git (or in
-some cases an arbitrary executable).  These arguments are flattened
-before being passed on to the executable; so instead of strings they can
-also be lists of strings and arguments that are ‘nil’ are silently
-dropped.  Some of these functions also require a single mandatory
-argument before these command line arguments.
-
-   Roughly speaking, these functions run Git either to get some value or
-for side-effects.  The functions that return a value are useful to
-collect the information necessary to populate a Magit buffer, while the
-others are used to implement Magit commands.
-
-   The functions in the value-only group always run synchronously, and
-they never trigger a refresh.  The function in the side-effect group can
-be further divided into subgroups depending on whether they run Git
-synchronously or asynchronously, and depending on whether they trigger a
-refresh when the executable has finished.
-
-* Menu:
-
-* Getting a Value from Git::
-* Calling Git for Effect::
 
