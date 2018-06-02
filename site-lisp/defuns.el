@@ -478,6 +478,16 @@ a region."
       (shell "shell")
       (delete-other-windows))))
 
+(defun jj/term()
+  "Bring up a full-screen terminal or restore previous config."
+  (interactive)
+  (if (string= "term-mode" major-mode)
+      (jump-to-register :term-fullscreen)
+    (progn
+      (window-configuration-to-register :term-fullscreen)
+      (term (getenv "SHELL"))
+      (delete-other-windows))))
+
 (defun jj/start-or-switch(func buffer-name)
   "Call FUNC if there is no buffer with `BUFFER-NAME` or switch to `BUFFER-NAME`.  Don't clobber current buffer."
   (if (not (get-buffer buffer-name))
