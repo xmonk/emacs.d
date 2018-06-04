@@ -30,8 +30,8 @@
  ;; If there is more than one, they won't work right.
  '(dired-async-mode t)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
- '(flycheck-python-pyflakes-executable "pyflakes")
  '(flycheck-python-pycompile-executable "python3")
+ '(flycheck-python-pyflakes-executable "pyflakes")
  '(gdb-many-windows t t)
  '(gdb-show-main t t)
  '(grep-command "/usr/bin/rg")
@@ -43,12 +43,11 @@
  '(indent-tabs-mode t)
  '(magit-item-highlight-face nil)
  '(package-selected-packages
-   '(pyvenv persp-mode eybrowse ace-window pylint doom-themes lua-mode whole-line-or-region yaml-mode edit-indirect xcscope web-mode use-package undo-tree swiper smartscan py-yapf projectile paredit org ob-go markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flycheck flx-ido expand-region elisp-slime-nav diminish company-irony-c-headers company-irony company-go company-flx company-anaconda codesearch clang-format browse-kill-ring))
+   '(exec-path-from-shell pyvenv persp-mode eybrowse ace-window pylint doom-themes lua-mode whole-line-or-region yaml-mode edit-indirect xcscope web-mode use-package undo-tree swiper smartscan py-yapf projectile paredit org ob-go markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flycheck flx-ido expand-region elisp-slime-nav diminish company-irony-c-headers company-irony company-go company-flx company-anaconda codesearch clang-format browse-kill-ring))
  '(projectile-globally-ignored-directories
    '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "elpa" "venv" ".egg*" "__pycache__" "var" "etc"))
  '(projectile-globally-ignored-files '("TAGS" ".DS_Store" ".elc" ".pyc"))
- '(safe-local-variable-values
-   '((pyvenv-workon "moosetalk-web")))
+ '(safe-local-variable-values '((pyvenv-workon "moosetalk-web")))
  '(slime-company-completion 'fuzzy)
  '(temporary-file-directory "/tmp")
  '(tramp-syntax 'default nil (tramp))
