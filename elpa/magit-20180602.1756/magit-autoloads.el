@@ -977,7 +977,7 @@ instead of every time Ido is invoked, so now you can modify it
 like pretty much every other keymap:
 
   (define-key ido-common-completion-map
-    (kbd \"C-x g\") 'ido-enter-magit-status)
+    (kbd \"C-x g\") \\='ido-enter-magit-status)
 
 \(fn)" t nil)
 

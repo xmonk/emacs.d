@@ -21,7 +21,7 @@ Toggle echo area display of Python objects at point.
 
 \(fn &optional ARG)" t nil)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "anaconda-mode" '("anaconda-" "turn-o")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "anaconda-mode" '("anaconda-mode-" "turn-o")))
 
 ;;;***
 
