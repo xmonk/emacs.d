@@ -125,9 +125,7 @@ Remove all changes from the staging area.
 ;;;;;;  0 0 0))
 ;;; Generated autoloads from magit-autorevert.el
 
-(defvar magit-revert-buffers t)
-
-(defvar magit-auto-revert-mode (and (with-no-warnings magit-revert-buffers) (not global-auto-revert-mode) (not noninteractive)) "\
+(defvar magit-auto-revert-mode (and (not global-auto-revert-mode) (not noninteractive)) "\
 Non-nil if Magit-Auto-Revert mode is enabled.
 See the `magit-auto-revert-mode' command
 for a description of this minor mode.
@@ -1820,9 +1818,8 @@ is asked to pull.  START has to be reachable from that commit.
 (autoload 'magit-list-repositories "magit-repos" "\
 Display a list of repositories.
 
-Use the options `magit-repository-directories'
-and `magit-repository-directories-depth' to
-control which repositories are displayed.
+Use the options `magit-repository-directories' to control which
+repositories are displayed.
 
 \(fn)" t nil)
 
