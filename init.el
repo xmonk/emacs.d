@@ -102,7 +102,7 @@
   (server-start))
 
 (add-to-list 'load-path (expand-file-name (concat user-emacs-directory "/site-lisp")))
-(use-package defuns :functions init-maxframe)
+(use-package defuns)
 (use-package global)
 (use-package magit-conf)
 (use-package keymaps)
