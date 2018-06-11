@@ -89,11 +89,6 @@
     (use-package semantic/idle :after cc-mode))
 
   (use-package irony
-    ;; To compile irony-server in macOS: cmake -DCMAKE_CXX_COMPILER=/usr/local/opt/llvm/bin/clang++
-    ;; -DCMAKE_PREFIX_PATH=/usr/local/opt/llvm -DCMAKE_INSTALL_RPATH=/usr/local/opt/llvm
-    ;; -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE -DCMAKE_INSTALL_PREFIX=/Users/jj/.emacs.d/var/irony/
-    ;; /Users/jj/.emacs.d/elpa/irony-20170627.1045/server && cmake --build . --use-stderr --config
-    ;; Release --target install
     :ensure t
     :init
     (add-hook 'c-mode-common-hook 'irony-mode)
