@@ -52,6 +52,7 @@
     (add-hook 'python-mode-hook 'py-yapf-enable-on-save))
 
   (use-package anaconda-mode
+    :disabled
     :ensure t
     :after python
     :init
@@ -59,6 +60,7 @@
     (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
 
   (use-package company-anaconda
+    :disabled
     :ensure t
     :after (anaconda-mode company)
     :init
