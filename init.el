@@ -37,6 +37,13 @@
 (unless window-system
   (menu-bar-mode -1))
 
+(when (window-system)
+  ;; set font
+  (if (= 5760 (display-pixel-width))
+      (set-face-attribute 'default nil :font "PragmataPro" :height (floor (* 10 9.5)))
+    (set-face-attribute 'default nil :font "PragmataPro" :height (floor (* 10 11.5))))
+  (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/" ".ripgreprc")))
+
 (cond ((memq window-system '(mac ns))
        (dolist (mode '(scroll-bar-mode tool-bar-mode))
          (if (fboundp mode) (funcall mode -1)))
