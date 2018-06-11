@@ -38,13 +38,19 @@
     (setenv (car var) (cadr var)))
   ;; Update the emacs path
   (setq exec-path (append (parse-colon-path (getenv "PATH"))
-						              (list exec-directory)))
+                          (list exec-directory)))
   :config
+  (use-package ocamlformat
+    :after tuareg
+    :init
+    (add-hook 'tuareg-mode-hook 'jj/ocamlformat)
+    (jj/ocamlformat ()
+                    (define-key merlin-mode-map (kbd "C-M-<tab>") 'ocamlformat)
+                    (add-hook 'before-save-hook 'ocamlformat-before-save)))
   (use-package utop
     :after tuareg
     :init
     (add-hook 'tuareg-mode-hook 'utop-minor-mode)
-    :config
     ;; Automatically load utop.el
     (autoload 'utop "utop" "Toplevel for OCaml" t)
     (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
