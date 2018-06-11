@@ -691,7 +691,7 @@ ARG should be one of: `dark' `light' 'nil'."
 
 (defun jj/pwd ()
   "Prints the current working directory."
-  (cadr (split-string (pwd) " ")))
+  (expand-file-name(cadr (split-string (pwd) " "))))
 
 (defun jj/ls_selected_packages ()
   "List of all user selected packages."
