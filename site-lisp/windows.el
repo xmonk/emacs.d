@@ -12,13 +12,12 @@
 
 ;;; windmove
 (use-package windmove
-  :bind (("s-h" . windmove-left)
-         ("s-l" . windmove-right)
-         ("s-k" . windmove-up)
-         ("s-j" . windmove-down))
+  :bind (("C-c w h" . windmove-left)
+         ("C-c w l" . windmove-right)
+         ("C-c w k" . windmove-up)
+         ("C-c w j" . windmove-down))
   :init
-  (setq windmove-wrap-around t)
-  (windmove-default-keybindings 'super))
+  (setq windmove-wrap-around t))
 
 ;;; Paste at point NOT at cursor
 (use-package mwheel
@@ -29,12 +28,5 @@
 (use-package ace-window
   :ensure t
   :bind (("M-o" . ace-window)))
-
-;;; perspective
-(use-package persp-mode
-  :ensure t
-  :init
-  (setq persp-keymap-prefix (kbd "C-x x"))
-  (persp-mode t))
 
 (provide 'windows)
