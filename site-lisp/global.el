@@ -49,7 +49,6 @@
 (setq-default transient-mark-mode t)
 ;; don't break lines
 (setq-default truncate-lines t)
-(setq inhibit-startup-message t)
 (setq initial-scratch-message "")
 (setq inhibit-startup-echo-area-message "jj")
 (setq inhibit-default-init t)
