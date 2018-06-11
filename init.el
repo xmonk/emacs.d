@@ -37,22 +37,14 @@
 (unless window-system
   (menu-bar-mode -1))
 
-(when (window-system)
-  ;; set font
-  (if (= 5760 (display-pixel-width))
-      (set-face-attribute 'default nil :font "PragmataPro" :height (floor (* 10 9.5)))
-    (set-face-attribute 'default nil :font "PragmataPro" :height (floor (* 10 11.5))))
-  (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/" ".ripgreprc"))
-
-  (cond ((memq window-system '(mac ns))
-         (dolist (mode '(scroll-bar-mode tool-bar-mode))
-           (if (fboundp mode) (funcall mode -1)))
-         ;; macOS sets it to /var/tmp/...
-         (setenv "TMPDIR" "/tmp"))
-        ((memq window-system '(x))
-         (dolist (mode '(menu-bar-mode scroll-bar-mode tool-bar-mode))
-           (if (fboundp mode) (funcall mode -1))))))
-
+(cond ((memq window-system '(mac ns))
+       (dolist (mode '(scroll-bar-mode tool-bar-mode))
+         (if (fboundp mode) (funcall mode -1)))
+       ;; macOS sets it to /var/tmp/...
+       (setenv "TMPDIR" "/tmp"))
+      ((memq window-system '(x))
+       (dolist (mode '(menu-bar-mode scroll-bar-mode tool-bar-mode))
+         (if (fboundp mode) (funcall mode -1)))))
 ;;; package
 (autoload 'package "package" nil t)
 
@@ -111,6 +103,7 @@
 (use-package markdown-conf)
 (use-package org-conf)
 (use-package company-conf)
+(use-package lsp-conf)
 (use-package evil-conf :disabled)
 (use-package prog-conf)
 
