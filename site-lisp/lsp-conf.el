@@ -2,12 +2,12 @@
 
 (use-package lsp-mode
   :ensure t
+  :commands (lsp-mode lsp-python-enable)
   :init
   (add-hook 'lsp-after-open-hook 'lsp-enable-imenu)
   (add-hook 'python-mode-hook (lambda () (lsp-python-enable)))
   :config
-  (use-package lsp-imenu
-    :after lsp-mode)
+  (use-package lsp-imenu :after lsp-mode)
   (lsp-define-stdio-client lsp-python "python"
                            #'jj/pwd
                            ;; #'projectile-project-root
