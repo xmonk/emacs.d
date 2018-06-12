@@ -81,5 +81,10 @@
   :init
   (setq exec-path-from-shell-check-startup-files nil))
 
+(use-package pdf-tools
+  :ensure t
+  :defer
+  :init
+  (pdf-tools-install))
 
 (provide 'utils)
