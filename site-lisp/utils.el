@@ -54,6 +54,7 @@
 
 ;;; flx-ido
 (use-package flx-ido
+  :disabled
   :commands flx-ido-mode
   :after ido
   :ensure t
