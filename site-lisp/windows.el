@@ -29,4 +29,10 @@
   :ensure t
   :bind (("M-o" . ace-window)))
 
+;;; multi-term
+(use-package multi-term
+  :load-path "vendor/"
+  :init
+  (setq multi-term-program (getenv "SHELL")))
+
 (provide 'windows)
