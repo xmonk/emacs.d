@@ -57,7 +57,7 @@
  '(slime-company-completion 'fuzzy)
  '(temporary-file-directory "/tmp")
  '(tramp-syntax 'default nil (tramp))
- '(use-package-compute-statistics t)
+ '(use-package-compute-statistics nil)
  '(use-package-verbose t)
  '(vc-follow-symlinks t))
 (custom-set-faces
