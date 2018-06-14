@@ -32,6 +32,7 @@
   (add-hook 'ielm-mode-hook 'jj/elisp-hook)
   (add-hook 'emacs-lisp-mode-hook #'flycheck-mode)
   (add-hook 'after-save-hook 'check-parens)
+  (add-hook 'emacs-lisp-mode-hook 'jj/pretty-lambdas)
   (defun jj/elisp-hook ()
     (paredit-mode 1)
 	  (setq-local indent-tabs-mode nil)

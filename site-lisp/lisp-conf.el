@@ -28,6 +28,7 @@
   :commands lisp-mode
   :init
   (add-hook 'lisp-mode-hook 'jj/lisp-mode-hook)
+  (add-hook 'lisp-mode-hook 'jj/pretty-lambdas)
   (add-hook 'after-save-hook 'check-parens nil t)
   :config
   (use-package info-look
