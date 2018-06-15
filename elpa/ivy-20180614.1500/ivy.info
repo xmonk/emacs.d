@@ -11,7 +11,7 @@ available choices while previewing in the minibuffer.  Selecting the
 final candidate is either through simple keyboard character inputs or
 through powerful regular expressions.
 
-   Copyright (C) 2015 Free Software Foundation, Inc.
+   Copyright (C) 2015-2018 Free Software Foundation, Inc.
 
      Permission is granted to copy, distribute and/or modify this
      document under the terms of the GNU Free Documentation License,
@@ -49,24 +49,19 @@ Ivy User Manual
 
 — The Detailed Node Listing —
 
-
 Installation
 
 * Installing from Emacs Package Manager::
 * Installing from the Git repository::
 
-
-
 Getting started
 
 * Basic customization::
-
 
 Key bindings
 
 * Global key bindings::
 * Minibuffer key bindings::
-
 
 Minibuffer key bindings
 
@@ -84,16 +79,12 @@ Completion Styles
 * ivy--regex-ignore-order::
 * ivy--regex-fuzzy::
 
-
-
 Customization
 
 * Faces::
 * Defcustoms::
 * Actions::
 * Packages::
-
-
 
 Actions
 
@@ -103,15 +94,10 @@ Actions
 * Example - add two actions to each command::
 * Example - define a new command with several actions::
 
-
-
-
 Example - add two actions to each command
 
 * How to undo adding the two actions::
 * How to add actions to a specific command::
-
-
 
 Example - define a new command with several actions
 
@@ -134,6 +120,7 @@ API
 * Example - counsel-describe-function::
 * Example - counsel-locate::
 * Example - ivy-read-with-extra-properties::
+
 
 
 File: ivy.info,  Node: Introduction,  Next: Installation,  Prev: Top,  Up: Top
@@ -568,7 +555,7 @@ File: ivy.info,  Node: Key bindings that alter the minibuffer input,  Next: Othe
      Inserts the sub-word at point into the minibuffer.
 
      This is similar to ‘C-s C-w’ with ‘isearch’.  Ivy reserves ‘C-w’
-     for ‘kill-region’.
+     for ‘kill-region’.  See also ‘ivy-yank-symbol’ and ‘ivy-yank-char’.
 
 ‘S-SPC’ (‘ivy-restrict-to-matches’)
 ...................................
@@ -971,7 +958,10 @@ File: ivy.info,  Node: Defcustoms,  Next: Actions,  Prev: Faces,  Up: Customizat
      Set ‘ivy-display-style’ to ‘nil’ for a plain minibuffer.
 
  -- User Option: ivy-on-del-error-function
-     Specify what when ‘DEL’ (‘ivy-backward-delete-char’) throws.
+     Specifies what to do when ‘DEL’ (‘ivy-backward-delete-char’) fails.
+
+     This is usually the case when there is no text left to delete,
+     i.e., when ‘DEL’ is typed at the beginning of the minibuffer.
 
      The default behavior is to quit the completion after ‘DEL’ – a
      handy key to invoke after mistakenly triggering a completion.
@@ -1839,53 +1829,53 @@ Keystroke Index
 
 
 Tag Table:
-Node: Top1355
-Node: Introduction3281
-Node: Installation5792
-Node: Installing from Emacs Package Manager6246
-Node: Installing from the Git repository7359
-Node: Getting started8179
-Node: Basic customization8486
-Node: Key bindings9081
-Node: Global key bindings9273
-Node: Minibuffer key bindings10591
-Node: Key bindings for navigation11825
-Node: Key bindings for single selection action then exit minibuffer13032
-Node: Key bindings for multiple selections and actions keep minibuffer open15679
-Node: Key bindings that alter the minibuffer input18071
-Node: Other key bindings19959
-Node: Hydra in the minibuffer20337
-Node: Saving the current completion session to a buffer22440
-Node: Completion Styles23852
-Node: ivy--regex-plus25603
-Node: ivy--regex-ignore-order27089
-Node: ivy--regex-fuzzy27457
-Node: Customization27954
-Node: Faces28140
-Node: Defcustoms30267
-Node: Actions31434
-Node: What are actions?31760
-Node: How can different actions be called?32578
-Node: How to modify the actions list?33149
-Node: Example - add two actions to each command33809
-Node: How to undo adding the two actions34768
-Node: How to add actions to a specific command35220
-Node: Example - define a new command with several actions35636
-Node: Test the above function with ivy-occur36524
-Node: Packages37366
-Node: Commands38209
-Node: File Name Completion38394
-Node: Using TRAMP40190
-Node: Buffer Name Completion41067
-Node: Counsel commands41682
-Node: API42329
-Node: Required arguments for ivy-read42927
-Node: Optional arguments for ivy-read43580
-Node: Example - counsel-describe-function46796
-Node: Example - counsel-locate50049
-Node: Example - ivy-read-with-extra-properties53815
-Node: Variable Index55023
-Node: Keystroke Index61924
+Node: Top1360
+Node: Introduction3273
+Node: Installation5784
+Node: Installing from Emacs Package Manager6238
+Node: Installing from the Git repository7351
+Node: Getting started8171
+Node: Basic customization8478
+Node: Key bindings9073
+Node: Global key bindings9265
+Node: Minibuffer key bindings10583
+Node: Key bindings for navigation11817
+Node: Key bindings for single selection action then exit minibuffer13024
+Node: Key bindings for multiple selections and actions keep minibuffer open15671
+Node: Key bindings that alter the minibuffer input18063
+Node: Other key bindings20008
+Node: Hydra in the minibuffer20386
+Node: Saving the current completion session to a buffer22489
+Node: Completion Styles23901
+Node: ivy--regex-plus25652
+Node: ivy--regex-ignore-order27138
+Node: ivy--regex-fuzzy27506
+Node: Customization28003
+Node: Faces28189
+Node: Defcustoms30316
+Node: Actions31630
+Node: What are actions?31956
+Node: How can different actions be called?32774
+Node: How to modify the actions list?33345
+Node: Example - add two actions to each command34005
+Node: How to undo adding the two actions34964
+Node: How to add actions to a specific command35416
+Node: Example - define a new command with several actions35832
+Node: Test the above function with ivy-occur36720
+Node: Packages37562
+Node: Commands38405
+Node: File Name Completion38590
+Node: Using TRAMP40386
+Node: Buffer Name Completion41263
+Node: Counsel commands41878
+Node: API42525
+Node: Required arguments for ivy-read43123
+Node: Optional arguments for ivy-read43776
+Node: Example - counsel-describe-function46992
+Node: Example - counsel-locate50245
+Node: Example - ivy-read-with-extra-properties54011
+Node: Variable Index55219
+Node: Keystroke Index62120
 
 End Tag Table
 

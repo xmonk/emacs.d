@@ -1,6 +1,6 @@
 ;;; ivy.el --- Incremental Vertical completYon -*- lexical-binding: t -*-
 
-;; Copyright (C) 2015-2017  Free Software Foundation, Inc.
+;; Copyright (C) 2015-2018  Free Software Foundation, Inc.
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
@@ -24,7 +24,7 @@
 ;; see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-;;
+
 ;; This package provides `ivy-read' as an alternative to
 ;; `completing-read' and similar functions.
 ;;
@@ -37,6 +37,7 @@
 ;; So "for example" is transformed into "\\(for\\).*\\(example\\)".
 
 ;;; Code:
+
 (require 'cl-lib)
 (require 'ffap)
 (require 'ivy-overlay)
@@ -345,6 +346,7 @@ action functions.")
     (define-key map [remap backward-kill-word] 'ivy-backward-kill-word)
     (define-key map [remap delete-char] 'ivy-delete-char)
     (define-key map [remap forward-char] 'ivy-forward-char)
+    (define-key map (kbd "<right>") 'ivy-forward-char)
     (define-key map [remap kill-word] 'ivy-kill-word)
     (define-key map [remap beginning-of-buffer] 'ivy-beginning-of-buffer)
     (define-key map [remap end-of-buffer] 'ivy-end-of-buffer)
@@ -1222,6 +1224,7 @@ See variable `ivy-recursive-restore' for further information."
           (if (eq action 'identity)
               (funcall action x)
             (select-window (ivy--get-window ivy-last))
+            (set-buffer (ivy-state-buffer ivy-last))
             (prog1 (with-current-buffer (ivy-state-buffer ivy-last)
                      (unwind-protect (funcall action x)
                        (ivy-recursive-restore)))
@@ -1712,6 +1715,8 @@ customizations apply to the current completion session."
                      ,@extra-actions))
                   (t
                    (delete-dups (append action extra-actions)))))))
+  (unless caller
+    (setq caller this-command))
   (let ((extra-sources (plist-get ivy--sources-list caller)))
     (if extra-sources
         (progn
@@ -1729,18 +1734,17 @@ customizations apply to the current completion session."
   (let ((ivy-recursive-last (and (active-minibuffer-window) ivy-last))
         (transformer-fn
          (plist-get ivy--display-transformers-list
-                    (or caller (and (functionp collection)
-                                    collection))))
+                    (cond (caller)
+                          ((functionp collection)
+                           collection))))
         (ivy-display-function
          (unless (window-minibuffer-p)
            (or ivy-display-function
                (cdr (or (assq caller ivy-display-functions-alist)
                         (assq t ivy-display-functions-alist))))))
         (height
-         (if caller
-             (let ((entry (assoc caller ivy-height-alist)))
-               (if entry (cdr entry) ivy-height))
-           ivy-height)))
+         (or (cdr (assq caller ivy-height-alist))
+             ivy-height)))
     (setq ivy-last
           (make-ivy-state
            :prompt prompt
@@ -1955,7 +1959,7 @@ This is useful for recursive `ivy-read'."
             (when (and (not (eq collection 'read-file-name-internal))
                        (<= (length coll) ivy-sort-max-size)
                        (setq sort-fn (ivy--sort-function collection)))
-              (setq coll (sort coll sort-fn)))
+              (setq coll (sort (copy-sequence coll) sort-fn)))
           (when (and (not (eq history 'org-refile-history))
                      (<= (length coll) ivy-sort-max-size)
                      (setq sort-fn (ivy--sort-function caller)))
