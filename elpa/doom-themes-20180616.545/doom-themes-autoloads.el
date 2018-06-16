@@ -78,6 +78,22 @@
 
 ;;;***
 
+;;;### (autoloads nil "doom-opera-light-theme" "doom-opera-light-theme.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from doom-opera-light-theme.el
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "doom-opera-light-theme" '("doom-opera-light")))
+
+;;;***
+
+;;;### (autoloads nil "doom-opera-theme" "doom-opera-theme.el" (0
+;;;;;;  0 0 0))
+;;; Generated autoloads from doom-opera-theme.el
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "doom-opera-theme" '("doom-opera")))
+
+;;;***
+
 ;;;### (autoloads nil "doom-peacock-theme" "doom-peacock-theme.el"
 ;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from doom-peacock-theme.el
