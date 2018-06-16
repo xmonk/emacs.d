@@ -82,7 +82,7 @@
 ;;; ido
 (require 'ido)
 (setq ido-create-new-buffer (quote always))
-(setq ido-enable-flex-matching t)
+(setq ido-enable-flex-matching nil)
 (setq ido-enable-prefix nil)
 (setq ido-enable-regexp t)
 (setq ido-max-prospects 7)
@@ -109,6 +109,7 @@
 (use-package prog-conf)
 (use-package evil-conf :disabled)
 (use-package company-conf)
+(use-package lsp-conf)
 (use-package fish-conf)
 (init-maxframe)
 
