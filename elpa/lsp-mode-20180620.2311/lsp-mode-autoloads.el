@@ -51,6 +51,14 @@ Enable `eldoc-mode' integration.")
 
 (custom-autoload 'lsp-enable-eldoc "lsp-methods" t)
 
+(defvar lsp-eldoc-render-all t "\
+Define whether all of the returned by document/onHover will be displayed.
+
+If `lsp-markup-display-all' is set to nil `eldoc' will show only
+the symbol information.")
+
+(custom-autoload 'lsp-eldoc-render-all "lsp-methods" t)
+
 (defvar lsp-highlight-symbol-at-point t "\
 Highlight the symbol under the point.")
 
