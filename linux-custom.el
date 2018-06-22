@@ -48,6 +48,7 @@
  '(grep-program (executable-find "rg") t)
  '(indent-tabs-mode t)
  '(magit-item-highlight-face nil)
+ '(network-security-level 'high)
  '(package-selected-packages
    '(lsp-imenu company-lsp lsp-ui lsp-mode
                (lsp-mode lsp-ui company-lsp)
