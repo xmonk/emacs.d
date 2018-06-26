@@ -149,7 +149,7 @@
     (elfeed-search-unread-title-face :foreground fg :weight 'bold)
 
     ;; eshell
-    (eshell-prompt        :foreground base7)
+    (eshell-prompt        :foreground highlight :weight 'bold)
     (eshell-ls-archive    :foreground magenta)
     (eshell-ls-backup     :foreground yellow)
     (eshell-ls-clutter    :foreground red)
@@ -422,6 +422,7 @@
     (elscreen-tab-other-screen-face   :background bg     :foreground fg-alt)
 
     ;; erc
+    (erc-button :weight 'bold :underline t)
     (erc-default-face :inherit 'default)
     (erc-action-face  :weight 'bold)
     (erc-command-indicator-face :weight 'bold)
@@ -429,13 +430,15 @@
     (erc-error-face :inherit 'error)
     (erc-header-line :background (doom-darken bg-alt 0.15) :foreground highlight)
     (erc-input-face :foreground green)
-    (erc-nick-default-face :foreground violet :weight 'bold)
+    (erc-current-nick-face :foreground green :weight 'bold)
+    (erc-timestamp-face :foreground blue :weight 'bold)
+    (erc-nick-default-face :weight 'bold)
     (erc-nick-msg-face :foreground magenta)
     (erc-nick-prefix-face :inherit 'erc-nick-default-face)
     (erc-my-nick-face :foreground green :weight 'bold)
-    (erc-my-nick-prefix-face :inherit 'erc-nick-default-face :slant 'italic)
-    (erc-notice-face :foreground orange)
-    (erc-prompt-face :foreground cyan)
+    (erc-my-nick-prefix-face :inherit 'erc-my-nick-face)
+    (erc-notice-face :foreground comments)
+    (erc-prompt-face :foreground highlight :weight 'bold)
 
     ;; evil
     (evil-ex-info                   :foreground error :slant 'italic)
@@ -985,7 +988,7 @@
     (js2-function-param  :foreground variables)
     (js2-function-call   :foreground functions)
     (js2-object-property :foreground violet)
-    (js2-jsdoc-tag       :foreground comments)
+    (js2-jsdoc-tag       :foreground doc-comments)
 
     ;; ledger-mode
     (ledger-font-posting-date-face :foreground blue)
@@ -1146,7 +1149,9 @@
     (rpm-spec-section-face      :foreground magenta)
 
     ;; typescript-mode
-    ((ts-object-property &inherit js2-object-property))
+    (typescript-jsdoc-tag :foreground doc-comments)
+    (typescript-jsdoc-type :foreground (doom-darken doc-comments 0.15))
+    (typescript-jsdoc-value :foreground (doom-lighten doc-comments 0.15))
 
     ;; sh-mode
     (sh-heredoc :inherit 'font-lock-string-face :weight 'normal)
