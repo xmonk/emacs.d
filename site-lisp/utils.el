@@ -82,4 +82,8 @@
   :init
   (setq exec-path-from-shell-check-startup-files nil))
 
+(use-package deadgrep
+  ;; depnds on spinner from elpa.
+  :load-path "vendor/deadgrep/")
+
 (provide 'utils)
