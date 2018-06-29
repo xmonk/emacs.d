@@ -5,7 +5,7 @@
 ;; license that can be found in the LICENSE file.
 
 ;; Version: 0.1
-;; Package-Version: 20161117.331
+;; Package-Version: 20180626.2348
 ;; Package-Requires: ((go-mode "1.3.1"))
 ;; Keywords: tools
 
@@ -41,8 +41,10 @@
   "Rename the entity denoted by the identifier at point, using
 the `gorename' tool. With FORCE, call `gorename' with the
 `-force' flag."
-  (interactive (list (read-string "New name: " (thing-at-point 'symbol))
-                     current-prefix-arg))
+  (interactive (list
+                (unless (buffer-modified-p (or (not buffer-file-name)))
+                  (read-string "New name: " (thing-at-point 'symbol)))
+                current-prefix-arg))
   (if (not buffer-file-name)
       (error "Cannot use go-rename on a buffer without a file name"))
   ;; It's not sufficient to save the current buffer if modified,
