@@ -84,6 +84,8 @@
 
 (use-package deadgrep
   ;; depnds on spinner from elpa.
-  :load-path "vendor/deadgrep/")
+  :load-path "vendor/deadgrep/"
+  :init
+  (defalias 'dg 'deadgrep))
 
 (provide 'utils)
