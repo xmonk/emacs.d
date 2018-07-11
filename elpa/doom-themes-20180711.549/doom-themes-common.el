@@ -805,6 +805,10 @@
     ;; perspective
     (persp-selected-face :foreground blue :weight 'bold)
 
+    ;; persp-mode
+    (persp-face-lighter-buffer-not-in-persp :foreground warning :slant 'italic)
+    (persp-face-lighter-nil-persp :foreground comments)
+
     ;; popup
     (popup-face :inherit 'tooltip)
     (popup-tip-face :inherit 'popup-face :foreground violet :background base0)
@@ -884,6 +888,16 @@
     (tldr-introduction     :foreground (doom-blend blue bg 0.8) :weight 'semi-bold)
     (tldr-code-block       :foreground green :background region :weight 'semi-bold)
     (tldr-command-argument :foreground fg :background region )
+
+    ;; treemacs
+    (treemacs-root-face :inherit 'font-lock-string-face :weight 'bold :height 1.2)
+    (treemacs-file-face :foreground fg)
+    (treemacs-directory-face :foreground fg)
+    (treemacs-tags-face :foreground highlight)
+    (treemacs-git-modified-face :foreground violet)
+    (treemacs-git-added-face :foreground green)
+    (treemacs-git-conflict-face :foreground red)
+    (treemacs-git-untracked-face :inherit 'font-lock-doc-face)
 
     ;; twittering-mode
     (twitter-divider  ; custom face in Doom Emacs
@@ -1100,9 +1114,9 @@
     (org-list-dt         :foreground highlight)
     (org-meta-line       :foreground doc-comments)
     (org-priority        :foreground red)
-    (org-property-value  :foreground grey)
+    (org-property-value  :foreground doc-comments)
     (org-quote           :background base3 :slant 'italic)
-    (org-special-keyword :foreground keywords)
+    (org-special-keyword :foreground doc-comments)
     (org-table           :foreground violet)
     (org-tag             :foreground doc-comments :weight 'normal)
     (org-ref-cite-face   :foreground yellow :weight 'light :underline t)

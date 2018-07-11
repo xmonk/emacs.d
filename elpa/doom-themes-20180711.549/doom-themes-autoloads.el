@@ -174,6 +174,13 @@ Includes an Atom-esque icon theme and highlighting based on filetype.
 
 \(fn)" nil nil)
 
+(autoload 'doom-themes-treemacs-config "doom-themes" "\
+Install doom-themes' treemacs configuration.
+
+Includes an Atom-esque icon theme and highlighting based on filetype.
+
+\(fn)" nil nil)
+
 (autoload 'doom-themes-visual-bell-config "doom-themes" "\
 Enable flashing the mode-line on error.
 
@@ -211,6 +218,14 @@ Blink the mode-line red briefly. Set `ring-bell-function' to this to use it.
 ;;; Generated autoloads from doom-themes-org.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "doom-themes-org" '("doom-org-")))
+
+;;;***
+
+;;;### (autoloads nil "doom-themes-treemacs" "doom-themes-treemacs.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from doom-themes-treemacs.el
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "doom-themes-treemacs" '("doom-")))
 
 ;;;***
 

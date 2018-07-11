@@ -5,8 +5,8 @@
 ;; Author: Henrik Lissner <http://github/hlissner>
 ;; Maintainer: Henrik Lissner <henrik@lissner.net>
 ;; Created: May 22, 2016
-;; Modified: May 14, 2018
-;; Version: 2.1.4
+;; Modified: July 10, 2018
+;; Version: 2.1.5
 ;; Keywords: dark light blue atom one theme neotree icons faces nova
 ;; Homepage: https://github.com/hlissner/emacs-doom-theme
 ;; Package-Requires: ((emacs "24.4") (all-the-icons "1.0.0") (cl-lib "0.5"))
@@ -223,6 +223,13 @@ between 0 and 1)."
 Includes an Atom-esque icon theme and highlighting based on filetype."
   (let ((doom-themes--inhibit-warning t))
     (require 'doom-themes-neotree)))
+
+;;;###autoload
+(defun doom-themes-treemacs-config ()
+  "Install doom-themes' treemacs configuration.
+
+Includes an Atom-esque icon theme and highlighting based on filetype."
+  (require 'doom-themes-treemacs))
 
 ;;;###autoload
 (defun doom-themes-visual-bell-config ()
