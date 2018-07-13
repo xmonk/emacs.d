@@ -25,6 +25,16 @@
   (setq cscope-database-regexps '(("~/.cscope/")))
   (cscope-setup))
 
+;;; ggtags
+(use-package ggtags
+  :ensure t
+  :init
+  (add-hook 'c-mode-common-hook
+            (lambda ()
+              (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
+                (ggtags-mode 1))))
+  (add-hook 'python-mode-hook (lambda () (ggtags-mode 1))))
+
 (use-package eldoc
   :commands eldoc-mode
   :diminish eldoc-mode)

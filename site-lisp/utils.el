@@ -52,6 +52,18 @@
     (recenter))
   (advice-add 'swiper :after #'jj/swiper-recenter))
 
+;;; ivy
+(use-package ivy
+  :ensure t
+  :init
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t)
+  :bind (("C-c C-r" . ivy-resume)
+         ("M-x" . counsel-M-x)
+         ("C-x C-f" . counsel-find-file))
+  :config
+  (ivy-mode 1))
+
 ;;; flx-ido
 (use-package flx-ido
   :disabled
