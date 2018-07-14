@@ -38,6 +38,32 @@
   (setq undo-tree-visualizer-relative-timestamps t)
   (setq undo-tree-visualizer-timestamps t))
 
+;;; swiper
+(use-package swiper
+  :ensure t
+  :diminish ivy-mode
+  :functions jj/swiper-recenter
+  :bind (("C-s" . swiper)
+         ("C-r" . swiper))
+  :init
+  ;;advise swiper to recenter on exit
+  (defun jj/swiper-recenter ()
+    "recenter display after swiper"
+    (recenter))
+  (advice-add 'swiper :after #'jj/swiper-recenter))
+
+;;; ivy
+(use-package ivy
+  :ensure t
+  :init
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t)
+  :bind (("C-c C-r" . ivy-resume)
+         ("M-x" . counsel-M-x)
+         ("C-x C-f" . counsel-find-file))
+  :config
+  (ivy-mode 1))
+
 ;;; Expand-region
 (use-package expand-region
   :ensure t
@@ -109,5 +135,10 @@
   :init
   (setq exec-path-from-shell-check-startup-files nil)
   (exec-path-from-shell-initialize))
+
+(use-package deadgrep
+  :ensure t
+  :init
+  (defalias 'dg 'deadgrep))
 
 (provide 'utils)
