@@ -52,6 +52,25 @@
     (recenter))
   (advice-add 'swiper :after #'jj/swiper-recenter))
 
+;;; counsel
+(use-package counsel
+  :ensure t)
+
+;;; counsel projectile
+(use-package counsel-projectile
+  :ensure t
+  :after counsel
+  :init
+  (counsel-projectile-mode))
+
+(use-package counsel-gtags
+  :ensure t
+  :after (counsel ggtags)
+  :bind (("M-." . counsel-gtags-dwim))
+  :init
+  (add-hook 'c-mode-common-hook 'counsel-gtags-mode)
+  (add-hook 'python-mode-hook 'counsel-gtags-mode))
+
 ;;; ivy
 (use-package ivy
   :ensure t
