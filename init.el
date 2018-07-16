@@ -40,14 +40,6 @@
 (when (window-system)
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/" ".ripgreprc")))
 
-(cond ((memq window-system '(mac ns))
-       (dolist (mode '(scroll-bar-mode tool-bar-mode))
-         (if (fboundp mode) (funcall mode -1)))
-       ;; macOS sets it to /var/tmp/...
-       (setenv "TMPDIR" "/tmp"))
-      ((memq window-system '(x))
-       (dolist (mode '(menu-bar-mode scroll-bar-mode tool-bar-mode))
-         (if (fboundp mode) (funcall mode -1)))))
 ;;; package
 (autoload 'package "package" nil t)
 

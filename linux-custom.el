@@ -32,6 +32,7 @@
    [unspecified "#1d1f21" "#cc6666" "#b5bd68" "#f0c674" "#81a2be" "#b294bb" "#81a2be" "#c5c8c6"] t)
  '(clang-format-style
    "{BasedOnStyle: llvm, UseTab: Always, IndentWidth: 8, AllowShortFunctionsOnASingleLine: None, KeepEmptyLinesAtTheStartOfBlocks: false}" t)
+ '(column-number-mode t)
  '(dired-async-mode t)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(flycheck-flake8rc "/home/jfuentes/.config/flake8")
@@ -48,6 +49,7 @@
  '(grep-program (executable-find "rg") t)
  '(indent-tabs-mode t)
  '(magit-item-highlight-face nil)
+ '(menu-bar-mode t)
  '(network-security-level 'high)
  '(package-selected-packages
    '(elpy counsel counsel-gtags counsel-projectile counsel-pydoc night-owl-theme ggtags restclient spinner lsp-imenu company-lsp lsp-ui lsp-mode
@@ -60,8 +62,11 @@
    '((xref-etags-mode . t)
      (eval pyvenv-workon "moosetalk-web")
      (flycheck-python-flake8-executable . "~/.virtualenvs/moosetalk-web/bin/flake8")))
+ '(scroll-bar-mode nil)
+ '(show-paren-mode t)
  '(slime-company-completion 'fuzzy)
  '(temporary-file-directory "/tmp")
+ '(tool-bar-mode nil)
  '(tramp-syntax 'default nil (tramp))
  '(use-package-compute-statistics nil)
  '(use-package-verbose t)
