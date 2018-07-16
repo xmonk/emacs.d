@@ -62,7 +62,6 @@
     (setq pipenv-projectile-after-switch-function #'pipenv-projectile-after-switch-extended))
 
   (use-package anaconda-mode
-    :disabled
     :ensure t
     :after python
     :init
@@ -70,7 +69,6 @@
     (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
 
   (use-package company-anaconda
-    :disabled
     :ensure t
     :after (anaconda-mode company)
     :init
