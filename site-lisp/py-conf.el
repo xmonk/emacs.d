@@ -68,7 +68,9 @@
 
   (use-package pyvenv
     :ensure t
-    :commands (pyvenv-activate pyvenv-workon))
+    :commands (pyvenv-activate pyvenv-workon)
+    :init
+    (defalias 'workon 'pyvenv-workon))
 
   (defun jj/pydoc (name)
     "Display pydoc information for NAME in a buffer named *pydoc*."
