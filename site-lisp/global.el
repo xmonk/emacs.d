@@ -52,6 +52,7 @@
 (setq initial-scratch-message "")
 (setq inhibit-startup-echo-area-message "jj")
 (setq inhibit-default-init t)
+(setq backward-delete-char-untabify-method 'hungry)
 (defvar minibuffer-max-depth nil)
 (defvar show-paren-delay 0)
 (defvar show-paren-highlight-openparen nil)
