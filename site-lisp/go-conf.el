@@ -45,7 +45,9 @@
   (use-package go-errcheck
     :after go-mode
     :commands go-errcheck
-    :ensure t)
+    :ensure t
+    :init
+    (setq go-errcheck-ignore "fmt:[FS]?[Pp]rint*"))
 
   (use-package company-go
     :ensure t
