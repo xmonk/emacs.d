@@ -54,6 +54,9 @@ The capture templates are read from the variables
 `counsel-projectile-org-capture-templates' and
 `counsel-projectile-org-capture-templates-contexts'.
 
+Optional argument FROM-BUFFER specifies the buffer from which to
+capture.
+
 \(fn &optional FROM-BUFFER)" t nil)
 
 (autoload 'counsel-projectile-switch-project "counsel-projectile" "\
