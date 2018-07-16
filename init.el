@@ -58,14 +58,7 @@
   ;; set font
   (set-face-attribute 'default nil :font "PragmataPro" :height 135)
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
-  ;; macOS
-  (cond ((memq window-system '(mac ns))
-         (dolist (mode '(scroll-bar-mode tool-bar-mode))
-           (if (fboundp mode) (funcall mode -1))) ;; os x sets it to /var/tmp/...
-         (setenv "TMPDIR" "/tmp"))
-        ((memq window-system '(x))
-         (dolist (mode '(menu-bar-mode scroll-bar-mode tool-bar-mode))
-           (if (fboundp mode) (funcall mode -1))))))
+  (setenv "TMPDIR" "/tmp"))
 
 ;; Load customization's
 (cond ((eql system-type 'darwin)

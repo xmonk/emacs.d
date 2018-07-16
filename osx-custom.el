@@ -32,6 +32,7 @@
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
  '(beacon-color "#cc6666")
+ '(column-number-mode t)
  '(dired-async-mode t)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
@@ -53,8 +54,11 @@
  '(projectile-globally-ignored-directories
    '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "elpa" "venv" ".egg*" "__pycache__" "var" "etc"))
  '(projectile-globally-ignored-files '("TAGS" ".DS_Store" ".elc" ".pyc"))
+ '(scroll-bar-mode nil)
+ '(show-paren-mode t)
  '(slime-company-completion 'fuzzy)
  '(temporary-file-directory "/tmp")
+ '(tool-bar-mode nil)
  '(tramp-syntax 'default nil (tramp))
  '(use-package-compute-statistics nil)
  '(use-package-verbose t)
