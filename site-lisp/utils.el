@@ -52,6 +52,17 @@
     (recenter))
   (advice-add 'swiper :after #'jj/swiper-recenter))
 
+;;; counsel
+(use-package counsel
+  :ensure t)
+
+;; counsel-projectile
+(use-package counsel-projectile
+  :ensure t
+  :commands (counsel-projectile-switch-project counsel-projectile)
+  :init
+  (counsel-projectile-mode))
+
 ;;; ivy
 (use-package ivy
   :ensure t
