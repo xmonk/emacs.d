@@ -40,11 +40,10 @@
 
   (setq org-default-notes-file (concat org-directory "/notes.org"))
   (setq org-todo-keywords
-        '((type "TODO(t)" "STARTED(s)" "WAITING(w)" "APPT(a)" "PENDING(p)" "BUG(g)" "FIX(f)" "|"
+        '((type "TODO(t)" "STARTED(s)" "IN PROGRESS(i)" "WAITING(w)" "APPT(a)" "PENDING(p)" "BUG(g)" "FIX(f)" "|"
                 "CANCELLED(c)"  "DEFERRED(e)" "DONE(d)" "SOLVED(v)")
           (sequence "PROJECT(j)" "|" "FINISHED(f)")
-          (sequence "BILLED(b)" "INVOICED(i)" "SENT(n)" "|"
-                    "RCVD(r)")))
+          (sequence "SENT(n)" "|" "RCVD(r)")))
 
   (setq org-level-color-stars-only nil)
   (setq org-fontify-emphasized-text t)
