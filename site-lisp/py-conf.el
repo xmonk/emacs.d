@@ -36,13 +36,17 @@
   (defun jj/py-hook ()
     (setq-local tab-width '4)
     (setq-local indent-tabs-mode nil)
-    (setq python-shell-interpreter "python3"
-          python-shell-interpreter-args "-i"
-          comint-process-echoes t
-          python-shell-completion-native-enable t)
     (autoload 'doctest-mode "doctest-mode" "Python doctest editing mode." t)
     (subword-mode +1))
   :config
+  (cond ((executable-find "ipython")
+         (setq python-shell-interpreter "ipython"
+               python-shell-interpreter-args "--simple-prompt"))
+        ((executable-find "python3")
+         (setq python-shell-interpreter "python3"
+               python-shell-interpreter-args "-i"
+               comint-process-echoes t
+               python-shell-completion-native-enable t)))
   (use-package py-yapf
     :disabled
     :after python
