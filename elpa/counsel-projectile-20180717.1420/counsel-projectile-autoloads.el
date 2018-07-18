@@ -59,6 +59,17 @@ capture.
 
 \(fn &optional FROM-BUFFER)" t nil)
 
+(autoload 'counsel-projectile-org-agenda "counsel-projectile" "\
+Open project agenda.
+
+This command simply calls `org-agenda' after filtering out all
+agenda files that do not belong to the current project.
+
+Optional arguments ARG, ORG-KEYS, and RESTRICTION are as in
+`org-agenda'.
+
+\(fn &optional ARG ORG-KEYS RESTRICTION)" t nil)
+
 (autoload 'counsel-projectile-switch-project "counsel-projectile" "\
 Switch project.
 
