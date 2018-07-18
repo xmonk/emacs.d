@@ -1,3 +1,0 @@
-[submodule "vendor/deadgrep"]
-	path = vendor/deadgrep
-	url = git@github.com:Wilfred/deadgrep.git
