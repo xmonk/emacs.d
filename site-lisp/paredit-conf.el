@@ -1,8 +1,7 @@
 ;;; paredit
 (use-package paredit
   :ensure t
-  :commands paredit-mode
-  :diminish paredit-mode
+  :diminish paredit
   :config
   (bind-key "C-M-l" 'paredit-recentre-on-sexp paredit-mode-map)
   (bind-key ")" 'paredit-close-round-and-newline paredit-mode-map)
