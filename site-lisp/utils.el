@@ -65,7 +65,7 @@
 
 (use-package counsel-gtags
   :ensure t
-  :after (counsel ggtags)
+  :after ggtags
   :bind (("M-." . counsel-gtags-dwim))
   :init
   (add-hook 'c-mode-common-hook 'counsel-gtags-mode)
