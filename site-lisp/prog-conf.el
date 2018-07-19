@@ -28,6 +28,7 @@
 ;;; ggtags
 (use-package ggtags
   :ensure t
+  :diminish ggtags-mode
   :init
   (add-hook 'c-mode-common-hook
             (lambda ()
