@@ -1649,9 +1649,12 @@ Directories come first."
         seq))))
 
 (defun ivy-alist-setting (alist &optional key)
-  (let ((caller (or key (ivy-state-caller ivy-last))))
-    (or (and caller (cdr (assq caller alist)))
-        (cdr (assq t alist)))))
+  "Return the value associated with KEY in ALIST, using `assq'.
+KEY defaults to the last caller of `ivy-read'; if no entry is
+found, it falls back to the key t."
+  (cdr (or (let ((caller (or key (ivy-state-caller ivy-last))))
+             (and caller (assq caller alist)))
+           (assq t alist))))
 
 ;;** Entry Point
 ;;;###autoload
@@ -1814,6 +1817,8 @@ customizations apply to the current completion session."
                                        (delete item
                                                (cdr (symbol-value hist))))))))
                  (ivy-state-current ivy-last)))
+          ;; Fixes a bug in ESS, #1660
+          (put 'post-command-hook 'permanent-local nil)
           (remove-hook 'post-command-hook #'ivy--queue-exhibit)
           (let ((cleanup (ivy--display-function-prop :cleanup)))
             (when (functionp cleanup)
@@ -1880,6 +1885,9 @@ This is useful for recursive `ivy-read'."
                                 :test #'equal)))
                (setq coll (all-completions "" collection predicate))))
             ((eq collection 'read-file-name-internal)
+             (when (and (equal def initial-input)
+                        (member "./" ivy-extra-directories))
+               (setf (ivy-state-def state) (setq def nil)))
              (setq ivy--directory default-directory)
              (when (and initial-input
                         (not (equal initial-input "")))
@@ -1887,7 +1895,7 @@ This is useful for recursive `ivy-read'."
                       (when (equal (file-name-nondirectory initial-input) "")
                         (setf (ivy-state-preselect state) (setq preselect nil))
                         (setf (ivy-state-def state) (setq def nil)))
-                      (setq ivy--directory initial-input)
+                      (setq ivy--directory (file-name-as-directory initial-input))
                       (setq initial-input nil)
                       (when preselect
                         (let ((preselect-directory
@@ -2499,13 +2507,15 @@ tries to ensure that it does not change depending on the number of candidates."
   (when (display-graphic-p)
     (setq truncate-lines ivy-truncate-lines))
   (setq-local max-mini-window-height ivy-height)
-  (when (and ivy-fixed-height-minibuffer
-             (not (eq (ivy-state-caller ivy-last) 'ivy-completion-in-region)))
-    (set-window-text-height (selected-window)
-                            (+ ivy-height
-                               (if ivy-add-newline-after-prompt
-                                   1
-                                 0))))
+  (if (and ivy-fixed-height-minibuffer
+           (not (eq (ivy-state-caller ivy-last) 'ivy-completion-in-region)))
+      (set-window-text-height (selected-window)
+                              (+ ivy-height
+                                 (if ivy-add-newline-after-prompt
+                                     1
+                                   0)))
+    (when ivy-add-newline-after-prompt
+      (set-window-text-height (selected-window) 2)))
   (add-hook 'post-command-hook #'ivy--queue-exhibit nil t)
   ;; show completions with empty input
   (ivy--exhibit))

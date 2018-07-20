@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20180713.946
+;; Package-Version: 20180719.1303
 ;; Version: 0.10.0
 ;; Package-Requires: ((emacs "24.3") (swiper "0.9.0"))
 ;; Keywords: convenience, matching, tools
@@ -49,16 +49,17 @@
 (defvar counsel-more-chars-alist
   '((counsel-grep . 2)
     (t . 3))
-  "Minimum amount of characters to prompt for before fetching candidates.")
+  "Map commands to their minimum required input length.
+That is the number of characters prompted for before fetching
+candidates.  The special key t is used as a fallback.")
 
 (defun counsel-more-chars ()
   "Return two fake candidates prompting for at least N input.
 N is obtained from `counsel-more-chars-alist'."
-  (let ((len (length ivy-text))
-        (n (ivy-alist-setting counsel-more-chars-alist)))
-    (when (< len n)
-      (list ""
-            (format "%d chars more" (- n len))))))
+  (let ((diff (- (ivy-alist-setting counsel-more-chars-alist)
+                 (length ivy-text))))
+    (when (> diff 0)
+      (list "" (format "%d chars more" diff)))))
 
 (defun counsel-unquote-regex-parens (str)
   "Unquote regex parenthesis in STR."
@@ -1760,6 +1761,20 @@ currently checked out."
         (find-alternate-file file-name)
       (find-file file-name))))
 
+(defun counsel-find-file-delete (x)
+  "Delete file X."
+  (dired-delete-file x dired-recursive-deletes delete-by-moving-to-trash))
+
+(defun counsel-find-file-move (x)
+  "Move or rename file X."
+  (ivy-read "Rename file to: " 'read-file-name-internal
+            :matcher #'counsel--find-file-matcher
+            :action (lambda (new-name)
+                      (require 'dired-aux)
+                      (dired-rename-file x new-name 1))
+            :keymap counsel-find-file-map
+            :caller 'counsel-find-file-move))
+
 (defun counsel-find-file-mkdir-action (_x)
   (make-directory (expand-file-name ivy-text ivy--directory)))
 
@@ -1770,6 +1785,8 @@ currently checked out."
    ("b" counsel-find-file-cd-bookmark-action "cd bookmark")
    ("x" counsel-find-file-extern "open externally")
    ("r" counsel-find-file-as-root "open as root")
+   ("k" counsel-find-file-delete "delete")
+   ("m" counsel-find-file-move "move or rename")
    ("d" counsel-find-file-mkdir-action "mkdir")))
 
 (defcustom counsel-find-file-at-point nil
@@ -3208,8 +3225,11 @@ include attachments of other Org buffers."
 
 ;;** `counsel-org-capture'
 (defvar org-capture-templates)
+(defvar org-capture-templates-contexts)
+(declare-function org-contextualize-keys "org")
 (declare-function org-capture-goto-last-stored "org-capture")
 (declare-function org-capture-goto-target "org-capture")
+(declare-function org-capture-upgrade-templates "org-capture")
 
 ;;;###autoload
 (defun counsel-org-capture ()
@@ -3222,7 +3242,11 @@ include attachments of other Org buffers."
                    (lambda (x)
                      (when (> (length x) 2)
                        (format "%-5s %s" (nth 0 x) (nth 1 x))))
-                   (or org-capture-templates
+                   ;; We build the list of capture templates as in
+                   ;; `org-capture-select-template':
+                   (or (org-contextualize-keys
+                        (org-capture-upgrade-templates org-capture-templates)
+                        org-capture-templates-contexts)
                        '(("t" "Task" entry (file+headline "" "Tasks")
                           "* TODO %?\n  %u\n  %a")))))
             :require-match t

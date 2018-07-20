@@ -4,7 +4,7 @@
 
 ;; Author: Eric Danan
 ;; URL: https://github.com/ericdanan/counsel-projectile
-;; Package-Version: 20180713.228
+;; Package-Version: 20180718.842
 ;; Keywords: project, convenience
 ;; Version: 0.2.0
 ;; Package-Requires: ((counsel "0.10.0") (projectile "0.14.0"))
@@ -414,7 +414,7 @@ The sorting function can be modified by adding an entry for
    ("p" (lambda (_) (counsel-projectile-switch-project))
     "switch project"))
  'counsel-projectile)
-
+ 
 (defun counsel-projectile--project-directories ()
   "Return a list of current project's directories."
   (if projectile-find-dir-includes-top-level
@@ -437,10 +437,14 @@ The sorting function can be modified by adding an entry for
   (counsel-find-file-extern (projectile-expand-root dir))
   (run-hooks 'projectile-find-dir-hook))
 
-(defun counsel-projectile-find-file-action-root (dir)
+(defun counsel-projectile-find-dir-action-root (dir)
   "Visit DIR as root and run `projectile-find-dir-hook'."
   (counsel-find-file-as-root (projectile-expand-root dir))
   (run-hooks 'projectile-find-dir-hook))
+
+(defun counsel-projectile-find-dir-transformer (str)
+  "Transform candidates with `ivy-subdir' face."
+  (propertize str 'face 'ivy-subdir))
 
 ;;;###autoload
 (defun counsel-projectile-find-dir (&optional arg)
@@ -455,6 +459,10 @@ With a prefix ARG, invalidate the cache first."
             :sort counsel-projectile-sort-directories
             :action counsel-projectile-find-dir-action
             :caller 'counsel-projectile-find-dir))
+
+(ivy-set-display-transformer
+ 'counsel-projectile-find-dir
+ 'counsel-projectile-find-dir-transformer)
 
 ;;;; counsel-projectile-switch-to-buffer
 
@@ -580,15 +588,14 @@ construct the command.")
 
 (defun counsel-projectile-grep-function (string)
   "Grep for STRING in the current project."
-  (if (< (length string) 3)
-      (counsel-more-chars 3)
-    (let ((default-directory (ivy-state-directory ivy-last))
-          (regex (counsel-unquote-regex-parens
-                  (setq ivy--old-re
-                        (ivy--regex string)))))
-      (counsel--async-command (format counsel-projectile-grep-command
-                                      (shell-quote-argument regex)))
-      nil)))
+  (or (counsel-more-chars)
+      (let ((default-directory (ivy-state-directory ivy-last))
+            (regex (counsel-unquote-regex-parens
+                    (setq ivy--old-re
+                          (ivy--regex string)))))
+        (counsel--async-command (format counsel-projectile-grep-command
+                                        (shell-quote-argument regex)))
+        nil)))
 
 (defun counsel-projectile-grep-transformer (str)
   "Higlight file and line number in STR, first removing the
@@ -775,16 +782,18 @@ is called with a prefix argument."
 (defvar org-capture-templates-contexts)
 
 (defcustom counsel-projectile-org-capture-templates
-  '(("t" "Task" entry (file+headline "${root}/notes.org" "Tasks")
+  '(("t" "[${name}] Task" entry (file+headline "${root}/notes.org" "Tasks")
      "* TODO %?\n  %u\n  %a"))
-  "Templates for the creation of new entries with `counsel-projectile-org-capture'.
+  "Project-specific templates for the creation of new entries
+with `counsel-projectile-org-capture'.
 
 The format is the same as in `org-capture-templates', except that
-in all strings of in an entry's target slot, all instances of
-\"${root}\" and \"${name}\" are replaced with the current project
-root and name, respectively.
+in a template's name or target, the placeholders \"${root}\" and
+\"${name}\" can be used to stand for the current project root and
+name, respectively.
 
-The default value contains a single template, whose target is:
+The default value contains a single template, whose name is
+\"[${name}] Task\" and whose target is:
 
     \(file+headline \"${root}/notes.org}\" \"Tasks\"\)
 
@@ -906,43 +915,75 @@ The format is the same as in `org-capture-templates-contexts'."
 
 ;;;###autoload
 (defun counsel-projectile-org-capture (&optional from-buffer)
-  "Org-capture into the current project.
+  "Capture into the current project.
 
-The capture templates are read from the variables
-`counsel-projectile-org-capture-templates' and
-`counsel-projectile-org-capture-templates-contexts'."
+This command is a replacement for `org-capture' (or
+`counsel-org-capture') offering project-specific capture
+templates, in addition to the regular templates available from
+`org-capture'. These project templates, which are \"expanded\"
+relatively to the current project, are determined by the
+variables `counsel-projectile-org-capture-templates' and
+`counsel-projectile-org-capture-templates-contexts'. See the
+former variable in particular for details.
+
+Optional argument FROM-BUFFER specifies the buffer from which to
+capture."
   (interactive)
   (require 'org-capture)
-  (let* ((root (projectile-project-root))
+  (let* ((root (ignore-errors (projectile-project-root)))
          (name (projectile-project-name))
+         (org-capture-templates-contexts
+          (append (when root
+                    counsel-projectile-org-capture-templates-contexts)
+                  org-capture-templates-contexts))
          (org-capture-templates
-          (cl-loop
-           for template in counsel-projectile-org-capture-templates
-           collect (cl-loop
-                    for item in template
-                    if (= (cl-position item template) 3) ;; template's target
-                    collect (cl-loop
-                             for x in item
-                             if (stringp x)
-                             collect (replace-regexp-in-string
-                                      "\\${[^}]+}"
-                                      (lambda (s)
-                                        (pcase s
-                                          ("${root}" root)
-                                          ("${name}" name)))
-                                      x)
-                             else
-                             collect x)
-                    else
-                    collect item)))
-         (org-capture-templates-contexts counsel-projectile-org-capture-templates-contexts)
-         (ivy--prompts-list ivy--prompts-list))
-    (ivy-set-prompt 'counsel-org-capture
-                    (lambda ()
-                      (ivy-add-prompt-count
-                       (projectile-prepend-project-name (ivy-state-prompt ivy-last)))))
+          (append
+           (when root
+             (cl-loop
+              with replace-fun = `(lambda (string)
+                                    (replace-regexp-in-string
+                                     "\\${[^}]+}"
+                                     (lambda (s)
+                                       (pcase s
+                                         ("${root}" ,root)
+                                         ("${name}" ,name)))
+                                     string))
+              for template in counsel-projectile-org-capture-templates
+              collect (cl-loop
+                       for item in template
+                       if (= (cl-position item template) 1) ;; template's name
+                       collect (funcall replace-fun item)
+                       else if (= (cl-position item template) 3) ;; template's target
+                       collect (cl-loop
+                                for x in item
+                                if (stringp x)
+                                collect (funcall replace-fun x)
+                                else
+                                collect x)
+                       else
+                       collect item)))
+           org-capture-templates)))
     (with-current-buffer (or from-buffer (current-buffer))
       (counsel-org-capture))))
+
+;;;; counsel-projectile-org-agenda
+
+;;;###autoload
+(defun counsel-projectile-org-agenda (&optional arg org-keys restriction)
+  "Open project agenda.
+
+This command simply calls `org-agenda' after filtering out all
+agenda files that do not belong to the current project.
+
+Optional arguments ARG, ORG-KEYS, and RESTRICTION are as in
+`org-agenda'."
+  (interactive "P")
+  (let* ((root (projectile-project-root))
+         (org-agenda-files
+          (cl-remove-if-not (lambda (file)
+                              (string-prefix-p root file))
+                            (org-agenda-files t 'ifmode))))
+    (org-agenda arg org-keys restriction)))
 
 ;;;; counsel-projectile-switch-project
 
@@ -1001,8 +1042,10 @@ candidates list of `counsel-projectile-switch-project'."
     "invoke eshell from project root")
    ("xt" counsel-projectile-switch-project-action-run-term
     "invoke term from project root")
-   ("O" counsel-projectile-switch-project-action-org-capture
-    "org-capture into project"))
+   ("Oc" counsel-projectile-switch-project-action-org-capture
+    "capture into project")
+   ("Oa" counsel-projectile-switch-project-action-org-capture
+    "open project agenda"))
  'counsel-projectile)
 
 (defun counsel-projectile-switch-project-by-name (project)
@@ -1317,7 +1360,8 @@ If not inside a project, call `counsel-projectile-switch-project'."
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map projectile-command-map)
     (define-key map (kbd "s r") 'counsel-projectile-rg)
-    (define-key map (kbd "O") 'counsel-projectile-org-capture)
+    (define-key map (kbd "O c") 'counsel-projectile-org-capture)
+    (define-key map (kbd "O a") 'counsel-projectile-org-agenda)
     (define-key map (kbd "SPC") 'counsel-projectile)
     map)
   "Keymap for Counesl-Projectile commands after `projectile-keymap-prefix'.")

@@ -48,13 +48,32 @@ is called with a prefix argument.
 \(fn &optional OPTIONS)" t nil)
 
 (autoload 'counsel-projectile-org-capture "counsel-projectile" "\
-Org-capture into the current project.
+Capture into the current project.
 
-The capture templates are read from the variables
-`counsel-projectile-org-capture-templates' and
-`counsel-projectile-org-capture-templates-contexts'.
+This command is a replacement for `org-capture' (or
+`counsel-org-capture') offering project-specific capture
+templates, in addition to the regular templates available from
+`org-capture'. These project templates, which are \"expanded\"
+relatively to the current project, are determined by the
+variables `counsel-projectile-org-capture-templates' and
+`counsel-projectile-org-capture-templates-contexts'. See the
+former variable in particular for details.
+
+Optional argument FROM-BUFFER specifies the buffer from which to
+capture.
 
 \(fn &optional FROM-BUFFER)" t nil)
+
+(autoload 'counsel-projectile-org-agenda "counsel-projectile" "\
+Open project agenda.
+
+This command simply calls `org-agenda' after filtering out all
+agenda files that do not belong to the current project.
+
+Optional arguments ARG, ORG-KEYS, and RESTRICTION are as in
+`org-agenda'.
+
+\(fn &optional ARG ORG-KEYS RESTRICTION)" t nil)
 
 (autoload 'counsel-projectile-switch-project "counsel-projectile" "\
 Switch project.

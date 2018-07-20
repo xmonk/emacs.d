@@ -4,7 +4,7 @@
 
 ;; Author: Paul Walsh <paulywalsh@gmail.com>
 ;; URL: https://github.com/pwalsh/pipenv.el
-;; Package-Version: 20180402.2127
+;; Package-Version: 20180718.2247
 ;; Version: 0.0.1-beta
 ;; Package-Requires: ((emacs "25.1")(f "0.19.0")(s "1.12.0"))
 
@@ -89,6 +89,11 @@
   "The function to add to projectile-after-switch-hook."
   :type 'function
   :group 'pipenv)
+
+(defcustom pipenv-keymap-prefix (kbd "C-c C-p")
+  "Pipenv keymap prefix."
+  :group 'pipenv
+  :type 'string)
 
 ;;
 ;; Helper functions internal to the package.
@@ -317,6 +322,7 @@ A poor-man's equivalent of subprocess.check_output in Python."
     (pop-to-buffer name)
     (shell (current-buffer))
     (insert pipenv-shell-buffer-init-command)
+    (setq-local comint-process-echoes t)
     (comint-send-input)
     (comint-clear-buffer)))
 
@@ -422,18 +428,27 @@ and open a Pipenv shell and a Python interpreter."
 ;; Core Emacs integration.
 ;;
 
+(defvar pipenv-command-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "a") 'pipenv-activate)
+    (define-key map (kbd "d") 'pipenv-deactivate)
+    (define-key map (kbd "s") 'pipenv-shell)
+    (define-key map (kbd "o") 'pipenv-open)
+    (define-key map (kbd "i") 'pipenv-install)
+    (define-key map (kbd "u") 'pipenv-uninstall)
+    map))
+
+(defvar pipenv-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map pipenv-keymap-prefix pipenv-command-map)
+    map)
+  "Keymap for pipenv mode.")
+
 ;;;###autoload
 (define-minor-mode pipenv-mode
   "Minor mode for Pipenv."
   :lighter " Pipenv"
-  :keymap (let ((map (make-sparse-keymap)))
-            (define-key map (kbd "C-c C-p a") 'pipenv-activate)
-            (define-key map (kbd "C-c C-p d") 'pipenv-deactivate)
-            (define-key map (kbd "C-c C-p s") 'pipenv-shell)
-            (define-key map (kbd "C-c C-p o") 'pipenv-open)
-            (define-key map (kbd "C-c C-p i") 'pipenv-install)
-            (define-key map (kbd "C-c C-p u") 'pipenv-uninstall)
-            map))
+  :keymap pipenv-mode-map)
 
 (provide 'pipenv)
 
