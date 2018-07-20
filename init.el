@@ -31,8 +31,8 @@
                              (setq gc-cons-threshold 800000)))
 ;;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-;; (load-theme 'doom-tomorrow-night t)
-(load-theme 'night-owl t)
+(load-theme 'doom-spacegrey t)
+
 
 ;;; frame
 (unless window-system
