@@ -28,15 +28,23 @@
 (setq gc-cons-threshold (* 10 1024 1024))
 (add-hook 'after-init-hook (lambda ()
                              ;; restore after startup
-                             (setq gc-cons-threshold 800000)))
+                             (setq gc-cons-threshold 800000)
+                             ;; disable menu-bar in console.
+                             (when (eql window-system nil)
+                               (menu-bar-mode -1))))
 ;;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
 (load-theme 'doom-spacegrey t)
 
-
 ;;; frame
-(unless window-system
-  (menu-bar-mode -1))
+(defun contextual-menubar (&optional frame)
+  "Display the menubar in FRAME (default: selected frame) if on a
+    graphical display, but hide it if in terminal."
+  (interactive)
+  (set-frame-parameter frame 'menu-bar-lines
+                             (if (display-graphic-p frame)
+                                  1 0)))
+(add-hook 'after-make-frame-functions 'contextual-menubar)
 
 (when (window-system)
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/" ".ripgreprc")))
