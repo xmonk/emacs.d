@@ -50,15 +50,9 @@
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
 
 (use-package doom-themes
-  :disabled
   :ensure t
   :config
-  (load-theme 'doom-tomorrow-night t))
-
-(use-package night-owl-theme
-  :ensure t
-  :config
-  (load-theme 'night-owl t))
+  (load-theme 'doom-spacegrey t))
 
 (when (window-system)
   ;; set font
