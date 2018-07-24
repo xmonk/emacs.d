@@ -38,10 +38,41 @@
   (setq undo-tree-visualizer-relative-timestamps t)
   (setq undo-tree-visualizer-timestamps t))
 
+;;; counsel
+(use-package counsel
+  :after ivy
+  :ensure t
+  :bind (("C-c C-r" . ivy-resume)
+         ("M-x" . counsel-M-x)
+         ("C-x C-f" . counsel-find-file)))
+
+(use-package ivy
+  :defer 1
+  :diminish
+  :bind (("C-x b" . ivy-switch-buffer)
+         ("C-x B" . ivy-switch-buffer-other-window))
+  :custom
+  (ivy-count-format "(%d/%d) ")
+  (ivy-display-style 'fancy)
+  (ivy-use-virtual-buffers t)
+  (enable-recursive-minibuffers t)
+  :config
+  (ivy-mode 1))
+
+(use-package ivy-rich
+  :ensure t
+  :after ivy
+  :custom
+  (ivy-virtual-abbreviate 'full
+                          'ivy-rich-switch-buffer-align-virtual-buffer t
+                          'ivy-rich-path-style 'abbrev)
+  :config
+  (ivy-set-display-transformer 'ivy-switch-buffer
+                               'ivy-rich-switch-buffer-transformer))
 ;;; swiper
 (use-package swiper
   :ensure t
-  :diminish ivy-mode
+  :after ivy
   :functions jj/swiper-recenter
   :bind (("C-s" . swiper)
          ("C-r" . swiper))
@@ -52,14 +83,9 @@
     (recenter))
   (advice-add 'swiper :after #'jj/swiper-recenter))
 
-;;; counsel
-(use-package counsel
-  :ensure t)
-
 ;;; counsel projectile
 (use-package counsel-projectile
   :ensure t
-  :after counsel
   :init
   (counsel-projectile-mode))
 
@@ -67,22 +93,13 @@
   :ensure t
   :after ggtags
   :diminish counsel-gtags-mode
-  :bind (("M-." . counsel-gtags-dwim))
+  :bind (("M-t" . counsel-gtags-find-definition)
+         ("M-r" . counsel-gtags-find-reference)
+         ("M-s" . counsel-find-symbols)
+         ("M-," . counsel-gtags-go-back))
   :init
   (add-hook 'c-mode-common-hook 'counsel-gtags-mode)
   (add-hook 'python-mode-hook 'counsel-gtags-mode))
-
-;;; ivy
-(use-package ivy
-  :ensure t
-  :init
-  (setq ivy-use-virtual-buffers t)
-  (setq enable-recursive-minibuffers t)
-  :bind (("C-c C-r" . ivy-resume)
-         ("M-x" . counsel-M-x)
-         ("C-x C-f" . counsel-find-file))
-  :config
-  (ivy-mode 1))
 
 ;;; flx-ido
 (use-package flx-ido
