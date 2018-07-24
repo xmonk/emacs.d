@@ -33,7 +33,6 @@
  '(clang-format-style
    "{BasedOnStyle: llvm, UseTab: Always, IndentWidth: 8, AllowShortFunctionsOnASingleLine: None, KeepEmptyLinesAtTheStartOfBlocks: false}" t)
  '(column-number-mode t)
- '(counsel-gtags-use-suggested-key-map t)
  '(dired-async-mode t)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(flycheck-flake8rc "/home/jfuentes/.config/flake8")
@@ -53,7 +52,7 @@
  '(menu-bar-mode t)
  '(network-security-level 'high)
  '(package-selected-packages
-   '(ivy-rich deadgrep auto-virtualenvwrapper counsel counsel-gtags counsel-projectile counsel-pydoc night-owl-theme ggtags restclient spinner lsp-imenu company-lsp lsp-ui lsp-mode
+   '(ivy-xref ivy-rich deadgrep auto-virtualenvwrapper counsel counsel-gtags counsel-projectile counsel-pydoc night-owl-theme ggtags restclient spinner lsp-imenu company-lsp lsp-ui lsp-mode
               (lsp-mode lsp-ui company-lsp)
               exec-path-from-shell eybrowse ace-window pylint doom-themes lua-mode whole-line-or-region yaml-mode edit-indirect xcscope web-mode use-package undo-tree swiper smartscan py-yapf projectile paredit org ob-go markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flycheck flx-ido expand-region elisp-slime-nav diminish company-irony-c-headers company-irony company-go company-flx company-anaconda codesearch clang-format browse-kill-ring))
  '(projectile-globally-ignored-directories

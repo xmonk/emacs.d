@@ -69,6 +69,12 @@
   :config
   (ivy-set-display-transformer 'ivy-switch-buffer
                                'ivy-rich-switch-buffer-transformer))
+
+(use-package ivy-xref
+  :ensure t
+  :init
+  (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
+
 ;;; swiper
 (use-package swiper
   :ensure t
@@ -86,6 +92,9 @@
 ;;; counsel projectile
 (use-package counsel-projectile
   :ensure t
+  :bind (("C-c p p" . counsel-projectile-switch-project)
+         ("C-c p f" . counsel-projectile-find-file)
+         ("C-c p d" . counsel-projectile-find-dir))
   :init
   (counsel-projectile-mode))
 
@@ -93,7 +102,8 @@
   :ensure t
   :after ggtags
   :diminish counsel-gtags-mode
-  :bind (("M-t" . counsel-gtags-find-definition)
+  :bind (("M-." . counsel-gtags-dwim)
+         ("M-t" . counsel-gtags-find-definition)
          ("M-r" . counsel-gtags-find-reference)
          ("M-s" . counsel-find-symbols)
          ("M-," . counsel-gtags-go-back))

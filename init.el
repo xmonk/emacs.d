@@ -107,7 +107,7 @@
 (use-package markdown-conf)
 (use-package org-conf)
 (use-package company-conf)
-(use-package lsp-conf)
+(use-package lsp-conf :disabled)
 (use-package evil-conf :disabled)
 (use-package prog-conf)
 
