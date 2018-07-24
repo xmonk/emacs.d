@@ -34,7 +34,7 @@
                                (menu-bar-mode -1))))
 ;;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-(load-theme 'doom-spacegrey t)
+(load-theme 'doom-tomorrow-night t)
 
 ;;; frame
 (defun contextual-menubar (&optional frame)
