@@ -105,8 +105,7 @@
   :bind (("M-." . counsel-gtags-dwim)
          ("M-t" . counsel-gtags-find-definition)
          ("M-r" . counsel-gtags-find-reference)
-         ("M-s" . counsel-find-symbols)
-         ("M-," . counsel-gtags-go-back))
+         ("M-s" . counsel-find-symbols))
   :init
   (add-hook 'c-mode-common-hook 'counsel-gtags-mode)
   (add-hook 'python-mode-hook 'counsel-gtags-mode))
