@@ -48,14 +48,12 @@
                comint-process-echoes t
                python-shell-completion-native-enable t)))
   (use-package py-yapf
-    :disabled
     :after python
     :when (executable-find "yapf")
-    :ensure t
-    :init
-    (add-hook 'python-mode-hook 'py-yapf-enable-on-save))
+    :ensure t)
 
   (use-package anaconda-mode
+    :disabled
     :ensure t
     :after python
     :init
@@ -63,6 +61,7 @@
     (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
 
   (use-package company-anaconda
+    :disabled
     :ensure t
     :after (anaconda-mode company)
     :init
