@@ -114,10 +114,11 @@
   :ensure t
   :after ggtags
   :diminish counsel-gtags-mode
-  :bind (("M-." . counsel-gtags-dwim)
-         ("M-t" . counsel-gtags-find-definition)
+  :bind (("M-t" . counsel-gtags-find-definition)
          ("M-r" . counsel-gtags-find-reference)
-         ("M-s" . counsel-find-symbols))
+         ("M-s" . counsel-find-symbols)
+         ("M-," . counsel-gtags-go-backward)
+         ("M-." . counsel-gtags-dwim))
   :init
   (add-hook 'c-mode-common-hook 'counsel-gtags-mode)
   (add-hook 'python-mode-hook 'counsel-gtags-mode))
