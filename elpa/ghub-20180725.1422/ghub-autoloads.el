@@ -30,7 +30,8 @@ has to provide several values including their password.
 
 ;;;***
 
-;;;### (autoloads nil nil ("ghub-pkg.el") (0 0 0 0))
+;;;### (autoloads nil nil ("ghub-graphql.el" "ghub-pkg.el") (0 0
+;;;;;;  0 0))
 
 ;;;***
 
