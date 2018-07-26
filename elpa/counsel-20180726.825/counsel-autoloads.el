@@ -359,6 +359,13 @@ Browse shell history.
 (autoload 'counsel-outline "counsel" "\
 Jump to outline with completion.
 
+This command relies on `outline-regexp', `outline-level', and
+`counsel-outline-title' to match an outline heading and get its
+level and title, respectively.  For major modes where this is not
+adequate or optimal, these variables can be rebound locally in
+the major mode hook.  Replacements are provided for some such
+modes. To set them up, add this to your init file:
+
 \(fn)" t nil)
 
 (autoload 'counsel-ibuffer "counsel" "\
