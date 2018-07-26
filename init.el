@@ -52,7 +52,7 @@
 (use-package doom-themes
   :ensure t
   :config
-  (load-theme 'doom-spacegrey t))
+  (load-theme 'doom-tomorrow-night t))
 
 (when (window-system)
   ;; set font
