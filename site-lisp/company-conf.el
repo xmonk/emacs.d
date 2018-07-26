@@ -1,8 +1,8 @@
 ;;; company
 (use-package company
   :ensure t
-  :commands (company-complete company-complete-common-or-cycle )
-  :bind (("C-c TAB" . company-complete-common-or-cycle))
+  :commands company-complete
+  :bind (("C-c TAB" . company-complete))
   :diminish company-mode
   :init
   (add-hook 'after-init-hook 'global-company-mode)
