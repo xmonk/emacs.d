@@ -63,6 +63,11 @@
   :config
   (ivy-mode 1))
 
+(use-package avy
+  :bind (("C-c ;" . avy-goto-char)
+         ("C-c '" . avy-goto-char-2)
+         ("C-c g" . avy-goto-line)))
+
 (use-package ivy-rich
   :ensure t
   :after ivy
