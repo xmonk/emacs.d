@@ -48,7 +48,8 @@
   :ensure t
   :bind (("C-c C-r" . ivy-resume)
          ("M-x" . counsel-M-x)
-         ("C-x C-f" . counsel-find-file)))
+         ("C-x C-f" . counsel-find-file)
+         ("C-c r" . counsel-rg)))
 
 (use-package ivy
   :defer 1
