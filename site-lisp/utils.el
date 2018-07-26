@@ -36,7 +36,11 @@
   (undo-tree-mode t)
   (global-undo-tree-mode t)
   (setq undo-tree-visualizer-relative-timestamps t)
-  (setq undo-tree-visualizer-timestamps t))
+  (setq undo-tree-visualizer-timestamps t)
+  (setq undo-tree-auto-save-history t)
+  (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
+  (unless (file-directory-p (concat user-emacs-directory "undo"))
+    (make-directory (concat user-emacs-directory "undo"))))
 
 ;;; counsel
 (use-package counsel
