@@ -38,7 +38,6 @@
     (setq-local indent-tabs-mode nil)
     (autoload 'doctest-mode "doctest-mode" "Python doctest editing mode." t)
     (subword-mode +1))
-  :config
   (cond ((executable-find "ipython")
          (setq python-shell-interpreter "ipython"
                python-shell-interpreter-args "--simple-prompt"))
@@ -47,6 +46,11 @@
                python-shell-interpreter-args "-i"
                comint-process-echoes t
                python-shell-completion-native-enable t)))
+  ;; Don't font lock in an inferior python shell. It's too easy for a
+  ;; docstring (when using foo? in ipython) to contain doublequotes and
+  ;; all the highlighting is broken from then onwards.
+  (setq python-shell-font-lock-enable nil)
+  :config
   (use-package py-yapf
     :after python
     :when (executable-find "yapf")
