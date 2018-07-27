@@ -72,19 +72,6 @@
     (load-file custom-file)
   (message (format "ERROR: custom file: %s not found or not specified" custom-file)))
 
-;;; ido
-(require 'ido)
-(setq ido-create-new-buffer (quote always))
-(setq ido-enable-flex-matching nil)
-(setq ido-enable-prefix nil)
-(setq ido-enable-regexp t)
-(setq ido-max-prospects 7)
-(setq ido-use-filename-at-point (quote guess))
-(setq ido-use-virtual-buffers t)
-(setq ido-work-directory-match-only t)
-(ido-mode t)
-(ido-everywhere 1)
-
 ;;; Server
 (require 'server nil t)
 (when (and (>= emacs-major-version 23) (not (server-running-p)))
