@@ -32,10 +32,6 @@
                              ;; disable menu-bar in console.
                              (when (eql window-system nil)
                                (menu-bar-mode -1))))
-;;; themes
-(add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-(load-theme 'doom-tomorrow-night t)
-
 ;;; frame
 (defun contextual-menubar (&optional frame)
   "Display the menubar in FRAME (default: selected frame) if on a
@@ -45,8 +41,15 @@
                              (if (display-graphic-p frame)
                                   1 0)))
 (add-hook 'after-make-frame-functions 'contextual-menubar)
+(add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
+
+(unless (window-system)
+  (menu-bar-mode -1)
+  (load-theme 'jj-darkcl t))
 
 (when (window-system)
+  ;;; themes
+  (load-theme 'doom-tomorrow-night t)
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/" ".ripgreprc")))
 
 ;;; package
@@ -78,19 +81,6 @@
 (if (file-exists-p custom-file)
     (load-file custom-file)
   (message (format "ERROR: custom file: %s not found or not specified" custom-file)))
-
-;;; ido
-;; (require 'ido)
-;; (setq ido-create-new-buffer (quote always))
-;; (setq ido-enable-flex-matching t)
-;; (setq ido-enable-prefix nil)
-;; (setq ido-enable-regexp t)
-;; (setq ido-max-prospects 7)
-;; (setq ido-use-filename-at-point (quote guess))
-;; (setq ido-use-virtual-buffers t)
-;; (setq ido-work-directory-match-only t)
-;; (ido-mode t)
-;; (ido-everywhere 1)
 
 ;;; Server
 (require 'server nil t)
