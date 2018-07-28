@@ -28,6 +28,7 @@
 ;;; ggtags
 (use-package ggtags
   :ensure t
+  :defer
   :diminish ggtags-mode)
 
 (use-package eldoc
@@ -42,16 +43,7 @@
   :functions projectile-relevant-known-projects
   :init
   (setq projectile-mode-line "Projectile")
-  (projectile-mode t)
-  (defun jj/show-projects ()
-    "List projectile known projects in a *project* buffer."
-    (interactive)
-    (switch-to-buffer "*projects*")
-    (org-mode)
-    (insert "#+TITLE: Projects\n\n")
-    (dolist (project (projectile-relevant-known-projects))
-      (insert (concat "* "  "[" "[file:" project "]" "["(file-name-nondirectory (directory-file-name project)) "]" "]" "\n")))
-    (goto-char (point-min))))
+  (projectile-mode t))
 
 ;;; yaml-mode
 (use-package yaml-mode
