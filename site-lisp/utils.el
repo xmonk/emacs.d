@@ -54,8 +54,9 @@
   (setq counsel-grep-command "rg"))
 
 (use-package ivy
-  :defer 1
+  :commands (ivy-mode ivy-switch-buffer ivy-switch-buffer-other-window)
   :diminish
+  :functions ivy-mode
   :bind (("C-x b" . ivy-switch-buffer)
          ("C-x B" . ivy-switch-buffer-other-window))
   :custom
@@ -74,6 +75,7 @@
 (use-package ivy-rich
   :ensure t
   :after ivy
+  :functions ivy-set-display-transformer
   :custom
   (ivy-virtual-abbreviate 'full
                           'ivy-rich-switch-buffer-align-virtual-buffer t
@@ -84,6 +86,7 @@
 
 (use-package ivy-xref
   :ensure t
+  :defer
   :init
   (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
 
@@ -112,7 +115,6 @@
 
 (use-package counsel-gtags
   :ensure t
-  :after ggtags
   :diminish counsel-gtags-mode
   :bind (("M-t" . counsel-gtags-find-definition)
          ("M-r" . counsel-gtags-find-reference)
