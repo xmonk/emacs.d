@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20180730.1537
+;; Package-Version: 20180731.1617
 ;; Version: 0.10.0
 ;; Package-Requires: ((emacs "24.3") (swiper "0.9.0"))
 ;; Keywords: convenience, matching, tools
@@ -1888,7 +1888,7 @@ When INITIAL-INPUT is non-nil, use it in the minibuffer during completion."
 (defvar counsel-find-file-occur-cmd "ls -a | grep -i -E '%s' | xargs -d '\\n' ls -d --group-directories-first"
   "Format string for `counsel-find-file-occur'.")
 
-(defvar counsel-find-file-occur-use-find nil
+(defvar counsel-find-file-occur-use-find (not (eq system-type 'gnu/linux))
   "When non-nil, `counsel-find-file-occur' will use \"find\" as the base cmd.")
 
 (defun counsel--expand-ls (cmd)
