@@ -90,7 +90,7 @@
 (use-package evil-conf :disabled)
 (use-package company-conf)
 (use-package lsp-conf)
-(use-package fish-conf)
+(use-package fish-conf :disabled)
 (init-maxframe)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
