@@ -2,7 +2,7 @@
 
 (use-package lsp-mode
   :ensure t
-  :functions ()
+  :commands lsp-mode
   :init
   (lsp-mode))
 
@@ -38,6 +38,7 @@
 ;; python
 (use-package lsp-python
   :ensure t
+  :commands lsp-python-enable
   :after lsp-mode
   :defines lsp-python-enable
   :functions (jj/pwd lsp-python-enable lsp--as-regex lsp--enable-stdio-client)
