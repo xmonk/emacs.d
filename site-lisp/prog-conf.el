@@ -26,6 +26,7 @@
 
 ;;; ggtags
 (use-package ggtags
+  :commands ggtags-mode
   :ensure t)
 
 ;;; eldoc
