@@ -29,6 +29,7 @@
 (use-package undo-tree
   :ensure t
   :diminish undo-tree-mode
+  :commands undo-tree-mode
   :bind (("C-x u" . undo-tree-undo)
          ("s-z" . undo-tree-undo)
          ("s-r" . undo-tree-redo))
@@ -45,6 +46,7 @@
 ;;; counsel
 (use-package counsel
   :after ivy
+  :commands counsel-mode
   :ensure t
   :bind (("C-c C-r" . ivy-resume)
          ("M-x" . counsel-M-x)
@@ -54,7 +56,7 @@
   (setq counsel-grep-command "rg"))
 
 (use-package ivy
-  :defer 1
+  :commands ivy-mode
   :diminish
   :bind (("C-x b" . ivy-switch-buffer)
          ("C-x B" . ivy-switch-buffer-other-window))
@@ -69,6 +71,7 @@
 (use-package ivy-rich
   :ensure t
   :after ivy
+  :functions ivy-set-display-transformer
   :custom
   (ivy-virtual-abbreviate 'full
                           'ivy-rich-switch-buffer-align-virtual-buffer t
@@ -78,6 +81,8 @@
                                'ivy-rich-switch-buffer-transformer))
 
 (use-package ivy-xref
+  :after ivy
+  :defer t
   :ensure t
   :init
   (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
@@ -107,7 +112,6 @@
 
 (use-package counsel-gtags
   :ensure t
-  :after ggtags
   :diminish counsel-gtags-mode
   :bind (("M-." . counsel-gtags-dwim)
          ("M-t" . counsel-gtags-find-definition)
@@ -121,7 +125,6 @@
 ;;; Expand-region
 (use-package expand-region
   :ensure t
-  :defer t
   :bind ("s-/" . er/expand-region))
 
 ;;; whole-line-or-region
@@ -146,6 +149,7 @@
 
 ;;;; recentf
 (use-package recentf
+  :commands recentf-mode
   :bind (("C-x C-r" . ido-recentf-open))
   :config
   (recentf-mode t)
@@ -173,7 +177,7 @@
 
 (use-package edit-indirect
   :ensure t
-  :defer)
+  :defer 5)
 
 ;;; white space mode
 (use-package whitespace
@@ -192,6 +196,7 @@
 
 (use-package deadgrep
   :ensure t
+  :commands deadgrep
   :init
   (defalias 'dg 'deadgrep))
 
