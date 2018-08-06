@@ -4,7 +4,7 @@
 
 ;; Author: Wilfred Hughes <me@wilfred.me.uk>
 ;; URL: https://github.com/Wilfred/deadgrep
-;; Package-Version: 20180724.1612
+;; Package-Version: 20180728.1842
 ;; Keywords: tools
 ;; Version: 0.5
 ;; Package-Requires: ((emacs "25.1") (dash "2.12.0") (s "1.11.0") (spinner "1.7.3") (projectile "0.14.0"))
@@ -359,7 +359,7 @@ with Emacs text properties."
 (define-button-type 'deadgrep-file-type
   'action #'deadgrep--file-type
   'case nil
-  'help-echo "Change case sensitivity")
+  'help-echo "Change file type")
 
 (defun deadgrep--read-file-type (filename)
   "Read a ripgrep file type, defaulting to the type that matches FILENAME."
