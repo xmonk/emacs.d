@@ -1,0 +1,2 @@
+;;; -*- no-byte-compile: t -*-
+(define-package "deadgrep" "20180728.1842" "fast, friendly searching with ripgrep" '((emacs "25.1") (dash "2.12.0") (s "1.11.0") (spinner "1.7.3") (projectile "0.14.0")) :commit "9811c954289cd4f4f2bdfb21830dd93f7a4bd0ef" :keywords '("tools") :authors '(("Wilfred Hughes" . "me@wilfred.me.uk")) :maintainer '("Wilfred Hughes" . "me@wilfred.me.uk") :url "https://github.com/Wilfred/deadgrep")
