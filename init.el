@@ -93,7 +93,7 @@
 (use-package magit-conf)
 (use-package keymaps)
 (use-package windows)
-(use-package utils :defer 0.5)
+(use-package utils)
 (use-package markdown-conf :defer 0.6)
 (use-package org-conf :defer 0.5)
 (use-package company-conf :defer 0.5)
