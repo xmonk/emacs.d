@@ -107,11 +107,10 @@
 ;;; counsel projectile
 (use-package counsel-projectile
   :ensure t
+  :after projectile
   :bind (("C-c p p" . counsel-projectile-switch-project)
          ("C-c p f" . counsel-projectile-find-file)
-         ("C-c p d" . counsel-projectile-find-dir))
-  :init
-  (counsel-projectile-mode))
+         ("C-c p d" . counsel-projectile-find-dir)))
 
 (use-package counsel-gtags
   :ensure t
@@ -157,6 +156,7 @@
 
 (use-package deadgrep
   :ensure t
+  :commands (deadgrep dg)
   :init
   (defalias 'dg 'deadgrep))
 
