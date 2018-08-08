@@ -93,13 +93,13 @@
 (use-package magit-conf)
 (use-package keymaps)
 (use-package windows)
-(use-package utils)
-(use-package markdown-conf)
-(use-package org-conf)
-(use-package company-conf)
-(use-package lsp-conf)
+(use-package utils :defer 0.5)
+(use-package markdown-conf :defer 0.6)
+(use-package org-conf :defer 0.5)
+(use-package company-conf :defer 0.5)
+(use-package prog-conf :defer 0.2)
+(use-package lsp-conf :defer 0.5)
 (use-package evil-conf :disabled)
-(use-package prog-conf)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
