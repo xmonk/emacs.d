@@ -38,8 +38,8 @@
 ;;; projectile
 (use-package projectile
   :ensure t
+  :commands (projectile-mode projectile-switch-project)
   :diminish projectile-mode
-  :bind (("C-c p p" . projectile-switch-project))
   :functions projectile-relevant-known-projects
   :init
   (setq projectile-mode-line "Projectile")
