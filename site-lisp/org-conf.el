@@ -70,8 +70,11 @@
                                                     (:exports . "code")))
   (setq-default org-babel-default-header-args:python '((:exports . "code")
                                                        (:tangle  . "yes")))
-
   ;; load languages.
+
+  (use-package ob-restclient
+    :ensure t)
+
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((org . t)
@@ -82,7 +85,8 @@
      (shell . t)
      (C . t)
      (emacs-lisp . t)
-     (sqlite . t)))
+     (sqlite . t)
+     (restclient . t)))
 
   ;; do not evaluate code on export by default
   (setq org-export-use-babel nil)
@@ -118,6 +122,7 @@
                 '(("sh" "#+NAME: ?\n#+BEGIN_SRC sh\n\n#+END_SRC")
                   ("sc" "#+NAME: ?\n#+BEGIN_SRC  :exports code :tangle yes\n\n#+END_SRC")
                   ("py" "#+NAME: ?\n#+BEGIN_SRC python\n\n#+END_SRC")
+                  ("rc" "#+NAME: ?\n#+BEGIN_SRC restclient :tangle yes\n\n#+END_SRC")
                   ("go" "#+NAME: ?\n#+BEGIN_SRC go\n\n#+END_SRC")
                   ("n" "#+BEGIN_COMMENT\n?\n#+END_COMMENT" "<comment>\n?\n</comment>")
                   ("nref" "#+NAME: ?\n#+BEGIN_SRC :noweb-ref <name> :tangle no\n\n#+END_SRC")

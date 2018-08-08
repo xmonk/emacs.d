@@ -82,4 +82,10 @@
   :config
   (setq flycheck-checkers (--remove (eq it 'emacs-lisp-checkdoc) flycheck-checkers)))
 
+;;; restclient
+(use-package restclient
+  :ensure t
+  :commands restclient-mode
+  :mode ("\\.restclient\\'" . restclient-mode))
+
 (provide 'prog-conf)
