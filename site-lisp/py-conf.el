@@ -61,18 +61,18 @@
     :init
     (setq pipenv-projectile-after-switch-function #'pipenv-projectile-after-switch-extended))
 
-  (use-package anaconda-mode
-    :ensure t
-    :after python
-    :init
-    (add-hook 'python-mode-hook 'anaconda-mode)
-    (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
+  ;; (use-package anaconda-mode
+  ;;   :ensure t
+  ;;   :after python
+  ;;   :init
+  ;;   (add-hook 'python-mode-hook 'anaconda-mode)
+  ;;   (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
 
-  (use-package company-anaconda
-    :ensure t
-    :after (anaconda-mode company)
-    :init
-    (add-to-list 'company-backends 'company-anaconda))
+  ;; (use-package company-anaconda
+  ;;   :ensure t
+  ;;   :after (anaconda-mode company)
+  ;;   :init
+  ;;   (add-to-list 'company-backends 'company-anaconda))
 
   (defun jj/pydoc (name)
     "Display pydoc information for NAME in a buffer named *pydoc*."
