@@ -45,7 +45,7 @@
 
 ;;; counsel
 (use-package counsel
-  :after ivy
+  :diminish counsel
   :commands counsel-mode
   :ensure t
   :bind (("C-c C-r" . ivy-resume)
