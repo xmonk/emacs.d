@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20180808.1527
+;; Package-Version: 20180809.1524
 ;; Version: 0.10.0
 ;; Package-Requires: ((emacs "24.3") (swiper "0.9.0"))
 ;; Keywords: convenience, matching, tools
@@ -73,7 +73,7 @@ N is obtained from `counsel-more-chars-alist'."
                                                     (")" . "\\)")
                                                     ("\\{" . "{")
                                                     ("\\}" . "}"))))
-                                    (error "Unexpected")))
+                                    (error "Unexpected parenthesis: %S" s)))
                               str t t)))
 
 (defun counsel-directory-name (dir)
@@ -4751,6 +4751,7 @@ Any desktop entries that fail to parse are recorded in
                 (describe-bindings . counsel-descbinds)
                 (describe-function . counsel-describe-function)
                 (describe-variable . counsel-describe-variable)
+                (apropos-command . counsel-apropos)
                 (describe-face . counsel-describe-face)
                 (list-faces-display . counsel-faces)
                 (find-file . counsel-find-file)

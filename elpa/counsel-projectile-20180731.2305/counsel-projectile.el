@@ -1,4 +1,4 @@
-;;; counsel-projectile.el --- Ivy integration for Projectile -*- lexical-binding: t -*-
+G;;; counsel-projectile.el --- Ivy integration for Projectile -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2016-2018 Eric Danan
 
@@ -333,7 +333,7 @@ on `counsel-find-file-ignore-regexp'."
         ;; We apply `counsel--find-file-matcher' to `cands' so we can
         ;; honor `ivy-use-ignore', but we don't need to filter
         ;; again.
-        (counsel--find-file-matcher nil cands))))     
+        (counsel--find-file-matcher nil cands))))
 
 (defun counsel-projectile-find-file-action (file)
   "Find FILE and run `projectile-find-file-hook'."
@@ -414,7 +414,7 @@ The sorting function can be modified by adding an entry for
    ("p" (lambda (_) (counsel-projectile-switch-project))
     "switch project"))
  'counsel-projectile)
- 
+
 (defun counsel-projectile--project-directories ()
   "Return a list of current project's directories."
   (if projectile-find-dir-includes-top-level
@@ -1308,7 +1308,7 @@ files."
   (if (member name counsel-projectile--buffers)
       (ivy--kill-buffer-action name)
     (message "This action only applies to buffers.")))
-  
+
 (defun counsel-projectile-action-find-file-manually (name)
   "Call `counsel-find-file' from default directory of buffer
 directory of file named NAME."
@@ -1374,8 +1374,10 @@ If not inside a project, call `counsel-projectile-switch-project'."
 (fset 'counsel-projectile-command-map counsel-projectile-command-map)
 
 (defvar counsel-projectile-mode-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map projectile-keymap-prefix 'counsel-projectile-command-map)
+  (let ((map (make-sparse-keymap))
+        (projectile-command-keymap (where-is-internal 'projectile-command-map nil t)))
+    (when projectile-command-keymap
+      (define-key map projectile-command-keymap 'counsel-projectile-command-map))
     (define-key map [remap projectile-find-file] 'counsel-projectile-find-file)
     (define-key map [remap projectile-find-dir] 'counsel-projectile-find-dir)
     (define-key map [remap projectile-switch-to-buffer] 'counsel-projectile-switch-to-buffer)
