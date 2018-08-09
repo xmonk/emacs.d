@@ -103,6 +103,7 @@
 
 ;;; counsel projectile
 (use-package counsel-projectile
+  :disabled
   :ensure t
   :bind (("C-c p p" . counsel-projectile-switch-project)
          ("C-c p f" . counsel-projectile-find-file)
