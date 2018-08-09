@@ -90,16 +90,16 @@
 (add-to-list 'load-path (expand-file-name (concat user-emacs-directory "/site-lisp")))
 (use-package defuns)
 (use-package global)
-(use-package prog-conf :defer 0.2)
-(use-package magit-conf :defer 0.2)
+(use-package magit-conf)
 (use-package keymaps)
 (use-package windows)
-(use-package utils)
+(use-package utils :defer 0.4)
 (use-package markdown-conf :defer 0.6)
 (use-package org-conf :defer 0.5)
+(use-package prog-conf)
+(use-package evil-conf :disabled)
 (use-package company-conf :defer 0.5)
 (use-package lsp-conf :defer 0.5)
-(use-package evil-conf :disabled)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
