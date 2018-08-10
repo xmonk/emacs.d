@@ -1,12 +1,13 @@
 ;;; company
+
 (use-package company
   :ensure t
-  :commands company-complete
+  :commands (company-mode company-complete)
   :bind (("C-c TAB" . company-complete))
   :diminish company-mode
   :init
-  (add-hook 'after-init-hook 'global-company-mode)
-  (setq company-tooltip-align-annotations t))
+  (setq company-tooltip-align-annotations t)
+  (global-company-mode 1))
 
 (use-package company-flx
   :ensure t
