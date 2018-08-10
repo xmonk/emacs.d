@@ -39,7 +39,6 @@
   :ensure t
   :diminish projectile-mode
   :bind (("C-c p p" . projectile-switch-project))
-  :functions projectile-relevant-known-projects
   :init
   (setq projectile-mode-line "Projectile")
   (projectile-mode t))
