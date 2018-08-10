@@ -2,51 +2,33 @@
 
 (use-package lsp-mode
   :ensure t
-  :commands lsp-mode
+  :commands (lsp-mode lsp-python-enable)
   :init
-  (lsp-mode))
-
-(use-package lsp-imenu
-  :after lsp-mode
-  :init
-  (add-hook 'lsp-after--open-hook 'lsp-enable-imenu))
+  (add-hook 'lsp-after-open-hook 'lsp-enable-imenu)
+  (add-hook 'python-mode-hook (lambda () (lsp-python-enable)))
+  :config
+  (use-package lsp-imenu :after lsp-mode)
+  (lsp-define-stdio-client lsp-python "python"
+                           #'jj/pwd
+                           ;; #'projectile-project-root
+                           '("pyls")))
 
 (use-package lsp-ui
   :ensure t
-  :defines lsp-ui-sideline-ignore-duplicates
+  :after lsp-mode
   :init
-  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
-  (setq lsp-ui-sideline-ignore-duplicates t))
+  (setq lsp-ui-sideline-ignore-duplicate t)
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
 
 (use-package company-lsp
   :ensure t
-  :after (company lsp-mode)
-  :init
-  (add-to-list 'company-backends 'company-lsp))
-
-;; go
-(use-package lsp-go
-  :disabled
-  :ensure t
-  :defines lsp-go-enable
-  :init
-  (add-hook 'go-mode-hook #'lsp-go-enable)
-  (lsp-define-stdio-client lsp-go "go"
-                           #'jj/pwd
-                           '("go-langserver" "-gocodecompletion" "-mode=stdio" "-func-snippet-enabled=false")))
-
-;; python
-(use-package lsp-python
-  :ensure t
-  :commands lsp-python-enable
   :after lsp-mode
-  :defines lsp-python-enable
-  :functions (jj/pwd lsp-python-enable lsp--as-regex lsp--enable-stdio-client)
   :init
-  (add-hook 'python-mode-hook #'lsp-python-enable)
-  (lsp-define-stdio-client lsp-python "python"
-                           #'jj/pwd
-                           '("pyls")))
-
+  (add-hook 'company-mode-hook (lambda () (add-to-list 'company-backends 'company-lsp)))
+  (add-hook 'lsp-after-initialize-hook 'lsp-set-cfg)
+  (defun lsp-set-cfg ()
+    (let ((lsp-cfg `(:pyls (:configurationSources ("flake8")))))
+      ;; TODO: check lsp--cur-workspace here to decide per server / project
+      (lsp--set-configuration lsp-cfg))))
 
 (provide 'lsp-conf)
