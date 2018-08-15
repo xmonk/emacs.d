@@ -61,6 +61,7 @@
 
 ;;; codesearch http://code.google.com/p/codesearch/
 (use-package codesearch
+  :disabled
   :ensure t
   :commands (listing-codesearch-search listing-codesearch-list-directories codesearch-reset codesearch-update-index codesearch-build-index)
   :init
@@ -87,5 +88,11 @@
   :ensure t
   :commands restclient-mode
   :mode ("\\.restclient\\'" . restclient-mode))
+
+(use-package dumb-jump
+  :ensure t
+  :diminish
+  :init
+  (dumb-jump-mode t))
 
 (provide 'prog-conf)
