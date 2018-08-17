@@ -13,6 +13,14 @@
 (autoload 'counsel-projectile-find-file "counsel-projectile" "\
 Jump to a file in the current project.
 
+With a prefix ARG, invalidate the cache first.  If DWIM is
+non-nil, use completion based on context.
+
+\(fn &optional ARG DWIM)" t nil)
+
+(autoload 'counsel-projectile-find-file-dwim "counsel-projectile" "\
+Jump to a file in the current project using completion based on context.
+
 With a prefix ARG, invalidate the cache first.
 
 \(fn &optional ARG)" t nil)
@@ -106,12 +114,14 @@ With a prefix argument ARG, enable the mode if ARG is positive,
 and disable it otherwise.  If called from Lisp, enable the mode
 if ARG is omitted or nil, and toggle it if ARG is `toggle'.
 
-Counsel-Projectile mode triggers Projectile mode, remaps
-Projectile commands that have counsel replacements, and adds key
-bindings for Counsel-Projectile commands that have no Projectile
-counterpart.
+Counsel-Projectile mode turns on Projectile mode, thus enabling
+all projectile key bindings, and adds the counsel-projectile key
+bindings on top of them.
 
-\\{counsel-projectile-mode-map}
+The counsel-projectile key bindings either remap existing
+projectile commands to their counsel-projectile replacements or
+bind keys to counsel-projectile commands that have no projectile
+counterparts.
 
 \(fn &optional ARG)" t nil)
 

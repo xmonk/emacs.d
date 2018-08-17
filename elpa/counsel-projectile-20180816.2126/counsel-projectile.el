@@ -4,10 +4,10 @@
 
 ;; Author: Eric Danan
 ;; URL: https://github.com/ericdanan/counsel-projectile
-;; Package-Version: 20180731.2305
+;; Package-Version: 20180816.2126
 ;; Keywords: project, convenience
-;; Version: 0.2.0
-;; Package-Requires: ((counsel "0.10.0") (projectile "0.14.0"))
+;; Version: 0.3.0-snapshot
+;; Package-Requires: ((counsel "0.10.0") (projectile "1.0.0"))
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -41,12 +41,13 @@
 ;; the projectile key bindings.
 ;;
 ;;; Code:
-;;;; require
+
+;;* require
 
 (require 'counsel)
 (require 'projectile)
 
-;;;; global
+;;* global
 
 (defgroup counsel-projectile nil
   "Ivy integration for Projectile."
@@ -243,7 +244,7 @@ If anything goes wrong, throw an error and do not modify ACTION-VAR."
                      (cdr action-list))))))
     (set action-var action-list)))
 
-;;;; counsel-projectile-find-file
+;;* counsel-projectile-find-file
 
 (defcustom counsel-projectile-sort-files nil
   "Non-nil if files should be sorted in
@@ -369,25 +370,36 @@ on `counsel-find-file-ignore-regexp'."
     str))
 
 ;;;###autoload
-(defun counsel-projectile-find-file (&optional arg)
+(defun counsel-projectile-find-file (&optional arg dwim)
   "Jump to a file in the current project.
 
-With a prefix ARG, invalidate the cache first."
+With a prefix ARG, invalidate the cache first.  If DWIM is
+non-nil, use completion based on context."
   (interactive "P")
   (projectile-maybe-invalidate-cache arg)
-  (ivy-read (projectile-prepend-project-name "Find file: ")
-            (projectile-current-project-files)
-            :matcher counsel-projectile-find-file-matcher
-            :require-match t
-            :sort counsel-projectile-sort-files
-            :action counsel-projectile-find-file-action
-            :caller 'counsel-projectile-find-file))
+  (let* ((project-files (projectile-current-project-files))
+         (files (and dwim (projectile-select-files project-files))))
+    (ivy-read (projectile-prepend-project-name "Find file: ")
+              (or files project-files)
+              :matcher counsel-projectile-find-file-matcher
+              :require-match t
+              :sort counsel-projectile-sort-files
+              :action counsel-projectile-find-file-action
+              :caller 'counsel-projectile-find-file)))
 
 (ivy-set-display-transformer
  'counsel-projectile-find-file
  'counsel-projectile-find-file-transformer)
 
-;;;; counsel-projectile-find-dir
+;;;###autoload
+(defun counsel-projectile-find-file-dwim (&optional arg)
+  "Jump to a file in the current project using completion based on context.
+
+With a prefix ARG, invalidate the cache first."
+  (interactive "P")
+  (counsel-projectile-find-file arg t))
+
+;;* counsel-projectile-find-dir
 
 (defcustom counsel-projectile-sort-directories nil
   "Non-nil if directories should be sorted in
@@ -464,7 +476,7 @@ With a prefix ARG, invalidate the cache first."
  'counsel-projectile-find-dir
  'counsel-projectile-find-dir-transformer)
 
-;;;; counsel-projectile-switch-to-buffer
+;;* counsel-projectile-switch-to-buffer
 
 (defcustom counsel-projectile-sort-buffers nil
   "Non-nil if buffers should be sorted in
@@ -560,7 +572,7 @@ This simply applies the same transformer as in `ivy-switch-buffer', which is `iv
  'counsel-projectile-switch-to-buffer
  'counsel-projectile-switch-to-buffer-transformer)
 
-;;;; counsel-projectile-grep
+;;* counsel-projectile-grep
 
 (defcustom counsel-projectile-grep-initial-input nil
   "Initial minibuffer input for `counsel-projectile-grep'.  If
@@ -684,7 +696,7 @@ called with a prefix argument."
 (ivy-set-occur 'counsel-projectile-grep 'counsel-projectile-grep-occur)
 (ivy-set-display-transformer 'counsel-projectile-grep  'counsel-projectile-grep-transformer)
 
-;;;; counsel-projectile-ag
+;;* counsel-projectile-ag
 
 (defcustom counsel-projectile-ag-initial-input nil
   "Initial minibuffer input for `counsel-projectile-ag'.  If
@@ -730,7 +742,7 @@ is called with a prefix argument."
                 options
                 (projectile-prepend-project-name "ag"))))
 
-;;;; counsel-projectile-rg
+;;* counsel-projectile-rg
 
 (defcustom counsel-projectile-rg-initial-input nil
   "Initial minibuffer input for `counsel-projectile-rg'.  If
@@ -758,7 +770,14 @@ OPTIONS, if non-nil, is a string containing additional options to
 be passed to rg. It is read from the minibuffer if the function
 is called with a prefix argument."
   (interactive)
-  (let* ((ignored (mapconcat (lambda (i)
+  (let* ((unignored (mapconcat (lambda (i)
+                                 (concat "--glob "
+                                         (shell-quote-argument i)
+                                         " "))
+                               (append (projectile-unignored-files-rel)
+                                       (projectile-unignored-directories-rel))
+                               ""))
+         (ignored (mapconcat (lambda (i)
                                (concat "--glob "
                                        (shell-quote-argument (concat "!" i))
                                        " "))
@@ -770,13 +789,13 @@ is called with a prefix argument."
               (read-string (projectile-prepend-project-name "rg options: ")
                            ignored
                            'counsel-projectile-rg-options-history)
-            (concat ignored options))))
+            (concat unignored ignored options))))
     (counsel-rg (eval counsel-projectile-rg-initial-input)
                 (projectile-project-root)
                 options
                 (projectile-prepend-project-name "rg"))))
 
-;;;; counsel-projectile-org-capture
+;;* counsel-projectile-org-capture
 
 (defvar org-capture-templates)
 (defvar org-capture-templates-contexts)
@@ -966,7 +985,7 @@ capture."
     (with-current-buffer (or from-buffer (current-buffer))
       (counsel-org-capture))))
 
-;;;; counsel-projectile-org-agenda
+;;* counsel-projectile-org-agenda
 
 ;;;###autoload
 (defun counsel-projectile-org-agenda (&optional arg org-keys restriction)
@@ -986,7 +1005,7 @@ Optional arguments ARG, ORG-KEYS, and RESTRICTION are as in
                             (org-agenda-files t 'ifmode))))
     (org-agenda arg org-keys restriction)))
 
-;;;; counsel-projectile-switch-project
+;;* counsel-projectile-switch-project
 
 (defcustom counsel-projectile-sort-projects nil
   "Non-nil if projects should be sorted in
@@ -1209,7 +1228,7 @@ action."
             :sort counsel-projectile-sort-projects
             :caller 'counsel-projectile-switch-project))
 
-;;;; counsel-projectile
+;;* counsel-projectile
 
 (counsel-projectile--defcustom-action
  'counsel-projectile
@@ -1360,30 +1379,30 @@ If not inside a project, call `counsel-projectile-switch-project'."
  'counsel-projectile
  'counsel-projectile-transformer)
 
-;;;; counsel-projectile-mode
+;;* counsel-projectile-mode
 
-(defvar counsel-projectile-command-map
-  (let ((map (make-sparse-keymap)))
-    (set-keymap-parent map projectile-command-map)
-    (define-key map (kbd "s r") 'counsel-projectile-rg)
-    (define-key map (kbd "O c") 'counsel-projectile-org-capture)
-    (define-key map (kbd "O a") 'counsel-projectile-org-agenda)
-    (define-key map (kbd "SPC") 'counsel-projectile)
-    map)
-  "Keymap for Counesl-Projectile commands after `projectile-keymap-prefix'.")
-(fset 'counsel-projectile-command-map counsel-projectile-command-map)
+(defcustom counsel-projectile-key-bindings
+  '((projectile-find-file        . counsel-projectile-find-file)
+    (projectile-find-file-dwim   . counsel-projectile-find-file-dwim)
+    (projectile-find-dir         . counsel-projectile-find-dir)
+    (projectile-switch-to-buffer . counsel-projectile-switch-to-buffer)
+    (projectile-grep             . counsel-projectile-grep)
+    (projectile-ag               . counsel-projectile-ag)
+    (projectile-ripgrep          . counsel-projectile-rg)
+    (projectile-switch-project   . counsel-projectile-switch-project)
+    (" "                         . counsel-projectile)
+    ("Oc"                        . counsel-projectile-org-capture)
+    ("Oa"                        . counsel-projectile-org-agenda))
+  "Alist of counsel-projectile key bindings.
 
-(defvar counsel-projectile-mode-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map projectile-keymap-prefix 'counsel-projectile-command-map)
-    (define-key map [remap projectile-find-file] 'counsel-projectile-find-file)
-    (define-key map [remap projectile-find-dir] 'counsel-projectile-find-dir)
-    (define-key map [remap projectile-switch-to-buffer] 'counsel-projectile-switch-to-buffer)
-    (define-key map [remap projectile-grep] 'counsel-projectile-grep)
-    (define-key map [remap projectile-ag] 'counsel-projectile-ag)
-    (define-key map [remap projectile-switch-project] 'counsel-projectile-switch-project)
-    map)
-  "Keymap for Counsel-Projectile mode.")
+Each element is of the form \(KEY . DEF\) where KEY is either a
+key sequence to bind in `projectile-command-map' or a projectile
+command to remap in `projectile-mode-map', and DEF is the
+counsel-projectile command to which KEY is remapped or bound."
+  :type '(alist :key-type (choice (function :tag "Projectile command")
+                                  key-sequence)
+                :value-type (function :tag "Counsel-projectile command"))
+  :group 'counsel-projectile)
 
 ;;;###autoload
 (define-minor-mode counsel-projectile-mode
@@ -1393,21 +1412,32 @@ With a prefix argument ARG, enable the mode if ARG is positive,
 and disable it otherwise.  If called from Lisp, enable the mode
 if ARG is omitted or nil, and toggle it if ARG is `toggle'.
 
-Counsel-Projectile mode triggers Projectile mode, remaps
-Projectile commands that have counsel replacements, and adds key
-bindings for Counsel-Projectile commands that have no Projectile
-counterpart.
+Counsel-Projectile mode turns on Projectile mode, thus enabling
+all projectile key bindings, and adds the counsel-projectile key
+bindings on top of them.
 
-\\{counsel-projectile-mode-map}"
+The counsel-projectile key bindings either remap existing
+projectile commands to their counsel-projectile replacements or
+bind keys to counsel-projectile commands that have no projectile
+counterparts."
   :group 'counsel-projectile
   :require 'counsel-projectile
-  :keymap counsel-projectile-mode-map
   :global t
-  (if counsel-projectile-mode
-      (projectile-mode)
-    (projectile-mode -1)))
+  (cond
+   (counsel-projectile-mode
+    (projectile-mode)
+    (dolist (binding counsel-projectile-key-bindings)
+      (if (functionp (car binding))
+          (define-key projectile-mode-map `[remap ,(car binding)] (cdr binding))
+        (define-key projectile-command-map (car binding) (cdr binding)))))
+   (t
+    (dolist (binding counsel-projectile-key-bindings)
+      (if (functionp (car binding))
+          (define-key projectile-mode-map `[remap ,(car binding)] nil)
+        (define-key projectile-command-map (car binding) nil)))
+    (projectile-mode -1))))
 
-;;;; provide
+;;* provide
 
 (provide 'counsel-projectile)
 
