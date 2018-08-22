@@ -56,7 +56,6 @@
 
 (when (window-system)
   ;; set font
-  (set-face-attribute 'default nil :font "PragmataPro" :height 135)
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
   (setenv "TMPDIR" "/tmp"))
 
@@ -88,7 +87,7 @@
 (use-package org-conf :defer 0.5)
 (use-package prog-conf)
 (use-package evil-conf :disabled)
-(use-package company-conf)
+(use-package company-conf :defer 0.5)
 (use-package lsp-conf :defer 0.5)
 (init-maxframe)
 
