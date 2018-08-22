@@ -45,8 +45,7 @@
 
 ;;; counsel
 (use-package counsel
-  :diminish counsel
-  :commands counsel-mode
+  :after ivy
   :ensure t
   :bind (("C-c C-r" . ivy-resume)
          ("M-x" . counsel-M-x)
@@ -56,8 +55,9 @@
   (setq counsel-grep-command "rg"))
 
 (use-package ivy
-  :commands ivy-mode
+  :commands (ivy-mode ivy-switch-buffer ivy-switch-buffer-other-window)
   :diminish
+  :functions ivy-mode
   :bind (("C-x b" . ivy-switch-buffer)
          ("C-x B" . ivy-switch-buffer-other-window))
   :custom
@@ -67,6 +67,11 @@
   (enable-recursive-minibuffers t)
   :config
   (ivy-mode 1))
+
+(use-package avy
+  :bind (("C-c ;" . avy-goto-char)
+         ("C-c '" . avy-goto-char-2)
+         ("C-c g" . avy-goto-line)))
 
 (use-package ivy-rich
   :ensure t
@@ -81,9 +86,8 @@
                                'ivy-rich-switch-buffer-transformer))
 
 (use-package ivy-xref
-  :after ivy
-  :defer t
   :ensure t
+  :defer t
   :init
   (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
 
@@ -103,7 +107,6 @@
 
 ;;; counsel projectile
 (use-package counsel-projectile
-  :disabled
   :after projectile
   :ensure t
   :bind (("C-c p p" . counsel-projectile-switch-project)
