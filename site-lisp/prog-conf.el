@@ -93,6 +93,7 @@
   :ensure t
   :diminish
   :init
-  (dumb-jump-mode t))
+  (dumb-jump-mode t)
+  (setq dumb-jump-selector 'ivy))
 
 (provide 'prog-conf)
