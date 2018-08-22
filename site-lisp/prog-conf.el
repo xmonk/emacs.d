@@ -96,5 +96,11 @@
   (bind-key "C-. j" 'paredit-join-with-next-list paredit-mode-map)
   (bind-key "C-. J" 'paredit-join-with-previous-list paredit-mode-map))
 
+(use-package dumb-jump
+  :ensure t
+  :diminish
+  :init
+  (setq dumb-jump-selector 'ivy)
+  (dumb-jump-mode t))
 
 (provide 'prog-conf)
