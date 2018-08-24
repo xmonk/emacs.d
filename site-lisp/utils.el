@@ -45,7 +45,6 @@
 
 ;;; counsel
 (use-package counsel
-  :after ivy
   :ensure t
   :bind (("C-c C-r" . ivy-resume)
          ("M-x" . counsel-M-x)
