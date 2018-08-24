@@ -28,7 +28,6 @@
   :commands (magit-status mgit)
   :ensure t
   :init
-  (add-hook 'git-commit-mode-hook 'disable-paredit-mode)
   (defalias 'mgit 'magit-status)
   :config
   (use-package magithub
