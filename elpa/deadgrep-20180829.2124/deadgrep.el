@@ -4,7 +4,7 @@
 
 ;; Author: Wilfred Hughes <me@wilfred.me.uk>
 ;; URL: https://github.com/Wilfred/deadgrep
-;; Package-Version: 20180827.2330
+;; Package-Version: 20180829.2124
 ;; Keywords: tools
 ;; Version: 0.6
 ;; Package-Requires: ((emacs "25.1") (dash "2.12.0") (s "1.11.0") (spinner "1.7.3") (projectile "0.14.0"))
@@ -952,7 +952,8 @@ This will either be a button, a filename, or a search result."
     ;; position.
     (erase-buffer)
     (setq deadgrep--hidden-files nil)
-    (set-marker overlay-arrow-position nil)
+    (when overlay-arrow-position
+      (set-marker overlay-arrow-position nil))
 
     ;; Reset intermediate search state.
     (setq deadgrep--current-file nil)

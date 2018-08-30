@@ -45,6 +45,8 @@
 (declare-function magit-auto-revert-buffers "magit-autorevert" ())
 ;; For `magit-refresh-buffer'
 (declare-function magit-process-unset-mode-line-error-status "magit-process" ())
+;; For `magit-mode-setup-internal'
+(declare-function magit-status-goto-initial-section "magit-status" ())
 
 (require 'format-spec)
 (require 'help-mode)
@@ -250,12 +252,11 @@ then fall back to regular region highlighting."
   :type 'hook
   :options '(magit-section-update-region magit-diff-update-hunk-region))
 
-(defcustom magit-create-buffer-hook '(magit-status-goto-commits)
+(defcustom magit-create-buffer-hook nil
   "Normal hook run after creating a new `magit-mode' buffer."
   :package-version '(magit . "2.90.0")
   :group 'magit-refresh
-  :type 'hook
-  :options '(magit-status-goto-commits))
+  :type 'hook)
 
 (defcustom magit-refresh-buffer-hook nil
   "Normal hook for `magit-refresh-buffer' to run after refreshing."
@@ -626,6 +627,7 @@ locked to its value, which is derived from MODE and ARGS."
       (setq magit-refresh-args args)
       (funcall mode)
       (when created
+        (magit-status-goto-initial-section)
         (run-hooks 'magit-create-buffer-hook)))
     (magit-display-buffer buffer)
     (with-current-buffer buffer
@@ -1353,7 +1355,7 @@ Unless specified, REPOSITORY is the current buffer's repository."
 
 (defun magit-zap-caches ()
   "Zap caches for the current repository.
-Remove the repository's entry from `magit-repository-cache'
+Remove the repository's entry from `magit-repository-local-cache'
 and set `magit-section-visibility-cache' to nil in all of the
 repository's Magit buffers."
   (interactive)
