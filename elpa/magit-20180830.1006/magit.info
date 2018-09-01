@@ -163,18 +163,18 @@ Node: I am having problems committing350026
 Node: I am using MS Windows and cannot push with Magit350507
 Node: I am using OS X and SOMETHING works in shell but not in Magit351124
 Node: Diffs contain control sequences351930
-Node: Expanding a file to show the diff causes it to disappear353004
-Node: Point is wrong in the COMMIT_EDITMSG buffer353555
-Node: The mode-line information isn't always up-to-date354601
-Node: A branch and tag sharing the same name breaks SOMETHING355683
-Node: My Git hooks work on the command-line but not inside Magit356571
-Node: git-commit-mode isn't used when committing from the command-line357408
-Node: Point ends up inside invisible text when jumping to a file-visiting buffer359675
-Node: Debugging Tools360473
-Node: Keystroke Index362360
-Node: Command Index394373
-Node: Function Index429246
-Node: Variable Index444700
+Node: Expanding a file to show the diff causes it to disappear353043
+Node: Point is wrong in the COMMIT_EDITMSG buffer353594
+Node: The mode-line information isn't always up-to-date354640
+Node: A branch and tag sharing the same name breaks SOMETHING355722
+Node: My Git hooks work on the command-line but not inside Magit356610
+Node: git-commit-mode isn't used when committing from the command-line357447
+Node: Point ends up inside invisible text when jumping to a file-visiting buffer359714
+Node: Debugging Tools360512
+Node: Keystroke Index362399
+Node: Command Index394412
+Node: Function Index429285
+Node: Variable Index444739
 
 End Tag Table
 
