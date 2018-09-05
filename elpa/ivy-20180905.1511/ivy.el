@@ -2546,7 +2546,7 @@ STD-PROPS is a property list containing the default text properties."
         (condition-case nil
             (funcall fn)
           (error
-           (warn "`counsel-prompt-function' should take 0 args")
+           (warn "function set by `ivy-set-prompt' should take 0 args")
            ;; old behavior
            (funcall fn (ivy-state-prompt ivy-last))))
       ivy--prompt)))
@@ -2805,8 +2805,7 @@ Should be run via minibuffer `post-command-hook'."
       (if ivy-display-function
           (funcall ivy-display-function text)
         (ivy-display-function-fallback text)))
-    (when (display-graphic-p)
-      (ivy--resize-minibuffer-to-fit))
+    (ivy--resize-minibuffer-to-fit)
     ;; prevent region growing due to text remove/add
     (when (region-active-p)
       (set-mark old-mark))))
@@ -3674,24 +3673,23 @@ Use `ivy-pop-view' to delete any item from `ivy-views'."
 (defun ivy--switch-buffer-action (buffer)
   "Switch to BUFFER.
 BUFFER may be a string or nil."
-  (with-ivy-window
-    (if (zerop (length buffer))
-        (switch-to-buffer
-         ivy-text nil 'force-same-window)
-      (let ((virtual (assoc buffer ivy--virtual-buffers))
-            (view (assoc buffer ivy-views)))
-        (cond ((and virtual
-                    (not (get-buffer buffer)))
-               (find-file (cdr virtual)))
-              (view
-               (delete-other-windows)
-               (let (
-                     ;; silence "Directory has changed on disk"
-                     (inhibit-message t))
-                 (ivy-set-view-recur (cadr view))))
-              (t
-               (switch-to-buffer
-                buffer nil 'force-same-window)))))))
+  (if (zerop (length buffer))
+      (switch-to-buffer
+       ivy-text nil 'force-same-window)
+    (let ((virtual (assoc buffer ivy--virtual-buffers))
+          (view (assoc buffer ivy-views)))
+      (cond ((and virtual
+                  (not (get-buffer buffer)))
+             (find-file (cdr virtual)))
+            (view
+             (delete-other-windows)
+             (let (
+                   ;; silence "Directory has changed on disk"
+                   (inhibit-message t))
+               (ivy-set-view-recur (cadr view))))
+            (t
+             (switch-to-buffer
+              buffer nil 'force-same-window))))))
 
 (defun ivy--switch-buffer-other-window-action (buffer)
   "Switch to BUFFER in other window.

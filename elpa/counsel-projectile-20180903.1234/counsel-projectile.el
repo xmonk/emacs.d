@@ -4,7 +4,7 @@
 
 ;; Author: Eric Danan
 ;; URL: https://github.com/ericdanan/counsel-projectile
-;; Package-Version: 20180826.1407
+;; Package-Version: 20180903.1234
 ;; Keywords: project, convenience
 ;; Version: 0.3.0-snapshot
 ;; Package-Requires: ((counsel "0.10.0") (projectile "1.0.0"))
@@ -709,8 +709,8 @@ with a prefix argument."
                       (car (projectile-parse-dirconfig-file)))
                      " "))
          (counsel-git-grep-cmd-default
-          (concat (concat (string-trim-right counsel-git-grep-cmd-default " \\.")
-                          " " path)))
+          (concat (string-trim-right counsel-git-grep-cmd-default " \\.")
+                  " " path))
          (counsel-prompt-function
           (lambda ()
             (ivy-add-prompt-count
@@ -792,8 +792,9 @@ is called with a prefix argument."
   (interactive)
   (let* ((path
           (mapconcat 'shell-quote-argument
-                     (projectile-normalise-paths
-                      (car (projectile-parse-dirconfig-file)))
+                     (or (projectile-normalise-paths
+                          (car (projectile-parse-dirconfig-file)))
+                         '("."))
                      " "))
          (ignored
           (mapconcat (lambda (i)
