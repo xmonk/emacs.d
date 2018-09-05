@@ -42,6 +42,18 @@
   (unless (file-directory-p (concat user-emacs-directory "undo"))
     (make-directory (concat user-emacs-directory "undo"))))
 
+;;; projectile
+(use-package projectile
+  :ensure t
+  :commands (projectile-mode projectile-switch-project)
+  :diminish projectile-mode
+  :functions projectile-relevant-known-projects
+  :bind (:map projectile-mode-map ("C-c p" . projectile-command-map))
+  :init
+  (setq projectile-completion-system 'ivy)
+  (setq projectile-mode-line "Projectile")
+  (projectile-mode t))
+
 ;;; counsel
 (use-package counsel
   :after ivy
