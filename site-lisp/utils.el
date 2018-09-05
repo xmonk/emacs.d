@@ -43,6 +43,16 @@
   (unless (file-directory-p "~/.emacs.d/undo")
     (make-directory "~/.emacs.d/undo")))
 
+;;; projectile
+(use-package projectile
+  :ensure t
+  :diminish projectile-mode
+  :bind (:map projectile-mode-map ("C-c p" . projectile-command-map))
+  :init
+  (setq projectile-completion-system 'ivy)
+  (setq projectile-mode-line "Projectile")
+  (projectile-mode t))
+
 ;;; counsel
 (use-package counsel
   :ensure t
@@ -104,10 +114,7 @@
 ;;; counsel projectile
 (use-package counsel-projectile
   :after projectile
-  :ensure t
-  :bind (("C-c p p" . counsel-projectile-switch-project)
-         ("C-c p f" . counsel-projectile-find-file)
-         ("C-c p d" . counsel-projectile-find-dir)))
+  :ensure t)
 
 (use-package counsel-gtags
   :ensure t

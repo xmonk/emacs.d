@@ -34,15 +34,6 @@
   :commands eldoc-mode
   :diminish eldoc-mode)
 
-;;; projectile
-(use-package projectile
-  :ensure t
-  :diminish projectile-mode
-  :bind (("C-c p p" . projectile-switch-project))
-  :init
-  (setq projectile-mode-line "Projectile")
-  (projectile-mode t))
-
 ;;; yaml-mode
 (use-package yaml-mode
   :ensure t
