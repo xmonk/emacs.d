@@ -36,7 +36,7 @@
    "{BasedOnStyle: llvm, UseTab: Always, IndentWidth: 8, AllowShortFunctionsOnASingleLine: None, KeepEmptyLinesAtTheStartOfBlocks: false}" t)
  '(column-number-mode t)
  '(compilation-message-face 'default)
- '(counsel-projectile-mode t nil (counsel-projectile))
+ '(counsel-mode t)
  '(dired-async-mode t)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(enable-recursive-minibuffers t)
