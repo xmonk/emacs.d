@@ -50,7 +50,8 @@
 (when (window-system)
   ;;; themes
   (load-theme 'doom-tomorrow-night t)
-  (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/" ".ripgreprc")))
+  (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/" ".ripgreprc"))
+  (toggle-frame-maximized))
 
 ;;; package
 (autoload 'package "package" nil t)
