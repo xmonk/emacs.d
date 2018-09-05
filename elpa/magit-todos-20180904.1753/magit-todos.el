@@ -4,7 +4,7 @@
 
 ;; Author: Adam Porter <adam@alphapapa.net>
 ;; URL: http://github.com/alphapapa/magit-todos
-;; Package-Version: 20180904.836
+;; Package-Version: 20180904.1753
 ;; Version: 1.2-pre
 ;; Package-Requires: ((emacs "25.2") (async "1.9.2") (dash "2.13.0") (f "0.17.2") (hl-todo "1.9.0") (magit "2.13.0") (pcre2el "1.8") (s "1.12.0"))
 ;; Keywords: magit, vc
@@ -398,11 +398,14 @@ With prefix, prompt for repository."
    (let ((magit--refresh-cache (list (cons 0 0))))
      (list (and (or current-prefix-arg (not (magit-toplevel)))
                 (magit-read-repository)))))
-  (let ((magit--refresh-cache (list (cons 0 0))))
-    (setq directory (if directory
-                        (file-name-as-directory (expand-file-name directory))
-                      default-directory))
-    (magit-todos-list-internal directory)))
+  (condition-case nil
+      (let ((magit--refresh-cache (list (cons 0 0))))
+        (setq directory (if directory
+                            (file-name-as-directory (expand-file-name directory))
+                          default-directory))
+        (magit-todos-list-internal directory))
+    ('magit-outside-git-repo (cl-letf (((symbol-function 'magit-toplevel) (lambda (&rest _) default-directory)))
+                               (call-interactively #'magit-todos-list)))))
 
 (put 'magit-todos-list 'interactive-only 'magit-todos-list-internal)
 
