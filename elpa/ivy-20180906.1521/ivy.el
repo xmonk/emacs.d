@@ -108,6 +108,10 @@
   '((t :inherit default))
   "Face used by Ivy for highlighting modified file visiting buffers.")
 
+(defface ivy-modified-outside-buffer
+  '((t :inherit default))
+  "Face used by Ivy for highlighting file visiting buffers modified outside Emacs.")
+
 (defface ivy-remote
   '((((class color) (background light))
      :foreground "#110099")
@@ -1497,9 +1501,8 @@ This function is suitable as a replacement for
 
 (defun ivy-string< (x y)
   "Like `string<', but operate on CARs when given cons cells."
-  (if (consp x)
-      (string< (car x) (car y))
-    (string< x y)))
+  (string< (if (consp x) (car x) x)
+           (if (consp y) (car y) y)))
 
 (defcustom ivy-sort-functions-alist
   '((read-file-name-internal . ivy-sort-file-function-default)
@@ -3797,10 +3800,14 @@ Skip buffers that match `ivy-ignore-buffers'."
 (defun ivy-switch-buffer-transformer (str)
   "Transform candidate STR when switching buffers."
   (let ((b (get-buffer str)))
-    (if (and b
-             (buffer-file-name b)
-             (buffer-modified-p b))
-        (ivy-append-face str 'ivy-modified-buffer)
+    (if (and b (buffer-file-name b))
+        (cond
+          ((buffer-modified-p b)
+           (ivy-append-face str 'ivy-modified-buffer))
+          ((and (not (file-remote-p (buffer-file-name b)))
+                (not (verify-visited-file-modtime b)))
+           (ivy-append-face str 'ivy-modified-outside-buffer))
+          (t str))
       str)))
 
 (defun ivy-switch-buffer-occur ()

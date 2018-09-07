@@ -4,7 +4,7 @@
 
 ;; Author: Eric Danan
 ;; URL: https://github.com/ericdanan/counsel-projectile
-;; Package-Version: 20180903.1234
+;; Package-Version: 20180906.739
 ;; Keywords: project, convenience
 ;; Version: 0.3.0-snapshot
 ;; Package-Requires: ((counsel "0.10.0") (projectile "1.0.0"))
@@ -678,7 +678,6 @@ called with a prefix argument."
        (car (split-string counsel-projectile-grep-base-command)))
       (setq counsel-projectile-grep-command
             (format counsel-projectile-grep-base-command ignored path))
-      (ivy-set-prompt 'counsel-projectile-grep counsel-prompt-function)
       (ivy-read (projectile-prepend-project-name "grep")
                 #'counsel-projectile-grep-function
                 :initial-input counsel-projectile-grep-initial-input
@@ -710,12 +709,7 @@ with a prefix argument."
                      " "))
          (counsel-git-grep-cmd-default
           (concat (string-trim-right counsel-git-grep-cmd-default " \\.")
-                  " " path))
-         (counsel-prompt-function
-          (lambda ()
-            (ivy-add-prompt-count
-             (format "%s: " (projectile-prepend-project-name
-                             (ivy-state-prompt ivy-last)))))))
+                  " " path)))
     (counsel-git-grep (or current-prefix-arg cmd)
                       counsel-projectile-grep-initial-input)))
 

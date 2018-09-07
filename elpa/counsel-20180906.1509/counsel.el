@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20180905.1509
+;; Package-Version: 20180906.1509
 ;; Version: 0.10.0
 ;; Package-Requires: ((emacs "24.3") (swiper "0.9.0"))
 ;; Keywords: convenience, matching, tools
@@ -2228,7 +2228,8 @@ INITIAL-INPUT can be given as the initial minibuffer input."
             :action (lambda (file)
                       (when file
                         (with-ivy-window
-                          (find-file file))))
+                          (find-file
+                           (concat (file-remote-p default-directory) file)))))
             :unwind #'counsel-delete-process
             :caller 'counsel-locate))
 
