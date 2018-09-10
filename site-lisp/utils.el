@@ -58,6 +58,7 @@
 (use-package counsel
   :after ivy
   :ensure t
+  :diminish
   :bind (("C-c C-r" . ivy-resume)
          ("M-x" . counsel-M-x)
          ("C-x C-f" . counsel-find-file)
