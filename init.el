@@ -33,14 +33,6 @@
                              (when (eql window-system nil)
                                (menu-bar-mode -1))))
 ;;; frame
-(defun contextual-menubar (&optional frame)
-  "Display the menubar in FRAME (default: selected frame) if on a
-    graphical display, but hide it if in terminal."
-  (interactive)
-  (set-frame-parameter frame 'menu-bar-lines
-                             (if (display-graphic-p frame)
-                                  1 0)))
-(add-hook 'after-make-frame-functions 'contextual-menubar)
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
 
 (unless (window-system)
