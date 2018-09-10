@@ -69,14 +69,7 @@
   ;;   :init
   ;;   (add-to-list 'company-backends 'company-anaconda))
 
-  (use-package pipenv
-    :ensure t
-    :hook (python-mode . pipenv-mode)
-    :init
-    (setq pipenv-projectile-after-switch-function #'pipenv-projectile-after-switch-extended))
-
   (use-package auto-virtualenvwrapper
-    :disabled
     :ensure t
     :init
     (add-hook 'python-mode-hook #'auto-virtualenvwrapper-activate)
