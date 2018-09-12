@@ -45,7 +45,7 @@ adoption would make life easier for users and maintainers alike, because
 then all packages that talk to forge APIs could be configured the same
 way.
 
-This manual is for Ghub version 2.0.1 (v2.0.1-39-g52e5352+1).
+This manual is for Ghub version 2.0.1 (v2.0.1-48-g87701ea+1).
 
      Copyright (C) 2017-2018 Jonas Bernoulli <jonas@bernoul.li>
 
@@ -66,6 +66,7 @@ This manual is for Ghub version 2.0.1 (v2.0.1-39-g52e5352+1).
 * Using Ghub in Personal Scripts::
 * Using Ghub in a Package::
 * API::
+* GraphQL Support::
 * Support for Other Forges::
 
 — The Detailed Node Listing —
@@ -535,7 +536,7 @@ behalf of which package a request is being made by passing the symbol
           Scopes for USERNAME^PACKAGE@HOST: (SCOPE...)
 
 
-File: ghub.info,  Node: API,  Next: Support for Other Forges,  Prev: Using Ghub in a Package,  Up: Top
+File: ghub.info,  Node: API,  Next: GraphQL Support,  Prev: Using Ghub in a Package,  Up: Top
 
 5 API
 *****
@@ -976,9 +977,140 @@ machine, which is done using a lisp variable.
      value returned by ‘system-name’.
 
 
-File: ghub.info,  Node: Support for Other Forges,  Prev: API,  Up: Top
+File: ghub.info,  Node: GraphQL Support,  Next: Support for Other Forges,  Prev: API,  Up: Top
 
-6 Support for Other Forges
+6 GraphQL Support
+*****************
+
+ -- Function: ghub-graphql graphql &optional variables &key username
+          auth host callback silent callback errorback value extra
+
+     This function makes a GraphQL request using ‘GRAPHQL’ and
+     ‘VARIABLES’ as inputs.  ‘GRAPHQL’ is a GraphQL string.  ‘VARIABLES’
+     is a JSON-like alist.  The other arguments behave as for
+     ‘ghub-request’ (which see).
+
+     The response is returned as a JSON-like alist.  Even if the
+     response contains ‘errors’, this function does not raise an error.
+     Cursor-handling is likewise left to the caller.
+
+   ‘ghub-graphql’ is a thin convenience wrapper around ‘ghub-request’,
+similar to ‘ghub-post’ and friends.  While the latter only hard-code the
+value of the ‘METHOD’ argument, the former also hard-codes ‘RESOURCE’
+and constructs ‘PAYLOAD’ from ‘GRAPHEQL’ and ‘VARIABLES’.  It also drops
+‘UNPAGINATE’, ‘NOERROR’, ‘READER’ (internal functions expect alist-ified
+JSON) and ‘FORGE’ (only Github currently supports GraphQL).
+
+   ‘ghub-graphql’ does not account for the fact that pagination works
+differently in GraphQL than it does in REST, so users of this function
+have to deal with that themselves.  Likewise error handling works
+differently and has to be done by the caller too.
+
+   An early attempt at implementing automatic unpaginating for GraphQL
+can be found in the ‘faithful-graphql’ branch, provided I haven’t
+deleted that by now.  On that branch I try to do things as intended by
+the designers of GraphQL, using variables and fragments, and drowning in
+a sea of boilerplate.
+
+   The problem with that approach is that it only works for applications
+that fetch specific information on demand and actually want things to be
+paginated.  I am convinced that GraphQL is very nice for web apps.
+
+   However the Forge package for which I am implementing all of this has
+very different needs.  It wants to fetch "all the data" and "cache" it
+locally, so that it is available even when there is no internet
+connection.  GraphQL was designed around the idea that you should be
+able to "ask for what you need and get exactly that".  But when that
+boils down to "look, if I persist, then you are going to hand me over
+all the data anyway, so just caught it up already", then things start to
+fall apart.  If Github’s GraphQL allowed pagination to be turned off
+completely, then teaching ‘ghub-graphql’ about error handling would be
+enough.
+
+   But it doesn’t and when doing things as intended, then that leads to
+huge amounts of repetitive boilerplate, which is so boring to write that
+doing it without introducing bugs left and right is near impossible; so
+I decided to give up on GraphQL variables, fragments and conditions, and
+instead implement something more powerful, though also more opinionated.
+
+ -- Function: ghub--graphql-vacuum query variables callback &optional
+          until &key narrow username auth host forge
+
+     This function is an opinionated alternative to ‘ghub-graphql’.  It
+     relies and dark magic to get the job done.
+
+     It makes an initial request using ‘QUERY’.  It then looks for
+     paginated edges in the returned data and makes more requests to
+     resolve them.  In order to do so it automatically transforms the
+     initial ‘QUERY’ into another query suitable for that particular
+     edge.  The data retrieved by subsequent requests is then injected
+     into the data of the original request before that is returned or
+     passed to the callback.  If subsequently retrieved data features
+     new paginated edges, then those are followed recursively.
+
+     The end result is essentially the same as using ‘ghub-graphql’, if
+     only it were possible to say "do not paginate anything".  The
+     implementation is much more complicated because it is not possible
+     to do that.
+
+     ‘QUERY’ is a GraphQL query expressed as an s-expression.  The
+     ‘graphql’ package is used to turn that into a GraphQL query string,
+     but the format is somewhat different than as documented for that
+     package.  Also only a subset of the GraphQL features are supported;
+     fragments for example are not, and magical stuff happens to
+     variables.  This is not documented yet, I am afraid.  Look at
+     existing callers.
+
+     ‘VARIABLES’ is a JSON-like alist as for ‘ghub-graphql’.
+
+     ‘UNTIL’ is an alist ‘((EDGE-until . VALUE)...)’.  When unpaginating
+     ‘EDGE’ try not to fetch beyond the element whose first field has
+     the value ‘VALUE’ and remove that element as well as all "lesser"
+     elements from the retrieved data if necessary.  Look at
+     ‘forge--pull-repository’ for an example.  This is only useful if
+     you "cache" the response locally and want to avoid fetching data
+     again that you already have.
+
+     Other arguments behave as for ‘ghub-graphql’ and ‘ghub-request’,
+     more or less.
+
+   Using ‘ghub--graphql-vacuum’, the following resource specific
+functions are implemented.  These functions are not part of the public
+API yet and are very much subject to change.
+
+ -- Function: ghub-fetch-repository owner name callback &optional until
+          &key username auth host forge
+
+     This function asynchronously fetches forge data about the specified
+     repository.  Once all data has been collected, ‘CALLBACK’ is called
+     with the data as the only argument.
+
+ -- Function: ghub-fetch-issue owner name callback &optional until &key
+          username auth host forge
+
+     This function asynchronously fetches forge data about the specified
+     issue.  Once all data has been collected, ‘CALLBACK’ is called with
+     the data as the only argument.
+
+ -- Function: ghub-fetch-pullreq owner name callback &optional until
+          &key username auth host forge
+
+     This function asynchronously fetches forge data about the specified
+     pull-request.  Once all data has been collected, ‘CALLBACK’ is
+     called with the data as the only argument.
+
+   Note that in order to avoid duplication all of these functions base
+their initial query on the query stored in ‘ghub-fetch-repository’.  The
+latter two pass that query through ‘ghub--graphql-prepare-query’, which
+then used ‘ghub--graphql-narrow-query’ to remove parts the caller is not
+interested in.  These two functions are also used internally, when
+unpaginating, but as demonstrated here they can be useful even before
+making an initial request.
+
+
+File: ghub.info,  Node: Support for Other Forges,  Prev: GraphQL Support,  Up: Top
+
+7 Support for Other Forges
 **************************
 
 * Menu:
@@ -989,7 +1121,7 @@ File: ghub.info,  Node: Support for Other Forges,  Prev: API,  Up: Top
 
 File: ghub.info,  Node: Forge Functions and Variables,  Next: Forge Limitations and Notes,  Up: Support for Other Forges
 
-6.1 Forge Functions and Variables
+7.1 Forge Functions and Variables
 =================================
 
 Originally Ghub supported only Github but now it also supports Gitlab,
@@ -1097,7 +1229,7 @@ instead pass constant values for the arguments METHOD and/or FORGE.
 
 File: ghub.info,  Node: Forge Limitations and Notes,  Prev: Forge Functions and Variables,  Up: Support for Other Forges
 
-6.2 Forge Limitations and Notes
+7.2 Forge Limitations and Notes
 ===============================
 
    • The token creation wizard is only available for ‘github’ forges,
@@ -1144,21 +1276,22 @@ File: ghub.info,  Node: Forge Limitations and Notes,  Prev: Forge Functions and 
 
 Tag Table:
 Node: Top763
-Node: Introduction3259
-Node: Getting Started6301
-Node: Setting the Username9461
-Node: Interactively Creating and Storing a Token10886
-Node: Manually Creating and Storing a Token16526
-Node: How Ghub uses Auth-Source17749
-Node: Using Ghub in Personal Scripts19682
-Node: Using Ghub in a Package21138
-Node: API23756
-Node: Making Requests24562
-Node: Authentication38601
-Node: Configuration Variables40446
-Node: Support for Other Forges44166
-Node: Forge Functions and Variables44371
-Node: Forge Limitations and Notes48890
+Node: Introduction3279
+Node: Getting Started6321
+Node: Setting the Username9481
+Node: Interactively Creating and Storing a Token10906
+Node: Manually Creating and Storing a Token16546
+Node: How Ghub uses Auth-Source17769
+Node: Using Ghub in Personal Scripts19702
+Node: Using Ghub in a Package21158
+Node: API23776
+Node: Making Requests24573
+Node: Authentication38612
+Node: Configuration Variables40457
+Node: GraphQL Support44177
+Node: Support for Other Forges50842
+Node: Forge Functions and Variables51059
+Node: Forge Limitations and Notes55578
 
 End Tag Table
 

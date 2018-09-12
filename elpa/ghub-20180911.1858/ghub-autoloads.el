@@ -49,6 +49,13 @@ and call `auth-source-forget+'.
 
 ;;;***
 
+;;;### (autoloads nil "ghub-graphql" "ghub-graphql.el" (0 0 0 0))
+;;; Generated autoloads from ghub-graphql.el
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ghub-graphql" '("ghub-")))
+
+;;;***
+
 ;;;### (autoloads nil "glab" "glab.el" (0 0 0 0))
 ;;; Generated autoloads from glab.el
 
@@ -70,8 +77,7 @@ and call `auth-source-forget+'.
 
 ;;;***
 
-;;;### (autoloads nil nil ("ghub-graphql.el" "ghub-pkg.el") (0 0
-;;;;;;  0 0))
+;;;### (autoloads nil nil ("ghub-pkg.el") (0 0 0 0))
 
 ;;;***
 

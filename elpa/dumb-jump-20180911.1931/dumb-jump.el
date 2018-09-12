@@ -2,7 +2,7 @@
 ;; Copyright (C) 2015-2018 jack angers
 ;; Author: jack angers
 ;; Version: 0.5.2
-;; Package-Version: 20180818.2342
+;; Package-Version: 20180911.1931
 ;; Package-Requires: ((emacs "24.3") (f "0.20.0") (s "1.11.0") (dash "2.9.0") (popup "0.5.3"))
 ;; Keywords: programming
 
@@ -1271,6 +1271,7 @@ or most optimal searcher."
     (:language "ruby" :ext "rb" :agtype "ruby" :rgtype "ruby")
     (:language "ruby" :ext "erb" :agtype "ruby" :rgtype nil)
     (:language "ruby" :ext "haml" :agtype "ruby" :rgtype nil)
+    (:language "ruby" :ext "rake" :agtype "ruby" :rgtype nil)
     (:language "ruby" :ext "slim" :agtype "ruby" :rgtype nil)
     (:language "rust" :ext "rs" :agtype "rust" :rgtype "rust")
     (:language "scala" :ext "scala" :agtype "scala" :rgtype "scala")
