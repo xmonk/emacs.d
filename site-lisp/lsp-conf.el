@@ -7,7 +7,7 @@
   (add-hook 'lsp-after-open-hook 'lsp-enable-imenu)
   (add-hook 'python-mode-hook (lambda () (lsp-python-enable)))
   :config
-  (use-package lsp-imenu :after lsp-mode)
+  (use-package lsp-imenu)
   (lsp-define-stdio-client lsp-python "python"
                            #'jj/pwd
                            ;; #'projectile-project-root
@@ -17,6 +17,7 @@
   :ensure t
   :after lsp-mode
   :init
+  (setq lsp-ui-sideline-show-symbol nil)
   (setq lsp-ui-sideline-ignore-duplicate t)
   (add-hook 'lsp-mode-hook 'lsp-ui-mode))
 
