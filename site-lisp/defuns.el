@@ -633,7 +633,7 @@ active, apply to active region instead."
       (codesearch-search pattern file-pattern))
      (setq codesearch-csearchindex "~/.csearchindex")))
 
-(defun init-maxframe()
+(defun jj/init-maxframe()
   "Resize frame on init."
   (let ((px (display-pixel-width))
         (py (display-pixel-height))
