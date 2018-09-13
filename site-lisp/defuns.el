@@ -74,13 +74,6 @@
   (interactive)
   (jj/smart-split-helper nil))
 
-;; Insert a shebang to the beginning of buffer.
-(defun jj/insert-shebang(arg)
-  "Insert the `ARG` you specify in it's proper location."
-  (interactive "sEnter the shebang you want: ")
-  (goto-char (point-min))
-  (insert (concat arg "\n")))
-
 ;; Move lines a la TextMate
 (defun jj/move-line(&optional n)
   "Move current line N (1) lines up/down leaving point in place."
