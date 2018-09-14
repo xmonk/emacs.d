@@ -37,12 +37,6 @@
 
   (defadvice magit-mode-quit-window (after magit-restore-screen activate)
     (jump-to-register :magit-fullscreen)))
-(use-package magithub
-    :disabled
-    :ensure t
-    :after magit
-    :config
-    (magithub-feature-autoinject t))
 
 (use-package magit-todos
   :ensure t
