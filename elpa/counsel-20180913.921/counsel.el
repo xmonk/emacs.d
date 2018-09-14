@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20180906.1509
+;; Package-Version: 20180913.921
 ;; Version: 0.10.0
 ;; Package-Requires: ((emacs "24.3") (swiper "0.9.0"))
 ;; Keywords: convenience, matching, tools
@@ -4568,6 +4568,7 @@ selected color."
   '("~/.local/share/applications/"
     "~/.guix-profile/share/applications/"
     "/usr/local/share/applications/"
+    "/var/lib/flatpak/exports/share/applications/"
     "/usr/share/applications/")
   "Directories in which to search for applications (.desktop files)."
   :group 'ivy
