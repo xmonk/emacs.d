@@ -29,22 +29,22 @@
 (defvar jj-faces
   `(default))
 
-(let ((white "white")
-      (black "black"))
+(let ((white "#FFFFFF")
+      (black "#000000"))
 
   (apply 'custom-theme-set-faces 'jj-darkcl
-		 `(highlight ((t (:background "gray72" :foreground "black" :weight bold))))
+		 `(highlight ((t (:background "gray72" :foreground ,black :weight bold))))
 		 `(region ((t (:background "#525353" :foreground ,white))))
-		 `(company-preview ((t (:foreground ,white ::underline t :height 120))))
+		 `(company-preview ((t (:foreground ,white ::underline t :height 130))))
 		 `(company-preview-common ((t (:inherit company-preview))))
 		 `(company-scrollbar-bg ((t (:background ,black :foreground ,white))))
 		 `(company-scrollbar-fg ((t (:background ,white :foreground ,black))))
-		 `(company-tooltip ((t (:background ,black :foreground ,white :height 120))))
+		 `(company-tooltip ((t (:background ,black :foreground ,white :height 130))))
 		 `(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
 		 `(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
-		 `(company-tooltip-selection ((t (:background ,white :foreground ,black :height 120))))
+		 `(company-tooltip-selection ((t (:background ,white :foreground ,black :height 130))))
 		 `(company-tooltip-annotation ((t (:foreground "gray31" :weight bold))))
-         ;;; eshell
+     ;; eshell
 		 `(eshell-prompt ((t (:inherit default))))
 		 (mapcar (lambda (n) `(,n ((t (:background ,black :foreground ,white))))) jj-faces)))
 
