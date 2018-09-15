@@ -29,29 +29,32 @@
 (defvar jj-faces
   `(default))
 
+(defvar darkcl-company-fontsize 100)
+
 (let ((white "white")
-      (black "black"))
+      (black "black")
+      (fontsize darkcl-company-fontsize))
 
   (apply 'custom-theme-set-faces 'jj-darkcl
-		 `(highlight ((t (:background "gray72" :foreground "black" :weight bold))))
-		 `(region ((t (:background "#525353" :foreground ,white))))
-		 `(company-preview ((t (:foreground ,white ::underline t :height 120))))
-		 `(company-preview-common ((t (:inherit company-preview))))
-		 `(company-scrollbar-bg ((t (:background ,black :foreground ,white))))
-		 `(company-scrollbar-fg ((t (:background ,white :foreground ,black))))
-		 `(company-tooltip ((t (:background ,black :foreground ,white :height 120))))
-		 `(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
-		 `(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
-		 `(company-tooltip-selection ((t (:background ,white :foreground ,black :height 120))))
-		 `(company-tooltip-annotation ((t (:foreground "gray31" :weight bold))))
-         ;;; eshell
-		 `(eshell-prompt ((t (:inherit default))))
-		 (mapcar (lambda (n) `(,n ((t (:background ,black :foreground ,white))))) jj-faces)))
+		     `(highlight ((t (:background "gray72" :foreground "black" :weight bold))))
+		     `(region ((t (:background "#525353" :foreground ,white))))
+		     `(company-preview ((t (:foreground ,white ::underline t :height ,fontsize))))
+		     `(company-preview-common ((t (:inherit company-preview))))
+		     `(company-scrollbar-bg ((t (:background ,black :foreground ,white))))
+		     `(company-scrollbar-fg ((t (:background ,white :foreground ,black))))
+		     `(company-tooltip ((t (:background ,black :foreground ,white :height ,fontsize))))
+		     `(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
+		     `(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
+		     `(company-tooltip-selection ((t (:background ,white :foreground ,black :height ,fontsize))))
+		     `(company-tooltip-annotation ((t (:foreground "gray31" :weight bold))))
+         ;; eshell
+		     `(eshell-prompt ((t (:inherit default))))
+		     (mapcar (lambda (n) `(,n ((t (:background ,black :foreground ,white))))) jj-faces)))
 
 ;;;###autoload
 (when load-file-name
   (add-to-list 'custom-theme-load-path
-			   (file-name-as-directory (file-name-directory load-file-name))))
+			         (file-name-as-directory (file-name-directory load-file-name))))
 
 (provide-theme 'jj-darkcl)
 ;; Local Variables:
