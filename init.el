@@ -87,8 +87,6 @@
 (use-package org-conf :defer 0.5)
 (use-package prog-conf :defer 0.4)
 (use-package company-conf :defer 0.5)
-(use-package lsp-conf :defer 0.5)
-(init-maxframe)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
