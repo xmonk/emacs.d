@@ -19,7 +19,7 @@ END-INFO-DIR-ENTRY
 
 Indirect:
 magit.info-1: 753
-magit.info-2: 305279
+magit.info-2: 305281
 
 Tag Table:
 (Indirect)
@@ -97,84 +97,84 @@ Node: The Two Remotes185641
 Node: The Branch Popup188258
 Node: The Branch Config Popup205311
 Node: Auxillary Branch Commands211252
-Node: Merging212355
-Node: Resolving Conflicts216280
-Node: Rebasing221281
-Node: Editing Rebase Sequences225438
-Node: Information About In-Progress Rebase228468
-Ref: Information About In-Progress Rebase-Footnote-1237217
-Node: Cherry Picking237813
-Node: Reverting242065
-Node: Resetting243428
-Node: Stashing245039
-Node: Transferring249552
-Node: Remotes249790
-Node: The Remote Popup249946
-Node: The Remote Config Popup253414
-Node: Fetching255070
-Node: Pulling256426
-Node: Pushing257262
-Node: Creating and Sending Patches261997
-Node: Applying Patches262834
-Node: Miscellaneous264420
-Node: Tagging264736
-Node: Notes266077
-Node: Submodules268388
-Node: Listing Submodules268602
-Node: Submodule Popup270526
-Node: Subtree272979
-Node: Worktree274219
-Node: Common Commands275429
-Node: Wip Modes277176
-Node: Minor Mode for Buffers Visiting Files286051
-Node: Minor Mode for Buffers Visiting Blobs291458
-Node: Customizing292271
-Node: Per-Repository Configuration293939
-Node: Essential Settings295588
-Node: Safety295912
-Node: Performance297677
-Node: Microsoft Windows Performance305279
-Node: MacOS Performance306470
-Ref: MacOS Performance-Footnote-1307706
-Ref: MacOS Performance-Footnote-2307788
-Ref: MacOS Performance-Footnote-3307848
-Node: Plumbing308014
-Node: Calling Git308837
-Node: Getting a Value from Git310362
-Node: Calling Git for Effect313448
-Node: Section Plumbing319968
-Node: Creating Sections320196
-Node: Section Selection324096
-Node: Matching Sections325776
-Node: Refreshing Buffers331228
-Node: Conventions334370
-Node: Theming Faces334562
-Node: FAQ342677
-Node: FAQ - How to ...?343119
-Node: How to show git's output?343479
-Node: How to install the gitman info manual?344233
-Node: How to show diffs for gpg-encrypted files?345203
-Node: How does branching and pushing work?345799
-Node: Can Magit be used as ediff-version-control-package?346162
-Node: FAQ - Issues and Errors348151
-Node: Magit is slow349083
-Node: I changed several thousand files at once and now Magit is unusable349297
-Node: I am having problems committing350026
-Node: I am using MS Windows and cannot push with Magit350507
-Node: I am using OS X and SOMETHING works in shell but not in Magit351124
-Node: Diffs contain control sequences351930
-Node: Expanding a file to show the diff causes it to disappear353043
-Node: Point is wrong in the COMMIT_EDITMSG buffer353594
-Node: The mode-line information isn't always up-to-date354640
-Node: A branch and tag sharing the same name breaks SOMETHING355722
-Node: My Git hooks work on the command-line but not inside Magit356610
-Node: git-commit-mode isn't used when committing from the command-line357447
-Node: Point ends up inside invisible text when jumping to a file-visiting buffer359714
-Node: Debugging Tools360512
-Node: Keystroke Index362399
-Node: Command Index394412
-Node: Function Index429285
-Node: Variable Index444739
+Node: Merging212357
+Node: Resolving Conflicts216282
+Node: Rebasing221283
+Node: Editing Rebase Sequences225440
+Node: Information About In-Progress Rebase228470
+Ref: Information About In-Progress Rebase-Footnote-1237219
+Node: Cherry Picking237815
+Node: Reverting242067
+Node: Resetting243430
+Node: Stashing245041
+Node: Transferring249554
+Node: Remotes249792
+Node: The Remote Popup249948
+Node: The Remote Config Popup253416
+Node: Fetching255072
+Node: Pulling256428
+Node: Pushing257264
+Node: Creating and Sending Patches261999
+Node: Applying Patches262836
+Node: Miscellaneous264422
+Node: Tagging264738
+Node: Notes266079
+Node: Submodules268390
+Node: Listing Submodules268604
+Node: Submodule Popup270528
+Node: Subtree272981
+Node: Worktree274221
+Node: Common Commands275431
+Node: Wip Modes277178
+Node: Minor Mode for Buffers Visiting Files286053
+Node: Minor Mode for Buffers Visiting Blobs291460
+Node: Customizing292273
+Node: Per-Repository Configuration293941
+Node: Essential Settings295590
+Node: Safety295914
+Node: Performance297679
+Node: Microsoft Windows Performance305281
+Node: MacOS Performance306472
+Ref: MacOS Performance-Footnote-1307708
+Ref: MacOS Performance-Footnote-2307790
+Ref: MacOS Performance-Footnote-3307850
+Node: Plumbing308016
+Node: Calling Git308839
+Node: Getting a Value from Git310364
+Node: Calling Git for Effect313450
+Node: Section Plumbing319970
+Node: Creating Sections320198
+Node: Section Selection324098
+Node: Matching Sections325897
+Node: Refreshing Buffers331841
+Node: Conventions334983
+Node: Theming Faces335175
+Node: FAQ343290
+Node: FAQ - How to ...?343732
+Node: How to show git's output?344092
+Node: How to install the gitman info manual?344846
+Node: How to show diffs for gpg-encrypted files?345816
+Node: How does branching and pushing work?346412
+Node: Can Magit be used as ediff-version-control-package?346775
+Node: FAQ - Issues and Errors348764
+Node: Magit is slow349696
+Node: I changed several thousand files at once and now Magit is unusable349910
+Node: I am having problems committing350639
+Node: I am using MS Windows and cannot push with Magit351120
+Node: I am using OS X and SOMETHING works in shell but not in Magit351737
+Node: Diffs contain control sequences352543
+Node: Expanding a file to show the diff causes it to disappear353656
+Node: Point is wrong in the COMMIT_EDITMSG buffer354207
+Node: The mode-line information isn't always up-to-date355253
+Node: A branch and tag sharing the same name breaks SOMETHING356335
+Node: My Git hooks work on the command-line but not inside Magit357223
+Node: git-commit-mode isn't used when committing from the command-line358060
+Node: Point ends up inside invisible text when jumping to a file-visiting buffer360327
+Node: Debugging Tools361125
+Node: Keystroke Index363012
+Node: Command Index395025
+Node: Function Index429898
+Node: Variable Index445352
 
 End Tag Table
 
