@@ -48,11 +48,7 @@
 
 ;;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-
-(use-package doom-themes
-  :ensure t
-  :config
-  (load-theme 'doom-tomorrow-night t))
+(load-theme 'jj-darkcl t)
 
 (when (window-system)
   ;; set font
