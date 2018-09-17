@@ -53,7 +53,8 @@
 (when (window-system)
   ;; set font
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
-  (setenv "TMPDIR" "/tmp"))
+  (setenv "TMPDIR" "/tmp")
+  (toggle-frame-maximized))
 
 ;; Load customization's
 (cond ((eql system-type 'darwin)
