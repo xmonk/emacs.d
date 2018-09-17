@@ -694,7 +694,8 @@ Return the merged plist."
 (defun lsp--client-textdocument-capabilities ()
   "Client Text document capabilities according to LSP."
   `(:synchronization (:willSave t :didSave t :willSaveWaitUntil t)
-                     :symbol (:symbolKind (:valueSet ,(cl-coerce (cl-loop for kind from 1 to 25 collect kind) 'vector)))
+                     :documentSymbol (:symbolKind (:valueSet ,(cl-coerce (cl-loop for kind from 1 to 25 collect kind) 'vector))
+                                                  :hierarchicalDocumentSymbolSupport t)
                      :formatting (:dynamicRegistration t)
                      :codeAction (:dynamicRegistration t)))
 
@@ -1404,11 +1405,15 @@ https://microsoft.github.io/language-server-protocol/specification#textDocument_
 (defun lsp--annotate (item)
   (let* ((table (plist-get (text-properties-at 0 item) 'lsp-completion-item))
          (detail (gethash "detail" table nil))
-         (kind (aref lsp--completion-item-kind (gethash "kind" table nil))))
-    (concat
-     " "
-     detail
-     (when kind (format " (%s)" kind)))))
+         (kind-index (gethash "kind" table nil)))
+    ;; We need check index before call `aref'.
+    (when kind-index
+      (setq kind (aref lsp--completion-item-kind kind-index))
+      (concat
+       " "
+       detail
+       (when kind (format " (%s)" kind))))
+    ))
 
 (defun lsp--sort-string (c)
   (lsp--gethash "sortText" c (gethash "label" c "")))
@@ -1757,13 +1762,17 @@ type MarkupKind = 'plaintext' | 'markdown';"
     (when (and signature-help
                (lsp--point-is-within-bounds-p start end)
                (eq (current-buffer) buffer) (eldoc-display-message-p))
-      (let* ((active-signature-number
-              (or (gethash "activeSignature" signature-help) 0))
-             (active-signature (nth
-                                active-signature-number
-                                (gethash "signatures" signature-help))))
-        (when active-signature
-          (eldoc-message (gethash "label" active-signature)))))))
+      (when-let* ((sig-i (gethash "activeSignature" signature-help))
+                  (sig (seq-elt (gethash "signatures" signature-help) sig-i)))
+        (if-let* ((parameter-i (gethash "activeParameter" signature-help))
+                  ;; Bail out if activeParameter lies outside parameters.
+                  (parameter (seq-elt (gethash "parameters" sig) parameter-i))
+                  (param (gethash "label" parameter))
+                  (parts (split-string (gethash "label" sig) param)))
+            (eldoc-message (concat (car parts)
+                            (propertize param 'face 'eldoc-highlight-function-argument)
+                            (string-join (cdr parts) param)))
+         (eldoc-message (gethash "label" sig)))))))
 
 ;; NOTE: the code actions cannot currently be applied. There is some non-GNU
 ;; code to do this in the lsp-haskell module. We still need a GNU version, here.
@@ -1978,7 +1987,7 @@ A reference is highlighted only if it is visible in a window."
      (6 . "Method")
      (7 . "Property")
      (8 . "Field")
-     (9 . "Constructor"),
+     (9 . "Constructor")
      (10 . "Enum")
      (11 . "Interface")
      (12 . "Function")
