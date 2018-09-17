@@ -32,3 +32,4 @@ elpa/gnupg
 /bookmarks
 /.emacs.desktop
 /#*#
+/network-security.data
