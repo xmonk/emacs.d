@@ -9,7 +9,7 @@
 ;;;### (autoloads nil "lsp-common" "lsp-common.el" (0 0 0 0))
 ;;; Generated autoloads from lsp-common.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lsp-common" '("lsp-")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lsp-common" '("lsp-" "when-lsp-workspace" "with-lsp-workspace")))
 
 ;;;***
 

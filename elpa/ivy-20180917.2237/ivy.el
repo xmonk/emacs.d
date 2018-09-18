@@ -1361,7 +1361,11 @@ If so, move to that directory, while keeping only the file name."
           (append
            (ivy--sorted-files (setq ivy--directory dir))
            (when (and (string= dir "/") (featurep 'tramp))
-             (sort (mapcar #'file-name-nondirectory (tramp-get-completion-methods "")) #'string<))))
+             (sort
+              (mapcar
+               (lambda (s) (substring s 1))
+               (tramp-get-completion-methods ""))
+              #'string<))))
     (setq ivy-text "")
     (setf (ivy-state-directory ivy-last) dir)
     (delete-minibuffer-contents)))
@@ -1643,14 +1647,11 @@ like.")
   "Return the list of files in DIR.
 Directories come first."
   (let* ((default-directory dir)
-         (predicate (ivy-state-predicate ivy-last))
          (seq (condition-case nil
-                  (all-completions "" #'read-file-name-internal)
+                  (all-completions "" #'read-file-name-internal
+                                   (ivy-state-predicate ivy-last))
                 (error
                  (directory-files dir))))
-         (seq (if predicate
-                  (cl-remove-if-not predicate seq)
-                seq))
          sort-fn)
     (setq seq (delete "./" (delete "../" seq)))
     (when (eq (setq sort-fn (ivy--sort-function #'read-file-name-internal))
