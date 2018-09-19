@@ -125,7 +125,7 @@
   :diminish counsel-gtags-mode
   :bind (("M-t" . counsel-gtags-find-definition)
          ("M-r" . counsel-gtags-find-reference)
-         ("M-s" . counsel-find-symbols)
+         ("M-s" . counsel-gtags-find-symbol)
          ("M-," . counsel-gtags-go-backward)
          ("M-." . counsel-gtags-dwim))
   :init
