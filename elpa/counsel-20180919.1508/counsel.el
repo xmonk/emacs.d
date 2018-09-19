@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20180913.921
+;; Package-Version: 20180919.1508
 ;; Version: 0.10.0
 ;; Package-Requires: ((emacs "24.3") (swiper "0.9.0"))
 ;; Keywords: convenience, matching, tools
@@ -2167,13 +2167,13 @@ string - the full shell command to run."
   (if (and (eq system-type 'windows-nt)
            (fboundp 'w32-shell-execute))
       (w32-shell-execute "open" x)
-    (start-process-shell-command shell-file-name nil
-                                 (format "%s %s"
-                                         (cl-case system-type
-                                           (darwin "open")
-                                           (cygwin "cygstart")
-                                           (t "xdg-open"))
-                                         (shell-quote-argument x)))))
+    (call-process-shell-command (format "%s %s"
+                                        (cl-case system-type
+                                          (darwin "open")
+                                          (cygwin "cygstart")
+                                          (t "xdg-open"))
+                                        (shell-quote-argument x))
+                                nil 0)))
 
 (defalias 'counsel-find-file-extern #'counsel-locate-action-extern)
 
@@ -3822,11 +3822,13 @@ And insert it into the minibuffer.  Useful during `eval-expression'."
   "Use Ivy to navigate through ELEMENTS."
   (setq ivy-completion-beg (point))
   (setq ivy-completion-end (point))
-  (ivy-read "Symbol name: "
-            (delete-dups
-             (when (> (ring-size elements) 0)
-               (ring-elements elements)))
-            :action #'ivy-completion-in-region-action))
+  (let ((cands
+         (delete-dups
+          (when (> (ring-size elements) 0)
+            (ring-elements elements)))))
+    (ivy-read "Symbol name: " cands
+              :action #'ivy-completion-in-region-action
+              :caller 'counsel-shell-history)))
 
 (defvar eshell-history-ring)
 
@@ -4645,7 +4647,7 @@ This function always returns its elements in a stable order."
         (let ((dir (file-name-as-directory dir)))
           (dolist (file (directory-files-recursively dir ".*\\.desktop$"))
             (let ((id (subst-char-in-string ?/ ?- (file-relative-name file dir))))
-              (unless (gethash id hash)
+              (when (and (not (gethash id hash)) (file-readable-p file))
                 (push (cons id file) result)
                 (puthash id file hash)))))))
     result))
