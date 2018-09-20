@@ -2,7 +2,7 @@
 (use-package company
   :ensure t
   :commands (company-mode company-complete)
-  :bind (("C-c TAB" . company-complete))
+  :bind (("C-c TAB" . company-complete-common-or-cycle))
   :diminish company-mode
   :init
   (setq company-tooltip-align-annotations t)
