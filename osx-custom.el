@@ -71,7 +71,7 @@
  '(ivy-virtual-abbreviate 'full)
  '(magit-diff-use-overlays nil)
  '(package-selected-packages
-   '(company-ycmd ycmd dumb-jump ivy-xref ivy-rich night-owl counsel counsel-gtags counsel-projectile counsel-pydoc swiper ggtags deadgrep lsp-python company-lsp lsp-ui lsp-mode ace-window exec-path-from-shell doom-themes pipenv whole-line-or-region yaml-mode magithub flycheck-irony cmake-mode edit-indirect clang-format diminish org elisp-slime-nav irony anaconda-mode go-mode flycheck company xcscope web-mode use-package undo-tree py-yapf projectile paredit markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine expand-region company-irony-c-headers company-irony company-go company-flx company-anaconda browse-kill-ring))
+   '(company-racer cargo racer flycheck-rust rust-mode company-ycmd ycmd dumb-jump ivy-xref ivy-rich night-owl counsel counsel-gtags counsel-projectile counsel-pydoc swiper ggtags deadgrep lsp-python company-lsp lsp-ui lsp-mode ace-window exec-path-from-shell doom-themes pipenv whole-line-or-region yaml-mode magithub flycheck-irony cmake-mode edit-indirect clang-format diminish org elisp-slime-nav irony anaconda-mode go-mode flycheck company xcscope web-mode use-package undo-tree py-yapf projectile paredit markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine expand-region company-irony-c-headers company-irony company-go company-flx company-anaconda browse-kill-ring))
  '(pos-tip-background-color "#FFF9DC")
  '(pos-tip-foreground-color "#011627")
  '(projectile-globally-ignored-directories
