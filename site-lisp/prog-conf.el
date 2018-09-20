@@ -13,7 +13,7 @@
 (use-package sh-conf)
 (use-package eshell-conf)
 ;; (use-package ocaml-conf :when (file-directory-p (expand-file-name "~/.op am")))
-;; (use-package rust-conf :when (file-directory-p (expand-file-name "~/.cargo")))
+(use-package rust-conf :when (file-directory-p (expand-file-name "~/.cargo")))
 
 ;;; cscope
 (use-package xcscope
@@ -85,5 +85,11 @@
   :init
   (dumb-jump-mode t)
   (setq dumb-jump-selector 'ivy))
+
+(use-package sr-speedbar
+  :ensure t
+  :bind (("s-s" . sr-speedbar-toggle))
+  :init
+  (setq sr-speedbar-right-side nil))
 
 (provide 'prog-conf)
