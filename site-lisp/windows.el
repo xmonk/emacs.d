@@ -32,7 +32,9 @@
 ;;; multi-term
 (use-package multi-term
   :load-path "vendor/"
+  :commands multi-term
   :init
+  (defalias 'mterm 'multi-term)
   (setq multi-term-program (getenv "SHELL")))
 
 (provide 'windows)
