@@ -315,10 +315,12 @@ Text-mode emulation of looking and choosing from a menubar.
 
 (autoload 'counsel-yank-pop "counsel" "\
 Ivy replacement for `yank-pop'.
-ARG has the same meaning as in `yank-pop', but its default value
-can be controlled with `counsel-yank-pop-preselect-last', which
-see.  See also `counsel-yank-pop-filter' for how to filter
-candidates.
+With a plain prefix argument (\\[universal-argument]),
+temporarily toggle the value of `counsel-yank-pop-after-point'.
+Any other value of ARG has the same meaning as in `yank-pop', but
+`counsel-yank-pop-preselect-last' determines its default value.
+See also `counsel-yank-pop-filter' for how to filter candidates.
+
 Note: Duplicate elements of `kill-ring' are always deleted.
 
 \(fn &optional ARG)" t nil)

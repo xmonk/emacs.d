@@ -166,7 +166,7 @@ TODO
 (autoload 'doom-themes-set-faces "doom-themes" "\
 Customize THEME (a symbol) with FACES.
 
-\(fn THEME &rest FACES)" nil t)
+\(fn THEME &rest FACES)" nil nil)
 
 (function-put 'doom-themes-set-faces 'lisp-indent-function 'defun)
 

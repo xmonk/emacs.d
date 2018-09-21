@@ -108,7 +108,11 @@ Optional arguments ARG, KEYS, and RESTRICTION are as in
 (autoload 'counsel-projectile-switch-project "counsel-projectile" "\
 Switch project.
 
-\(fn)" t nil)
+Optional argument DEFAULT-ACTION is the key, function, name, or
+index in the list `counsel-projectile-switch-project-action' (1
+for the first action, etc) of the action to set as default.
+
+\(fn &optional DEFAULT-ACTION)" t nil)
 
 (autoload 'counsel-projectile "counsel-projectile" "\
 Jump to a buffer or file in the current project.
