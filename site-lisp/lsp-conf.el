@@ -1,7 +1,7 @@
 ;; lsp
 
 (use-package lsp-mode
-  :ensure t
+  :disabled
   :commands (lsp-mode lsp-python-enable)
   :init
   (add-hook 'lsp-after-open-hook 'lsp-enable-imenu)
@@ -14,14 +14,14 @@
                            '("pyls")))
 
 (use-package lsp-ui
-  :ensure t
+  :disabled
   :after lsp-mode
   :init
   (setq lsp-ui-sideline-ignore-duplicate t)
   (add-hook 'lsp-mode-hook 'lsp-ui-mode))
 
 (use-package company-lsp
-  :ensure t
+  :disabled
   :after lsp-mode
   :init
   (add-hook 'company-mode-hook (lambda () (add-to-list 'company-backends 'company-lsp)))
