@@ -32,6 +32,7 @@
 
 (use-package company-ycmd
   :ensure t
+  :commands company-ycmd
   :init (company-ycmd-setup))
 
 (provide 'company-conf)
