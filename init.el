@@ -90,7 +90,6 @@
 (use-package markdown-conf :defer 0.6)
 (use-package org-conf :defer 0.5)
 (use-package prog-conf)
-(use-package evil-conf :disabled)
 (use-package company-conf :defer 0.5)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
