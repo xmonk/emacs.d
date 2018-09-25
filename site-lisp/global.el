@@ -28,7 +28,7 @@
 ;; (blink-cursor-mode -1)
 
 (when (string= "DRL01834" (system-name))
-  (setq frame-title-format '(multiple-frames "%b" ("" "%b @ notvim"))))
+  (setq frame-title-format '(multiple-frames "%b" ("" "notvim: %b"))))
 
 ;;; Encoding
 ;; utf-8

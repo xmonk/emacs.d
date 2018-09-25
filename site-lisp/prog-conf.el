@@ -66,8 +66,8 @@
   :functions flycheck-display-error-messages-unless-error-list
   :init
   ;; Override default flycheck triggers
-  (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled)
-        flycheck-idle-change-delay 0.3)
+  (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
+  (setq flycheck-idle-change-delay 0.3)
   (setq flycheck-highlighting-mode 'lines)
   (setq flycheck-display-errors-function 'flycheck-display-error-messages-unless-error-list)
   :config
