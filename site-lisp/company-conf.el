@@ -28,9 +28,7 @@
   :init
   ; Remember to customize this variable for your environment
   (set-variable 'ycmd-server-command `("python3" ,(file-truename "~/t/ycmd/ycmd/")))
-  (add-hook 'ycmd-mode-hook 'ycmd-eldoc-setup)
-  (add-hook 'go-mode-hook 'ycmd-mode)
-  (add-hook 'python-mode-hook 'ycmd-mode))
+  (add-hook 'ycmd-mode-hook 'ycmd-eldoc-setup))
 
 (use-package company-ycmd
   :ensure t
