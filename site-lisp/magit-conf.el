@@ -27,6 +27,8 @@
 (use-package magit
   :commands (magit-status mgit)
   :ensure t
+  :bind (("s-g s" . magit-status)
+         ("s-g b" . magit-branch-checkout))
   :init
   (defalias 'mgit 'magit-status)
   :config
