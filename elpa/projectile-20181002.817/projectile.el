@@ -4,7 +4,7 @@
 
 ;; Author: Bozhidar Batsov <bozhidar@batsov.com>
 ;; URL: https://github.com/bbatsov/projectile
-;; Package-Version: 20181001.1033
+;; Package-Version: 20181002.817
 ;; Keywords: project, convenience
 ;; Version: 1.1.0-snapshot
 ;; Package-Requires: ((emacs "25.1") (pkg-info "0.4"))
@@ -1006,11 +1006,7 @@ topmost sequence of matched directories.  Nil otherwise."
 
 (defun projectile-project-root (&optional dir)
   "Retrieves the root directory of a project if available.
-If DIR is not supplied its set to the current directory by default.
-
-When not in project the behaviour of the function is controlled by
-`projectile-require-project-root'.  If it's set to nil the function
-will return DIR or the current directory, otherwise it'd raise an error."
+If DIR is not supplied its set to the current directory by default."
   ;; the cached value will be 'none in the case of no project root (this is to
   ;; ensure it is not reevaluated each time when not inside a project) so use
   ;; cl-subst to replace this 'none value with nil so a nil value is used
@@ -1069,10 +1065,11 @@ explicitly."
   "Default function used create project name to be displayed based on the value of PROJECT-ROOT."
   (file-name-nondirectory (directory-file-name project-root)))
 
-(defun projectile-project-name ()
-  "Return project name."
+(defun projectile-project-name (&optional project)
+  "Return project name.
+If PROJECT is not specified acts on the current project."
   (or projectile-project-name
-      (let ((project-root (projectile-project-root)))
+      (let ((project-root (or project (projectile-project-root))))
         (if project-root
             (funcall projectile-project-name-function project-root)
           "-"))))
@@ -1084,9 +1081,9 @@ explicitly."
   (mapcar (lambda (subdir) (concat project-dir subdir))
           (or (nth 0 (projectile-parse-dirconfig-file)) '(""))))
 
-(defun projectile-dir-files (root directory)
+(defun projectile-dir-files (directory)
   "List the files in DIRECTORY and in its sub-directories.
-Files are returned as relative paths to the project ROOT."
+Files are returned as relative paths to DIRECTORY."
   ;; check for a cache hit first if caching is enabled
   (let ((files-list (and projectile-enable-caching
                          (gethash directory projectile-projects-cache))))
@@ -1094,7 +1091,7 @@ Files are returned as relative paths to the project ROOT."
     (or files-list
         (let ((vcs (projectile-project-vcs directory)))
           (pcase projectile-indexing-method
-           ('native (projectile-dir-files-native root directory))
+           ('native (projectile-dir-files-native directory))
            ;; use external tools to get the project files
            ('alien (projectile-adjust-files directory vcs (projectile-dir-files-external directory)))
            ('turbo-alien (projectile-dir-files-external directory))
@@ -1103,14 +1100,14 @@ Files are returned as relative paths to the project ROOT."
 ;;; Native Project Indexing
 ;;
 ;; This corresponds to `projectile-indexing-method' being set to native.
-(defun projectile-dir-files-native (root directory)
+(defun projectile-dir-files-native (directory)
   "Get the files for ROOT under DIRECTORY using just Emacs Lisp."
   (let ((progress-reporter
          (make-progress-reporter
           (format "Projectile is indexing %s"
                   (propertize directory 'face 'font-lock-keyword-face)))))
     ;; we need the files with paths relative to the project root
-    (mapcar (lambda (file) (file-relative-name file root))
+    (mapcar (lambda (file) (file-relative-name file directory))
             (projectile-index-directory directory (projectile-filtering-patterns)
                                         progress-reporter))))
 
@@ -1210,7 +1207,7 @@ they are excluded from the results of this function."
          ;; search for sub-projects under current project `project'
          (submodules (mapcar
                       (lambda (s)
-                        (file-name-as-directory (expand-file-name s default-directory)))
+                        (file-name-as-directory (expand-file-name s path)))
                       (projectile-files-via-ext-command path (projectile-get-sub-projects-command vcs))))
          (project-child-folder-regex
           (concat "\\`"
@@ -1336,9 +1333,10 @@ this case unignored files will be absent from FILES."
   (cl-remove-if-not (lambda (b) (or (buffer-file-name b)
                                     (get-buffer-process b))) buffers))
 
-(defun projectile-project-buffers ()
-  "Get a list of project buffers."
-  (let* ((project-root (projectile-project-root))
+(defun projectile-project-buffers (&optional project)
+  "Get a list of a project's buffers.
+If PROJECT is not specified the command acts on the current project."
+  (let* ((project-root (or project (projectile-project-root)))
          (all-buffers (cl-remove-if-not
                        (lambda (buffer)
                          (projectile-project-buffer-p buffer project-root))
@@ -1353,16 +1351,17 @@ this case unignored files will be absent from FILES."
     (dolist (buffer project-buffers)
       (funcall action buffer))))
 
-(defun projectile-project-buffer-files ()
-  "Get a list of project buffer files."
-  (let ((project-root (projectile-project-root)))
+(defun projectile-project-buffer-files (&optional project)
+  "Get a list of a project's buffer files.
+If PROJECT is not specified the command acts on the current project."
+  (let ((project-root (or project (projectile-project-root))))
     (mapcar
      (lambda (buffer)
        (file-relative-name
         (buffer-file-name buffer)
         project-root))
      (projectile-buffers-with-file
-      (projectile-project-buffers)))))
+      (projectile-project-buffers project)))))
 
 (defun projectile-project-buffer-p (buffer project-root)
   "Check if BUFFER is under PROJECT-ROOT."
@@ -1749,14 +1748,21 @@ https://github.com/abo-abo/swiper")))
       (when projectile-enable-caching
         (message "Projectile is initializing cache..."))
       (setq files (cl-mapcan
-                   (lambda (dir) (projectile-dir-files project-root dir))
+                   (lambda (dir) (projectile-dir-files dir))
                    (projectile-get-project-directories project-root)))
 
       ;; Save the cached list.
       (when projectile-enable-caching
         (projectile-cache-project project-root files)))
 
-    (projectile-sort-files files)))
+    ;;; Sorting
+    ;;
+    ;; Files can't be cached in sorted order as some sorting schemes
+    ;; require dynamic data.  Sorting is ignored completely when in
+    ;; turbo-alien mode.
+    (if (eq projectile-indexing-method 'turbo-alien)
+        files
+      (projectile-sort-files files))))
 
 (defun projectile-current-project-files ()
   "Return a list of the files in the current project."
@@ -1926,7 +1932,8 @@ A typical example of such a defun would be `find-file-other-window' or
 
 Subroutine for `projectile-find-file-dwim' and
 `projectile-find-file-dwim-other-window'"
-  (let* ((project-files (projectile-current-project-files))
+  (let* ((project-root (projectile-project-root))
+         (project-files (projectile-project-files project-root))
          (files (projectile-select-files project-files invalidate-cache))
          (file (cond ((= (length files) 1)
                       (car files))
@@ -1935,7 +1942,7 @@ Subroutine for `projectile-find-file-dwim' and
                      (t
                       (projectile-completing-read "Switch to: " project-files))))
          (ff (or ff-variant #'find-file)))
-    (funcall ff (expand-file-name file (projectile-project-root)))
+    (funcall ff (expand-file-name file project-root))
     (run-hooks 'projectile-find-file-hook)))
 
 ;;;###autoload
@@ -3009,7 +3016,7 @@ files in the project."
     ;; we have to reject directories as a workaround to work with git submodules
     (cl-remove-if
      #'file-directory-p
-     (mapcar #'projectile-expand-root (projectile-dir-files directory directory)))))
+     (mapcar #'projectile-expand-root (projectile-dir-files directory)))))
 
 ;;;###autoload
 (defun projectile-replace (&optional arg)
@@ -3066,18 +3073,19 @@ to run the replacement."
           ;; don't support Emacs regular expressions.
           (cl-remove-if
            #'file-directory-p
-           (mapcar #'projectile-expand-root (projectile-dir-files directory directory)))))
+           (mapcar #'projectile-expand-root (projectile-dir-files directory)))))
     (tags-query-replace old-text new-text nil (cons 'list files))))
 
 ;;;###autoload
 (defun projectile-kill-buffers ()
   "Kill all project buffers."
   (interactive)
-  (let ((name (projectile-project-name))
-        (buffers (projectile-project-buffers)))
+  (let* ((project (projectile-ensure-project (projectile-project-root)))
+         (project-name (projectile-project-name project))
+         (buffers (projectile-project-buffers project)))
     (if (yes-or-no-p
          (format "Are you sure you want to kill %d buffer(s) for '%s'? "
-                 (length buffers) name))
+                 (length buffers) project-name))
         ;; we take care not to kill indirect buffers directly
         ;; as we might encounter them after their base buffers are killed
         (mapc #'kill-buffer (cl-remove-if 'buffer-base-buffer buffers)))))
@@ -3086,10 +3094,11 @@ to run the replacement."
 (defun projectile-save-project-buffers ()
   "Save all project buffers."
   (interactive)
-  (dolist (buf (projectile-project-buffers))
-    (with-current-buffer buf
-      (when buffer-file-name
-        (save-buffer)))))
+  (let ((project (projectile-ensure-project (projectile-project-root))))
+   (dolist (buf (projectile-project-buffers project))
+     (with-current-buffer buf
+       (when buffer-file-name
+         (save-buffer))))))
 
 ;;;###autoload
 (defun projectile-dired ()
@@ -3548,7 +3557,7 @@ This command will first prompt for the directory the file is in."
     (if (projectile-project-p)
         ;; target directory is in a project
         (let ((file (projectile-completing-read "Find file: "
-                                                (projectile-dir-files directory directory))))
+                                                (projectile-dir-files directory))))
           (find-file (expand-file-name file (projectile-project-root)))
           (run-hooks 'projectile-find-file-hook))
       ;; target directory is not in a project
@@ -3559,10 +3568,9 @@ This command will first prompt for the directory the file is in."
   (cl-mapcan
    (lambda (project)
      (when (file-exists-p project)
-       (let ((default-directory project))
-         (mapcar (lambda (file)
-                   (expand-file-name file project))
-                 (projectile-current-project-files)))))
+       (mapcar (lambda (file)
+                 (expand-file-name file project))
+               (projectile-project-files project))))
    projectile-known-projects))
 
 ;;;###autoload
@@ -4038,6 +4046,7 @@ thing shown in the mode line otherwise."
         ["Switch to buffer" projectile-switch-to-buffer]
         ["Jump between implementation file and test file" projectile-toggle-between-implementation-and-test]
         ["Kill project buffers" projectile-kill-buffers]
+        ["Save project buffers" projectile-save-buffers]
         ["Recent files" projectile-recentf]
         "--"
         ["Toggle project wide read-only" projectile-toggle-project-read-only]
