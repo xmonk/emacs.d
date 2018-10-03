@@ -54,6 +54,12 @@ at the top level of DIRECTORY.
 
 \(fn DIRECTORY)" t nil)
 
+(autoload 'projectile-discover-projects-in-search-path "projectile" "\
+Discover projects in `projectile-project-search-path'.
+Invoked automatically when `projectile-mode' is enabled.
+
+\(fn)" t nil)
+
 (autoload 'projectile-switch-to-buffer "projectile" "\
 Switch to a project buffer.
 
