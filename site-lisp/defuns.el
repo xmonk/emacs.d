@@ -757,6 +757,25 @@ ARG should be one of: `dark' `light' 'nil'."
           (insert "\nFeatures:\n"
                   system-configuration-features))))))
 
+;; helpers..
+(defun jj/vc-emacs ()
+  (interactive)
+  (and
+   (cd (expand-file-name user-emacs-directory))
+   (magit-status)))
+
+(defun jj/vc-moosetalk-web ()
+  (interactive)
+  (and
+   (cd (expand-file-name "~/w/moosetalk-web"))
+   (magit-status)))
+
+(defun jj/vc-moosetalk-infra ()
+  (interactive)
+  (and
+   (cd (expand-file-name "~/w/moosetalk-infra"))
+   (magit-status)))
+
 
 (provide 'defuns)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
