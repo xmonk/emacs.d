@@ -5,7 +5,7 @@
 ;; Author: Jonas Bernoulli <jonas@bernoul.li>
 ;; Homepage: https://github.com/tarsius/hl-todo
 ;; Keywords: convenience
-;; Package-Version: 20180710.455
+;; Package-Version: 20181003.1521
 
 ;; This file is not part of GNU Emacs.
 
@@ -92,10 +92,14 @@ This is used by `global-hl-todo-mode'."
                                (sexp :tag "Face")))))
 
 (defcustom hl-todo-highlight-punctuation ""
-  "String of punctuation characters to highlight after keywords.
+  "String of characters to highlight after keywords.
+
 Each of the characters appearing in this string is highlighted
 using the same face as the preceeding keyword when it directly
-follows the keyword."
+follows the keyword.
+
+Characters whose syntax class is `w' (which means word),
+including alphanumeric characters, cannot be used here."
   :group 'hl-todo
   :type 'string)
 
@@ -104,11 +108,12 @@ follows the keyword."
 
 (defun hl-todo--setup ()
   (setq hl-todo--regexp
-        (concat "\\_<\\("
+        (concat "\\(\\<"
                 (regexp-opt (mapcar #'car hl-todo-keyword-faces) t)
+                "\\>"
                 (and (not (equal hl-todo-highlight-punctuation ""))
-                     (concat "[" hl-todo-highlight-punctuation "]?"))
-                "\\)[[({:;.,?!]?\\_>"))
+                     (concat "[" hl-todo-highlight-punctuation "]*"))
+                "\\)"))
   (setq hl-todo--keywords
         `(((lambda (limit)
              (let (case-fold-search)
