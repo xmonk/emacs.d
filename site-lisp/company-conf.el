@@ -28,6 +28,7 @@
   :init
   ; Remember to customize this variable for your environment
   (set-variable 'ycmd-server-command `("python3" ,(file-truename "~/t/ycmd/ycmd/")))
+  (set-variable 'ycmd-gocode-binary-path (file-truename "~/t/ycmd/third_party/go/src/github.com/mdempsky/gocode/"))
   (add-hook 'ycmd-mode-hook 'ycmd-eldoc-setup))
 
 (use-package company-ycmd
