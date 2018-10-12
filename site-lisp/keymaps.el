@@ -44,7 +44,7 @@
 (global-set-key (kbd "C-S-o") 'jj/vi-open-previous-line)
 (global-set-key (kbd "M-<?!>") 'custom-shell-command-on-region)
 (global-set-key (kbd "s-e") 'jj/esh)
-(global-set-key (kbd "s-s") 'jj/term)
+(global-set-key (kbd "s-t") 'jj/term)
 (global-set-key (kbd "M-/") 'hippie-expand)
 ;; multiframe movements..
 ;; (global-set-key (kbd "C-c w n") 'next-multiframe-window)
