@@ -28,10 +28,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#011627" "#EF5350" "#ADDB67" "#FFEB95" "#82AAFF" "#C792EA" "#7FDBCA" "#D6DEEB"])
- '(ansi-term-color-vector
-   [unspecified "#1d1f21" "#cc6666" "#b5bd68" "#f0c674" "#81a2be" "#b294bb" "#81a2be" "#c5c8c6"] t)
  '(clang-format-style
    "{BasedOnStyle: llvm, UseTab: Always, IndentWidth: 8, AllowShortFunctionsOnASingleLine: None, KeepEmptyLinesAtTheStartOfBlocks: false}" t)
  '(column-number-mode t)
@@ -54,24 +50,11 @@
    "find <D> <X> -type f <F> -exec /usr/bin/rg -e <R> \\{\\} +")
  '(grep-highlight-matches 'always)
  '(grep-program (executable-find "rg") t)
- '(highlight-changes-colors '("#EF5350" "#7E57C2"))
- '(highlight-tail-colors
-   '(("#010F1D" . 0)
-     ("#B44322" . 20)
-     ("#34A18C" . 30)
-     ("#3172FC" . 50)
-     ("#B49C34" . 60)
-     ("#B44322" . 70)
-     ("#8C46BC" . 85)
-     ("#010F1D" . 100)))
  '(indent-tabs-mode t)
  '(ivy-count-format "(%d/%d) ")
  '(ivy-display-style 'fancy)
  '(ivy-use-virtual-buffers t)
  '(ivy-virtual-abbreviate 'full)
- '(jdee-db-active-breakpoint-face-colors (cons "#0d0d0d" "#41728e"))
- '(jdee-db-requested-breakpoint-face-colors (cons "#0d0d0d" "#b5bd68"))
- '(jdee-db-spec-breakpoint-face-colors (cons "#0d0d0d" "#5a5b5a"))
  '(magit-diff-use-overlays nil)
  '(magit-item-highlight-face nil)
  '(menu-bar-mode nil)
@@ -115,8 +98,6 @@
      (360 . "#82AAFF")))
  '(vc-annotate-very-old-color nil)
  '(vc-follow-symlinks t)
- '(weechat-color-list
-   '(unspecified "#011627" "#010F1D" "#DC2E29" "#EF5350" "#D76443" "#F78C6C" "#D8C15E" "#FFEB95" "#5B8FFF" "#82AAFF" "#AB69D7" "#C792EA" "#AFEFE2" "#7FDBCA" "#D6DEEB" "#FFFFFF"))
  '(xterm-mouse-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
