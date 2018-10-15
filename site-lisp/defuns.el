@@ -474,7 +474,7 @@ a region."
       (jump-to-register :term-fullscreen)
     (progn
       (window-configuration-to-register :term-fullscreen)
-      (ansi-term "/bin/bash")
+      (multi-term)
       (delete-other-windows))))
 
 (defun jj/start-or-switch(func buffer-name)
