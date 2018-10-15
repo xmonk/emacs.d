@@ -57,19 +57,6 @@
     :when (executable-find "yapf")
     :ensure t)
 
-  ;; (use-package anaconda-mode
-  ;;   :ensure t
-  ;;   :after python
-  ;;   :init
-  ;;   (add-hook 'python-mode-hook 'anaconda-mode)
-  ;;   (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
-
-  ;; (use-package company-anaconda
-  ;;   :ensure t
-  ;;   :after (anaconda-mode company)
-  ;;   :init
-  ;;   (add-to-list 'company-backends 'company-anaconda))
-
   (use-package auto-virtualenvwrapper
     :ensure t
     :init
