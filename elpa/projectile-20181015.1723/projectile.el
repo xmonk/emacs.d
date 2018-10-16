@@ -4,7 +4,7 @@
 
 ;; Author: Bozhidar Batsov <bozhidar@batsov.com>
 ;; URL: https://github.com/bbatsov/projectile
-;; Package-Version: 20181009.851
+;; Package-Version: 20181015.1723
 ;; Keywords: project, convenience
 ;; Version: 1.1.0-snapshot
 ;; Package-Requires: ((emacs "25.1") (pkg-info "0.4"))
@@ -1756,9 +1756,25 @@ https://github.com/abo-abo/swiper")))
     (when (null files)
       (when projectile-enable-caching
         (message "Projectile is initializing cache..."))
-      (setq files (cl-mapcan
-                   (lambda (dir) (projectile-dir-files dir))
-                   (projectile-get-project-directories project-root)))
+      (setq files
+            (if (eq projectile-indexing-method 'turbo-alien)
+                ;; In turbo-alien mode we can just skip reading
+                ;; .projectile and find all files in the root dir.
+                (projectile-dir-files-external project-root)
+              ;; If a project is defined as a list of subfolders
+              ;; then we'll have the files returned for each subfolder,
+              ;; so they are relative to the project root.
+              ;; TODO: That's pretty slow and we need to improve it.
+              ;; One options would be to pass explicitly the subdirs
+              ;; to commands like `git ls-files` which would return
+              ;; files paths relative to the project root.
+              (cl-mapcan
+               (lambda (dir)
+                 (mapcar (lambda (f)
+                           (file-relative-name (concat dir f)
+                                               project-root))
+                         (projectile-dir-files dir)))
+               (projectile-get-project-directories project-root))))
 
       ;; Save the cached list.
       (when projectile-enable-caching
