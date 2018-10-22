@@ -474,6 +474,16 @@ a region."
       (jump-to-register :term-fullscreen)
     (progn
       (window-configuration-to-register :term-fullscreen)
+      (ansi-term "/bin/bash" "ansi-term")
+      (delete-other-windows))))
+
+(defun jj/mterm()
+  "Bring up a full-screen terminal or restore previous config."
+  (interactive)
+  (if (string= "term-mode" major-mode)
+      (jump-to-register :term-fullscreen)
+    (progn
+      (window-configuration-to-register :term-fullscreen)
       (multi-term)
       (delete-other-windows))))
 
