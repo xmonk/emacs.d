@@ -24,6 +24,7 @@
 
 (use-package ycmd
   :ensure t
+  :commands ycmd-mode
   ;; :diminish (ycmd-mode eldoc-mode)
   :init
   ; Remember to customize this variable for your environment
@@ -35,5 +36,15 @@
   :ensure t
   :commands company-ycmd
   :init (company-ycmd-setup))
+
+(use-package flycheck-ycmd
+  :ensure t
+  :defer 0.6
+  :init
+  (flycheck-ycmd-setup)
+  ;; Make sure the flycheck cache sees the parse results
+  (add-hook 'ycmd-file-parse-result-hook 'flycheck-ycmd--cache-parse-results)
+  ;; Add the ycmd checker to the list of available checkers
+  (add-to-list 'flycheck-checkers 'ycmd))
 
 (provide 'company-conf)
