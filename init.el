@@ -23,7 +23,7 @@
 ;;
 ;;
 ;;; Code:
-(toggle-debug-on-error t)
+
 ;; 10MB let's see how well it works.
 (setq gc-cons-threshold (* 10 1024 1024))
 (add-hook 'after-init-hook (lambda ()
