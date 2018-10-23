@@ -1,6 +1,6 @@
-;;; linux-custom.el --- Linux custom file.
+;;; custom.el --- Custom file.
 ;;
-;; Filename: linux-custom.el
+;; Filename: custom.el
 ;; Description:
 ;; Author: Juan Fuentes
 ;; Maintainer:
@@ -108,4 +108,4 @@
  '(sp-pair-overlay-face ((t nil))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; linux-custom.el ends here
+;;; custom.el ends here

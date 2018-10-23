@@ -64,13 +64,7 @@
   (require 'use-package))
 
 ;; Load customization's
-(cond ((eql system-type 'darwin)
-       (setq custom-file (concat user-emacs-directory "osx-custom.el")))
-      ((eql system-type 'berkeley-unix)
-       (setq custom-file (concat user-emacs-directory "obsd-custom.el")))
-      ((eql system-type 'gnu/linux)
-       (setq custom-file (concat user-emacs-directory "linux-custom.el"))))
-
+(setq custom-file (concat user-emacs-directory "custom.el"))
 (if (file-exists-p custom-file)
     (load-file custom-file)
   (message (format "ERROR: custom file: %s not found or not specified" custom-file)))
