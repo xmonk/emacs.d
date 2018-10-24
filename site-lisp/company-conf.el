@@ -25,6 +25,7 @@
 
 (use-package ycmd
   :ensure t
+  :commands ycmd-mode
   ;; :diminish (ycmd-mode eldoc-mode)
   :init
   (set-variable 'ycmd-server-command `("python3" ,(file-truename "~/t/ycmd/ycmd/")))
@@ -32,6 +33,7 @@
 
 (use-package company-ycmd
   :ensure t
+  :commands company-ycmd
   :init (company-ycmd-setup))
 
 (provide 'company-conf)
