@@ -36,17 +36,15 @@
   (defun jj/elisp-hook ()
     (paredit-mode 1)
 	  (setq-local indent-tabs-mode nil)
-    (setq-local tab-width 2))
-  :config
-  ;;; elisp-nav
-  (use-package elisp-slime-nav
-    :after emacs-lisp-mode
-    :ensure t
-    :commands elisp-slime-nav-mode
-    :diminish elisp-slime-nav
-    :config
-    (dolist (hook '(emacs-lisp-mode-hook lisp-interaction-mode-hook))
-      (add-hook hook 'turn-on-elisp-slime-nav-mode))))
+    (setq-local tab-width 2)))
+;;; elisp-nav
+(use-package elisp-slime-nav
+  :ensure t
+  :commands elisp-slime-nav-mode
+  :diminish
+  :init
+  (dolist (hook '(emacs-lisp-mode-hook lisp-interaction-mode-hook))
+    (add-hook hook 'turn-on-elisp-slime-nav-mode)))
 
 (provide 'elisp-conf)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
