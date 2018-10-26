@@ -62,6 +62,7 @@
   :bind (("C-c C-r" . ivy-resume)
          ("M-x" . counsel-M-x)
          ("C-x C-f" . counsel-find-file)
+         ("C-x C-r" . counsel-recentf)
          ("C-c r" . counsel-rg))
   :init
   (setq counsel-grep-command "rg"))

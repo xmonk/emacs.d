@@ -124,16 +124,16 @@
   (setq uniquify-buffer-name-style 'post-forward))
 
 ;;; recentf
-(use-package recentf
-  :bind (("C-x C-r" . ido-recentf-open))
-  :init
-  (recentf-mode t)
-  (defun ido-recentf-open ()
-    "Use `ido-completing-read' to \\[find-file] a recent file"
-    (interactive)
-    (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-        (message "Opening file...")
-      (message "Aborting"))))
+;; (use-package recentf
+;;   :bind (("C-x C-r" . ido-recentf-open))
+;;   :init
+;;   (recentf-mode t)
+;;   (defun ido-recentf-open ()
+;;     "Use `ido-completing-read' to \\[find-file] a recent file"
+;;     (interactive)
+;;     (if (find-file (ido-completing-read "Find recent file: " recentf-list))
+;;         (message "Opening file...")
+;;       (message "Aborting"))))
 
 (use-package dired
   :commands dired
@@ -203,11 +203,11 @@
 (setq auto-save-default t)
 
 ;;; revert all buffer when file is modified in disk
-;; (use-package autorevert
-;;   :init
-;;   (setq global-auto-revert-mode nil)
-;;   (setq global-auto-revert-non-file-buffers nil)
-;;   (setq auto-revert-verbose t))
+(use-package autorevert
+  :init
+  (setq global-auto-revert-mode nil)
+  (setq global-auto-revert-non-file-buffers nil)
+  (setq auto-revert-verbose t))
 
 (require 'desktop nil t)
 ;; only use desktop mode and timers on server
