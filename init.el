@@ -41,7 +41,7 @@
 
 (when (window-system)
   ;;; themes
-  (load-theme 'doom-tomorrow-night t)
+  (load-theme 'jj-darkcl t)
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/" ".ripgreprc"))
   (toggle-frame-maximized))
 
