@@ -5,8 +5,7 @@
 
 (setq default-frame-alist '((user-size . t)
                             (background . "black")
-                            (foreground . "white")
-                            (ns-appearance . dark)))
+                            (foreground . "white")))
 (setq package-enable-at-startup t)
 (setq package-quickstart t)
 (package-initialize)
