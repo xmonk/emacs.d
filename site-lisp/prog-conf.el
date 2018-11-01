@@ -86,6 +86,11 @@
   (dumb-jump-mode t)
   (setq dumb-jump-selector 'ivy))
 
+(use-package smart-jump
+  :ensure t
+  :config
+  (smart-jump-setup-default-registers))
+
 (use-package sr-speedbar
   :ensure t
   :bind (("s-s" . sr-speedbar-toggle))
