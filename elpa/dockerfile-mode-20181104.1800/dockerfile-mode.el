@@ -2,7 +2,7 @@
 
 ;; Copyright (c) 2013 Spotify AB
 ;; Package-Requires: ((emacs "24") (s "1.12"))
-;; Package-Version: 20181103.1826
+;; Package-Version: 20181104.1800
 ;; Homepage: https://github.com/spotify/dockerfile-mode
 ;;
 ;; Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -121,8 +121,8 @@ Each element of the list will be passed as a separate
 
 Lines beginning with a keyword are ignored, and any others are
 indented by one `tab-width'."
-  (unless (eq (get-text-property (point-at-bol) 'face)
-              'font-lock-keyword-face)
+  (unless (member (get-text-property (point-at-bol) 'face)
+                  '(font-lock-comment-delimiter-face font-lock-keyword-face))
     (save-excursion
       (beginning-of-line)
       (skip-chars-forward "[ \t]" (point-at-eol))

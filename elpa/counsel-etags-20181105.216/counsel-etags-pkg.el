@@ -1,0 +1,2 @@
+;;; -*- no-byte-compile: t -*-
+(define-package "counsel-etags" "20181105.216" "Fast and complete Ctags/Etags solution using ivy" '((emacs "24.4") (counsel "0.9.1")) :commit "2690602b22bbcc70e051f2f9f5fb6a3956a2bf38" :keywords '("tools" "convenience") :authors '(("Chen Bin" . "chenbin.sh@gmail.com")) :maintainer '("Chen Bin" . "chenbin.sh@gmail.com") :url "http://github.com/redguardtoo/counsel-etags")
