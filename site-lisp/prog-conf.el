@@ -94,4 +94,9 @@
   (setq dumb-jump-selector 'ivy)
   (dumb-jump-mode t))
 
+(use-package smart-jump
+  :ensure t
+  :config
+  (smart-jump-setup-default-registers))
+
 (provide 'prog-conf)
