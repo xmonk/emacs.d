@@ -56,11 +56,11 @@
     :init
     (add-hook 'python-mode-hook 'py-yapf-enable-on-save))
 
-  (use-package auto-virtualenvwrapper
+  (use-package auto-virtualenv
     :ensure t
     :init
-    (add-hook 'python-mode-hook #'auto-virtualenvwrapper-activate)
-    (add-hook 'projectile-after-switch-project-hook #'auto-virtualenvwrapper-activate))
+    (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv)
+    (add-hook 'projectile-after-switch-project-hook 'auto-virtualenv-set-virtualenv))
 
   (defun jj/pydoc (name)
     "Display pydoc information for NAME in a buffer named *pydoc*."
