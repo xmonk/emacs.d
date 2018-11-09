@@ -31,8 +31,8 @@
 
 (defvar darkcl-company-fontsize 100)
 
-(let ((white "white")
-      (black "black")
+(let ((white "#c5c8c6")
+      (black "#1d1f21")
       (fontsize darkcl-company-fontsize))
 
   (apply 'custom-theme-set-faces 'jj-darkcl
