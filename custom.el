@@ -39,7 +39,7 @@
  '(enable-recursive-minibuffers t)
  '(fci-rule-color "#010F1D")
  '(flycheck-flake8rc "/home/jfuentes/.config/flake8")
- '(flycheck-python-flake8-executable "/home/jfuentes/.local/bin/flake8")
+ '(flycheck-python-flake8-executable "/home/jfuentes/.pyenv/shims/flake8")
  '(flycheck-python-pycompile-executable "python3")
  '(flycheck-python-pyflakes-executable "pyflakes")
  '(gdb-many-windows t t)
