@@ -57,6 +57,12 @@
  '(ivy-virtual-abbreviate 'full)
  '(magit-diff-use-overlays nil)
  '(magit-item-highlight-face nil)
+ '(magit-repository-directories
+   '(("~/w/moosetalk-web")
+     ("~/w/moosetalk-infra")
+     ("~/.files")
+     ("~/.emacs.d/" . 0)
+     ("~/.emacs.d/lib/" . 1)))
  '(menu-bar-mode nil)
  '(network-security-level 'high)
  '(package-selected-packages
