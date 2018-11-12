@@ -22,7 +22,9 @@
 ;;; Paste at point NOT at cursor
 (use-package mwheel
   :init
-  (setq mouse-yank-at-point 't))
+  (setq mouse-yank-at-point 't)
+  :config
+  (mouse-wheel-mode 1))
 
 ;;; ace-window
 (use-package ace-window
