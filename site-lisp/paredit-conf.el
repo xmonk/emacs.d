@@ -13,6 +13,8 @@
   (unbind-key "M-r" paredit-mode-map)
   (unbind-key "M-s" paredit-mode-map)
   (unbind-key "C-j" paredit-mode-map)
+  (unbind-key "M-<down>" paredit-mode-map)
+  (unbind-key "M-<up>" paredit-mode-map)
   (bind-key "C-. D" 'paredit-forward-down paredit-mode-map)
   (bind-key "C-. B" 'paredit-splice-sexp-killing-backward paredit-mode-map)
   (bind-key "C-. C" 'paredit-convolute-sexp paredit-mode-map)
