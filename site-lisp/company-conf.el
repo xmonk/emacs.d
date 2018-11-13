@@ -23,17 +23,4 @@
   (company-flx-mode +1)
   (add-hook 'company-mode-hook (lambda () (add-to-list 'company-backends 'company-capf))))
 
-(use-package ycmd
-  :ensure t
-  :commands ycmd-mode
-  ;; :diminish (ycmd-mode eldoc-mode)
-  :init
-  (set-variable 'ycmd-server-command `("python3" ,(file-truename "~/t/ycmd/ycmd/")))
-  (add-hook 'ycmd-mode-hook 'ycmd-eldoc-setup))
-
-(use-package company-ycmd
-  :ensure t
-  :commands company-ycmd
-  :init (company-ycmd-setup))
-
 (provide 'company-conf)
