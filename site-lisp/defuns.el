@@ -56,7 +56,7 @@
   (princ (format "%s" (file-name-directory (expand-file-name (buffer-name))))))
 
 (defun jj/immortal-scratch-buffer()
-  "Don't allow the scratch buffer to be kill."
+  "Don't allow the scratch buffer to be killed."
   (if (equal (buffer-name (current-buffer)) "*scratch*")
       (progn
         (delete-region (point-min) (point-max))
