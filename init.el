@@ -80,6 +80,7 @@
 (use-package magit-conf)
 (use-package keymaps)
 (use-package windows)
+(use-package fonts-conf)
 (use-package utils :defer 0.4)
 (use-package markdown-conf :defer 0.6)
 (use-package org-conf :defer 0.5)
