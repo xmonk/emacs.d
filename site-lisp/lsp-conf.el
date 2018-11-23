@@ -1,35 +1,21 @@
-;; lsp-mode configuration..
+;; lsp-mode
 
-(use-package lsp-mode
+(use-package eglot
   :ensure t
-  :commands (lsp-mode lsp-python-enable)
+  :functions jj/find-projectile-project
   :init
-  (add-hook 'lsp-after-open-hook 'lsp-enable-imenu)
-  (add-hook 'python-mode-hook (lambda () (lsp-python-enable)))
-  :config
-  (use-package lsp-imenu)
-  (lsp-define-stdio-client lsp-python "python"
-                           #'jj/pwd
-                           ;; #'projectile-project-root
-                           '("pyls")))
+  ;; Integrate project.el with projectile
+  (add-to-list 'project-find-functions #'jj/find-projectile-project)
+  (add-hook 'python-mode-hook 'jj/activate-lsp)
+  (add-hook 'sh-mode-hook 'jj/activate-lsp)
 
-(use-package lsp-ui
-  :ensure t
-  :after lsp-mode
-  :init
-  (setq lsp-ui-sideline-show-symbol nil)
-  (setq lsp-ui-sideline-ignore-duplicate t)
-  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+  (defun jj/activate-lsp ()
+    (flycheck-mode 0)
+    (eglot-ensure))
 
-(use-package company-lsp
-  :ensure t
-  :after lsp-mode
-  :init
-  (add-hook 'company-mode-hook (lambda () (add-to-list 'company-backends 'company-lsp)))
-  (add-hook 'lsp-after-initialize-hook 'lsp-set-cfg)
-  (defun lsp-set-cfg ()
-    (let ((lsp-cfg `(:pyls (:configurationSources ("flake8")))))
-      ;; TODO: check lsp--cur-workspace here to decide per server / project
-      (lsp--set-configuration lsp-cfg))))
+  (defun jj/find-projectile-project (dir)
+    (if (fboundp 'projectile-project-root)
+        (let ((root (projectile-project-root dir)))
+          (and root (cons 'transient root))))))
 
 (provide 'lsp-conf)
