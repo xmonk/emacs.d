@@ -52,9 +52,9 @@
   ;; all the highlighting is broken from then onwards.
   (setq python-shell-font-lock-enable nil)
   :config
-  (use-package py-yapf
+  (use-package blacken
     :after python
-    :when (executable-find "yapf")
+    :when (executable-find "black")
     :ensure t)
 
   (use-package auto-virtualenv
