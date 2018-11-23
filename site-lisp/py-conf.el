@@ -63,6 +63,13 @@
     (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv)
     (add-hook 'projectile-after-switch-project-hook 'auto-virtualenv-set-virtualenv))
 
+  (use-package pipenv
+    :disabled
+    :ensure t
+    :hook (python-mode . pipenv-mode)
+    :init
+    (setq pipenv-projectile-after-switch-function #'pipenv-projectile-after-switch-extended))
+
   (defun jj/pydoc (name)
     "Display pydoc information for NAME in a buffer named *pydoc*."
     (interactive "sName of function or module: ")
