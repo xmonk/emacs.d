@@ -25,13 +25,13 @@
 
 (defvar *ycmd-build-command* "python3 build.py --go-complete")
 
-(defun ycmd-build-server ()
-  "Build ycmd"
-  (interactive)
-  (let ((*pwd* (jj/pwd)))
-    (and
-     (cd (concat user-emacs-directory "/ycmd"))
-     (async-shell-command *ycmd-build-command*))
-    (cd *pwd*)))
+;; (defun ycmd-build-server ()
+;;   "Build ycmd"
+;;   (interactive)
+;;   (let ((*pwd* (jj/pwd)))
+;;     (and
+;;      (cd (concat user-emacs-directory "/ycmd"))
+;;      (async-shell-command *ycmd-build-command*))
+;;     (cd *pwd*)))
 
 (provide 'ycmd-conf)
