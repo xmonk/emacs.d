@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20181122.1317
+;; Package-Version: 20181124.2021
 ;; Version: 0.10.0
 ;; Package-Requires: ((emacs "24.3") (swiper "0.9.0"))
 ;; Keywords: convenience, matching, tools
@@ -89,24 +89,20 @@
 
 (defun counsel-prompt-function-default ()
   "Return prompt appended with a semicolon."
-  (ivy-add-prompt-count
-   (format "%s: " (ivy-state-prompt ivy-last))))
+  (declare (obsolete ivy-set-prompt "0.10.0"))
+  (ivy-add-prompt-count (concat (ivy-state-prompt ivy-last) ": ")))
 
 (declare-function eshell-split-path "esh-util")
 
 (defun counsel-prompt-function-dir ()
   "Return prompt appended with the parent directory."
   (require 'esh-util)
-  (ivy-add-prompt-count
-   (let ((directory (ivy-state-directory ivy-last)))
-     (format "%s [%s]: "
-             (ivy-state-prompt ivy-last)
-             (let ((dir-list (eshell-split-path directory)))
-               (if (> (length dir-list) 3)
-                   (apply #'concat
-                          (append '("...")
-                                  (cl-subseq dir-list (- (length dir-list) 3))))
-                 directory))))))
+  (let* ((dir (ivy-state-directory ivy-last))
+         (parts (nthcdr 3 (eshell-split-path dir)))
+         (dir (format " [%s]: " (if parts (apply #'concat "..." parts) dir))))
+    (ivy-add-prompt-count
+     (replace-regexp-in-string          ; Insert dir before any trailing colon.
+      "\\(?:: ?\\)?\\'" dir (ivy-state-prompt ivy-last) t t))))
 
 ;;* Async Utility
 (defvar counsel--async-time nil
@@ -142,18 +138,21 @@ descriptions.")
 
 (defun counsel--async-command (cmd &optional sentinel filter name)
   "Start and return new counsel process by calling CMD.
+CMD can be either a shell command as a string, or a list of the
+program name to be called directly, followed by its arguments.
 If the default counsel process or one with NAME already exists,
 kill it and its associated buffer before starting a new one.
 Give the process the functions SENTINEL and FILTER, which default
 to `counsel--async-sentinel' and `counsel--async-filter',
 respectively."
   (counsel-delete-process name)
-  (let ((name (or name " *counsel*"))
-        proc)
-    (when (get-buffer name)
-      (kill-buffer name))
-    (setq proc (start-file-process-shell-command
-                name (get-buffer-create name) cmd))
+  (setq name (or name " *counsel*"))
+  (when (get-buffer name)
+    (kill-buffer name))
+  (let* ((buf (get-buffer-create name))
+         (proc (if (listp cmd)
+                   (apply #'start-file-process name buf cmd)
+                 (start-file-process-shell-command name buf cmd))))
     (setq counsel--async-time (current-time))
     (setq counsel--async-start counsel--async-time)
     (set-process-sentinel proc (or sentinel #'counsel--async-sentinel))
@@ -222,8 +221,7 @@ Update the minibuffer with the amount of lines collected every
                                (string-match-p counsel-async-ignore-re line))
                              lines)
              lines))))
-      (let ((ivy--prompt (format (concat "%d++ " (ivy-state-prompt ivy-last))
-                                 numlines)))
+      (let ((ivy--prompt (format "%d++ %s" numlines (ivy-state-prompt ivy-last))))
         (ivy--insert-minibuffer (ivy--format ivy--all-candidates)))
       (setq counsel--async-time (current-time)))))
 
@@ -639,14 +637,13 @@ With a prefix arg, restrict list to variables defined using
                     (cond
                       ((and (consp sym-type)
                             (memq (car sym-type) '(choice radio)))
-                       (setq cands (delq nil (mapcar #'counsel--setq-doconst (cdr sym-type)))))
+                       (setq cands (delq nil (mapcar #'counsel--setq-doconst
+                                                     (cdr sym-type)))))
                       ((eq sym-type 'boolean)
                        (setq cands '(("nil" . nil) ("t" . t))))
                       (t nil)))
                (let* ((sym-val (symbol-value sym))
-                      ;; Escape '%' chars if present
-                      (sym-val-str (ivy--quote-format-string (format "%s" sym-val)))
-                      (res (ivy-read (format "Set (%S <%s>): " sym sym-val-str)
+                      (res (ivy-read (format "Set (%S <%s>): " sym sym-val)
                                      cands
                                      :preselect (prin1-to-string sym-val))))
                  (when res
@@ -782,17 +779,17 @@ packages are, in order of precedence, `amx' and `smex'."
 
 (defun counsel--M-x-prompt ()
   "String for `M-x' plus the string representation of `current-prefix-arg'."
-  (if (not current-prefix-arg)
-      "M-x "
-    (concat
-     (if (eq current-prefix-arg '-)
-         "- "
-       (if (integerp current-prefix-arg)
-           (format "%d " current-prefix-arg)
-         (if (= (car current-prefix-arg) 4)
-             "C-u "
-           (format "%d " (car current-prefix-arg)))))
-     "M-x ")))
+  (concat (cond ((null current-prefix-arg)
+                 nil)
+                ((eq current-prefix-arg '-)
+                 "- ")
+                ((integerp current-prefix-arg)
+                 (format "%d " current-prefix-arg))
+                ((= (car current-prefix-arg) 4)
+                 "C-u ")
+                (t
+                 (format "%d " (car current-prefix-arg))))
+          "M-x "))
 
 (defvar counsel-M-x-history nil
   "History for `counsel-M-x'.")
@@ -1146,12 +1143,10 @@ INITIAL-INPUT can be given as the initial minibuffer input."
                  (shell-command-to-string counsel-git-cmd)
                  "\n"
                  t)))
-    (ivy-read "Find file" cands
+    (ivy-read "Find file: " cands
               :initial-input initial-input
               :action #'counsel-git-action
               :caller 'counsel-git)))
-
-(ivy-set-prompt 'counsel-git #'counsel-prompt-function-default)
 
 (defun counsel-git-action (x)
   "Find file X in current Git repository."
@@ -1364,7 +1359,7 @@ INITIAL-INPUT can be given as the initial minibuffer input."
                                  (car proj)
                                (counsel-locate-git-root))))
       (setq counsel--git-grep-count (funcall counsel--git-grep-count-func))
-      (ivy-read "git grep" collection-function
+      (ivy-read "git grep: " collection-function
                 :initial-input initial-input
                 :matcher #'counsel-git-grep-matcher
                 :dynamic-collection (or proj
@@ -1376,7 +1371,6 @@ INITIAL-INPUT can be given as the initial minibuffer input."
                 :unwind unwind-function
                 :history 'counsel-git-grep-history
                 :caller 'counsel-git-grep))))
-(ivy-set-prompt 'counsel-git-grep #'counsel-prompt-function-default)
 (cl-pushnew 'counsel-git-grep ivy-highlight-grep-commands)
 
 (defun counsel-git-grep-proj-function (str)
@@ -2262,12 +2256,9 @@ INITIAL-INPUT can be given as the initial minibuffer input."
 
 (defun counsel-fzf-function (str)
   (let ((default-directory counsel--fzf-dir))
+    (setq ivy--old-re (ivy--regex-fuzzy str))
     (counsel--async-command
-     (format counsel-fzf-cmd
-             (if (string-equal str "")
-                 "\"\""
-               (setq ivy--old-re (ivy--regex-fuzzy str))
-               str))))
+     (list "fzf" "-f" str)))
   nil)
 
 ;;;###autoload
@@ -2489,6 +2480,11 @@ NEEDLE is the search string."
               (replace-match needle t t extra-args 1)
             (concat extra-args " " needle))))
 
+(defun counsel--grep-regex (str)
+  (counsel-unquote-regex-parens
+   (setq ivy--old-re
+         (funcall ivy--regex-function str))))
+
 (defun counsel-ag-function (string)
   "Grep in the current directory for STRING."
   (let ((command-args (counsel--split-command-args string)))
@@ -2498,9 +2494,7 @@ NEEDLE is the search string."
        (let ((ivy-text search-term))
          (ivy-more-chars))
        (let ((default-directory (ivy-state-directory ivy-last))
-             (regex (counsel-unquote-regex-parens
-                     (setq ivy--old-re
-                           (ivy--regex search-term)))))
+             (regex (counsel--grep-regex search-term)))
          (counsel--async-command (counsel--format-ag-command
                                   switches
                                   (shell-quote-argument regex)))
@@ -2531,7 +2525,8 @@ AG-PROMPT, if non-nil, is passed as `ivy-read' prompt argument."
   (let ((default-directory (or initial-directory
                                (locate-dominating-file default-directory ".git")
                                default-directory)))
-    (ivy-read (or ag-prompt (car (split-string counsel-ag-command)))
+    (ivy-read (or ag-prompt
+                  (concat (car (split-string counsel-ag-command)) ": "))
               #'counsel-ag-function
               :initial-input initial-input
               :dynamic-collection t
@@ -2543,7 +2538,6 @@ AG-PROMPT, if non-nil, is passed as `ivy-read' prompt argument."
                         (swiper--cleanup))
               :caller 'counsel-ag)))
 
-(ivy-set-prompt 'counsel-ag #'counsel-prompt-function-default)
 (cl-pushnew 'counsel-ag ivy-highlight-grep-commands)
 
 (defun counsel-grep-like-occur (cmd-template)
@@ -3468,7 +3462,10 @@ Additional actions:\\<ivy-minibuffer-map>
 (defcustom counsel-yank-pop-separator "\n"
   "Separator for the kill ring strings in `counsel-yank-pop'."
   :group 'ivy
-  :type 'string)
+  :type '(choice
+          (const :tag "Plain" "\n")
+          (const :tag "Dashes" "\n----\n")
+          string))
 
 (make-obsolete-variable
  'counsel-yank-pop-height
@@ -3493,7 +3490,7 @@ Additional actions:\\<ivy-minibuffer-map>
    (lambda (str)
      (counsel--yank-pop-truncate str))
    cand-pairs
-   counsel-yank-pop-separator))
+   (propertize counsel-yank-pop-separator 'face 'ivy-separator)))
 
 (defun counsel--yank-pop-position (s)
   "Return position of S in `kill-ring' relative to last yank."
@@ -3805,20 +3802,11 @@ An extra action allows to switch to the process buffer."
                 :caller 'counsel-ace-link))))
 
 ;;** `counsel-minibuffer-history'
-(make-obsolete
- 'counsel-expression-history
- 'counsel-minibuffer-history
- "0.10.0 <2017-11-13 Mon>")
-
-(make-obsolete
- 'counsel-shell-command-history
- 'counsel-minibuffer-history
- "0.10.0 <2017-11-13 Mon>")
-
 ;;;###autoload
 (defun counsel-expression-history ()
   "Select an element of `read-expression-history'.
 And insert it into the minibuffer.  Useful during `eval-expression'."
+  (declare (obsolete counsel-minibuffer-history "0.10.0 <2017-11-13 Mon>"))
   (interactive)
   (let ((enable-recursive-minibuffers t))
     (ivy-read "Expression: "
@@ -3829,6 +3817,7 @@ And insert it into the minibuffer.  Useful during `eval-expression'."
 ;;;###autoload
 (defun counsel-shell-command-history ()
   "Browse shell command history."
+  (declare (obsolete counsel-minibuffer-history "0.10.0 <2017-11-13 Mon>"))
   (interactive)
   (ivy-read "Command: " shell-command-history
             :action #'insert

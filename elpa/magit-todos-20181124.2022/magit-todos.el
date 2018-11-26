@@ -4,7 +4,7 @@
 
 ;; Author: Adam Porter <adam@alphapapa.net>
 ;; URL: http://github.com/alphapapa/magit-todos
-;; Package-Version: 20181122.637
+;; Package-Version: 20181124.2022
 ;; Version: 1.2-pre
 ;; Package-Requires: ((emacs "25.2") (async "1.9.2") (dash "2.13.0") (f "0.17.2") (hl-todo "1.9.0") (magit "2.13.0") (pcre2el "1.8") (s "1.12.0"))
 ;; Keywords: magit, vc
@@ -276,6 +276,7 @@ One or more attributes may be chosen, and they will be grouped in
 order."
   :type '(repeat (choice (const :tag "By filename" magit-todos-item-filename)
                          (const :tag "By keyword" magit-todos-item-keyword)
+                         (const :tag "By suffix" magit-todos-item-suffix)
                          (const :tag "By first path component" magit-todos-item-first-path-component))))
 
 (defcustom magit-todos-fontify-org t
@@ -287,6 +288,7 @@ order."
                                     magit-todos--sort-by-position)
   "Order in which to sort items."
   :type '(repeat (choice (const :tag "Keyword" magit-todos--sort-by-keyword)
+                         (const :tag "Suffix" magit-todos--sort-by-suffix)
                          (const :tag "Filename" magit-todos--sort-by-filename)
                          (const :tag "Buffer position" magit-todos--sort-by-position)
                          (function :tag "Custom function"))))
@@ -439,6 +441,16 @@ Type \\[magit-diff-show-or-scroll-up] to peek at the item at point."
 
 ;;;; Functions
 
+(defun magit-todos--coalesce-groups (groups)
+  "Return GROUPS, coalescing any groups with `equal' keys.
+GROUPS should be an alist.  Assumes that each group contains
+unique items.  Intended for post-processing the result of
+`-group-by'."
+  (cl-loop with keys = (-uniq (-map #'car groups))
+           for key in keys
+           for matching-groups = (--select (equal key (car it)) groups)
+           collect (cons key (apply #'append (-map #'cdr matching-groups)))))
+
 (defun magit-todos--add-to-status-buffer-kill-hook ()
   "Add `magit-todos--kill-active-scan' to `kill-buffer-hook' locally."
   (add-hook 'kill-buffer-hook #'magit-todos--kill-active-scan 'append 'local))
@@ -448,10 +460,8 @@ Type \\[magit-diff-show-or-scroll-up] to peek at the item at point."
 To be called in status buffers' `kill-buffer-hook'."
   (when (and magit-todos-active-scan
              (process-live-p magit-todos-active-scan))
-    (kill-process magit-todos-active-scan)
-    (when-let* ((buffer (process-buffer magit-todos-active-scan))
-                (alive (buffer-live-p buffer)))
-      (kill-buffer buffer))))
+    ;; NOTE: Not sure if `delete-process' would be better here.
+    (kill-process magit-todos-active-scan)))
 
 (defun magit-todos--add-to-custom-type (symbol value)
   "Add VALUE to the end of SYMBOL's `custom-type' property."
@@ -525,11 +535,9 @@ This function should be called from inside a ‘magit-status’ buffer."
   (declare (indent defun))
   (when magit-todos-active-scan
     ;; Avoid running multiple scans for a single magit-status buffer.
-    (let ((buffer (process-buffer magit-todos-active-scan)))
-      (when (process-live-p magit-todos-active-scan)
-        (delete-process magit-todos-active-scan))
-      (when (buffer-live-p buffer)
-        (kill-buffer buffer)))
+    (when (process-live-p magit-todos-active-scan)
+      ;; NOTE: Not sure if `kill-process' would be better here.
+      (delete-process magit-todos-active-scan))
     (setq magit-todos-active-scan nil))
   (pcase magit-todos-update
     ((or 't  ; Automatic
@@ -642,23 +650,39 @@ sections."
     (if (and (consp group-fns)
              (> (length group-fns) 0))
         ;; Insert more sections
-        (let ((section (magit-insert-section ((eval type))
-                         (magit-insert-heading heading)
-                         (cl-loop for (group-type . items) in (-group-by (car group-fns) items)
-                                  do (magit-todos--insert-group :type (intern group-type)
-                                       :heading (concat
-                                                 (if (and magit-todos-fontify-keyword-headers
-                                                          (member group-type magit-todos-keywords-list))
-                                                     (propertize group-type 'face (magit-todos--keyword-face group-type))
-                                                   group-type)
-                                                 ;; Item count
-                                                 (if (= 1 (length group-fns))
-                                                     ":" ; Let Magit add the count.
-                                                   ;; Add count ourselves.
-                                                   (concat " " (format "(%s)" (length items)))))
-                                       :group-fns (cdr group-fns)
-                                       :depth (+ 2 depth)
-                                       :items items)))))
+        (let* ((groups (--> (-group-by (car group-fns) items)
+                            (cl-loop for group in-ref it
+                                     ;; HACK: Set ":" keys to nil so they'll be grouped together.
+                                     do (pcase (car group)
+                                          (":" (setf (car group) nil)))
+                                     finally return it)
+                            (magit-todos--coalesce-groups it)))
+               (section (magit-insert-section ((eval type))
+                          (magit-insert-heading heading)
+                          (cl-loop for (group-type . items) in groups
+                                   for group-type = (pcase group-type
+                                                      ;; Use "[Other]" instead of empty group name.
+                                                      ;; HACK: ":" is hard-coded, even though the
+                                                      ;; suffix regexp could differ. If users change
+                                                      ;; the suffix so this doesn't apply, it
+                                                      ;; shouldn't cause any problems, it just won't
+                                                      ;; look as pretty.
+                                                      ((or "" ":" 'nil) "[Other]")
+                                                      (_ (s-chop-suffix ":" group-type)))
+                                   do (magit-todos--insert-group :type (intern group-type)
+                                        :heading (concat
+                                                  (if (and magit-todos-fontify-keyword-headers
+                                                           (member group-type magit-todos-keywords-list))
+                                                      (propertize group-type 'face (magit-todos--keyword-face group-type))
+                                                    group-type)
+                                                  ;; Item count
+                                                  (if (= 1 (length group-fns))
+                                                      ":" ; Let Magit add the count.
+                                                    ;; Add count ourselves.
+                                                    (concat " " (format "(%s)" (length items)))))
+                                        :group-fns (cdr group-fns)
+                                        :depth (+ 2 depth)
+                                        :items items)))))
           (magit-todos--set-visibility :depth depth :num-items (length items) :section section)
           ;; Add top-level section to root section's children
           (when (= 0 depth)
@@ -854,6 +878,11 @@ This is a copy of `async-start-process' that does not override
   (string< (magit-todos-item-filename a)
            (magit-todos-item-filename b)))
 
+(defun magit-todos--sort-by-suffix (a b)
+  "Return non-nil if A's suffix is `string<' B's."
+  (string< (magit-todos-item-suffix a)
+           (magit-todos-item-suffix b)))
+
 ;;;; Scanners
 
 (cl-defmacro magit-todos-defscanner (name &key test command results-regexp)
@@ -868,14 +897,14 @@ scanner is usable.  In most cases, it should use
 
 COMMAND is a sexp which should evaluate to the scanner command,
 i.e. a list of strings to be eventually passed to
-`start-process'.  Nil elements are removed and nested lists are
-flattened into a single list.  It is evaluated each time the
-scanner is run.
+`start-process'.  Nil elements are removed, numbers are converted
+to strings, and nested lists are flattened into a single list.
+It is evaluated each time the scanner is run.
 
 Within the COMMAND list these variables are available:
 
-`depth': When non-nil, an integer as a string, which is the depth
-that should be passed to the scanner's max-depth option.
+`depth': When non-nil, an integer, which is the depth that should
+be passed to the scanner's max-depth option (i.e. `magit-todos-depth').
 
 `directory': The directory in which the scan should be run.
 
@@ -933,8 +962,6 @@ MAGIT-STATUS-BUFFER is what it says.  DIRECTORY is the directory in which to run
                   name)
          (let* ((process-connection-type 'pipe)
                 (directory (f-relative directory default-directory))
-                (depth (when depth
-                         (number-to-string depth)))
                 (extra-args (when ,extra-args-var
                               (--map (s-split (rx (1+ space)) it 'omit-nulls)
                                      ,extra-args-var)))
@@ -979,6 +1006,10 @@ MAGIT-STATUS-BUFFER is what it says.  DIRECTORY is the directory in which to run
                            (list (when magit-todos-nice
                                    (list "nice" "-n5"))
                                  ,command)))))
+           ;; Convert any numbers in command to strings (e.g. depth).
+           (cl-loop for elt in-ref command
+                    when (numberp elt)
+                    do (setf elt (number-to-string elt)))
            (magit-todos--async-start-process ,scan-fn-name
              :command command
              :finish-func (apply-partially #'magit-todos--scan-callback magit-status-buffer results-regexp))))
@@ -1003,7 +1034,7 @@ MAGIT-STATUS-BUFFER is what it says.  DIRECTORY is the directory in which to run
   :test (executable-find "rg")
   :command (list "rg" "--no-heading"
                  (when depth
-                   (list "--maxdepth" (number-to-string (1+ depth))))
+                   (list "--maxdepth" (1+ depth)))
                  (when magit-todos-ignore-case
                    "--ignore-case")
                  (when magit-todos-exclude-globs
@@ -1038,7 +1069,7 @@ MAGIT-STATUS-BUFFER is what it says.  DIRECTORY is the directory in which to run
                                              (s-replace " -nH " " -H "))))
                   (_ (when depth
                        (setq grep-find-template
-                             (s-replace " <D> " (concat " <D> -maxdepth " (number-to-string (1+ depth)) " ")
+                             (s-replace " <D> " (concat " <D> -maxdepth " (1+ depth) " ")
                                         grep-find-template)))))
              ;; Modified from `rgrep-default-command'
              (list "find" directory
