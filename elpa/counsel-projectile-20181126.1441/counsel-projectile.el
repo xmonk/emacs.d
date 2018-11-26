@@ -4,7 +4,7 @@
 
 ;; Author: Eric Danan
 ;; URL: https://github.com/ericdanan/counsel-projectile
-;; Package-Version: 20181020.1906
+;; Package-Version: 20181126.1441
 ;; Keywords: project, convenience
 ;; Version: 0.3.0-snapshot
 ;; Package-Requires: ((counsel "0.10.0") (projectile "1.0.0"))
@@ -842,7 +842,7 @@ is called with a prefix argument."
                   (projectile-project-root)
                   options
                   (projectile-prepend-project-name
-                   (car (split-string counsel-ag-base-command)))))))
+                   (concat (car (split-string counsel-ag-base-command)) ": "))))))
 
 ;;* counsel-projectile-rg
 
@@ -914,7 +914,7 @@ is called with a prefix argument."
                   (projectile-project-root)
                   options
                   (projectile-prepend-project-name
-                   (car (split-string counsel-rg-base-command)))))))
+                   (concat (car (split-string counsel-rg-base-command)) ": "))))))
 
 ;;* counsel-projectile-org-capture
 
