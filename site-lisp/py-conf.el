@@ -49,12 +49,12 @@
                comint-process-echoes t
                python-shell-completion-native-enable t)))
 
-  (use-package py-yapf
+  (use-package blacken
     :after python
-    :when (executable-find "yapf")
-    :ensure t
-    :init
-    (add-hook 'python-mode-hook 'py-yapf-enable-on-save))
+    :when (executable-find "black")
+    :hook (python-mode . blacken-mode)
+    :bind (("C-M-\\" . blacken-buffer))
+    :ensure t)
 
   (use-package auto-virtualenv
     :ensure t
