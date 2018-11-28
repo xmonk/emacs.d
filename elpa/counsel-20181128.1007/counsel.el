@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20181126.2123
+;; Package-Version: 20181128.1007
 ;; Version: 0.10.0
 ;; Package-Requires: ((emacs "24.3") (swiper "0.9.0"))
 ;; Keywords: convenience, matching, tools
@@ -1323,11 +1323,34 @@ files in a project.")
        (setq cmd counsel-git-grep-cmd-default)))
     (cons proj cmd)))
 
+(defun counsel--call (&rest program-and-args)
+  (let ((stderr-file (make-temp-file "counsel-call-stderr")))
+    (unwind-protect
+         (with-temp-buffer
+           (let ((res (apply #'call-process (car program-and-args)
+                             nil (list t stderr-file)
+                             nil (cdr program-and-args))))
+             (if (= 0 res)
+                 (buffer-substring (point-min)
+                                   (- (point-max)
+                                      (if (= ?\n (char-before (point-max)))
+                                          1
+                                        0)))
+               (error "%S exited with %d\n%s"
+                      (mapconcat #'identity program-and-args " ")
+                      res
+                      (with-temp-buffer
+                        (insert-file-contents stderr-file)
+                        (buffer-string))))))
+      (delete-file stderr-file))))
+
 (defun counsel--git-grep-count-func-default ()
-  "Default defun to calculate `counsel--git-grep-count'."
-  (if (eq system-type 'windows-nt)
-      0
-    (read (shell-command-to-string "du -s \"$(git rev-parse --git-dir)\" 2>/dev/null"))))
+  "Default function to calculate `counsel--git-grep-count'."
+  (if (eq system-type 'windows-nt) 0
+    (condition-case nil
+        (let ((git-dir (counsel--call "git" "rev-parse" "--git-dir")))
+          (read (counsel--call "du" "-s" git-dir)))
+      (error 0))))
 
 (defvar counsel--git-grep-count-func #'counsel--git-grep-count-func-default
   "Defun to calculate `counsel--git-grep-count' for `counsel-git-grep'.")
@@ -4524,21 +4547,22 @@ selected color."
 
 (defun counsel-rhythmbox-play-song (song)
   "Let Rhythmbox play SONG."
-  (let ((first (when (equal (shell-command-to-string "pidof rhythmbox") "")
-                 (counsel--run "nohup" "rhythmbox")
-                 (sit-for 1.5)))
+  (let ((first (string= (shell-command-to-string "pidof rhythmbox") ""))
         (service "org.gnome.Rhythmbox3")
         (path "/org/mpris/MediaPlayer2")
         (interface "org.mpris.MediaPlayer2.Player"))
+    (when first
+      (counsel--run "nohup" "rhythmbox")
+      (sit-for 1.5))
     (dbus-call-method :session service path interface
                       "OpenUri" (cdr song))
-    (when first
-      (let ((id (cdr (counsel--wmctrl-parse
-                      (shell-command-to-string
-                       "wmctrl -l -p | grep $(pidof rhythmbox)")))))
-        (when id
-          (sit-for 0.2)
-          (counsel--run "wmctrl" "-ic" id))))))
+    (let ((id (and first
+                   (cdr (counsel--wmctrl-parse
+                         (shell-command-to-string
+                          "wmctrl -l -p | grep $(pidof rhythmbox)"))))))
+      (when id
+        (sit-for 0.2)
+        (counsel--run "wmctrl" "-ic" id)))))
 
 (defun counsel-rhythmbox-enqueue-song (song)
   "Let Rhythmbox enqueue SONG."
