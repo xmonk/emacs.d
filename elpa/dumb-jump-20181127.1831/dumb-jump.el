@@ -2,7 +2,7 @@
 ;; Copyright (C) 2015-2018 jack angers
 ;; Author: jack angers
 ;; Version: 0.5.2
-;; Package-Version: 20181022.2224
+;; Package-Version: 20181127.1831
 ;; Package-Requires: ((emacs "24.3") (f "0.20.0") (s "1.11.0") (dash "2.9.0") (popup "0.5.3"))
 ;; Keywords: programming
 
@@ -1747,6 +1747,8 @@ to keep looking for another root."
     (nth 1 (s-split "/" look-for)))
    ((and (or (string= lang "ruby") (string= lang "crystal")) (s-starts-with? ":" look-for))
     (s-chop-prefix ":" look-for))
+   ((and (string= lang "systemverilog") (s-starts-with? "`" look-for))
+    (s-chop-prefix "`" look-for))
    (t
     look-for)))
 

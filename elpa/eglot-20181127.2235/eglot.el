@@ -3,7 +3,7 @@
 ;; Copyright (C) 2018 Free Software Foundation, Inc.
 
 ;; Version: 1.2
-;; Package-Version: 20181123.1812
+;; Package-Version: 20181127.2235
 ;; Author: João Távora <joaotavora@gmail.com>
 ;; Maintainer: João Távora <joaotavora@gmail.com>
 ;; URL: https://github.com/joaotavora/eglot
@@ -812,7 +812,9 @@ CONNECT-ARGS are passed as additional arguments to
   (let ((warning-minimum-level :error))
     (display-warning 'eglot (apply #'format format args) :warning)))
 
-(defvar eglot-current-column-function #'current-column
+(defun eglot--current-column () (- (point) (point-at-bol)))
+
+(defvar eglot-current-column-function #'eglot--current-column
   "Function to calculate the current column.
 
 This is the inverse operation of
@@ -834,8 +836,7 @@ for all others.")
   (eglot--widening
    (list :line (1- (line-number-at-pos pos t)) ; F!@&#$CKING OFF-BY-ONE
          :character (progn (when pos (goto-char pos))
-                           (let ((tab-width 1))
-                             (funcall eglot-current-column-function))))))
+                           (funcall eglot-current-column-function)))))
 
 (defvar eglot-move-to-column-function #'move-to-column
   "Function to move to a column reported by the LSP server.
@@ -1479,19 +1480,46 @@ DUMMY is ignored."
 (advice-add 'xref-find-definitions :after #'eglot--xref-reset-known-symbols)
 (advice-add 'xref-find-references :after #'eglot--xref-reset-known-symbols)
 
-(defun eglot--xref-make (name uri position)
-  "Like `xref-make' but with LSP's NAME, URI and POSITION."
-  (cl-destructuring-bind (&key line character) position
-    (xref-make name (xref-make-file-location
-                     (eglot--uri-to-path uri)
-                     ;; F!@(#*&#$)CKING OFF-BY-ONE again
-                     (1+ line) character))))
+(defvar eglot--temp-location-buffers (make-hash-table :test #'equal)
+  "Helper variable for `eglot--handling-xrefs'.")
 
-(defun eglot--sort-xrefs (xrefs)
-  (sort xrefs
-        (lambda (a b)
-          (< (xref-location-line (xref-item-location a))
-             (xref-location-line (xref-item-location b))))))
+(defmacro eglot--handling-xrefs (&rest body)
+  "Properly sort and handle xrefs produced and returned by BODY."
+  `(unwind-protect
+       (sort (progn ,@body)
+             (lambda (a b)
+               (< (xref-location-line (xref-item-location a))
+                  (xref-location-line (xref-item-location b)))))
+     (maphash (lambda (_uri buf) (kill-buffer buf)) eglot--temp-location-buffers)
+     (clrhash eglot--temp-location-buffers)))
+
+(defun eglot--xref-make (name uri range)
+  "Like `xref-make' but with LSP's NAME, URI and RANGE.
+Try to visit the target file for a richer summary line."
+  (pcase-let*
+      ((file (eglot--uri-to-path uri))
+       (visiting (or (find-buffer-visiting file)
+                     (gethash uri eglot--temp-location-buffers)))
+       (collect (lambda ()
+                  (eglot--widening
+                   (pcase-let* ((`(,beg . ,end) (eglot--range-region range))
+                                (bol (progn (goto-char beg) (point-at-bol)))
+                                (substring (buffer-substring bol (point-at-eol))))
+                     (add-face-text-property (- beg bol) (- end bol) 'highlight
+                                             t substring)
+                     (list substring (1+ (current-line)) (eglot--current-column))))))
+       (`(,summary ,line ,column)
+        (cond
+         (visiting (with-current-buffer visiting (funcall collect)))
+         ((file-readable-p file) (with-current-buffer
+                                     (puthash uri (generate-new-buffer " *temp*")
+                                              eglot--temp-location-buffers)
+                                   (insert-file-contents file)
+                                   (funcall collect)))
+         (t ;; fall back to the "dumb strategy"
+          (let ((start (cl-getf range :start)))
+            (list name (1+ (cl-getf start :line)) (cl-getf start :character)))))))
+    (xref-make summary (xref-make-file-location file line column))))
 
 (cl-defmethod xref-backend-identifier-completion-table ((_backend (eql eglot)))
   (when (eglot--server-capable :documentSymbolProvider)
@@ -1536,9 +1564,9 @@ DUMMY is ignored."
          (locations
           (and definitions
                (if (vectorp definitions) definitions (vector definitions)))))
-    (eglot--sort-xrefs
+    (eglot--handling-xrefs
      (mapcar (jsonrpc-lambda (&key uri range)
-               (eglot--xref-make identifier uri (plist-get range :start)))
+               (eglot--xref-make identifier uri range))
              locations))))
 
 (cl-defmethod xref-backend-references ((_backend (eql eglot)) identifier)
@@ -1550,10 +1578,10 @@ DUMMY is ignored."
                (and rich (get-text-property 0 :textDocumentPositionParams rich))))))
     (unless params
       (eglot--error "Don' know where %s is in the workspace!" identifier))
-    (eglot--sort-xrefs
+    (eglot--handling-xrefs
      (mapcar
       (jsonrpc-lambda (&key uri range)
-        (eglot--xref-make identifier uri (plist-get range :start)))
+        (eglot--xref-make identifier uri range))
       (jsonrpc-request (eglot--current-server-or-lose)
                        :textDocument/references
                        (append
@@ -1563,11 +1591,11 @@ DUMMY is ignored."
 
 (cl-defmethod xref-backend-apropos ((_backend (eql eglot)) pattern)
   (when (eglot--server-capable :workspaceSymbolProvider)
-    (eglot--sort-xrefs
+    (eglot--handling-xrefs
      (mapcar
       (jsonrpc-lambda (&key name location &allow-other-keys)
         (cl-destructuring-bind (&key uri range) location
-          (eglot--xref-make name uri (plist-get range :start))))
+          (eglot--xref-make name uri range)))
       (jsonrpc-request (eglot--current-server-or-lose)
                        :workspace/symbol
                        `(:query ,pattern))))))
