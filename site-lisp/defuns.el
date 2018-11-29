@@ -515,6 +515,18 @@ a region."
         (indent-buffer)
         (message "Indented buffer.")))))
 
+(defun untabify-buffer ()
+  "Remove tabulators from a buffer, replacing them with spaces."
+  (interactive)
+  (untabify (point-min) (point-max)))
+
+(defun cleanup-buffer ()
+  "Perform a bunch of operations on the whitespace content of a buffer."
+  (interactive)
+  (indent-buffer)
+  (untabify-buffer)
+  (delete-trailing-whitespace))
+
 (defun google()
   "Google the selected region if any, display a query prompt otherwise."
   (interactive)
