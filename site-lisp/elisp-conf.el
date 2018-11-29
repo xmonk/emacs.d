@@ -33,8 +33,8 @@
   (add-hook 'emacs-lisp-mode-hook #'flycheck-mode)
   (add-hook 'after-save-hook 'check-parens)
   (defun jj/elisp-hook ()
-    (paredit-mode 1)
-	  (setq-local indent-tabs-mode nil)
+    (enable-paredit-mode)
+    (setq-local indent-tabs-mode nil)
     (setq-local tab-width 2))
   :config
   ;;; elisp-nav
