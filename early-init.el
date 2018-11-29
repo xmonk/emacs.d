@@ -8,4 +8,5 @@
                             (foreground . "white")))
 (setq package-enable-at-startup t)
 (setq package-quickstart t)
+(cd "~/")
 (package-initialize)
