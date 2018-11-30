@@ -4,7 +4,7 @@
 ;;
 ;; Author: Steve Purcell <steve@sanityinc.com>
 ;; Keywords: themes
-;; Package-Version: 20181025.324
+;; Package-Version: 20181128.132
 ;; Package-Requires: ((cl-lib "0.2"))
 ;; X-URL: http://github.com/purcell/ibuffer-vc
 ;; URL: http://github.com/purcell/ibuffer-vc
@@ -60,7 +60,7 @@
 ;;               " "
 ;;               (vc-status 16 16 :left)
 ;;               " "
-;;               filename-and-process)))
+;;               vc-relative-file)))
 ;;
 ;; To sort by vc status, use `ibuffer-do-sort-by-vc-status', which can
 ;; also be selected by repeatedly executing
@@ -155,7 +155,7 @@ If the file is not under version control, nil is returned instead."
   (let ((roots (ibuffer-remove-duplicates
                 (delq nil (mapcar 'ibuffer-vc-root (buffer-list))))))
     (mapcar (lambda (vc-root)
-              (cons (format "%s:%s" (car vc-root) (cdr vc-root))
+              (cons (format "%s: %s" (car vc-root) (cdr vc-root))
                     `((vc-root . ,vc-root))))
             roots)))
 
@@ -190,6 +190,15 @@ If the file is not under version control, nil is returned instead."
 (define-ibuffer-column vc-status
   (:name "VC status")
   (ibuffer-vc--status-string))
+
+;;;###autoload (autoload 'ibuffer-make-column-vc-relative-file "ibuffer-vc")
+(define-ibuffer-column vc-relative-file
+  (:name "Filename")
+  (when buffer-file-name
+    (let ((root (cdr (ibuffer-vc-root buffer))))
+      (if root
+          (file-relative-name buffer-file-name root)
+        (abbreviate-file-name buffer-file-name)))))
 
 ;;;###autoload (autoload 'ibuffer-make-column-vc-status-mini "ibuffer-vc")
 (define-ibuffer-column vc-status-mini

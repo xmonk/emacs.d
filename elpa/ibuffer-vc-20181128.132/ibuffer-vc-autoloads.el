@@ -19,6 +19,7 @@ Set the current filter groups to filter by vc root dir.
 
 \(fn)" t nil)
  (autoload 'ibuffer-make-column-vc-status "ibuffer-vc")
+ (autoload 'ibuffer-make-column-vc-relative-file "ibuffer-vc")
  (autoload 'ibuffer-make-column-vc-status-mini "ibuffer-vc")
  (autoload 'ibuffer-do-sort-by-vc-status "ibuffer-vc")
 
