@@ -57,6 +57,12 @@
  '(ivy-use-virtual-buffers t)
  '(ivy-virtual-abbreviate 'full)
  '(magit-diff-use-overlays nil)
+ '(magit-repository-directories
+   '(("~/w/moosetalk-web")
+     ("~/w/moosetalk-infra")
+     ("~/.files")
+     ("~/.emacs.d/" . 0)
+     ("~/.emacs.d/lib/" . 1)))
  '(package-selected-packages
    '(blacken flycheck-ycmd ghub auto-virtualenv eyebrowse smart-jump company-quickhelp company-racer cargo racer flycheck-rust rust-mode company-ycmd ycmd dumb-jump ivy-xref ivy-rich night-owl counsel counsel-gtags counsel-projectile counsel-pydoc swiper ggtags deadgrep ace-window exec-path-from-shell doom-themes whole-line-or-region yaml-mode magithub flycheck-irony cmake-mode edit-indirect clang-format diminish org elisp-slime-nav irony go-mode flycheck company xcscope web-mode use-package undo-tree py-yapf projectile paredit markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine expand-region company-irony-c-headers company-irony company-go company-flx browse-kill-ring))
  '(projectile-globally-ignored-directories
