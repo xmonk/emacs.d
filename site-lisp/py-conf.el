@@ -39,7 +39,11 @@
     (setq-local indent-tabs-mode nil)
     (autoload 'doctest-mode "doctest-mode" "Python doctest editing mode." t)
     (subword-mode +1))
-  :config
+  (defun jj/restart-python ()
+    (set-variable 'ycmd-server-command `(,(executable-find "python3") ,(file-truename "~/.emacs.d/ycmd/ycmd/")))
+    (pyvenv-restart-python)
+    (ycmd-restart-semantic-server))
+
   (cond ((executable-find "ipython")
          (setq python-shell-interpreter "ipython")
          (setq python-shell-interpreter-args "--simple-prompt"))
@@ -48,7 +52,11 @@
                python-shell-interpreter-args "-i"
                comint-process-echoes t
                python-shell-completion-native-enable t)))
-
+  ;; Don't font lock in an inferior python shell. It's too easy for a
+  ;; docstring (when using foo? in ipython) to contain doublequotes and
+  ;; all the highlighting is broken from then onwards.
+  (setq python-shell-font-lock-enable nil)
+  :config
   (use-package blacken
     :after python
     :when (executable-find "black")
@@ -60,7 +68,15 @@
     :ensure t
     :init
     (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv)
-    (add-hook 'projectile-after-switch-project-hook 'auto-virtualenv-set-virtualenv))
+    (add-hook 'projectile-after-switch-project-hook 'auto-virtualenv-set-virtualenv)
+    (add-hook 'pyvenv-post-activate-hooks 'jj/restart-python))
+
+  (use-package pipenv
+    :disabled
+    :ensure t
+    :hook (python-mode . pipenv-mode)
+    :init
+    (setq pipenv-projectile-after-switch-function #'pipenv-projectile-after-switch-extended))
 
   (defun jj/pydoc (name)
     "Display pydoc information for NAME in a buffer named *pydoc*."
