@@ -62,7 +62,6 @@
 (setq search-highlight t)
 (setq query-replace-highlight t)
 (setq require-final-newline t)
-(setq echo-keystrokes 0.1)
 (delete-selection-mode 1)
 
 ;; don't let the cursor go into minibuffer prompt
