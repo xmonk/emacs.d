@@ -28,7 +28,8 @@
   :commands (magit-status mgit)
   :ensure t
   :bind (("s-g s" . magit-status)
-         ("s-g b" . magit-branch-checkout))
+         ("s-g b" . magit-branch-checkout)
+         ("s-g m" . jj/vc-moosetalk-web))
   :init
   (defalias 'mgit 'magit-status)
   :config
