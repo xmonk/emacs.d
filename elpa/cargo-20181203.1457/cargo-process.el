@@ -77,6 +77,7 @@
 
 (defcustom cargo-process--enable-rust-backtrace nil
   "Set RUST_BACKTRACE environment variable to 1 for tasks test and run"
+  :type 'bool
   :group 'cargo-process)
 
 (defcustom cargo-process--command-flags ""
@@ -235,10 +236,10 @@
 (defun set-rust-backtrace (command)
   "Set RUST_BACKTRACE variable depending on the COMMAND used.
 Always set to nil if cargo-process--enable-rust-backtrace is nil"
-  (when cargo-process--enable-rust-backtrace
-    (if (string-match "cargo \\(test\\|run\\)" command)
-        (setenv cargo-process--rust-backtrace "1")
-      (setenv cargo-process--rust-backtrace nil))))
+  (if (and cargo-process--enable-rust-backtrace
+           (string-match "\\(test\\|run\\)" command))
+      (setenv cargo-process--rust-backtrace "1")
+    (setenv cargo-process--rust-backtrace nil)))
 
 (defun cargo-process--workspace-root ()
   "Find the workspace root using `cargo metadata`."
@@ -247,7 +248,7 @@ Always set to nil if cargo-process--enable-rust-backtrace is nil"
                            (concat cargo-process--custom-path-to-bin
                                    " metadata --format-version 1 --no-deps")))
            (metadata-json (json-read-from-string metadata-text))
-           (workspace-root (alist-get 'workspace_root metadata-json)))
+           (workspace-root (cdr (assoc 'workspace_root metadata-json))))
       workspace-root)))
 
 (defun manifest-path-argument (name)

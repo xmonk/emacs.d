@@ -1,4 +1,4 @@
-(define-package "counsel-etags" "20181119.1135" "Fast and complete Ctags/Etags solution using ivy"
+(define-package "counsel-etags" "20181203.430" "Fast and complete Ctags/Etags solution using ivy"
   '((emacs "24.4")
     (counsel "0.9.1"))
   :keywords
