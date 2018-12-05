@@ -61,7 +61,7 @@
     :after python
     :when (executable-find "black")
     :hook (python-mode . blacken-mode)
-    :bind (("C-M-\\" . blacken-buffer))
+    :bind (:map python-mode-map ("C-M-\\" . blacken-buffer))
     :ensure t)
 
   (use-package auto-virtualenv
