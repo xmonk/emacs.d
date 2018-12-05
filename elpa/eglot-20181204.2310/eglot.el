@@ -3,7 +3,7 @@
 ;; Copyright (C) 2018 Free Software Foundation, Inc.
 
 ;; Version: 1.2
-;; Package-Version: 20181203.1200
+;; Package-Version: 20181204.2310
 ;; Author: João Távora <joaotavora@gmail.com>
 ;; Maintainer: João Távora <joaotavora@gmail.com>
 ;; URL: https://github.com/joaotavora/eglot
@@ -205,13 +205,12 @@ let the buffer grow forever."
 ;;; Message verification helpers
 ;;;
 (defvar eglot--lsp-interface-alist
-  `(
-    (CodeAction (:title) (:kind :diagnostics :edit :command))
+  `((CodeAction (:title) (:kind :diagnostics :edit :command))
+    (Command (:title :command) (:arguments))
     (FileSystemWatcher (:globPattern) (:kind))
     (Registration (:id :method) (:registerOptions))
     (TextDocumentEdit (:textDocument :edits) ())
-    (WorkspaceEdit () (:changes :documentChanges))
-    )
+    (WorkspaceEdit () (:changes :documentChanges)))
   "Alist (INTERFACE-NAME . INTERFACE) of known external LSP interfaces.
 
 INTERFACE-NAME is a symbol designated by the spec as
@@ -295,6 +294,7 @@ Honour `eglot-strict-mode'."
   "Like `pcase', but for the LSP object OBJ.
 CLAUSES is a list (DESTRUCTURE FORMS...) where DESTRUCTURE is
 treated as in `eglot-dbind'."
+  (declare (indent 1))
   (let ((obj-once (make-symbol "obj-once")))
     `(let ((,obj-once ,obj))
        (cond
@@ -307,19 +307,21 @@ treated as in `eglot-dbind'."
                                     (car (pop vars)))
            for condition =
            (if interface-name
+               ;; In this mode, we assume `eglot-strict-mode' is fully
+               ;; on, otherwise we can't disambiguate between certain
+               ;; types.
                `(let* ((interface
                         (or (assoc ',interface-name eglot--lsp-interface-alist)
                             (eglot--error "Unknown interface %s")))
                        (object-keys (eglot--plist-keys ,obj-once))
                        (required-keys (car (cdr interface))))
                   (and (null (cl-set-difference required-keys object-keys))
-                       (or (null (memq 'disallow-non-standard-keys
-                                       eglot-strict-mode))
-                           (null (cl-set-difference
-                                  (cl-set-difference object-keys required-keys)
-                                  (cadr (cdr interface)))))))
+                       (null (cl-set-difference
+                              (cl-set-difference object-keys required-keys)
+                              (cadr (cdr interface))))))
              ;; In this interface-less mode we don't check
-             ;; `eglot-strict-mode' at all.
+             ;; `eglot-strict-mode' at all: just check that the object
+             ;; has all the keys the user wants to destructure.
              `(null (cl-set-difference
                      ',vars-as-keywords
                      (eglot--plist-keys ,obj-once))))
@@ -1053,6 +1055,8 @@ and just return it.  PROMPT shouldn't end with a question mark."
     (add-hook 'xref-backend-functions 'eglot-xref-backend nil t)
     (add-hook 'completion-at-point-functions #'eglot-completion-at-point nil t)
     (add-hook 'change-major-mode-hook 'eglot--managed-mode-onoff nil t)
+    (add-hook 'post-self-insert-hook 'eglot--post-self-insert-hook nil t)
+    (add-hook 'pre-command-hook 'eglot--pre-command-hook nil t)
     (add-function :before-until (local 'eldoc-documentation-function)
                   #'eglot-eldoc-function)
     (add-function :around (local 'imenu-create-index-function) #'eglot-imenu)
@@ -1069,6 +1073,8 @@ and just return it.  PROMPT shouldn't end with a question mark."
     (remove-hook 'xref-backend-functions 'eglot-xref-backend t)
     (remove-hook 'completion-at-point-functions #'eglot-completion-at-point t)
     (remove-hook 'change-major-mode-hook #'eglot--managed-mode-onoff t)
+    (remove-hook 'post-self-insert-hook 'eglot--post-self-insert-hook t)
+    (remove-hook 'pre-command-hook 'eglot--pre-command-hook t)
     (remove-function (local 'eldoc-documentation-function)
                      #'eglot-eldoc-function)
     (remove-function (local 'imenu-create-index-function) #'eglot-imenu)
@@ -1384,13 +1390,23 @@ THINGS are either registrations or unregisterations."
   (list :textDocument (eglot--TextDocumentIdentifier)
         :position (eglot--pos-to-lsp-position)))
 
+(defvar-local eglot--last-inserted-char nil
+  "If non-nil, value of the last inserted character in buffer.")
+
+(defun eglot--post-self-insert-hook ()
+  "Set `eglot--last-inserted-char.'"
+  (setq eglot--last-inserted-char last-input-event))
+
+(defun eglot--pre-command-hook ()
+  "Reset `eglot--last-inserted-char.'"
+  (setq eglot--last-inserted-char nil))
+
 (defun eglot--CompletionParams ()
   (append
    (eglot--TextDocumentPositionParams)
    `(:context
-     ,(if-let (trigger (and (eq last-command 'self-insert-command)
-                            (characterp last-input-event)
-                            (cl-find last-input-event
+     ,(if-let (trigger (and (characterp eglot--last-inserted-char)
+                            (cl-find eglot--last-inserted-char
                                      (eglot--server-capable :completionProvider
                                                             :triggerCharacters)
                                      :key (lambda (str) (aref str 0))
@@ -1407,11 +1423,11 @@ THINGS are either registrations or unregisterations."
 (defvar-local eglot--change-idle-timer nil "Idle timer for didChange signals.")
 
 (defun eglot--before-change (start end)
-  "Hook onto `before-change-functions'.
-Records START and END, crucially convert them into
-LSP (line/char) positions before that information is
-lost (because the after-change thingy doesn't know if newlines
-were deleted/added)"
+  "Hook onto `before-change-functions'."
+  ;; Records START and END, crucially convert them into LSP
+  ;; (line/char) positions before that information is lost (because
+  ;; the after-change thingy doesn't know if newlines were
+  ;; deleted/added)
   (when (listp eglot--recent-changes)
     (push `(,(eglot--pos-to-lsp-position start)
             ,(eglot--pos-to-lsp-position end))
@@ -2090,9 +2106,8 @@ If SKIP-SIGNATURE, don't try to send textDocument/signatureHelp."
                                             (eglot--diag-data diag))))
                               (flymake-diagnostics beg end))]))))
          (menu-items
-          (or (mapcar (eglot--lambda ((CodeAction) title edit command arguments)
-                        `(,title . (:command ,command :arguments ,arguments
-                                             :edit ,edit)))
+          (or (mapcar (jsonrpc-lambda (&rest all &key title &allow-other-keys)
+                        (cons title all))
                       actions)
               (eglot--error "No code actions here")))
          (menu `("Eglot code actions:" ("dummy" ,@menu-items)))
@@ -2104,11 +2119,14 @@ If SKIP-SIGNATURE, don't try to send textDocument/signatureHelp."
                      (if (eq (setq retval (tmm-prompt menu)) never-mind)
                          (keyboard-quit)
                        retval)))))
-    (cl-destructuring-bind (&key _title command arguments edit) action
-      (when edit
-        (eglot--apply-workspace-edit edit))
-      (when command
-        (eglot-execute-command server (intern command) arguments)))))
+    (eglot--dcase action
+        (((Command) command arguments)
+         (eglot-execute-command server (intern command) arguments))
+      (((CodeAction) edit command)
+       (when edit (eglot--apply-workspace-edit edit))
+       (when command
+         (eglot--dbind ((Command) command arguments) command
+           (eglot-execute-command server (intern command) arguments)))))))
 
 
 
