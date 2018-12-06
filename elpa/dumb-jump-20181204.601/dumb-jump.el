@@ -2,7 +2,7 @@
 ;; Copyright (C) 2015-2018 jack angers
 ;; Author: jack angers
 ;; Version: 0.5.2
-;; Package-Version: 20181129.2039
+;; Package-Version: 20181204.601
 ;; Package-Requires: ((emacs "24.3") (f "0.20.0") (s "1.11.0") (dash "2.9.0") (popup "0.5.3"))
 ;; Keywords: programming
 
@@ -687,19 +687,23 @@ or most optimal searcher."
            :not ("if (test == 1234)"))
 
     (:type "function" :supports ("ag" "grep" "rg" "git-grep") :language "fortran"
-           :regex "\\b(function|subroutine)\\s+JJJ\\b\\s*\\\("
-           :tests ("function test (foo)" "integer function test(foo)" "subroutine test (foo, bar)")
-           :not ("end function test" "end subroutine test"))
+           :regex "\\b(function|subroutine|FUNCTION|SUBROUTINE)\\s+JJJ\\b\\s*\\\("
+           :tests ("function test (foo)" "integer function test(foo)"
+                   "subroutine test (foo, bar)" "FUNCTION test (foo)"
+                   "INTEGER FUNCTION test(foo)" "SUBROUTINE test (foo, bar)")
+           :not ("end function test" "end subroutine test" "END FUNCTION test"
+                 "END SUBROUTINE test"))
 
     (:type "function" :supports ("ag" "grep" "rg" "git-grep") :language "fortran"
-           :regex "^\\s*interface\\s+JJJ\\b"
-           :tests ("interface test")
-           :not ("interface test2" "end interface test"))
+           :regex "^\\s*(interface|INTERFACE)\\s+JJJ\\b"
+           :tests ("interface test" "INTERFACE test")
+           :not ("interface test2" "end interface test" "INTERFACE test2"
+                 "END INTERFACE test"))
 
     (:type "type" :supports ("ag" "grep" "rg" "git-grep") :language "fortran"
-           :regex "^\\s*module\\s+JJJ\\s*"
-           :tests ("module test")
-           :not ("end module test"))
+           :regex "^\\s*(module|MODULE)\\s+JJJ\\s*"
+           :tests ("module test" "MODULE test")
+           :not ("end module test" "END MODULE test"))
 
     ;; go
     (:type "variable" :supports ("ag" "grep" "rg" "git-grep") :language "go"
@@ -1272,6 +1276,9 @@ or most optimal searcher."
     (:language "fortran" :ext "f77" :agtype "fortran" :rgtype "fortran")
     (:language "fortran" :ext "f90" :agtype "fortran" :rgtype "fortran")
     (:language "fortran" :ext "f95" :agtype "fortran" :rgtype "fortran")
+    (:language "fortran" :ext "F77" :agtype "fortran" :rgtype "fortran")
+    (:language "fortran" :ext "F90" :agtype "fortran" :rgtype "fortran")
+    (:language "fortran" :ext "F95" :agtype "fortran" :rgtype "fortran")
     (:language "fortran" :ext "f03" :agtype "fortran" :rgtype "fortran")
     (:language "fortran" :ext "for" :agtype "fortran" :rgtype "fortran")
     (:language "fortran" :ext "ftn" :agtype "fortran" :rgtype "fortran")
