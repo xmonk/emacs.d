@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20181213.1630
+;; Package-Version: 20181217.2043
 ;; Version: 0.10.0
 ;; Package-Requires: ((emacs "24.3") (swiper "0.9.0"))
 ;; Keywords: convenience, matching, tools
@@ -220,11 +220,8 @@ Update the minibuffer with the amount of lines collected every
                                (string-match-p counsel-async-ignore-re line))
                              lines)
              lines))))
-      (let ((ivy--prompt (format "%d++ %s" numlines (ivy-state-prompt ivy-last)))
-            (win (active-minibuffer-window)))
-        (when (window-live-p win)
-          (with-selected-window win
-            (ivy--insert-minibuffer (ivy--format ivy--all-candidates)))))
+      (let ((ivy--prompt (format "%d++ %s" numlines (ivy-state-prompt ivy-last))))
+        (ivy--insert-minibuffer (ivy--format ivy--all-candidates)))
       (setq counsel--async-time (current-time)))))
 
 (defun counsel-delete-process (&optional name)
@@ -1505,7 +1502,7 @@ If NO-ASYNC is non-nil, do it synchronously instead."
 
 (defun counsel--normalize-grep-match (str)
   ;; Prepend ./ if necessary:
-  (unless (string-match-p "\\`\\.[/\\]" str)
+  (unless (ivy--starts-with-dotslash str)
     (setq str (concat "./" str)))
   ;; Remove column info if any:
   (save-match-data
