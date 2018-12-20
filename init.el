@@ -37,11 +37,11 @@
 
 (unless (window-system)
   (menu-bar-mode -1)
-  (load-theme 'jj-darkcl t))
+  (load-theme 'jj-dark t))
 
 (when (window-system)
   ;;; themes
-  (load-theme 'jj-darkcl t)
+  (load-theme 'jj-dark t)
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/" ".ripgreprc"))
   (toggle-frame-maximized))
 
@@ -55,7 +55,6 @@
 
 (when (<= emacs-major-version 26)
   (package-initialize))
-
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
