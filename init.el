@@ -48,7 +48,7 @@
 
 ;;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-(load-theme 'jj-darkcl t)
+(load-theme 'jj-dark t)
 
 (when (window-system)
   ;; set font
