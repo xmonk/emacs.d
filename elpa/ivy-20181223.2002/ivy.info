@@ -1560,7 +1560,7 @@ narrowing) or select a candidate from the visible collection.
           (counsel--async-command
            (format "locate %s '%s'"
      	      (mapconcat #'identity counsel-locate-options " ")
-     	      (counsel-unquote-regex-parens
+     	      (counsel--elisp-to-pcre
      	       (ivy--regex str))))
           '("" "working..."))))
 
@@ -1871,9 +1871,9 @@ Node: Required arguments for ivy-read43160
 Node: Optional arguments for ivy-read43679
 Node: Example - counsel-describe-function46895
 Node: Example - counsel-locate50138
-Node: Example - ivy-read-with-extra-properties53894
-Node: Variable Index55102
-Node: Keystroke Index62003
+Node: Example - ivy-read-with-extra-properties53888
+Node: Variable Index55096
+Node: Keystroke Index61997
 
 End Tag Table
 
