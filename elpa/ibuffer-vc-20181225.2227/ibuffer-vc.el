@@ -4,7 +4,7 @@
 ;;
 ;; Author: Steve Purcell <steve@sanityinc.com>
 ;; Keywords: themes
-;; Package-Version: 20181128.132
+;; Package-Version: 20181225.2227
 ;; Package-Requires: ((cl-lib "0.2"))
 ;; X-URL: http://github.com/purcell/ibuffer-vc
 ;; URL: http://github.com/purcell/ibuffer-vc
@@ -194,11 +194,12 @@ If the file is not under version control, nil is returned instead."
 ;;;###autoload (autoload 'ibuffer-make-column-vc-relative-file "ibuffer-vc")
 (define-ibuffer-column vc-relative-file
   (:name "Filename")
-  (when buffer-file-name
-    (let ((root (cdr (ibuffer-vc-root buffer))))
-      (if root
-          (file-relative-name buffer-file-name root)
-        (abbreviate-file-name buffer-file-name)))))
+  (if buffer-file-name
+      (let ((root (cdr (ibuffer-vc-root buffer))))
+        (if root
+            (file-relative-name buffer-file-name root)
+          (abbreviate-file-name buffer-file-name)))
+    ""))
 
 ;;;###autoload (autoload 'ibuffer-make-column-vc-status-mini "ibuffer-vc")
 (define-ibuffer-column vc-status-mini
