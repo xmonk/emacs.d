@@ -56,7 +56,7 @@
       (fontsize darkcl-company-fontsize))
 
   (apply 'custom-theme-set-faces 'jj-dark
-         `(highlight ((t (:background "gray72" :foreground "black" :weight bold))))
+         `(highlight ((t (:background "gray72" :foreground ,black :weight bold))))
 		     `(region ((t (:background "#525353" :foreground ,white))))
 		     `(font-lock-function-name-face ((t (:slant normal :weight normal))))
 		     `(font-lock-comment-face ((t (:slant normal :weight normal))))
@@ -98,6 +98,12 @@
 		     `(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
 		     `(company-tooltip-selection ((t (:background ,white :foreground ,black))))
 		     `(company-tooltip-annotation ((t (:foreground "gray31" :weight bold :height ,fontsize))))
+         ;; ivy
+         `(ivy-current-match ((t ( :background "gray31" :foreground ,white))))
+         `(ivy-minibuffer-match-face-1 ((t ( :background "gray31" :foreground ,white))))
+         `(ivy-minibuffer-match-face-2 ((t ( :foreground ,white :bold t))))
+         `(ivy-minibuffer-match-face-3 ((t ( :foreground "lightblue" :bold t))))
+         `(ivy-minibuffer-match-face-4 ((t ( :foreground ,white :bold t))))
 		     ;; eshell
 		     `(eshell-prompt ((t (:inherit default))))
 		     `(font-lock-warning-face ((t (:foreground ,black :bold t :underline t))))
