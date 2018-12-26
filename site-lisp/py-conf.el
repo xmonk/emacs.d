@@ -73,7 +73,6 @@
 
   (use-package pipenv
     :disabled
-    :ensure t
     :hook (python-mode . pipenv-mode)
     :init
     (setq pipenv-projectile-after-switch-function #'pipenv-projectile-after-switch-extended))
