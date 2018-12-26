@@ -69,9 +69,9 @@
  '(menu-bar-mode nil)
  '(network-security-level 'high)
  '(package-selected-packages
-   '(pdf-tools csv-mode fish-completion fish-mode systemd docker eglot eyebrowse smart-jump pythonic auto-virtualenv company-tern docker-compose-mode dockerfile-mode tern blacken flycheck-ycmd org counsel-etags ecb sr-speedbar company-racer racer cargo flycheck-rust rust-mode json-mode company-ycmd ycmd alert magit-todos dumb-jump ob-restclient ivy-xref ivy-rich deadgrep counsel counsel-gtags counsel-projectile counsel-pydoc ggtags restclient spinner lsp-imenu
-               (lsp-mode lsp-ui company-lsp)
-               exec-path-from-shell eybrowse ace-window pylint doom-themes lua-mode whole-line-or-region yaml-mode edit-indirect xcscope web-mode use-package undo-tree swiper smartscan projectile paredit ob-go markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flycheck flx-ido expand-region elisp-slime-nav diminish company-irony-c-headers company-irony company-go company-flx codesearch clang-format browse-kill-ring))
+   '(poet-theme pdf-tools csv-mode fish-completion fish-mode systemd docker eglot eyebrowse smart-jump pythonic auto-virtualenv company-tern docker-compose-mode dockerfile-mode tern blacken flycheck-ycmd org counsel-etags ecb sr-speedbar company-racer racer cargo flycheck-rust rust-mode json-mode company-ycmd ycmd alert magit-todos dumb-jump ob-restclient ivy-xref ivy-rich deadgrep counsel counsel-gtags counsel-projectile counsel-pydoc ggtags restclient spinner lsp-imenu
+                (lsp-mode lsp-ui company-lsp)
+                exec-path-from-shell eybrowse ace-window pylint doom-themes lua-mode whole-line-or-region yaml-mode edit-indirect xcscope web-mode use-package undo-tree swiper smartscan projectile paredit ob-go markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flycheck flx-ido expand-region elisp-slime-nav diminish company-irony-c-headers company-irony company-go company-flx codesearch clang-format browse-kill-ring))
  '(pos-tip-background-color "#FFF9DC")
  '(pos-tip-foreground-color "#011627")
  '(projectile-globally-ignored-directories
@@ -114,7 +114,20 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(eshell-prompt ((t (:inherit default))))
- '(sp-pair-overlay-face ((t nil))))
+ '(sp-pair-overlay-face ((t nil)))
+ `(highlight ((t (:background "gray31"))))
+ `(region ((t (:background "#525353" :foreground "#c5c8c6"))))
+ `(show-paren-match ((t (:background "#bbbbbb" :foreground "#2e2e2e"))))
+ `(company-preview ((t (:foreground "#bbbbbb" ::underline t :height 100))))
+ `(company-preview-common ((t (:inherit company-preview))))
+ '(company-scrollbar-bg ((t (:background "#2e2e2e" :foreground "#bbbbbb"))))
+ '(company-scrollbar-fg ((t (:background "#bbbbbb" :foreground "#2e2e2e"))))
+ '(company-tooltip ((t (:background "#2e2e2e" :foreground "#bbbbbb" :height 100))))
+ '(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
+ '(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
+ '(company-tooltip-selection ((t (:background "#bbbbbb" :foreground "#2e2e2e" :height 100))))
+ '(company-tooltip-annotation ((t (:foreground "gray31" :weight bold))))
+ )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; custom.el ends here
