@@ -54,6 +54,7 @@
   ;; set font
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
   (setenv "TMPDIR" "/tmp")
+  (setenv "RUST_SRC_PATH" (concat (getenv "HOME") "/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src"))
   (toggle-frame-maximized))
 
 ;; Load customization's
@@ -79,6 +80,8 @@
 (use-package prog-conf)
 (use-package company-conf :defer 0.5)
 (use-package ycmd-conf :defer 0.5)
+(use-package pdf-conf :defer 8)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here

@@ -1,5 +1,5 @@
 ;; setup prog hooks.
-(add-hook 'prog-mode-hook 'jj/pretty-lambdas)
+;; (add-hook 'prog-mode-hook 'jj/pretty-lambdas)
 (add-hook 'prog-mode-hook 'jj/local-comment-auto-fill)
 (add-hook 'prog-mode-hook 'jj/add-watchwords)
 
