@@ -32,6 +32,7 @@
          ("s-g m" . jj/vc-moosetalk-web))
   :init
   (defalias 'mgit 'magit-status)
+  (setq magit-section-visibility-indicator nil)
   :config
   (defadvice magit-status (around magit-fullscreen activate)
     (window-configuration-to-register :magit-fullscreen)
