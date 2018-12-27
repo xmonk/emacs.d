@@ -48,6 +48,7 @@
   :commands (projectile-mode projectile-switch-project)
   :diminish projectile-mode
   :functions projectile-relevant-known-projects
+  :defines projectile-mode-line
   :bind (:map projectile-mode-map ("C-c p" . projectile-command-map))
   :init
   (setq projectile-completion-system 'ivy)
@@ -56,7 +57,7 @@
 
 ;;; counsel
 (use-package counsel
-  :after ivy
+  :requires ivy
   :ensure t
   :diminish
   :bind (("C-c C-r" . ivy-resume)
@@ -88,7 +89,7 @@
 
 (use-package ivy-rich
   :ensure t
-  :after ivy
+  :requires ivy
   :functions ivy-set-display-transformer
   :custom
   (ivy-virtual-abbreviate 'full
@@ -97,6 +98,7 @@
 
 (use-package ivy-xref
   :ensure t
+  :requires ivy
   :defer
   :init
   (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
@@ -104,7 +106,7 @@
 ;;; swiper
 (use-package swiper
   :ensure t
-  :after ivy
+  :requires ivy
   :functions jj/swiper-recenter
   :bind (("C-s" . swiper)
          ("C-r" . swiper))
@@ -151,6 +153,7 @@
 ;;; whole-line-or-region
 (use-package whole-line-or-region
   :ensure t
+  :defer
   :bind (("C-y" . whole-line-or-region-yank)
          ("M-w" . whole-line-or-region-kill-ring-save))
   :diminish whole-line-or-region-local-mode
@@ -161,7 +164,7 @@
   :ensure t
   :when (memq window-system '(mac ns x))
   :init
-  (setq exec-path-from-shell-check-startup-files nil))
+  (setq exec-path-from-shell-check-startup-files t))
 
 (use-package deadgrep
   :ensure t
