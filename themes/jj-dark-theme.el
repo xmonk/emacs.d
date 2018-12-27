@@ -49,11 +49,11 @@
      fringe
      mode-line))
 
-(defvar darkcl-company-fontsize 100)
+(defvar dark-company-fontsize 100)
 
 (let ((white "#c5c8c6")
       (black "#1d1f21")
-      (fontsize darkcl-company-fontsize))
+      (fontsize dark-company-fontsize))
 
   (apply 'custom-theme-set-faces 'jj-dark
          `(highlight ((t (:background "gray72" :foreground ,black :weight bold))))
@@ -99,11 +99,11 @@
 		     `(company-tooltip-selection ((t (:background ,white :foreground ,black))))
 		     `(company-tooltip-annotation ((t (:foreground "gray31" :weight bold :height ,fontsize))))
          ;; ivy
-         `(ivy-current-match ((t ( :background "gray31" :foreground ,white))))
-         `(ivy-minibuffer-match-face-1 ((t ( :background "gray31" :foreground ,white))))
-         `(ivy-minibuffer-match-face-2 ((t ( :foreground ,white :bold t))))
-         `(ivy-minibuffer-match-face-3 ((t ( :foreground "lightblue" :bold t))))
-         `(ivy-minibuffer-match-face-4 ((t ( :foreground ,white :bold t))))
+         `(ivy-current-match ((t (:background "gray31" :foreground ,white))))
+         `(ivy-minibuffer-match-face-1 ((t (:background "gray31" :foreground ,white))))
+         `(ivy-minibuffer-match-face-2 ((t (:foreground ,white :bold t))))
+         `(ivy-minibuffer-match-face-3 ((t (:foreground "lightblue" :bold t))))
+         `(ivy-minibuffer-match-face-4 ((t (:foreground ,white :bold t))))
 		     ;; eshell
 		     `(eshell-prompt ((t (:inherit default))))
 		     `(font-lock-warning-face ((t (:foreground ,black :bold t :underline t))))
