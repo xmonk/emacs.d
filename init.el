@@ -41,7 +41,7 @@
 
 (when (window-system)
   ;;; themes
-  (load-theme 'poet-dark-monochrome t)
+  (load-theme 'jj-dark t)
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/" ".ripgreprc"))
   (toggle-frame-maximized))
 

@@ -108,26 +108,14 @@
  '(vc-annotate-very-old-color nil)
  '(vc-follow-symlinks t)
  '(xterm-mouse-mode t))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(eshell-prompt ((t (:inherit default))))
- '(sp-pair-overlay-face ((t nil)))
- `(highlight ((t (:background "gray31"))))
- `(region ((t (:background "#525353" :foreground "#c5c8c6"))))
- `(show-paren-match ((t (:background "#bbbbbb" :foreground "#2e2e2e"))))
- `(company-preview ((t (:foreground "#bbbbbb" ::underline t :height 100))))
- `(company-preview-common ((t (:inherit company-preview))))
- '(company-scrollbar-bg ((t (:background "#2e2e2e" :foreground "#bbbbbb"))))
- '(company-scrollbar-fg ((t (:background "#bbbbbb" :foreground "#2e2e2e"))))
- '(company-tooltip ((t (:background "#2e2e2e" :foreground "#bbbbbb" :height 100))))
- '(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
- '(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
- '(company-tooltip-selection ((t (:background "#bbbbbb" :foreground "#2e2e2e" :height 100))))
- '(company-tooltip-annotation ((t (:foreground "gray31" :weight bold))))
- )
+ '(sp-pair-overlay-face ((t nil))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; custom.el ends here
