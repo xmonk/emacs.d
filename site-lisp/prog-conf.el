@@ -18,7 +18,7 @@
 ;;; cscope
 (use-package xcscope
   :ensure t
-  :defer
+  :defer t
   :init
   (add-hook 'prog-mode-hook 'cscope-minor-mode)
   (setq cscope-program "cscope")
@@ -28,7 +28,7 @@
 ;;; ggtags
 (use-package ggtags
   :ensure t
-  :defer
+  :defer t
   :diminish ggtags-mode)
 
 (use-package eldoc
@@ -38,6 +38,7 @@
 ;;; yaml-mode
 (use-package yaml-mode
   :ensure t
+  :mode ("\\.yml$" . yaml-mode)
   :commands yaml-mode)
 
 ;;; Web-mode
@@ -92,6 +93,7 @@
   (smart-jump-setup-default-registers))
 
 (use-package sr-speedbar
+  :disabled
   :ensure t
   :bind (("s-s" . sr-speedbar-toggle))
   :init
