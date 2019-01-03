@@ -52,10 +52,10 @@
 
 ;;; codesearch http://code.google.com/p/codesearch/
 (use-package codesearch
-  :disabled
   :ensure t
   :commands (listing-codesearch-search listing-codesearch-list-directories codesearch-reset codesearch-update-index codesearch-build-index)
   :init
+  (defalias 'csearch 'listing-codesearch-search)
   (setq codesearch-csearchindex ".csearchindex")
   (setq codesearch-global-csearchindex nil))
 
