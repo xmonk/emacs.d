@@ -4,7 +4,7 @@
 
 ;; Author: Vasilij Schneidermann <v.schneidermann@gmail.com>
 ;; URL: https://github.com/wasamasa/eyebrowse
-;; Package-Version: 20180514.1919
+;; Package-Version: 20190104.1857
 ;; Version: 0.7.7
 ;; Package-Requires: ((dash "2.7.0") (emacs "24.3.1"))
 ;; Keywords: convenience
@@ -560,14 +560,15 @@ Currently only gt, gT, gc and zx are supported."
   (define-key evil-motion-state-map (kbd "zx") 'eyebrowse-last-window-config))
 
 ;;;###autoload
-(defun eyebrowse-setup-opinionated-keys ()
+(defun eyebrowse-setup-opinionated-keys (&optional ignore-evil)
   "Set up more opinionated key bindings for using eyebrowse.
 
-M-0..M-9, C-< / C->, C-'and C-\" are used for switching.  If Evil
-is detected, extra key bindings will be set up with
-`eyebrowse-setup-evil-keys' as well."
+M-0..M-9, C-< / C->, C-'and C-\" are used for switching.  If
+IGNORE-EVIL isn't set and Evil is detected, extra key bindings
+will be set up with `eyebrowse-setup-evil-keys' as well."
   (let ((map eyebrowse-mode-map))
-    (when (bound-and-true-p evil-mode)
+    (when (and (not ignore-evil)
+               (bound-and-true-p evil-mode))
       (eyebrowse-setup-evil-keys))
     (define-key map (kbd "C-<") 'eyebrowse-prev-window-config)
     (define-key map (kbd "C->") 'eyebrowse-next-window-config)
