@@ -1,4 +1,4 @@
-(define-package "cargo" "20190101.2043" "Emacs Minor Mode for Cargo, Rust's Package Manager."
+(define-package "cargo" "20190108.817" "Emacs Minor Mode for Cargo, Rust's Package Manager."
   '((emacs "24.3")
     (rust-mode "0.2.0")
     (markdown-mode "2.4"))
