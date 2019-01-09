@@ -27,11 +27,13 @@
 (use-package org
   :ensure t
   :commands org-mode
+  :mode ("\\.org\\'" . org-mode)
   :functions jj/find-org-markers
   :init
   (add-hook 'org-mode-hook 'jj/org-mode-hook)
   :config
-  (use-package ox-md)
+  (use-package ox-md
+    :requires org)
 
   (defun jj/org-mode-hook()
     (auto-fill-mode 1)
