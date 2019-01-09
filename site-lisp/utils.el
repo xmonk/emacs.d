@@ -5,7 +5,7 @@
 (use-package ibuffer-vc
   :ensure t
   :defer
-  :after ibuffer
+  :requires ibuffer
   :functions ibuffer-do-sort-by-alphabetic
   :init
   (defun jj/ibuffer-vc-setup ()
@@ -46,6 +46,7 @@
 ;;; projectile
 (use-package projectile
   :ensure t
+  :defines projectile-mode-line
   :diminish projectile-mode
   :bind (:map projectile-mode-map ("C-c p" . projectile-command-map))
   :init
@@ -85,7 +86,7 @@
 
 (use-package ivy-rich
   :ensure t
-  :after ivy
+  :requires ivy
   :functions ivy-set-display-transformer
   :custom
   (ivy-virtual-abbreviate 'full
@@ -95,13 +96,14 @@
 (use-package ivy-xref
   :ensure t
   :defer t
+  :requires ivy
   :init
   (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
 
 ;;; swiper
 (use-package swiper
   :ensure t
-  :after ivy
+  :requires ivy
   :functions jj/swiper-recenter
   :bind (("C-s" . swiper)
          ("C-r" . swiper))
@@ -114,7 +116,7 @@
 
 ;;; counsel projectile
 (use-package counsel-projectile
-  :after projectile
+  :requires projectile
   :ensure t)
 
 (use-package counsel-gtags
@@ -137,6 +139,7 @@
 ;;; whole-line-or-region
 (use-package whole-line-or-region
   :ensure t
+  :defer t
   :bind (("C-y" . whole-line-or-region-yank)
          ("C-c C-k" . whole-line-or-region-kill-ring-save))
   :diminish whole-line-or-region-local-mode
