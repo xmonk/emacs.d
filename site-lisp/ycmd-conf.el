@@ -23,7 +23,7 @@
   ;; Add the ycmd checker to the list of available checkers
   (add-to-list 'flycheck-checkers 'ycmd))
 
-(defvar *ycmd-build-command* "python3 build.py --go-complete")
+(defvar *ycmd-build-command* "python3 build.py --go-completer")
 
 (defun ycmd-build-server ()
   "Build ycmd"
