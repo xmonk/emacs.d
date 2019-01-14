@@ -50,13 +50,13 @@
 
   (use-package company-go
     :ensure t
-    :after (go-mode company)
+    :requires (go-mode company)
     :config
     (add-to-list 'company-backends 'company-go)
     (setq company-go-show-annotation t)
     (setq company-tooltip-align-annotations t)
-    (when (file-executable-p (file-truename "~/t/ycmd/third_party/go/src/github.com/mdempsky/gocode/gocode"))
-      (setq company-go-gocode-command (file-truename "~/t/ycmd/third_party/go/src/github.com/mdempsky/gocode/gocode"))))
+    (when (file-executable-p (file-truename "~/.emacs.d/ycmd/third_party/go/src/github.com/mdempsky/gocode/gocode"))
+      (setq company-go-gocode-command (file-truename "~/.emacs.d/ycmd/third_party/go/src/github.com/mdempsky/gocode/gocode"))))
 
   ;; Enable go-rename if available
   (use-package go-rename
