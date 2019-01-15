@@ -38,35 +38,33 @@
   (setq gofmt-command "goimports")
 
   (use-package go-eldoc
-    :after go-mode
+    :requires go-mode
     :ensure t
     :init
     (add-hook 'go-mode-hook 'go-eldoc-setup))
 
   (use-package go-errcheck
-    :after go-mode
+    :requires go-mode
     :commands go-errcheck
-    :ensure t
-    :init
-    (setq go-errcheck-ignore "fmt:[FS]?[Pp]rint*"))
+    :ensure t)
 
   (use-package company-go
     :ensure t
-    :after (go-mode company)
+    :requires (go-mode company)
     :config
     (add-to-list 'company-backends 'company-go)
     (setq company-go-show-annotation t)
     (setq company-tooltip-align-annotations t)
-    (unless (executable-find "gocode")
-      (shell-command-to-string "go get github.com/nsf/gocode")))
+    (when (file-executable-p (file-truename "~/.emacs.d/ycmd/third_party/go/src/github.com/mdempsky/gocode/gocode"))
+      (setq company-go-gocode-command (file-truename "~/.emacs.d/ycmd/third_party/go/src/github.com/mdempsky/gocode/gocode"))))
 
   ;; Enable go-rename if available
   (use-package go-rename
-    :after go-mode
+    :requires go-mode
     :ensure t)
 
   (use-package "go-guru"
-    :after go-mode
+    :requires go-mode
     :ensure t
     :init
     (add-hook 'go-mode-hook 'go-guru-hl-identifier-mode))
