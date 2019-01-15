@@ -45,6 +45,7 @@
  '(gdb-show-main t t)
  '(gnutls-trustfiles
    '("/etc/ssl/ca-bundle.pem" "/usr/local/etc/openssl/cert.pem" "~/.certs/ca-certificates.pem"))
+ '(go-errcheck-ignorepkg '("fmt"))
  '(grep-command "/usr/local/bin/rg")
  '(grep-find-command '("find . -type f -exec /usr/local/bin/rg \\{\\} +" . 39))
  '(grep-find-template
