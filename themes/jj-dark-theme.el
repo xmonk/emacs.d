@@ -49,19 +49,19 @@
      fringe
      mode-line))
 
-(defvar darkcl-company-fontsize 10)
+(defvar dark-company-fontsize 120)
 
 (let ((white "#c5c8c6")
       (black "#1d1f21")
-      (fontsize darkcl-company-fontsize))
+      (fontsize dark-company-fontsize))
+
   (apply 'custom-theme-set-faces 'jj-dark
-         `(highlight ((t (:background "gray72" :foreground "black" :weight bold))))
+         `(highlight ((t (:background "gray72" :foreground ,black :weight bold))))
 		     `(region ((t (:background "#525353" :foreground ,white))))
 		     `(font-lock-function-name-face ((t (:slant normal :weight normal))))
 		     `(font-lock-comment-face ((t (:slant normal :weight normal))))
 		     `(font-doc-face ((t (:slant normal :weight normal))))
-		     `(font-lock-warning-face ((t (:foreground ,white :background ,black :slant normal :weight bold))))
-		     `(mode-line ((t (:foreground ,black :background ,white :box nil :slant normal :weight normal))))
+         `(mode-line ((t (:foreground ,black :background ,white :box nil :slant normal :weight normal))))
 		     `(mode-line-inactive ((t (:foreground ,black :background ,white :box nil :slant normal :weight light))))
 		     `(cursor ((t (:background ,white :foreground ,black))))
 		     `(org-code ((t (:foreground ,white :weight bold))))
@@ -80,6 +80,14 @@
 		     `(magit-diff-added-highlight ((t (:inherit default))))
 		     `(magit-diff-removed ((t (:inherit default))))
 		     `(magit-diff-removed-highlight ((t (:inherit default))))
+		     ;; auto-complete
+		     `(ac-completion-face ((t (:background ,black :foreground ,white))))
+		     `(ac-candidate-face ((t (:background ,black :foreground ,white))))
+		     `(ac-selection-face ((t (:background ,white :foreground ,black :bold t))))
+		     `(popup-face ((t (:inherit default))))
+		     `(popup-summary-face ((t (:inherit default))))
+		     `(popup-menu-face ((t (:inherit default))))
+		     `(popup-tip-face ((t (:background ,white :foreground ,black :bold t))))
 		     ;; company
 		     `(company-preview ((t (:foreground ,white :underline t :height ,fontsize))))
 		     `(company-preview-common ((t (:inherit company-preview))))
@@ -88,14 +96,18 @@
 		     `(company-tooltip ((t (:background ,black :foreground ,white))))
 		     `(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
 		     `(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
-		     `(company-tooltip-selection ((t (:background ,white :foreground ,black :height ,fontsize))))
-		     `(company-tooltip-annotation ((t (:foreground "gray31" :weight bold))))
-		     ;; swiper
-
+		     `(company-tooltip-selection ((t (:background ,white :foreground ,black))))
+		     `(company-tooltip-annotation ((t (:foreground "gray31" :weight bold :height ,fontsize))))
+         ;; ivy
+         `(ivy-current-match ((t (:background "gray31" :foreground ,white))))
+         `(ivy-minibuffer-match-face-1 ((t (:background "gray31" :foreground ,white))))
+         `(ivy-minibuffer-match-face-2 ((t (:foreground ,white :bold t))))
+         `(ivy-minibuffer-match-face-3 ((t (:foreground "lightblue" :bold t))))
+         `(ivy-minibuffer-match-face-4 ((t (:foreground ,white :bold t))))
 		     ;; eshell
 		     `(eshell-prompt ((t (:inherit default))))
 		     `(font-lock-warning-face ((t (:foreground ,black :bold t :underline t))))
-		     (mapcar (lambda (n) `(,n ((t (:background ,black :foreground ,white))))) jj-faces)))
+		     (mapcar (lambda (n) `(,n ((t (:background ,black :foreground ,white :width normal :weight normal))))) jj-faces)))
 
 ;;;###autoload
 (when load-file-name
