@@ -49,7 +49,7 @@
      fringe
      mode-line))
 
-(defvar dark-company-fontsize 120)
+(defvar dark-company-fontsize 130)
 
 (let ((white "#c5c8c6")
       (black "#1d1f21")
