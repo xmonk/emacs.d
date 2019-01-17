@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/avy
-;; Package-Version: 20190115.1425
+;; Package-Version: 20190117.1647
 ;; Version: 0.4.0
 ;; Package-Requires: ((emacs "24.1") (cl-lib "0.5"))
 ;; Keywords: point, location
@@ -838,18 +838,23 @@ Use OVERLAY-FN to visualize the decision overlay."
   (setq avy--overlays-back nil)
   (avy--remove-leading-chars))
 
+(defun avy--visible-p (s)
+  (let ((invisible (get-char-property s 'invisible)))
+    (or (null invisible)
+        (null (assoc invisible buffer-invisibility-spec)))))
+
 (defun avy--next-visible-point ()
   "Return the next closest point without 'invisible property."
   (let ((s (point)))
     (while (and (not (= (point-max) (setq s (next-char-property-change s))))
-                (get-char-property s 'invisible)))
+                (not (avy--visible-p s))))
     s))
 
 (defun avy--next-invisible-point ()
   "Return the next closest point with 'invisible property."
   (let ((s (point)))
     (while (and (not (= (point-max) (setq s (next-char-property-change s))))
-                (not (get-char-property s 'invisible))))
+                (avy--visible-p s)))
     s))
 
 (defun avy--find-visible-regions (rbeg rend)
@@ -884,7 +889,7 @@ When GROUP is non-nil, (BEG . END) should delimit that regex group."
         (save-excursion
           (goto-char (car pair))
           (while (re-search-forward regex (cdr pair) t)
-            (unless (get-char-property (1- (point)) 'invisible)
+            (when (avy--visible-p (1- (point)))
               (when (or (null pred)
                         (funcall pred))
                 (push (cons (cons (match-beginning group)
@@ -1907,6 +1912,8 @@ Otherwise, the whole regex is highlighted."
         char break overlays regex)
     (unwind-protect
          (progn
+           (avy--make-backgrounds
+            (avy-window-list))
            (while (and (not break)
                        (setq char
                              (read-char (format "%d  char%s: "
@@ -1968,7 +1975,8 @@ Otherwise, the whole regex is highlighted."
                                      (overlay-get ov 'window)))
                              overlays)))
       (dolist (ov overlays)
-        (delete-overlay ov)))))
+        (delete-overlay ov))
+      (avy--done))))
 
 ;;;###autoload
 (defun avy-goto-char-timer (&optional arg)
