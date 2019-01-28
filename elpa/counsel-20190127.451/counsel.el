@@ -1,12 +1,12 @@
 ;;; counsel.el --- Various completion functions using Ivy -*- lexical-binding: t -*-
 
-;; Copyright (C) 2015-2018  Free Software Foundation, Inc.
+;; Copyright (C) 2015-2019  Free Software Foundation, Inc.
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20190123.1048
-;; Version: 0.10.0
-;; Package-Requires: ((emacs "24.3") (swiper "0.9.0"))
+;; Package-Version: 20190127.451
+;; Version: 0.11.0
+;; Package-Requires: ((emacs "24.3") (swiper "0.11.0"))
 ;; Keywords: convenience, matching, tools
 
 ;; This file is part of GNU Emacs.
@@ -749,22 +749,30 @@ With prefix arg MODE a query for the symbol help mode is offered."
   "Face used by `counsel-M-x' for key bindings."
   :group 'ivy-faces)
 
+(defcustom counsel-alias-expand t
+  "When non-nil, show the expansion of aliases in `counsel-M-x'."
+  :type 'boolean
+  :group 'ivy)
+
 (defun counsel-M-x-transformer (cmd)
   "Return CMD annotated with its active key binding, if any."
-  (let ((key (where-is-internal (intern cmd) nil t)))
-    (if (not key)
-        cmd
-      ;; Prefer `<f2>' over `C-x 6' where applicable
-      (let ((i (cl-search [?\C-x ?6] key)))
-        (when i
-          (let ((dup (vconcat (substring key 0 i) [f2] (substring key (+ i 2))))
-                (map (current-global-map)))
-            (when (equal (lookup-key map key)
-                         (lookup-key map dup))
-              (setq key dup)))))
-      (setq key (key-description key))
-      (put-text-property 0 (length key) 'face 'counsel-key-binding key)
-      (format "%s (%s)" cmd key))))
+  (let ((alias (symbol-function (intern cmd)))
+        (key (where-is-internal (intern cmd) nil t)))
+    (concat cmd
+            (when (and (symbolp alias) counsel-alias-expand)
+              (format " (%s)" alias))
+            (when key
+              ;; Prefer `<f2>' over `C-x 6' where applicable
+              (let ((i (cl-search [?\C-x ?6] key)))
+                (when i
+                  (let ((dup (vconcat (substring key 0 i) [f2] (substring key (+ i 2))))
+                        (map (current-global-map)))
+                    (when (equal (lookup-key map key)
+                                 (lookup-key map dup))
+                      (setq key dup)))))
+              (setq key (key-description key))
+              (put-text-property 0 (length key) 'face 'counsel-key-binding key)
+              (format " (%s)" key)))))
 
 (defvar amx-initialized)
 (defvar amx-cache)
