@@ -5,7 +5,7 @@
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; Maintainer: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/ace-window
-;; Package-Version: 20190121.1636
+;; Package-Version: 20190130.1105
 ;; Version: 0.9.0
 ;; Package-Requires: ((avy "0.2.0"))
 ;; Keywords: window, location
@@ -661,8 +661,9 @@ Windows are numbered top down, left to right."
     (mapc #'delete-overlay aw-overlays-back)
     (call-interactively 'ace-window)))
 
-(defun aw-delete-window (window)
-  "Delete window WINDOW."
+(defun aw-delete-window (window &optional kill-buffer)
+  "Delete window WINDOW.
+When KILL-BUFFER is non-nil, also kill the buffer."
   (let ((frame (window-frame window)))
     (when (and (frame-live-p frame)
                (not (eq frame (selected-frame))))
@@ -670,7 +671,10 @@ Windows are numbered top down, left to right."
     (if (= 1 (length (window-list)))
         (delete-frame frame)
       (if (window-live-p window)
-          (delete-window window)
+          (let ((buffer (window-buffer window)))
+            (delete-window window)
+            (when kill-buffer
+              (kill-buffer buffer)))
         (error "Got a dead window %S" window)))))
 
 (defun aw-switch-buffer-in-window (window)
@@ -752,6 +756,16 @@ Modify `aw-fair-aspect-ratio' to tweak behavior."
   (aw--switch-buffer)
   (aw-flip-window))
 
+(defun aw--face-rel-height ()
+  (let ((h (face-attribute 'aw-leading-char-face :height)))
+    (cond
+      ((eq h 'unspecified)
+       1)
+      ((floatp h)
+       (1+ (floor h)))
+      (t
+       (error "unexpected: %s" h)))))
+
 (defun aw-offset (window)
   "Return point in WINDOW that's closest to top left corner.
 The point is writable, i.e. it's not part of space after newline."
@@ -759,16 +773,20 @@ The point is writable, i.e. it's not part of space after newline."
         (beg (window-start window))
         (end (window-end window))
         (inhibit-field-text-motion t))
-    (with-current-buffer
-        (window-buffer window)
+    (with-current-buffer (window-buffer window)
       (save-excursion
         (goto-char beg)
+        (forward-line (- (aw--face-rel-height) 1))
         (while (and (< (point) end)
                     (< (- (line-end-position)
                           (line-beginning-position))
                        h))
           (forward-line))
         (+ (point) h)))))
+
+(defun aw--after-make-frame (f)
+  (aw-update)
+  (make-frame-visible f))
 
 ;;* Mode line
 ;;;###autoload
@@ -788,14 +806,14 @@ The point is writable, i.e. it's not part of space after newline."
         (force-mode-line-update t)
         (add-hook 'window-configuration-change-hook 'aw-update)
         ;; Add at the end so does not precede select-frame call.
-        (add-hook 'after-make-frame-functions (lambda (_) (aw-update)) t))
+        (add-hook 'after-make-frame-functions #'aw--after-make-frame t))
     (set-default
      'mode-line-format
      (assq-delete-all
       'ace-window-display-mode
       (default-value 'mode-line-format)))
     (remove-hook 'window-configuration-change-hook 'aw-update)
-    (remove-hook 'after-make-frame-functions 'aw-update)))
+    (remove-hook 'after-make-frame-functions 'aw--after-make-frame)))
 
 (defun aw-update ()
   "Update ace-window-path window parameter for all windows.
