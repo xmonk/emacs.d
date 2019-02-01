@@ -37,8 +37,6 @@
      font-lock-keyword-face
      font-lock-negation-char-face
      font-lock-function-name-face
-     font-lock-keyword-face
-     font-lock-negation-char-face
      font-lock-preprocessor-face
      font-lock-regexp-grouping-backslash
      font-lock-regexp-grouping-construct
@@ -106,7 +104,7 @@
          `(ivy-minibuffer-match-face-4 ((t (:foreground ,white :bold t))))
 		     ;; eshell
 		     `(eshell-prompt ((t (:inherit default))))
-		     `(font-lock-warning-face ((t (:foreground ,black :bold t :underline t))))
+		     `(font-lock-warning-face ((t (:foreground ,white :bold t :underline t))))
 		     (mapcar (lambda (n) `(,n ((t (:background ,black :foreground ,white :width normal :weight normal))))) jj-faces)))
 
 ;;;###autoload
