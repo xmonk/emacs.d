@@ -5,7 +5,7 @@
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; Maintainer: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/ace-window
-;; Package-Version: 20190130.1105
+;; Package-Version: 20190130.1455
 ;; Version: 0.9.0
 ;; Package-Requires: ((avy "0.2.0"))
 ;; Keywords: window, location
@@ -776,7 +776,12 @@ The point is writable, i.e. it's not part of space after newline."
     (with-current-buffer (window-buffer window)
       (save-excursion
         (goto-char beg)
-        (forward-line (- (aw--face-rel-height) 1))
+        (forward-line (1-
+                       (min
+                        (count-lines
+                         (point)
+                         (point-max))
+                        (aw--face-rel-height))))
         (while (and (< (point) end)
                     (< (- (line-end-position)
                           (line-beginning-position))
