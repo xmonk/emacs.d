@@ -30,6 +30,7 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#373426" "#ECE9E0" "#D5D2C8" "#FFFFFD" "#FAF7EE" "#ECE9E0" "#FFFFF8" "#FFFFFD"])
+ '(bidi-paragraph-direction nil)
  '(clang-format-style
    "{BasedOnStyle: llvm, UseTab: Always, IndentWidth: 8, AllowShortFunctionsOnASingleLine: None, KeepEmptyLinesAtTheStartOfBlocks: false}" t)
  '(column-number-mode t)
