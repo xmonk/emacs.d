@@ -97,6 +97,7 @@
                           'ivy-rich-path-style 'abbrev))
 
 (use-package ivy-xref
+  :disabled
   :ensure t
   :requires ivy
   :defer
@@ -164,7 +165,7 @@
   :ensure t
   :when (memq window-system '(mac ns x))
   :init
-  (setq exec-path-from-shell-check-startup-files t))
+  (setq exec-path-from-shell-check-startup-files nil))
 
 (use-package deadgrep
   :ensure t
