@@ -201,7 +201,9 @@
   :ensure t
   :when (memq window-system '(mac ns))
   :init
-  (setq exec-path-from-shell-check-startup-files t)
+  (setq exec-path-from-shell-check-startup-files nil)
+  (setq exec-path-from-shell-arguments '("-l"))
+  :config
   (exec-path-from-shell-initialize))
 
 (use-package deadgrep

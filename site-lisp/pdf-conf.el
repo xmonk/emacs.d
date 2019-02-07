@@ -1,4 +1,5 @@
 (use-package pdf-tools
+  :disabled
   :magic ("%PDF" . pdf-view-mode)
   :mode ("\\.pdf\\'" . pdf-view-mode)
   :pin manual ;;manually update

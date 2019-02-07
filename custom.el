@@ -65,7 +65,7 @@
      ("~/.emacs.d/" . 0)
      ("~/.emacs.d/lib/" . 1)))
  '(package-selected-packages
-   '(pdf-tools fish-completion fish-mode blacken flycheck-ycmd ghub auto-virtualenv eyebrowse smart-jump company-quickhelp company-racer cargo racer flycheck-rust rust-mode company-ycmd ycmd dumb-jump ivy-xref ivy-rich night-owl counsel counsel-gtags counsel-projectile counsel-pydoc swiper ggtags deadgrep ace-window exec-path-from-shell doom-themes whole-line-or-region yaml-mode magithub flycheck-irony cmake-mode edit-indirect clang-format diminish org elisp-slime-nav irony go-mode flycheck company xcscope web-mode use-package undo-tree py-yapf projectile paredit markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine expand-region company-irony-c-headers company-irony company-go company-flx browse-kill-ring))
+   '(exec-path-from-shell blacken flycheck-ycmd ghub auto-virtualenv smart-jump company-quickhelp company-racer cargo racer flycheck-rust rust-mode company-ycmd ycmd dumb-jump ivy-xref ivy-rich night-owl counsel counsel-gtags counsel-projectile counsel-pydoc swiper ggtags deadgrep ace-window doom-themes whole-line-or-region yaml-mode magithub flycheck-irony cmake-mode edit-indirect clang-format diminish org elisp-slime-nav irony go-mode flycheck company xcscope web-mode use-package undo-tree py-yapf projectile paredit markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine expand-region company-irony-c-headers company-irony company-go company-flx browse-kill-ring))
  '(projectile-globally-ignored-directories
    '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "elpa" "venv" ".egg*" "__pycache__" "var" "etc"))
  '(projectile-globally-ignored-files '("TAGS" ".DS_Store" ".elc" ".pyc"))
@@ -75,7 +75,7 @@
  '(temporary-file-directory "/tmp")
  '(tool-bar-mode nil)
  '(tramp-syntax 'default nil (tramp))
- '(use-package-compute-statistics nil)
+ '(use-package-compute-statistics t)
  '(use-package-verbose t)
  '(vc-annotate-background nil)
  '(vc-annotate-very-old-color nil)
