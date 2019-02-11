@@ -1039,6 +1039,14 @@ Shows a list of commands and prompts for another key to execute a command.
 
 \(fn)" t nil)
 
+(autoload 'org-attach-dired-to-subtree "org-attach" "\
+Attach FILES marked or current file in dired to subtree in other window.
+Takes the method given in `org-attach-method' for the attach action.
+Precondition: Point must be in a dired buffer.
+Idea taken from `gnus-dired-attach'.
+
+\(fn FILES)" t nil)
+
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-attach" '("org-attach-")))
 
 ;;;***
@@ -2697,7 +2705,7 @@ which will prompt for the width.
 
 ;;;***
 
-;;;### (autoloads nil "org-timer" "org-timer.el" "fca6333d111f2f3a049f7645f7d45cd9")
+;;;### (autoloads nil "org-timer" "org-timer.el" "491728b02a697c05ab8a6a79954789cd")
 ;;; Generated autoloads from org-timer.el
 
 (autoload 'org-timer-start "org-timer" "\

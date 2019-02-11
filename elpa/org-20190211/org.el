@@ -7,7 +7,7 @@
 ;; Maintainer: Carsten Dominik <carsten at orgmode dot org>
 ;; Keywords: outlines, hypermedia, calendar, wp
 ;; Homepage: https://orgmode.org
-;; Version: 9.2
+;; Version: 9.2.1
 ;;
 ;; This file is part of GNU Emacs.
 ;;
@@ -252,7 +252,7 @@ file to byte-code before it is loaded."
   (interactive "fFile to load: \nP")
   (let* ((age (lambda (file)
 		(float-time
-		 (time-subtract nil
+		 (time-subtract (current-time)
 				(file-attribute-modification-time
 				 (or (file-attributes (file-truename file))
 				     (file-attributes file)))))))
@@ -675,7 +675,7 @@ on a string that terminates immediately after the date.")
 The time stamps may be either active or inactive.")
 
 (defconst org-repeat-re
-  "[[<][0-9]\\{4\\}-[0-9][0-9]-[0-9][0-9] [^]>\n]*?\
+  "<[0-9]\\{4\\}-[0-9][0-9]-[0-9][0-9] [^>\n]*?\
 \\([.+]?\\+[0-9]+[hdwmy]\\(/[0-9]+[hdwmy]\\)?\\)"
   "Regular expression for specifying repeated events.
 After a match, group 1 contains the repeat expression.")
@@ -3133,6 +3133,11 @@ property to one or more of these keywords."
 	  (const :tag "Force recording the DONE state" time)
 	  (const :tag "Force recording a note with the DONE state" note)))
 
+(defcustom org-todo-repeat-hook nil
+  "Hook that is run after a task has been repeated."
+  :package-version '(Org . "9.2")
+  :group 'org-todo
+  :type 'hook)
 
 (defgroup org-priorities nil
   "Priorities in Org mode."
@@ -5640,14 +5645,15 @@ the rounding returns a past time."
 	    (apply 'encode-time
 		   (append (list 0 (* r (floor (+ .5 (/ (float (nth 1 time)) r)))))
 			   (nthcdr 2 time))))
-      (if (and past (< (float-time (time-subtract nil res)) 0))
+      (if (and past (< (float-time (time-subtract (current-time) res)) 0))
 	  (seconds-to-time (- (float-time res) (* r 60)))
 	res))))
 
 (defun org-today ()
   "Return today date, considering `org-extend-today-until'."
   (time-to-days
-   (time-subtract nil (list 0 (* 3600 org-extend-today-until) 0))))
+   (time-subtract (current-time)
+		  (list 0 (* 3600 org-extend-today-until) 0))))
 
 ;;;; Font-Lock stuff, including the activators
 
@@ -7280,30 +7286,32 @@ With a numeric prefix, show all headlines up to that level."
     (org-cycle-show-empty-lines t)))
 
 (defun org-set-visibility-according-to-property ()
-  "Switch subtree visibilities according to :VISIBILITY: property."
+  "Switch subtree visibility according to VISIBILITY property."
   (interactive)
-  (org-with-wide-buffer
-   (goto-char (point-min))
-   (while (re-search-forward "^[ \t]*:VISIBILITY:" nil t)
-     (if (not (org-at-property-p)) (outline-next-heading)
-       (let ((state (match-string 3)))
-	 (save-excursion
-	   (org-back-to-heading t)
-	   (outline-hide-subtree)
-	   (org-reveal)
-	   (cond
-	    ((equal state "folded")
-	     (outline-hide-subtree))
-	    ((equal state "children")
-	     (org-show-hidden-entry)
-	     (org-show-children))
-	    ((equal state "content")
-	     (save-excursion
-	       (save-restriction
-		 (org-narrow-to-subtree)
-		 (org-content))))
-	    ((member state '("all" "showall"))
-	     (outline-show-subtree)))))))))
+  (let ((regexp (org-re-property "VISIBILITY")))
+    (org-with-point-at 1
+      (while (re-search-forward regexp nil t)
+	(let ((state (match-string 3)))
+	  (if (not (org-at-property-p)) (outline-next-heading)
+	    (save-excursion
+	      (org-back-to-heading t)
+	      (outline-hide-subtree)
+	      (org-reveal)
+	      (pcase state
+		("folded"
+		 (outline-hide-subtree))
+		("children"
+		 (org-show-hidden-entry)
+		 (org-show-children))
+		("content"
+		 (save-excursion
+		   (save-restriction
+		     (org-narrow-to-subtree)
+		     (org-content))))
+		((or "all" "showall")
+		 (outline-show-subtree))
+		(_ nil)))
+	    (org-end-of-subtree)))))))
 
 (defun org-overview ()
   "Switch to overview mode, showing only top-level headlines.
@@ -12852,7 +12860,7 @@ This function is run automatically after each state change to a DONE state."
 		      (let ((nshiftmax 10)
 			    (nshift 0))
 			(while (or (= nshift 0)
-				   (not (time-less-p nil time)))
+				   (not (time-less-p (current-time) time)))
 			  (when (= nshiftmax (cl-incf nshift))
 			    (or (y-or-n-p
 				 (format "%d repeater intervals were not \
@@ -12876,6 +12884,7 @@ enough to shift date past today.  Continue? "
 		  (org-timestamp-change n (cdr (assoc what whata)) nil t))
 		(setq msg
 		      (concat msg type " " org-last-changed-timestamp " ")))))))
+      (run-hooks 'org-todo-repeat-hook)
       (setq org-log-post-message msg)
       (message msg))))
 
@@ -14720,7 +14729,7 @@ Assume point is at the beginning of the headline."
 
 When argument POS is non-nil, retrieve tags for headline at POS.
 
-According to `org-use-tags-inheritance', tags may be inherited
+According to `org-use-tag-inheritance', tags may be inherited
 from parent headlines, and from the whole document, through
 `org-file-tags'.  In this case, the returned list of tags
 contains tags in this order: file tags, tags inherited from
@@ -18897,7 +18906,9 @@ COMMANDS is a list of alternating OLDDEF NEWDEF command names."
 (org-defkey org-mode-map (kbd "<tab>") #'org-cycle)
 (org-defkey org-mode-map (kbd "C-<tab>") #'org-force-cycle-archived)
 (org-defkey org-mode-map (kbd "M-<tab>") #'pcomplete)
+(org-defkey org-mode-map (kbd "M-TAB") #'pcomplete)
 (org-defkey org-mode-map (kbd "ESC <tab>") #'pcomplete)
+(org-defkey org-mode-map (kbd "ESC TAB") #'pcomplete)
 
 (org-defkey org-mode-map (kbd "<S-iso-leftab>") #'org-shifttab)
 (org-defkey org-mode-map (kbd "S-<tab>") #'org-shifttab)
@@ -20138,17 +20149,15 @@ Otherwise, return a user error."
        (unless (member (org-element-property :key element)
 		       '("INCLUDE" "SETUPFILE"))
 	 (user-error "No special environment to edit here"))
-       (org-open-link-from-string
-	(format "[[%s]]"
-		(expand-file-name
-		 (let ((value (org-strip-quotes
-			       (org-element-property :value element))))
-		   (cond
-		    ((not (org-string-nw-p value))
-		     (user-error "No file to edit"))
-		    ((org-file-url-p value)
-		     (user-error "Files located with a URL cannot be edited"))
-		    (t value)))))))
+       (let ((value (org-element-property :value element)))
+	 (unless (org-string-nw-p value) (user-error "No file to edit"))
+	 (let ((file (and (string-match "\\`\"\\(.*?\\)\"\\|\\S-+" value)
+			  (or (match-string 1 value)
+			      (match-string 0 value)))))
+	   (when (org-file-url-p file)
+	     (user-error "Files located with a URL cannot be edited"))
+	   (org-open-link-from-string
+	    (format "[[%s]]" (expand-file-name file))))))
       (`table
        (if (eq (org-element-property :type element) 'table.el)
            (org-edit-table.el)
