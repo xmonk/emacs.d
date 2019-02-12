@@ -21,6 +21,7 @@
 
 ;;; Paste at point NOT at cursor
 (use-package mwheel
+  :functions mouse-wheel-mode
   :init
   (setq mouse-yank-at-point 't)
   :config
@@ -38,5 +39,14 @@
   :init
   (defalias 'mterm 'multi-term)
   (setq multi-term-program (getenv "SHELL")))
+
+(use-package nswbuff
+  :ensure t
+  :functions nswbuff-projectile-buffer-list
+  :bind* (("<C-tab>"           . nswbuff-switch-to-next-buffer)
+          ("<C-S-iso-lefttab>" . nswbuff-switch-to-previous-buffer))
+  :config
+  (setq nswbuff-buffer-list-function #'nswbuff-projectile-buffer-list
+        nswbuff-display-intermediate-buffers t))
 
 (provide 'windows)

@@ -1,0 +1,2 @@
+;;; Generated package description from /home/jfuentes/.emacs.d/elpa/dumb-jump-20190212.308/dumb-jump.el  -*- no-byte-compile: t -*-
+(define-package "dumb-jump" "20190212.308" "jump to definition for multiple languages without configuration." '((emacs "24.3") (f "0.20.0") (s "1.11.0") (dash "2.9.0") (popup "0.5.3")) :commit "0cae9758f0bf33b323d476175df1ca5b6ab53dfa" :keywords '("programming") :authors '(("jack angers")) :maintainer '("jack angers"))
