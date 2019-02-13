@@ -6,7 +6,6 @@
 (use-package c-conf)
 (use-package elisp-conf)
 (use-package lisp-conf)
-(use-package c-conf)
 (use-package go-conf)
 (use-package org-conf)
 (use-package py-conf)
@@ -23,6 +22,7 @@
   (add-hook 'prog-mode-hook 'cscope-minor-mode)
   (setq cscope-program "cscope")
   (setq cscope-database-regexps '(("~/.cscope/")))
+  :config
   (cscope-setup))
 
 ;;; ggtags
@@ -84,8 +84,9 @@
   :ensure t
   :diminish
   :init
-  (dumb-jump-mode t)
-  (setq dumb-jump-selector 'ivy))
+  (setq dumb-jump-selector 'ivy)
+  :config
+  (dumb-jump-mode t))
 
 (use-package smart-jump
   :ensure t

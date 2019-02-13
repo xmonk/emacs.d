@@ -107,13 +107,13 @@
 
     (use-package company-irony-c-headers
       :ensure t
-      :after company-irony
+      :requires company-irony
       :init
       (add-to-list 'company-backends 'company-irony-c-headers))
 
     (use-package company-irony
       :ensure t
-      :after company-mode
+      :requires company-mode
       :init
       (add-to-list 'company-backends '(company-irony company-clang)))))
 

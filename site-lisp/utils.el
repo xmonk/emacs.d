@@ -33,14 +33,15 @@
          ("s-z" . undo-tree-undo)
          ("s-r" . undo-tree-redo))
   :init
-  (undo-tree-mode t)
-  (global-undo-tree-mode t)
   (setq undo-tree-visualizer-relative-timestamps t)
   (setq undo-tree-visualizer-timestamps t)
   (setq undo-tree-auto-save-history t)
   (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
   (unless (file-directory-p (concat user-emacs-directory "undo"))
-    (make-directory (concat user-emacs-directory "undo"))))
+    (make-directory (concat user-emacs-directory "undo")))
+  :config
+  (undo-tree-mode t)
+  (global-undo-tree-mode t))
 
 ;;; projectile
 (use-package projectile
@@ -122,7 +123,7 @@
 (use-package counsel-projectile
   :disabled
   :ensure t
-  :after projectile)
+  :requires projectile)
 
 (use-package counsel-gtags
   :ensure t
@@ -140,9 +141,9 @@
 (use-package flx-ido
   :disabled
   :commands flx-ido-mode
-  :after ido
+  :requires ido
   :ensure t
-  :init
+  :config
   (flx-ido-mode t))
 
 ;;; Expand-region
@@ -158,7 +159,7 @@
   :bind (("C-y" . whole-line-or-region-yank)
          ("M-w" . whole-line-or-region-kill-ring-save))
   :diminish whole-line-or-region-local-mode
-  :init
+  :config
   (whole-line-or-region-global-mode t))
 
 (use-package exec-path-from-shell
