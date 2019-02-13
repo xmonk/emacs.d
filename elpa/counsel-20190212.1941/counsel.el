@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20190206.1155
+;; Package-Version: 20190212.1941
 ;; Version: 0.11.0
 ;; Package-Requires: ((emacs "24.3") (swiper "0.11.0"))
 ;; Keywords: convenience, matching, tools
@@ -5016,6 +5016,43 @@ When ARG is non-nil, ignore NoDisplay property in *.desktop files."
     (ivy-read "window: " cands2
               :action #'counsel-wmctrl-action
               :caller 'counsel-wmctrl)))
+
+(defvar counsel--switch-buffer-temporary-buffers nil
+  "Internal.")
+
+(defun counsel--switch-buffer-unwind ()
+  "Clear temporary file buffers.
+The buffers are those opened during a session of `counsel-switch-buffer'."
+  (while counsel--switch-buffer-temporary-buffers
+    (let ((buf (pop counsel--switch-buffer-temporary-buffers)))
+      (kill-buffer buf))))
+
+(defun counsel--switch-buffer-update-fn ()
+  (let ((current (ivy-state-current ivy-last)))
+    ;; This check is necessary, otherwise typing into the completion
+    ;; would create empty buffers.
+    (if (get-buffer current)
+        (ivy-call)
+      (if (and ivy-use-virtual-buffers (file-exists-p current))
+          (let ((buf (find-file-noselect current)))
+            (push buf counsel--switch-buffer-temporary-buffers)
+            (ivy-call))
+        (with-ivy-window
+          (switch-to-buffer (ivy-state-buffer ivy-last)))))))
+
+;;;###autoload
+(defun counsel-switch-buffer ()
+  "Switch to another buffer.
+Display a preview of the selected ivy completion candidate buffer
+in the current window."
+  (interactive)
+  (ivy-read "Switch to buffer: " 'internal-complete-buffer
+            :preselect (buffer-name (other-buffer (current-buffer)))
+            :action #'ivy--switch-buffer-action
+            :matcher #'ivy--switch-buffer-matcher
+            :caller 'counsel-switch-buffer
+            :unwind #'counsel--switch-buffer-unwind
+            :update-fn 'counsel--switch-buffer-update-fn))
 
 ;;* `counsel-mode'
 (defvar counsel-mode-map
