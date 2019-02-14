@@ -2,8 +2,7 @@
   :ensure t
   :commands tern-mode
   :init
-  (add-hook 'js-mode-hook (lambda ()
-                            (tern-mode t))))
+  (add-hook 'js-mode-hook (lambda () (tern-mode t))))
 
 (use-package company-tern
   :ensure t
