@@ -11,17 +11,18 @@
 (use-package company-ycmd
   :ensure t
   :commands company-ycmd
-  :init (company-ycmd-setup))
+  :config
+  (company-ycmd-setup))
 
 (use-package flycheck-ycmd
   :ensure t
   :defer 0.6
   :init
-  (flycheck-ycmd-setup)
   ;; Make sure the flycheck cache sees the parse results
   (add-hook 'ycmd-file-parse-result-hook 'flycheck-ycmd--cache-parse-results)
   ;; Add the ycmd checker to the list of available checkers
-  (add-to-list 'flycheck-checkers 'ycmd))
+  (add-to-list 'flycheck-checkers 'ycmd)
+  (flycheck-ycmd-setup))
 
 (defvar *ycmd-build-command* "python3 build.py --go-completer")
 

@@ -154,7 +154,6 @@
 (use-package whitespace
   :init
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
-  :init
   (setq whitespace-line-column 80)
   (setq whitespace-style '(trailing lines space-before-tab indentation space-after-tab)))
 
