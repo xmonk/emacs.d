@@ -85,7 +85,7 @@
  '(temporary-file-directory "/tmp")
  '(tool-bar-mode nil)
  '(tramp-syntax 'default nil (tramp))
- '(use-package-compute-statistics nil)
+ '(use-package-compute-statistics t)
  '(use-package-verbose t)
  '(vc-annotate-background nil)
  '(vc-annotate-color-map

@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20190212.1941
+;; Package-Version: 20190214.1046
 ;; Version: 0.11.0
 ;; Package-Requires: ((emacs "24.3") (swiper "0.11.0"))
 ;; Keywords: convenience, matching, tools
@@ -1749,6 +1749,7 @@ currently checked out."
     (define-key map (kbd "C-DEL") 'counsel-up-directory)
     (define-key map (kbd "C-<backspace>") 'counsel-up-directory)
     (define-key map (kbd "C-M-y") 'counsel-yank-directory)
+    (define-key map "$" 'counsel-read-env)
     map))
 
 (defun counsel-yank-directory ()
@@ -1892,6 +1893,27 @@ Skip some dotfiles unless `ivy-text' requires them."
 
 (defvar counsel-find-file-speedup-remote t
   "Speed up opening remote files by disabling `find-file-hook' for them.")
+
+(defun counsel-read-env ()
+  "Read a file path environment variable and insert it into the
+minibuffer."
+  (interactive)
+  (if (equal ivy-text "")
+      (let* ((cands (cl-loop for pair in process-environment
+                       for (var val) = (split-string pair "=" t)
+                       if (and val (not (equal "" val)))
+                       if (file-exists-p
+                           (if (file-name-absolute-p val)
+                               val
+                             (setq val
+                                   (expand-file-name val ivy--directory))))
+                       collect (cons var val)))
+             (enable-recursive-minibuffers t)
+             (x (ivy-read "Env: " cands))
+             (path (cdr (assoc x cands))))
+        (insert path)
+        (ivy--cd-maybe))
+    (insert last-input-event)))
 
 (defun counsel-find-file-action (x)
   "Find file X."
