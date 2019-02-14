@@ -116,18 +116,12 @@
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
 
-  ;; add a few more keywords to org easy template
   (setq org-structure-template-alist
         (append org-structure-template-alist
-                '(("sh" "#+NAME: ?\n#+BEGIN_SRC sh\n\n#+END_SRC")
-                  ("sc" "#+NAME: ?\n#+BEGIN_SRC  :exports code :tangle yes\n\n#+END_SRC")
-                  ("py" "#+NAME: ?\n#+BEGIN_SRC python\n\n#+END_SRC")
-                  ("rc" "#+NAME: ?\n#+BEGIN_SRC restclient :tangle yes\n\n#+END_SRC")
-                  ("go" "#+NAME: ?\n#+BEGIN_SRC go\n\n#+END_SRC")
-                  ("n" "#+BEGIN_COMMENT\n?\n#+END_COMMENT" "<comment>\n?\n</comment>")
-                  ("nref" "#+NAME: ?\n#+BEGIN_SRC :noweb-ref <name> :tangle no\n\n#+END_SRC")
-                  ("ntan" "#+NAME: ?\n#+BEGIN_SRC :noweb tangle :tangle yes\n\n#+END_SRC"))))
-
+                '(("py" . "src python")
+                  ("rc" . "src restclient")
+                  ("go" . "src go"))))
+  (require 'org-tempo)
 
 ;;; Usefull functions for org-mode.
 ;;; Taken from irreal.org. Thanks to jcs from  http://irreal.org/blog
