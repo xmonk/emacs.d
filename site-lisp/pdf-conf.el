@@ -8,7 +8,6 @@
   (defun jj/save-buffer-no-args ()
     "Save buffer ignoring arguments"
     (save-buffer))
-  (pdf-tools-install)
   (setq-default pdf-view-display-size 'fit-page)
   ;; automatically annotate highlights
   (setq pdf-annot-activate-created-annotations t)
@@ -20,6 +19,7 @@
   (setq pdf-view-resize-factor 1.1)
   ;; keyboard shortcuts
   :config
+  (pdf-tools-install)
   (define-key pdf-view-mode-map (kbd "h") 'pdf-annot-add-highlight-markup-annotation)
   (define-key pdf-view-mode-map (kbd "t") 'pdf-annot-add-text-annotation)
   (define-key pdf-view-mode-map (kbd "D") 'pdf-annot-delete)

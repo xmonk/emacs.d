@@ -7,7 +7,7 @@
 (use-package winner
   :bind (("C-c <left>" . winner-undo)
          ("C-c <right>" . winner-redo))
-  :init
+  :config
   (winner-mode 1))
 
 ;;; windmove
