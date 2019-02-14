@@ -123,18 +123,6 @@
   (setq uniquify-after-kill-buffer-p t)
   (setq uniquify-buffer-name-style 'post-forward))
 
-;;; recentf
-;; (use-package recentf
-;;   :bind (("C-x C-r" . ido-recentf-open))
-;;   :init
-;;   (recentf-mode t)
-;;   (defun ido-recentf-open ()
-;;     "Use `ido-completing-read' to \\[find-file] a recent file"
-;;     (interactive)
-;;     (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-;;         (message "Opening file...")
-;;       (message "Aborting"))))
-
 (use-package dired
   :commands dired
   :init
