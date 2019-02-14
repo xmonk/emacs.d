@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20190214.1046
+;; Package-Version: 20190214.1202
 ;; Version: 0.11.0
 ;; Package-Requires: ((emacs "24.3") (swiper "0.11.0"))
 ;; Keywords: convenience, matching, tools
@@ -2459,7 +2459,7 @@ FZF-PROMPT, if non-nil, is passed as `ivy-read' prompt argument."
                         (message (cdr x)))
               :caller 'counsel-rpm)))
 
-(defcustom counsel-file-jump-args "* -type f -not -path '*\/.git*'"
+(defcustom counsel-file-jump-args "* -type f -not -path '*/.git*'"
   "Arguments for the `find-command' when using `counsel-file-jump'."
   :type 'string)
 
@@ -2492,7 +2492,7 @@ INITIAL-DIRECTORY, if non-nil, is used as the root directory for search."
               :keymap counsel-find-file-map
               :caller 'counsel-file-jump)))
 
-(defcustom counsel-dired-jump-args "* -type f -not -path '*\/.git*'"
+(defcustom counsel-dired-jump-args "* -type f -not -path '*/.git*'"
   "Arguments for the `find-command' when using `counsel-dired-jump'."
   :type 'string)
 
