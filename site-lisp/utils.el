@@ -34,14 +34,14 @@
          ("s-z" . undo-tree-undo)
          ("s-r" . undo-tree-redo))
   :init
-  (undo-tree-mode t)
-  (global-undo-tree-mode t)
   (setq undo-tree-visualizer-relative-timestamps t)
   (setq undo-tree-visualizer-timestamps t)
   (setq undo-tree-auto-save-history t)
   (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
   (unless (file-directory-p "~/.emacs.d/undo")
-    (make-directory "~/.emacs.d/undo")))
+    (make-directory "~/.emacs.d/undo"))
+  :config
+  (global-undo-tree-mode t))
 
 ;;; projectile
 (use-package projectile
@@ -52,6 +52,7 @@
   :init
   (setq projectile-completion-system 'ivy)
   (setq projectile-mode-line "Projectile")
+  :config
   (projectile-mode t))
 
 ;;; counsel
@@ -158,17 +159,17 @@
   (setq uniquify-buffer-name-style 'post-forward))
 
 ;;;; recentf
-(use-package recentf
-  :commands recentf-mode
-  :bind (("C-x C-r" . ido-recentf-open))
-  :config
-  (recentf-mode t)
-  (defun ido-recentf-open ()
-    "Use `ido-completing-read' to \\[find-file] a recent file"
-    (interactive)
-    (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-        (message "Opening file...")
-      (message "Aborting"))))
+;; (use-package recentf
+;;   :commands recentf-mode
+;;   :bind (("C-x C-r" . ido-recentf-open))
+;;   :config
+;;   (recentf-mode t)
+;;   (defun ido-recentf-open ()
+;;     "Use `ido-completing-read' to \\[find-file] a recent file"
+;;     (interactive)
+;;     (if (find-file (ido-completing-read "Find recent file: " recentf-list))
+;;         (message "Opening file...")
+;;       (message "Aborting"))))
 
 (use-package dired
   :commands dired
@@ -197,14 +198,15 @@
   (setq whitespace-line-column 80)
   (setq whitespace-style '(trailing lines space-before-tab indentation space-after-tab)))
 
-(use-package exec-path-from-shell
-  :ensure t
-  :when (memq window-system '(mac ns))
-  :init
-  (setq exec-path-from-shell-check-startup-files nil)
-  (setq exec-path-from-shell-arguments '("-l"))
-  :config
-  (exec-path-from-shell-initialize))
+(when (memq window-system '(mac ns))
+  (use-package exec-path-from-shell
+    :ensure t
+    :defer 0.8
+    :init
+    (setq exec-path-from-shell-check-startup-files nil)
+    :config
+    (exec-path-from-shell-initialize)))
+
 
 (use-package deadgrep
   :ensure t

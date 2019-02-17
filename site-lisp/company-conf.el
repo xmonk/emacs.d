@@ -7,6 +7,7 @@
   :diminish company-mode
   :init
   (setq company-tooltip-align-annotations t)
+  :config
   (global-company-mode 1))
 
 (use-package company-flx
@@ -20,7 +21,8 @@
   (setq company-auto-complete nil)
   (setq company-begin-commands nil)
   (setq company-minimum-prefix-length 3)
-  (company-flx-mode +1)
-  (add-hook 'company-mode-hook (lambda () (add-to-list 'company-backends 'company-capf))))
+  (add-hook 'company-mode-hook (lambda () (add-to-list 'company-backends 'company-capf)))
+  :config
+  (company-flx-mode +1))
 
 (provide 'company-conf)

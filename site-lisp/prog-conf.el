@@ -22,6 +22,7 @@
   (add-hook 'prog-mode-hook 'cscope-minor-mode)
   (setq cscope-program "cscope")
   (setq cscope-database-regexps '(("~/.cscope/")))
+  :config
   (cscope-setup))
 
 ;;; ggtags
@@ -92,6 +93,7 @@
   :diminish
   :init
   (setq dumb-jump-selector 'ivy)
+  :config
   (dumb-jump-mode t))
 
 (use-package smart-jump

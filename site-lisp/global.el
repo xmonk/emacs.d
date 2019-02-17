@@ -131,7 +131,7 @@
 ;;; needed packages
 (use-package jka-compr
   :defer t
-  :init
+  :config
   (auto-compression-mode 1))
 
 ;;; Save place
