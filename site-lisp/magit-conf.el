@@ -30,12 +30,6 @@
   :init
   (defalias 'mgit 'magit-status)
   :config
-  (use-package magithub
-    :disabled
-    :ensure t
-    :after magit
-    :config
-    (magithub-feature-autoinject t))
   (defadvice magit-status (around magit-fullscreen activate)
     (window-configuration-to-register :magit-fullscreen)
     ad-do-it
