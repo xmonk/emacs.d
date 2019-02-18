@@ -59,7 +59,7 @@
  '(ivy-display-style 'fancy)
  '(ivy-use-virtual-buffers t)
  '(ivy-virtual-abbreviate 'full)
- '(magit-diff-section-arguments '("--no-ext-diff" "--diff-algorithm=histogram"))
+ '(magit-diff-section-arguments '("--diff-algorithm=histogram" "--no-ext-diff"))
  '(magit-diff-use-overlays nil)
  '(magit-item-highlight-face nil)
  '(magit-repository-directories
