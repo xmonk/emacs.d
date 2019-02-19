@@ -33,3 +33,4 @@ elpa/gnupg
 /.emacs.desktop
 /#*#
 /network-security.data
+/transient/
