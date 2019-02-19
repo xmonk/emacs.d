@@ -118,9 +118,7 @@
 
   (setq org-structure-template-alist
         (append org-structure-template-alist
-                '(("py" . "src python")
-                  ("rc" . "src restclient")
-                  ("go" . "src go"))))
+                '(("rc" . "src restclient"))))
   (require 'org-tempo)
 
 ;;; Usefull functions for org-mode.
