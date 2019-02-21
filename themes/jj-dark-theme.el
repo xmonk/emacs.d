@@ -104,7 +104,7 @@
          `(ivy-minibuffer-match-face-4 ((t (:foreground ,white :bold t))))
 		     ;; eshell
 		     `(eshell-prompt ((t (:inherit default))))
-		     `(font-lock-warning-face ((t (:foreground ,white :bold t :underline t))))
+		     `(font-lock-warning-face ((t (:background ,black :foreground ,white :bold t :underline t))))
 		     (mapcar (lambda (n) `(,n ((t (:background ,black :foreground ,white :width normal :weight normal))))) jj-faces)))
 
 ;;;###autoload
