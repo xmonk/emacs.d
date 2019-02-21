@@ -41,7 +41,13 @@
     :after go-mode
     :ensure t
     :init
-    (add-hook 'go-mode-hook 'go-eldoc-setup))
+    (when (file-executable-p (file-truename "~/.emacs.d/ycmd/third_party/go/src/github.com/mdempsky/gocode/gocode"))
+      (setq go-eldoc-gocode (file-truename "~/.emacs.d/ycmd/third_party/go/src/github.com/mdempsky/gocode/gocode")))
+    (add-hook 'go-mode-hook 'go-eldoc-setup)
+    :config
+    (eldoc-mode))
+
+
 
   (use-package go-errcheck
     :after go-mode
@@ -50,8 +56,8 @@
 
   (use-package company-go
     :ensure t
-    :requires (go-mode company)
-    :config
+    :after (go-mode company)
+    :init
     (add-to-list 'company-backends 'company-go)
     (setq company-go-show-annotation t)
     (setq company-tooltip-align-annotations t)
