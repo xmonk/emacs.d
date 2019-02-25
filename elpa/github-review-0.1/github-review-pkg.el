@@ -1,0 +1,2 @@
+;;; Generated package description from /home/jfuentes/.emacs.d/elpa/github-review-0.1/github-review.el  -*- no-byte-compile: t -*-
+(define-package "github-review" "0.1" "GitHub based code review" '((emacs "25") (s "1.12.0") (ghub "2.0") (dash "2.11.0")) :authors '(("Laurent Charignon" . "l.charignon@gmail.com")) :maintainer '("Laurent Charignon" . "l.charignon@gmail.com") :keywords '("git" "tools" "vc" "github") :url "https://github.com/charignon/github-review")
