@@ -6,7 +6,7 @@
 ;; Created: 24 Aug 2011
 ;; Updated: 16 Mar 2015
 ;; Version: 1.2
-;; Package-Version: 20181022.1742
+;; Package-Version: 20190227.1718
 ;; Package-Requires: ((gntp "0.1") (log4e "0.3.0") (cl-lib "0.5"))
 ;; Keywords: notification emacs message
 ;; X-URL: https://github.com/jwiegley/alert
@@ -135,7 +135,7 @@
 ;;   notifier      - Uses terminal-notifier on OS X, if it is on the PATH
 ;;   osx-notifier  - Native OSX notifier using AppleScript
 ;;   toaster       - Use the toast notification system
-;;   x11 -         - Changes the urgency property of the window in the X Window System
+;;   x11           - Changes the urgency property of the window in the X Window System
 ;;
 ;; * Defining new styles
 ;;
@@ -816,7 +816,11 @@ by the `notifications' style.")
                                     :timeout (if (plist-get info :persistent) 0 -1)
                                     :replaces-id (gethash (plist-get info :id) alert-notifications-ids)
                                     :urgency (cdr (assq (plist-get info :severity)
-                                                        alert-notifications-priorities)))))
+                                                        alert-notifications-priorities))
+                                    :actions '("default" "Open corresponding buffer")
+                                    :on-action (lambda (id action)
+                                                 (when (string= action "default")
+                                                   (switch-to-buffer (plist-get info :buffer)))))))
       (when (plist-get info :id)
         (puthash (plist-get info :id) id alert-notifications-ids)))
     (alert-message-notify info))
