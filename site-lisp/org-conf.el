@@ -121,7 +121,7 @@
                 '(("sh" . "src sh")
                   ("py" . "src python")
                   ("go" . "src go"))))
-  (reequire 'org-tempo)
+  (require 'org-tempo)
 
 ;;; Usefull functions for org-mode.
 ;;; Taken from irreal.org. Thanks to jcs from  http://irreal.org/blog
