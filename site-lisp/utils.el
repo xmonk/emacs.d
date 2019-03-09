@@ -52,7 +52,6 @@
   :init
   (setq projectile-completion-system 'ivy)
   (setq projectile-mode-line "Projectile")
-  :config
   (projectile-mode t))
 
 ;;; counsel
