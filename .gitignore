@@ -32,3 +32,4 @@ elpa/gnupg
 /.emacs.desktop
 /#*#
 /elpa/pdf-tools-*/epdfinfo
+/transient/
