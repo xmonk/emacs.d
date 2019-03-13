@@ -25,9 +25,7 @@ Key bindings:
 
 (autoload 'cscope-setup "xcscope" "\
 Automatically turns on cscope-minor-mode when editing C and
-C++ sources
-
-\(fn)" t nil)
+C++ sources" t nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "xcscope" '("cscope-")))
 

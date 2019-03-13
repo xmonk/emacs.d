@@ -21,14 +21,10 @@ This works in `shell-mode', `term-mode' and `eshell-mode'.
 \(fn &optional (ENVVAR \"EDITOR\"))" t nil)
 
 (autoload 'with-editor-export-git-editor "with-editor" "\
-Like `with-editor-export-editor' but always set `$GIT_EDITOR'.
-
-\(fn)" t nil)
+Like `with-editor-export-editor' but always set `$GIT_EDITOR'." t nil)
 
 (autoload 'with-editor-export-hg-editor "with-editor" "\
-Like `with-editor-export-editor' but always set `$HG_EDITOR'.
-
-\(fn)" t nil)
+Like `with-editor-export-editor' but always set `$HG_EDITOR'." t nil)
 
 (defvar shell-command-with-editor-mode nil "\
 Non-nil if Shell-Command-With-Editor mode is enabled.

@@ -15,9 +15,7 @@ Activate the virtual environment in DIRECTORY.
 \(fn DIRECTORY)" t nil)
 
 (autoload 'pyvenv-deactivate "pyvenv" "\
-Deactivate any current virtual environment.
-
-\(fn)" t nil)
+Deactivate any current virtual environment." t nil)
 
 (autoload 'pyvenv-workon "pyvenv" "\
 Activate a virtual environment from $WORKON_HOME.
@@ -75,9 +73,7 @@ buffer-local `pyvenv-workon' or `pyvenv-activate' variable.
 \(fn &optional ARG)" t nil)
 
 (autoload 'pyvenv-restart-python "pyvenv" "\
-Restart Python inferior processes.
-
-\(fn)" t nil)
+Restart Python inferior processes." t nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "pyvenv" '("pyvenv-")))
 

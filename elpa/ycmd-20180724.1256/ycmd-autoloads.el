@@ -26,9 +26,7 @@ Otherwise behave as if called interactively.
 (autoload 'ycmd-setup "ycmd" "\
 Setup `ycmd-mode'.
 
-Hook `ycmd-mode' into modes in `ycmd-file-type-map'.
-
-\(fn)" t nil)
+Hook `ycmd-mode' into modes in `ycmd-file-type-map'." t nil)
 
 (defvar global-ycmd-mode nil "\
 Non-nil if Global Ycmd mode is enabled.
@@ -60,9 +58,7 @@ See `ycmd-mode' for more information on Ycmd mode.
 ;;; Generated autoloads from ycmd-eldoc.el
 
 (autoload 'ycmd-eldoc-setup "ycmd-eldoc" "\
-Setup eldoc for `ycmd-mode'.
-
-\(fn)" t nil)
+Setup eldoc for `ycmd-mode'." t nil)
 
 (autoload 'ycmd-eldoc-mode "ycmd-eldoc" "\
 Toggle ycmd eldoc mode.

@@ -1,2 +1,2 @@
-;;; -*- no-byte-compile: t -*-
+;;; Generated package description from /home/jfuentes/.emacs.d/elpa/auto-virtualenv-20170125.1917/auto-virtualenv.el  -*- no-byte-compile: t -*-
 (define-package "auto-virtualenv" "20170125.1917" "Auto activate python virtualenvs" '((cl-lib "0.5") (pyvenv "1.9") (s "1.10.0")) :commit "3826db66b417788e2b2eb138717255b1f52a55c3" :keywords '("python" "virtualenv" "tools") :authors '(("Marcwebbie" . "marcwebbie@gmail.com")) :maintainer '("Marcwebbie" . "marcwebbie@gmail.com") :url "http://github.com/marcwebbie/auto-virtualenv")

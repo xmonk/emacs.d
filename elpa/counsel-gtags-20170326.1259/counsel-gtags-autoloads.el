@@ -34,14 +34,10 @@ Prompt for FILENAME if not given.
 \(fn FILENAME)" t nil)
 
 (autoload 'counsel-gtags-go-backward "counsel-gtags" "\
-Go to previous position in context stack.
-
-\(fn)" t nil)
+Go to previous position in context stack." t nil)
 
 (autoload 'counsel-gtags-go-forward "counsel-gtags" "\
-Go to next position in context stack.
-
-\(fn)" t nil)
+Go to next position in context stack." t nil)
 
 (autoload 'counsel-gtags-create-tags "counsel-gtags" "\
 Create tag database in ROOTDIR.
@@ -54,16 +50,12 @@ Prompt for ROOTDIR and LABEL if not given.  This command is asynchronous.
 Update tag database for current file.
 Changes in other files are ignored.  With a prefix argument, update
 tags for all files.  With two prefix arguments, generate new tag
-database in prompted directory.
-
-\(fn)" t nil)
+database in prompted directory." t nil)
 
 (autoload 'counsel-gtags-dwim "counsel-gtags" "\
 Find definition or reference of thing at point (Do What I Mean).
 If point is at a definition, find its references, otherwise, find
-its definition.
-
-\(fn)" t nil)
+its definition." t nil)
 
 (autoload 'counsel-gtags-mode "counsel-gtags" "\
 Toggle Counsel-Gtags mode on or off.

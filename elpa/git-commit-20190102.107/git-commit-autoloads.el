@@ -35,15 +35,9 @@ if ARG is `toggle'; disable the mode otherwise.
 
 (defconst git-commit-filename-regexp "/\\(\\(\\(COMMIT\\|NOTES\\|PULLREQ\\|TAG\\)_EDIT\\|MERGE_\\|\\)MSG\\|\\(BRANCH\\|EDIT\\)_DESCRIPTION\\)\\'")
 
-(autoload 'git-commit-setup-check-buffer "git-commit" "\
+(autoload 'git-commit-setup-check-buffer "git-commit" nil nil nil)
 
-
-\(fn)" nil nil)
-
-(autoload 'git-commit-setup "git-commit" "\
-
-
-\(fn)" nil nil)
+(autoload 'git-commit-setup "git-commit" nil nil nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "git-commit" '("git-commit-")))
 

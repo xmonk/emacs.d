@@ -66,18 +66,13 @@ See `company-mode' for more information on Company mode.
 
 \(fn &optional ARG)" t nil)
 
-(autoload 'company-manual-begin "company" "\
-
-
-\(fn)" t nil)
+(autoload 'company-manual-begin "company" nil t nil)
 
 (autoload 'company-complete "company" "\
 Insert the common part of all candidates or the current selection.
 The first time this is called, the common part is inserted, the second
 time, or when the selection has been changed, the selected candidate is
-inserted.
-
-\(fn)" t nil)
+inserted." t nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "company" '("company-")))
 
@@ -322,9 +317,7 @@ confirm the selection and finish the completion.
 \(fn COMMAND)" nil nil)
 
 (autoload 'company-tng-configure-default "company-tng" "\
-Applies the default configuration to enable company-tng.
-
-\(fn)" nil nil)
+Applies the default configuration to enable company-tng." nil nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "company-tng" '("company-tng--")))
 

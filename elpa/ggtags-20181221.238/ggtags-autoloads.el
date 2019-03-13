@@ -9,10 +9,7 @@
 ;;;### (autoloads nil "ggtags" "ggtags.el" (0 0 0 0))
 ;;; Generated autoloads from ggtags.el
 
-(autoload 'ggtags-find-project "ggtags" "\
-
-
-\(fn)" nil nil)
+(autoload 'ggtags-find-project "ggtags" nil nil nil)
 
 (autoload 'ggtags-find-tag-dwim "ggtags" "\
 Find NAME by context.
@@ -38,9 +35,7 @@ if ARG is `toggle'; disable the mode otherwise.
 \(fn &optional ARG)" t nil)
 
 (autoload 'ggtags-build-imenu-index "ggtags" "\
-A function suitable for `imenu-create-index-function'.
-
-\(fn)" nil nil)
+A function suitable for `imenu-create-index-function'." nil nil)
 
 (autoload 'ggtags-try-complete-tag "ggtags" "\
 A function suitable for `hippie-expand-try-functions-list'.

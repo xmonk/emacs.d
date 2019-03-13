@@ -10,9 +10,7 @@
 ;;; Generated autoloads from swiper.el
 
 (autoload 'swiper-avy "swiper" "\
-Jump to one of the current swiper candidates.
-
-\(fn)" t nil)
+Jump to one of the current swiper candidates." t nil)
 
 (autoload 'swiper "swiper" "\
 `isearch' with an overview.

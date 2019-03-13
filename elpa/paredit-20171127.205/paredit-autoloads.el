@@ -26,9 +26,7 @@ if ARG is `toggle'; disable the mode otherwise.
 \(fn &optional ARG)" t nil)
 
 (autoload 'enable-paredit-mode "paredit" "\
-Turn on pseudo-structural editing of Lisp code.
-
-\(fn)" t nil)
+Turn on pseudo-structural editing of Lisp code." t nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "paredit" '("?\\" "disable-paredit-mode" "paredit-")))
 

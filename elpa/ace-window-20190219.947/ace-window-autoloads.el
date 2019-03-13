@@ -10,24 +10,16 @@
 ;;; Generated autoloads from ace-window.el
 
 (autoload 'ace-select-window "ace-window" "\
-Ace select window.
-
-\(fn)" t nil)
+Ace select window." t nil)
 
 (autoload 'ace-delete-window "ace-window" "\
-Ace delete window.
-
-\(fn)" t nil)
+Ace delete window." t nil)
 
 (autoload 'ace-swap-window "ace-window" "\
-Ace swap window.
-
-\(fn)" t nil)
+Ace swap window." t nil)
 
 (autoload 'ace-delete-other-windows "ace-window" "\
-Ace delete other windows.
-
-\(fn)" t nil)
+Ace delete other windows." t nil)
 
 (autoload 'ace-window "ace-window" "\
 Select a window.

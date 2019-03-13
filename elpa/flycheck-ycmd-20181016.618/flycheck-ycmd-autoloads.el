@@ -13,9 +13,7 @@
 Convenience function to setup the ycmd flycheck checker.
 
 This adds a hook to watch for ycmd parse results, and it adds the
-ycmd checker to the list of flycheck checkers.
-
-\(fn)" nil nil)
+ycmd checker to the list of flycheck checkers." nil nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "flycheck-ycmd" '("flycheck-ycmd--")))
 

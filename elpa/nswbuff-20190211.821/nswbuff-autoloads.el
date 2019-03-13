@@ -10,14 +10,10 @@
 ;;; Generated autoloads from nswbuff.el
 
 (autoload 'nswbuff-switch-to-previous-buffer "nswbuff" "\
-Switch to the previous buffer in the buffer list.
-
-\(fn)" t nil)
+Switch to the previous buffer in the buffer list." t nil)
 
 (autoload 'nswbuff-switch-to-next-buffer "nswbuff" "\
-Switch to the next buffer in the buffer list.
-
-\(fn)" t nil)
+Switch to the next buffer in the buffer list." t nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "nswbuff" '("nswbuff-")))
 
