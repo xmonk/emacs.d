@@ -160,7 +160,8 @@
          ("M-w" . whole-line-or-region-kill-ring-save))
   :diminish whole-line-or-region-local-mode
   :config
-  (whole-line-or-region-global-mode t))
+  (dolist (hook '(prog-mode-hook org-mode-hook))
+    (add-hook hook #'whole-line-or-region-local-mode)))
 
 (use-package exec-path-from-shell
   :disabled
@@ -170,7 +171,6 @@
 
 (use-package deadgrep
   :ensure t
-  :commands (deadgrep dg)
   :init
   (setq deadgrep-max-line-length 1000)
   (defalias 'dg 'deadgrep))
