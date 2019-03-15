@@ -172,7 +172,6 @@
 (use-package deadgrep
   :ensure t
   :init
-  (setq deadgrep-max-line-length 1000)
   (defalias 'dg 'deadgrep))
 
 (provide 'utils)
