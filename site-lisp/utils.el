@@ -171,6 +171,7 @@
 
 (use-package deadgrep
   :ensure t
+  :pin melpa-stable
   :init
   (defalias 'dg 'deadgrep))
 
