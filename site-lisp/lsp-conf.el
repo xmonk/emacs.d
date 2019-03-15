@@ -10,7 +10,9 @@
   (add-hook 'bash-mode-hook 'jj/activate-lsp)
   :config
   (defun jj/activate-lsp ()
-    (flycheck-mode 0)
+    (put 'flymake-mode 'disabled t)
+    (put 'eglot-flymake-backend 'disabled t)
+    (add-hook 'eglot--managed-mode-hook (lambda () (flymake-mode -1)))
     (eglot-ensure))
 
   (defun jj/find-projectile-project (dir)
