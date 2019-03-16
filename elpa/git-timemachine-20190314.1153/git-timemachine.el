@@ -3,8 +3,8 @@
 ;; Copyright (C) 2014 Peter Stiernström
 
 ;; Author: Peter Stiernström <peter@stiernstrom.se>
-;; Version: 4.8
-;; Package-Version: 20181204.1546
+;; Version: 4.9
+;; Package-Version: 20190314.1153
 ;; URL: https://gitlab.com/pidu/git-timemachine
 ;; Keywords: git
 ;; Package-Requires: ((emacs "24.3"))
@@ -238,7 +238,13 @@ When passed a GIT-BRANCH, lists revisions from that branch."
    (setq git-timemachine-revision revision)
    (goto-char current-position)
    (when git-timemachine-show-minibuffer-details
-    (git-timemachine--show-minibuffer-details revision)))))
+    (git-timemachine--show-minibuffer-details revision))
+   (git-timemachine--erm-workaround))))
+
+(defun git-timemachine--erm-workaround ()
+ "Workaround for enhanced ruby mode not detecting revision change."
+ (when (eq major-mode 'enh-ruby-mode)
+  (ignore-errors (erm-reset-buffer))))
 
 (defun git-timemachine--show-minibuffer-details (revision)
  "Show details for REVISION in minibuffer."

@@ -29,10 +29,7 @@ if ARG is `toggle'; disable the mode otherwise.
 
 \(fn &optional ARG)" t nil)
 
-(autoload 'ivy-rich-reload "ivy-rich" "\
-
-
-\(fn)" nil nil)
+(autoload 'ivy-rich-reload "ivy-rich" nil nil nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ivy-rich" '("ivy-rich-" "obsolete-message")))
 

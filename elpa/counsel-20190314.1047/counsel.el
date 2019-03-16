@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20190313.1951
+;; Package-Version: 20190314.1047
 ;; Version: 0.11.0
 ;; Package-Requires: ((emacs "24.3") (swiper "0.11.0"))
 ;; Keywords: convenience, matching, tools
@@ -1182,7 +1182,7 @@ Like `locate-dominating-file', but DIR defaults to
 
 (defun counsel-locate-git-root ()
   "Return the root of the Git repository containing the current buffer."
-  (or (counsel--root-git)
+  (or (counsel--git-root)
       (error "Not in a Git repository")))
 
 ;;;###autoload
@@ -2494,7 +2494,7 @@ INITIAL-DIRECTORY, if non-nil, is used as the root directory for search."
               :keymap counsel-find-file-map
               :caller 'counsel-file-jump)))
 
-(defcustom counsel-dired-jump-args "* -type f -not -path '*/.git*'"
+(defcustom counsel-dired-jump-args "* -type d -not -path '*/.git*'"
   "Arguments for the `find-command' when using `counsel-dired-jump'."
   :type 'string)
 
@@ -2640,7 +2640,7 @@ AG-PROMPT, if non-nil, is passed as `ivy-read' prompt argument."
                                      (car (split-string counsel-ag-command)))))))
   (setq counsel-ag-command (counsel--format-ag-command (or extra-ag-args "") "%s"))
   (let ((default-directory (or initial-directory
-                               (counsel--root-git)
+                               (counsel--git-root)
                                default-directory)))
     (ivy-read (or ag-prompt
                   (concat (car (split-string counsel-ag-command)) ": "))
@@ -5121,9 +5121,10 @@ This variable is suitable for addition to
 `savehist-additional-variables'.")
 
 (defvar counsel-compile-root-functions
-  '(counsel--root-project
-    counsel--root-dir-locals
-    counsel--root-git)
+  (list 'counsel--project-current
+        (apply-partially #'counsel--dominating-file "configure")
+        'counsel--git-root
+        (apply-partially #'counsel--dominating-file dir-locals-file))
   "Special hook to find the project root for compile commands.
 Each function on this hook is called in turn with no arguments
 and should return either a directory, or nil if no root was
@@ -5135,18 +5136,13 @@ The root is determined by `counsel-compile-root-functions'."
   (or (run-hook-with-args-until-success 'counsel-compile-root-functions)
       (error "Couldn't find project root")))
 
-(defun counsel--root-project ()
+(defun counsel--project-current ()
   "Return root of current project or nil on failure.
 Use `project-current' to determine the root."
   (and (fboundp 'project-current)
        (cdr (project-current))))
 
-(defun counsel--root-dir-locals ()
-  "Return root of current project or nil on failure.
-Use the presence of a `dir-locals-file' to determine the root."
-  (counsel--dominating-file dir-locals-file))
-
-(defun counsel--root-git ()
+(defun counsel--git-root ()
   "Return root of current project or nil on failure.
 Use the presence of a \".git\" file to determine the root."
   (counsel--dominating-file ".git"))
@@ -5169,7 +5165,7 @@ You may, for example, want to add \"-jN\" for the number of cores
 N in your system."
   :type 'string)
 
-(defcustom counsel-compile-make-pattern "\\`\\(?:GNUM\\|[Mm]\\)akefile\\'"
+(defcustom counsel-compile-make-pattern "\\`\\(?:GNUm\\|[Mm]\\)akefile\\'"
   "Regexp for matching the names of Makefiles."
   :type 'regexp)
 
@@ -5179,7 +5175,7 @@ N in your system."
   :type '(repeat directory))
 
 ;; This is loosely based on the Bash Make completion code
-(defun counsel--get-make-targets (srcdir &optional blddir)
+(defun counsel--compile-get-make-targets (srcdir &optional blddir)
   "Return a list of Make targets for a given SRCDIR/BLDDIR combination.
 
 We search the Makefile for a list of phony targets which are
@@ -5213,7 +5209,7 @@ subdirectories that builds may be invoked in."
   (let ((srcdir (counsel--compile-root)))
     (when (directory-files (or blddir srcdir) nil
                            counsel-compile-make-pattern t)
-      (counsel--get-make-targets srcdir blddir))))
+      (counsel--compile-get-make-targets srcdir blddir))))
 
 (defun counsel--find-build-subdir (srcdir)
   "Return builds subdirectory of SRCDIR, if one exists."
@@ -5223,27 +5219,30 @@ subdirectories that builds may be invoked in."
            counsel-compile-build-directories))
 
 (defun counsel--get-build-subdirs (blddir)
-  "Return all subdirs of BLDDIR sorted by access time."
+  "Return all subdirs of BLDDIR sorted by modification time."
   (mapcar #'car (sort (directory-files-and-attributes
                        blddir t directory-files-no-dot-files-regexp t)
                       (lambda (x y)
-                        ;; FIXME: Access time is NOT the 7th file attribute.
                         (time-less-p (nth 6 y) (nth 6 x))))))
 
 (defun counsel-compile-get-build-directories (&optional dir)
   "Return a list of potential build directories."
   (let* ((srcdir (or dir (counsel--compile-root)))
          (blddir (counsel--find-build-subdir srcdir))
-         (props `(srcdir ,srcdir blddir ,blddir recursive t)))
-    (mapcar (lambda (s)
-              (setq s (concat (propertize "Select build in "
-                                          'face 'font-lock-warning-face)
-                              (propertize s 'face 'dired-directory)))
-              (add-text-properties 0 (length s) props s)
-              s)
+         (props `(srcdir ,srcdir recursive t))
+         (fmt (concat (propertize "Select build in "
+                                  'face 'font-lock-warning-face)
+                      (propertize "%s" 'face 'dired-directory))))
+    (mapcar (lambda (subdir)
+              (let ((s (format fmt subdir)))
+                (add-text-properties 0 (length s) `(blddir ,subdir ,@props) s)
+                s))
             (and blddir (counsel--get-build-subdirs blddir)))))
 
-;; No easy way to make directory local, would buffer local make more sense?
+;; This is a workaround for the fact there is no concept of "project"
+;; local variables (as opposed to for example buffer-local).  So we
+;; store all our history in a global list filter out the results we
+;; don't want.
 (defun counsel-compile-get-filtered-history (&optional dir)
   "Return a compile history relevant to current project."
   (let ((root (or dir (counsel--compile-root)))
@@ -5251,9 +5250,8 @@ subdirectories that builds may be invoked in."
     (dolist (item counsel-compile-history)
       (let ((srcdir (get-text-property 0 'srcdir item))
             (blddir (get-text-property 0 'blddir item)))
-        ;; FIXME: File names are not regexps!
-        (when (or (and srcdir (string-match-p srcdir root))
-                  (and blddir (string-match-p blddir root)))
+        (when (or (and srcdir (file-in-directory-p srcdir root))
+                  (and blddir (file-in-directory-p blddir root)))
           (push item history))))
     history))
 
@@ -5261,10 +5259,7 @@ subdirectories that builds may be invoked in."
   "Return the list of compile commands.
 This is determined by `counsel-compile-local-builds', which see."
   (let (cands)
-    ;; FIXME: Shouldn't `counsel-compile-local-builds' always be a list?
-    (dolist (cmds (if (listp counsel-compile-local-builds)
-                      counsel-compile-local-builds
-                    (list counsel-compile-local-builds)))
+    (dolist (cmds counsel-compile-local-builds)
       (when (functionp cmds)
         (setq cmds (funcall cmds dir)))
       (when cmds
@@ -5299,14 +5294,16 @@ specified by the `blddir' property."
         (setq cmd (substring-no-properties
                    cmd 0 (next-single-property-change 0 'cmd cmd))))
       (let ((default-directory blddir))
-        (compile cmd)))))
+        ;; No need to specify `:history' because of this hook.
+        (add-hook 'compilation-start-hook #'counsel-compile--update-history)
+        (unwind-protect
+             (compile cmd)
+          (remove-hook 'compilation-start-hook #'counsel-compile--update-history))))))
 
 ;;;###autoload
 (defun counsel-compile (&optional dir)
   "Call `compile' completing with smart suggestions, optionally for DIR."
   (interactive)
-  ;; No need to specify `:history' because of this hook.
-  (add-hook 'compilation-start-hook #'counsel-compile--update-history)
   (ivy-read "Compile command: "
             (counsel--get-compile-candidates dir)
             :action #'counsel-compile--action
