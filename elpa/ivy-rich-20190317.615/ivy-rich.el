@@ -4,7 +4,7 @@
 
 ;; Author: Yevgnen Koh <wherejoystarts@gmail.com>
 ;; Package-Requires: ((emacs "24.4") (ivy "0.8.0"))
-;; Package-Version: 20190309.933
+;; Package-Version: 20190317.615
 ;; Version: 0.1.3
 ;; Keywords: ivy
 
@@ -275,7 +275,7 @@ or /a/…/f.el."
 (defun ivy-rich-switch-buffer-indicators (candidate)
   (let* ((buffer (get-buffer candidate))
          (process-p (get-buffer-process buffer)))
-    (destructuring-bind
+    (cl-destructuring-bind
         (mode filename directory read-only)
         (ivy-rich--local-values candidate '(major-mode buffer-file-name default-directory buffer-read-only))
       (let ((modified (if (and (buffer-modified-p buffer)
@@ -338,7 +338,7 @@ or /a/…/f.el."
 (defun ivy-rich--switch-buffer-root-and-filename (candidate)
   (let* ((buffer (get-buffer candidate))
          (truenamep t))
-    (destructuring-bind
+    (cl-destructuring-bind
         (filename directory mode)
         (ivy-rich--local-values buffer '(buffer-file-name default-directory major-mode))
       ;; Only make sense when `filename' and `root' are both not `nil'
@@ -364,7 +364,7 @@ or /a/…/f.el."
 
 (defun ivy-rich-switch-buffer-path (candidate)
   (if-let ((result (ivy-rich--switch-buffer-root-and-filename candidate)))
-      (destructuring-bind (root . filename) result
+      (cl-destructuring-bind (root . filename) result
         (cond
          ;; Case: absolute
          ((or (memq ivy-rich-path-style '(full absolute))
