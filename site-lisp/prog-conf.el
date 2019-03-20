@@ -50,6 +50,13 @@
   :init
   (add-hook 'web-mode-hook (lambda () (setq web-mode-markup-indent-offset 2))))
 
+(use-package json-mode
+  :ensure t
+  :mode (("\\.json$" . json-mode))
+  :custom
+  (flycheck-json-python-json-executable "/usr/bin/python3")
+  :hook (json-mode . flycheck-mode))
+
 ;;; codesearch http://code.google.com/p/codesearch/
 (use-package codesearch
   :ensure t
