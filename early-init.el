@@ -8,5 +8,5 @@
                             (foreground . "white")))
 (setq package-enable-at-startup t)
 (setq package-quickstart t)
-(cd "~/")
+(setq default-directory (expand-file-name "~/"))
 (package-initialize)
