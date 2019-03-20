@@ -41,6 +41,7 @@
 (global-set-key (kbd "M-<down>") 'jj/move-line-down)
 (global-set-key (kbd "C-o") 'jj/vi-open-next-line)
 (global-set-key (kbd "C-S-o") 'jj/vi-open-previous-line)
+(global-set-key (kbd "C-%") 'jj/match-paren)
 (global-set-key (kbd "M-<?!>") 'custom-shell-command-on-region)
 (global-set-key (kbd "s-e") 'jj/esh)
 (global-set-key (kbd "s-t") 'jj/mterm)
