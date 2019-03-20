@@ -37,7 +37,7 @@
 
 (unless (window-system)
   (menu-bar-mode -1)
-  (load-theme 'jj-dark t))
+  (load-theme 'jj-term t))
 
 (when (window-system)
   ;;; themes
