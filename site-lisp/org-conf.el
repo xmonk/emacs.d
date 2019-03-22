@@ -119,7 +119,6 @@
   (setq org-structure-template-alist
         (append org-structure-template-alist
                 '(("rc" . "src restclient"))))
-  (require 'org-tempo)
 
 ;;; Usefull functions for org-mode.
 ;;; Taken from irreal.org. Thanks to jcs from  http://irreal.org/blog
