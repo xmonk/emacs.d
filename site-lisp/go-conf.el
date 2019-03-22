@@ -80,6 +80,11 @@
     (cd (file-name-directory (buffer-file-name)))
     (compile "go test -v"))
 
+  (defun jj/go-run ()
+    (interactive)
+    (cd (file-name-directory (buffer-file-name)))
+    (compile (concat "go run " (buffer-file-name))))
+
   (defun jj/go-init-hook()
     (subword-mode +1)
     ;; go-mode enables this by default argh!
