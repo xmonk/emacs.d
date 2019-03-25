@@ -45,17 +45,6 @@
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/" ".ripgreprc"))
   (toggle-frame-maximized))
 
-;;; package
-(autoload 'package "package" nil t)
-
-(setq package-archives
-      '(("elpa" . "https://elpa.gnu.org/packages/")
-        ("org" . "https://orgmode.org/elpa/")
-        ("melpa" . "https://melpa.org/packages/")
-        ("melpa-stable" . "https://stable.melpa.org/packages/")))
-
-(when (<= emacs-major-version 26)
-  (package-initialize))
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -85,7 +74,7 @@
 (use-package org-conf :defer 0.8)
 (use-package prog-conf)
 (use-package company-conf :defer 0.4)
-(use-package lsp-conf :defer 0.5)
+(use-package lsp-conf :disabled :defer 0.5)
 (use-package ycmd-conf :defer 0.5)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
