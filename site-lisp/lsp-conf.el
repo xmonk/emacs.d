@@ -1,22 +1,21 @@
 ;; lsp-mode
 
-(use-package eglot
+(use-package lsp-mode
   :ensure t
-  :functions jj/find-projectile-project
+  :commands lsp
   :init
-  ;; Integrate project.el with projectile
-  (add-to-list 'project-find-functions #'jj/find-projectile-project)
-  (add-hook 'python-mode-hook 'jj/activate-lsp)
-  (add-hook 'bash-mode-hook 'jj/activate-lsp)
-  :config
-  (defun jj/activate-lsp ()
-    (remove-hook 'flymake-diagnostic-functions 'eglot-flymake-backend t)
-    (flymake-mode -1)
-    (eglot-ensure))
+  (add-hook 'python-mode-hook #'lsp))
 
-  (defun jj/find-projectile-project (dir)
-    (if (fboundp 'projectile-project-root)
-        (let ((root (projectile-project-root dir)))
-          (and root (cons 'transient root))))))
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode)
+
+(use-package company-lsp
+  :ensure t
+  :commands company-lsp
+  :config
+  (setq company-lsp-enable-recompletion t)
+  (setq company-lsp-async t)
+  (setq company-lsp-cache-candidates t))
 
 (provide 'lsp-conf)
