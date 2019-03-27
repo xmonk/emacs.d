@@ -3,7 +3,7 @@
 (use-package lsp-mode
   :ensure t
   :commands lsp
-  :hook ((python-mode bash-mode) . lsp)
+  :hook ((python-mode bash-mode go-mode) . lsp)
   :init
   (setq lsp-auto-guess-root t)
   (setq lsp-prefer-flymake nil)
