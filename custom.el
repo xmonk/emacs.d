@@ -46,8 +46,8 @@
  '(flycheck-python-flake8-executable "/home/jfuentes/.local/bin/flake8")
  '(flycheck-python-pycompile-executable "python3")
  '(flycheck-python-pyflakes-executable "pyflakes")
- '(gdb-many-windows t t)
- '(gdb-show-main t t)
+ '(gdb-many-windows t)
+ '(gdb-show-main t)
  '(grep-command "/usr/bin/rg")
  '(grep-find-command '("find . -type f -exec /usr/bin/rg \\{\\} +" . 39))
  '(grep-find-template
@@ -75,9 +75,9 @@
  '(menu-bar-mode nil)
  '(network-security-level 'high)
  '(package-selected-packages
-   '(dap-mode lsp-ui lsp-mode company-lsp json-mode deadgrep yasnippet irony pyvenv go-mode github-browse-file github-review ghub nswbuff projectile-ripgrep ag poet-theme csv-mode systemd smart-jump pythonic auto-virtualenv company-tern dockerfile-mode tern blacken flycheck-ycmd org counsel-etags ecb flycheck-rust rust-mode company-ycmd ycmd alert dumb-jump ob-restclient ivy-rich counsel counsel-gtags counsel-projectile counsel-pydoc ggtags restclient spinner lsp-imenu
-              (lsp-mode lsp-ui company-lsp)
-              exec-path-from-shell eybrowse ace-window pylint whole-line-or-region yaml-mode edit-indirect xcscope web-mode use-package undo-tree swiper smartscan projectile paredit ob-go markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flycheck expand-region elisp-slime-nav diminish company-irony-c-headers company-irony company-go company-flx codesearch clang-format browse-kill-ring))
+   '(forge dap-mode lsp-ui lsp-mode company-lsp json-mode deadgrep yasnippet irony pyvenv go-mode github-browse-file github-review ghub nswbuff projectile-ripgrep ag poet-theme csv-mode systemd smart-jump pythonic auto-virtualenv company-tern dockerfile-mode tern blacken flycheck-ycmd org counsel-etags ecb flycheck-rust rust-mode company-ycmd ycmd alert dumb-jump ob-restclient ivy-rich counsel counsel-gtags counsel-projectile counsel-pydoc ggtags restclient spinner lsp-imenu
+           (lsp-mode lsp-ui company-lsp)
+           exec-path-from-shell eybrowse ace-window pylint whole-line-or-region yaml-mode edit-indirect xcscope web-mode use-package undo-tree swiper smartscan projectile paredit ob-go markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flycheck expand-region elisp-slime-nav diminish company-irony-c-headers company-irony company-go company-flx codesearch clang-format browse-kill-ring))
  '(pos-tip-background-color "#FFF9DC")
  '(pos-tip-foreground-color "#011627")
  '(projectile-globally-ignored-directories
