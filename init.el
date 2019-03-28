@@ -75,7 +75,7 @@
 (use-package prog-conf)
 (use-package company-conf :defer 0.4)
 (use-package lsp-conf :defer 0.5)
-(use-package ycmd-conf :defer 0.5)
+(use-package ycmd-conf :disabled :defer 0.5)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
