@@ -6,8 +6,7 @@
 (setq package-archives
       '(("elpa" . "https://elpa.gnu.org/packages/")
         ("org" . "https://orgmode.org/elpa/")
-        ("melpa" . "https://melpa.org/packages/")
-        ("melpa-stable" . "https://stable.melpa.org/packages/")))
+        ("melpa" . "https://melpa.org/packages/")))
 
 (setq package-enable-at-startup t)
 (if (>= emacs-major-version 27)
