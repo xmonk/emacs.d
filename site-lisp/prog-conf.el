@@ -11,7 +11,7 @@
 (use-package py-conf)
 (use-package sh-conf)
 (use-package eshell-conf)
-(use-package ocaml-conf :disabled :when (file-directory-p (expand-file-name "~/.opam")))
+(use-package ocaml-conf :when (file-directory-p (expand-file-name "~/.opam")))
 (use-package rust-conf :disabled :when (file-directory-p (expand-file-name "~/.cargo")))
 
 ;;; cscope
