@@ -66,7 +66,7 @@
       (add-to-list 'company-backends 'merlin-company-backend)
       (setq merlin-use-auto-complete-mode 'easy)
       (add-hook 'merlin-mode-hook 'company-mode)
-      (bind-key "C-<tab>" 'company-complete merlin-mode-map))
+      (bind-key "C-c <tab>" 'company-complete merlin-mode-map))
 
     ;; Use opam switch to lookup ocamlmerlin binary
     (setq merlin-command 'opam)
