@@ -120,6 +120,8 @@
         (append org-structure-template-alist
                 '(("rc" . "src restclient"))))
 
+  (require 'org-tempo nil t)
+
 ;;; Usefull functions for org-mode.
 ;;; Taken from irreal.org. Thanks to jcs from  http://irreal.org/blog
 
