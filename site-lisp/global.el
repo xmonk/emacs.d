@@ -194,7 +194,7 @@
   :init
   (setq global-auto-revert-mode nil)
   (setq global-auto-revert-non-file-buffers nil)
-  (setq auto-revert-verbose t))
+  (setq auto-revert-verbose nil))
 
 (require 'desktop nil t)
 ;; only use desktop mode and timers on server
