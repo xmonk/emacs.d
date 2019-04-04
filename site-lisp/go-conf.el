@@ -29,9 +29,9 @@
   :ensure t
   :init
   (add-hook 'before-save-hook 'gofmt-before-save)
+  (add-hook 'go-mode-hook 'lsp)
   (add-hook 'go-mode-hook 'jj/go-init-hook)
   (add-hook 'go-mode-hook #'flycheck-mode)
-  (add-hook 'go-mode-hook 'ycmd-mode)
   :config
   (setenv "GOPATH" (concat (getenv "HOME") "/g"))
   ;; gofmt command
@@ -41,13 +41,9 @@
     :after go-mode
     :ensure t
     :init
-    (when (file-executable-p (file-truename "~/.emacs.d/ycmd/third_party/go/src/github.com/mdempsky/gocode/gocode"))
-      (setq go-eldoc-gocode (file-truename "~/.emacs.d/ycmd/third_party/go/src/github.com/mdempsky/gocode/gocode")))
     (add-hook 'go-mode-hook 'go-eldoc-setup)
     :config
     (eldoc-mode))
-
-
 
   (use-package go-errcheck
     :after go-mode
@@ -60,9 +56,7 @@
     :init
     (add-to-list 'company-backends 'company-go)
     (setq company-go-show-annotation t)
-    (setq company-tooltip-align-annotations t)
-    (when (file-executable-p (file-truename "~/.emacs.d/ycmd/third_party/go/src/github.com/mdempsky/gocode/gocode"))
-      (setq company-go-gocode-command (file-truename "~/.emacs.d/ycmd/third_party/go/src/github.com/mdempsky/gocode/gocode"))))
+    (setq company-tooltip-align-annotations t))
 
   ;; Enable go-rename if available
   (use-package go-rename
