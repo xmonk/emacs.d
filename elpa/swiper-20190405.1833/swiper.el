@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20190404.1245
+;; Package-Version: 20190405.1833
 ;; Version: 0.11.0
 ;; Package-Requires: ((emacs "24.1") (ivy "0.11.0"))
 ;; Keywords: matching
@@ -490,9 +490,16 @@ such as `scroll-conservatively' are set to a high value.")
       (mapcar
        (lambda (s)
          (let* ((n (get-text-property 0 'swiper-line-number s))
-                (nn (number-to-string (+ (read n) line-delta))))
+                (pt (get-text-property 0 'point s))
+                (nn (number-to-string
+                     (if n
+                         (progn
+                           (setq s (substring s 1))
+                           (+ (read n) line-delta))
+                       (line-number-at-pos pt)))))
+           (put-text-property 0 1 'point pt fname)
            (put-text-property 0 (length nn) 'face 'ivy-grep-line-number nn)
-           (format "%s:%s:%s" fname nn (substring s 1))))
+           (format "%s:%s:%s" fname nn s)))
        cands))))
 
 (defun swiper-occur (&optional revert)
@@ -1205,6 +1212,8 @@ See `ivy-format-function' for further information."
         (goto-char swiper--opoint))
       (unless (or res (string= ivy-text ""))
         (cl-pushnew ivy-text swiper-history)))))
+
+(ivy-set-occur 'swiper-isearch 'swiper-occur)
 
 (provide 'swiper)
 
