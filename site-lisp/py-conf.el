@@ -34,7 +34,7 @@
   (add-hook 'python-mode-hook 'flycheck-mode)
   (add-hook 'python-mode-hook '(lambda () (flymake-mode -1)))
   (add-hook 'python-mode-hook 'cscope-minor-mode)
-  (add-hook 'python-mode-hook 'ycmd-mode)
+  (add-hook 'python-mode-hook #'lsp)
   (defun jj/py-hook ()
     (setq-local tab-width '4)
     (setq-local indent-tabs-mode nil)
