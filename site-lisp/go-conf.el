@@ -29,7 +29,7 @@
   :ensure t
   :init
   (add-hook 'before-save-hook 'gofmt-before-save)
-  (add-hook 'go-mode-hook 'lsp)
+  (add-hook 'go-mode-hook #'lsp)
   (add-hook 'go-mode-hook 'jj/go-init-hook)
   (add-hook 'go-mode-hook #'flycheck-mode)
   :config

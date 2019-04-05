@@ -15,7 +15,9 @@
 
 (use-package lsp-ui
   :ensure t
-  :commands lsp-ui-mode)
+  :commands lsp-ui-mode
+  :config
+  (setq lsp-ui-sideline-ignore-duplicate t))
 
 (use-package company-lsp
   :ensure t
