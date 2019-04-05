@@ -42,6 +42,9 @@
   (defadvice magit-mode-quit-window (after magit-restore-screen activate)
     (jump-to-register :magit-fullscreen)))
 
+(use-package forge
+  :ensure t)
+
 (provide 'magit-conf)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
