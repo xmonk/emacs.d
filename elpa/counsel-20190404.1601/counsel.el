@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20190403.2131
+;; Package-Version: 20190404.1601
 ;; Version: 0.11.0
 ;; Package-Requires: ((emacs "24.3") (swiper "0.11.0"))
 ;; Keywords: convenience, matching, tools
@@ -2420,7 +2420,7 @@ FZF-PROMPT, if non-nil, is passed as `ivy-read' prompt argument."
                         (message (cdr x)))
               :caller 'counsel-rpm)))
 
-(defcustom counsel-file-jump-args "-name '.git' -prune -o -type f -print | cut -c 3-"
+(defcustom counsel-file-jump-args ". -name '.git' -prune -o -type f -print | cut -c 3-"
   "Arguments for the `find-command' when using `counsel-file-jump'."
   :type 'string)
 
@@ -2451,7 +2451,7 @@ INITIAL-DIRECTORY, if non-nil, is used as the root directory for search."
               :keymap counsel-find-file-map
               :caller 'counsel-file-jump)))
 
-(defcustom counsel-dired-jump-args "-name '.git' -prune -o -type d -print | cut -c 3-"
+(defcustom counsel-dired-jump-args ". -name '.git' -prune -o -type d -print | cut -c 3-"
   "Arguments for the `find-command' when using `counsel-dired-jump'."
   :type 'string)
 
@@ -5338,6 +5338,58 @@ specified by the `blddir' property."
             (counsel--get-compile-candidates dir)
             :action #'counsel-compile--action
             :caller 'counsel-compile))
+
+;;** `counsel-minor'
+(defun counsel--minor-candidates ()
+  "Return completion alist for `counsel-minor'.
+
+The alist element is cons of minor mode string with its lighter
+and minor mode symbol."
+  (delq nil
+        (mapcar
+         (lambda (mode)
+           (when (and (boundp mode) (commandp mode))
+             (let ((lighter (alist-get mode minor-mode-alist)))
+               (cons (concat
+                      (if (symbol-value mode) "-" "+")
+                      (symbol-name mode)
+                      (propertize
+                       (if lighter
+                           (format " \"%s\""
+                                   (format-mode-line (cons t lighter)))
+                         "")
+                       'face font-lock-string-face))
+                     mode))))
+         minor-mode-list)))
+
+;;;###autoload
+(defun counsel-minor ()
+  "Enable or disable minor mode.
+
+Disabled minor modes are prefixed with \"+\", and
+selecting one of these will enable it.
+Enabled minor modes are prefixed with \"-\", and
+selecting one of these will enable it.
+
+Additional actions:\\<ivy-minibuffer-map>
+
+  \\[ivy-dispatching-done] d: Go to minor mode definition
+  \\[ivy-dispatching-done] h: Describe minor mode"
+
+  (interactive)
+  (ivy-read "Minor modes (enable +mode or disable -mode): "
+            (counsel--minor-candidates)
+            :require-match t
+            :sort t
+            :action (lambda (x)
+                      (call-interactively (cdr x)))))
+
+(cl-pushnew '(counsel-minor . "^+") ivy-initial-inputs-alist :key #'car)
+
+(ivy-set-actions
+ 'counsel-minor
+ `(("d" ,(lambda (x) (find-function (cdr x))) "definition")
+   ("h" ,(lambda (x) (describe-function (cdr x))) "help")))
 
 ;;* `counsel-mode'
 (defvar counsel-mode-map

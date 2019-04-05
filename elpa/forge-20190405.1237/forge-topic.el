@@ -339,7 +339,8 @@ identifier."
                                     'magit-diff-hunk-heading t heading)
             (magit-insert-heading heading))
           (insert (forge--fontify-markdown body) "\n\n"))))
-    (when (fboundp 'markdown-display-inline-images)
+    (when (and (display-images-p)
+               (fboundp 'markdown-display-inline-images))
       (let ((markdown-display-remote-images t))
         (markdown-display-inline-images)))))
 
@@ -422,14 +423,6 @@ identifier."
 
 (cl-defmethod forge--topic-type-prefix ((_repo forge-repository) _type)
   "#")
-
-(defun forge--topic-buffer-lock-value (args)
-  (and (derived-mode-p 'forge-topic-mode)
-       (let ((topic (car args)))
-         (concat (forge--topic-type-prefix topic)
-                 (number-to-string (oref topic number))))))
-
-(add-hook 'magit-buffer-lock-functions 'forge--topic-buffer-lock-value)
 
 ;;; Completion
 

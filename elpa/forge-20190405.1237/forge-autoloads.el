@@ -11,6 +11,8 @@
 
 (with-eval-after-load 'magit-mode (define-key magit-mode-map "'" 'forge-dispatch))
 
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "forge" '("forge-")))
+
 ;;;***
 
 ;;;### (autoloads nil "forge-bitbucket" "forge-bitbucket.el" (0 0

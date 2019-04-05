@@ -343,6 +343,19 @@ Call `compile' completing with smart suggestions, optionally for DIR.
 
 \(fn &optional DIR)" t nil)
 
+(autoload 'counsel-minor "counsel" "\
+Enable or disable minor mode.
+
+Disabled minor modes are prefixed with \"+\", and
+selecting one of these will enable it.
+Enabled minor modes are prefixed with \"-\", and
+selecting one of these will enable it.
+
+Additional actions:\\<ivy-minibuffer-map>
+
+  \\[ivy-dispatching-done] d: Go to minor mode definition
+  \\[ivy-dispatching-done] h: Describe minor mode" t nil)
+
 (defvar counsel-mode nil "\
 Non-nil if Counsel mode is enabled.
 See the `counsel-mode' command

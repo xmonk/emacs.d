@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20190403.2148
+;; Package-Version: 20190404.1245
 ;; Version: 0.11.0
 ;; Package-Requires: ((emacs "24.1") (ivy "0.11.0"))
 ;; Keywords: matching
@@ -1146,7 +1146,7 @@ See `ivy-format-function' for further information."
                 (setq swiper--isearch-last-point (match-beginning 0))
                 (setq idx-found idx)))
             (cl-incf idx)
-            (let ((line (buffer-substring-no-properties
+            (let ((line (buffer-substring
                          (line-beginning-position)
                          (line-end-position))))
               (put-text-property 0 1 'point (point) line)
@@ -1155,6 +1155,13 @@ See `ivy-format-function' for further information."
       (when idx-found
         (ivy-set-index idx-found))
       (setq ivy--old-cands (nreverse cands)))))
+
+(defun swiper--add-cursor-overlay ()
+  (let ((ov (make-overlay (point) (if (eolp) (point) (1+ (point))))))
+    (if (eolp)
+        (overlay-put ov 'after-string (propertize " " 'face 'ivy-cursor))
+      (overlay-put ov 'face 'ivy-cursor))
+    (push ov swiper--overlays)))
 
 (defun swiper-isearch-action (x)
   "Move to X for `swiper-isearch'."
@@ -1166,11 +1173,7 @@ See `ivy-format-function' for further information."
         (unless (eq ivy-exit 'done)
           (swiper--cleanup)
           (swiper--add-overlays (ivy--regex ivy-text))
-          (let ((ov (make-overlay (point) (if (eolp) (point) (1+ (point))))))
-            (if (eolp)
-                (overlay-put ov 'after-string (propertize " " 'face 'ivy-cursor))
-              (overlay-put ov 'face 'ivy-cursor))
-            (push ov swiper--overlays))))
+          (swiper--add-cursor-overlay)))
     (swiper--cleanup)))
 
 (defun swiper-isearch (&optional initial-input)
