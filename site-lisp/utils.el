@@ -110,8 +110,7 @@
   :ensure t
   :requires ivy
   :functions jj/swiper-recenter
-  :bind (("C-s" . swiper)
-         ("C-r" . swiper))
+  :bind (("C-s" . swiper-isearch))
   :init
   ;;advise swiper to recenter on exit
   (defun jj/swiper-recenter ()
