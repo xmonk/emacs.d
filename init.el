@@ -29,15 +29,6 @@
 (add-hook 'after-init-hook (lambda ()
                              ;; restore after startup
                              (setq gc-cons-threshold 800000)))
-;;; package
-(autoload 'package "package" nil t)
-(setq package-archives
-      '(("elpa" . "https://elpa.gnu.org/packages/")
-        ("org" . "https://orgmode.org/elpa/")
-        ("melpa" . "https://melpa.org/packages/")))
-
-(when (<= emacs-major-version 26)
-  (package-initialize))
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -79,7 +70,8 @@
 (use-package org-conf :defer 0.5)
 (use-package prog-conf)
 (use-package company-conf :defer 0.5)
-(use-package ycmd-conf :defer 0.5)
+(use-package lsp-conf :defer 0.5)
+(use-package ycmd-conf :disabled :defer 0.5)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
