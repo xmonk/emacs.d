@@ -1,4 +1,5 @@
 (setq inhibit-startup-message t)
+(setq default-directory (expand-file-name "~/"))
 
 ;;; package
 (autoload 'package "package" nil t)
