@@ -670,9 +670,9 @@ active, apply to active region instead."
   "Resize frame on init."
   (let ((px (display-pixel-width))
         (py (display-pixel-height))
-		(fx (frame-char-width))
-		(fy (frame-char-height))
-		tx ty)
+		    (fx (frame-char-width))
+		    (fy (frame-char-height))
+		    tx ty)
     (setq tx (- (/ px fx) 11))
     (setq ty (- (/ py fy) 4))
     (setq initial-frame-alist '((top . 2) (right . 2)))
@@ -789,6 +789,17 @@ ARG should be one of: `dark' `light' 'nil'."
                    (not (equal system-configuration-features "")))
           (insert "\nFeatures:\n"
                   system-configuration-features))))))
+
+(defun jj/set-path-from-shell ()
+  "Sets exec-path and `PATH` from the shell"
+  (interactive)
+  (dolist (var (split-string (shell-command-to-string "source ~/.bashrc; env") "\n"))
+    (if (string-match "\\(.*?\\)=\\(.*\\)" var)
+        (let ((key (match-string 1 var))
+              (val (match-string 2 var)))
+          (setenv key val))))
+  ;; Update exec-path with the contents of $PATH
+  (setq exec-path (append exec-path (split-string (getenv "PATH") ":"))))
 
 (provide 'defuns)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
