@@ -10,19 +10,13 @@
 ;;; Generated autoloads from smart-jump.el
 
 (autoload 'smart-jump-setup-default-registers "smart-jump" "\
-Register a default set of modes for `smart-jump'.
-
-\(fn)" t nil)
+Register a default set of modes for `smart-jump'." t nil)
 
 (autoload 'smart-jump-diag "smart-jump" "\
-Pop a buffer with information about `smart-jump'.
-
-\(fn)" t nil)
+Pop a buffer with information about `smart-jump'." t nil)
 
 (autoload 'smart-jump-peek "smart-jump" "\
-Peek at definition.
-
-\(fn)" t nil)
+Peek at definition." t nil)
 
 (autoload 'smart-jump-go "smart-jump" "\
 Go to the function/variable declartion for thing at point.
@@ -34,9 +28,7 @@ CONTINUE will be non nil if this is a continuation of a previous jump.
 \(fn &optional SMART-LIST CONTINUE)" t nil)
 
 (autoload 'smart-jump-back "smart-jump" "\
-Jump back to where the last jump was done.
-
-\(fn)" t nil)
+Jump back to where the last jump was done." t nil)
 
 (autoload 'smart-jump-references "smart-jump" "\
 Find references with fallback.
@@ -57,9 +49,7 @@ CONTINUE will be set if this is a continuation of a previous call to
 ;;; Generated autoloads from smart-jump-cc-mode.el
 
 (autoload 'smart-jump-cc-mode-register "smart-jump-cc-mode" "\
-Register `cc-mode' for `smart-jump'.
-
-\(fn)" nil nil)
+Register `cc-mode' for `smart-jump'." nil nil)
 
 ;;;***
 
@@ -68,9 +58,7 @@ Register `cc-mode' for `smart-jump'.
 ;;; Generated autoloads from smart-jump-clojure-mode.el
 
 (autoload 'smart-jump-clojure-mode-register "smart-jump-clojure-mode" "\
-Register `clojure-mode' for `smart-jump'.
-
-\(fn)" nil nil)
+Register `clojure-mode' for `smart-jump'." nil nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "smart-jump-clojure-mode" '("smart-jump-clojure-cider-available-p")))
 
@@ -81,9 +69,7 @@ Register `clojure-mode' for `smart-jump'.
 ;;; Generated autoloads from smart-jump-csharp-mode.el
 
 (autoload 'smart-jump-csharp-mode-register "smart-jump-csharp-mode" "\
-Register `smart-jump' for `csharp-mode'.
-
-\(fn)" nil nil)
+Register `smart-jump' for `csharp-mode'." nil nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "smart-jump-csharp-mode" '("smart-jump-csharp-omnisharp-available-p")))
 
@@ -94,9 +80,7 @@ Register `smart-jump' for `csharp-mode'.
 ;;; Generated autoloads from smart-jump-eglot.el
 
 (autoload 'smart-jump-eglot-register "smart-jump-eglot" "\
-Register `eglot' for `smart-jump'.
-
-\(fn)" nil nil)
+Register `eglot' for `smart-jump'." nil nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "smart-jump-eglot" '("smart-jump-eglot-order")))
 
@@ -107,9 +91,7 @@ Register `eglot' for `smart-jump'.
 ;;; Generated autoloads from smart-jump-elisp-mode.el
 
 (autoload 'smart-jump-elisp-mode-register "smart-jump-elisp-mode" "\
-Register `smart-jump' for `elisp-mode'.
-
-\(fn)" nil nil)
+Register `smart-jump' for `elisp-mode'." nil nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "smart-jump-elisp-mode" '("smart-jump-elisp-slime-nav-available-p")))
 
@@ -120,9 +102,7 @@ Register `smart-jump' for `elisp-mode'.
 ;;; Generated autoloads from smart-jump-elixir-mode.el
 
 (autoload 'smart-jump-elixir-mode-register "smart-jump-elixir-mode" "\
-Register `smart-jump' for `elixir-mode'.
-
-\(fn)" nil nil)
+Register `smart-jump' for `elixir-mode'." nil nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "smart-jump-elixir-mode" '("smart-jump-elixir-alchemist-available-p")))
 
@@ -133,9 +113,7 @@ Register `smart-jump' for `elixir-mode'.
 ;;; Generated autoloads from smart-jump-elm-mode.el
 
 (autoload 'smart-jump-elm-mode-register "smart-jump-elm-mode" "\
-Register `elm-mode' for `smart-jump'.
-
-\(fn)" nil nil)
+Register `elm-mode' for `smart-jump'." nil nil)
 
 ;;;***
 
@@ -144,9 +122,7 @@ Register `elm-mode' for `smart-jump'.
 ;;; Generated autoloads from smart-jump-erlang-mode.el
 
 (autoload 'smart-jump-erlang-mode-register "smart-jump-erlang-mode" "\
-Register `erlang-mode' for `smart-jump'.
-
-\(fn)" nil nil)
+Register `erlang-mode' for `smart-jump'." nil nil)
 
 ;;;***
 
@@ -155,9 +131,7 @@ Register `erlang-mode' for `smart-jump'.
 ;;; Generated autoloads from smart-jump-go-mode.el
 
 (autoload 'smart-jump-go-mode-register "smart-jump-go-mode" "\
-Register `go-mode' for `smart-jump'.
-
-\(fn)" nil nil)
+Register `go-mode' for `smart-jump'." nil nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "smart-jump-go-mode" '("smart-jump-go-mode-go-guru-available-p")))
 
@@ -168,9 +142,7 @@ Register `go-mode' for `smart-jump'.
 ;;; Generated autoloads from smart-jump-haskell-mode.el
 
 (autoload 'smart-jump-haskell-mode-register "smart-jump-haskell-mode" "\
-Register `smart-jump' for `haskell-mode'.
-
-\(fn)" nil nil)
+Register `smart-jump' for `haskell-mode'." nil nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "smart-jump-haskell-mode" '("smart-jump-haskell-mode-")))
 
@@ -181,9 +153,7 @@ Register `smart-jump' for `haskell-mode'.
 ;;; Generated autoloads from smart-jump-js2-mode.el
 
 (autoload 'smart-jump-js2-mode-register "smart-jump-js2-mode" "\
-Register `js2-mode' for `smart-jump'.
-
-\(fn)" nil nil)
+Register `js2-mode' for `smart-jump'." nil nil)
 
 ;;;***
 
@@ -192,9 +162,7 @@ Register `js2-mode' for `smart-jump'.
 ;;; Generated autoloads from smart-jump-lisp-mode.el
 
 (autoload 'smart-jump-lisp-mode-register "smart-jump-lisp-mode" "\
-Register `smart-jump' for `lisp-mode'.
-
-\(fn)" nil nil)
+Register `smart-jump' for `lisp-mode'." nil nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "smart-jump-lisp-mode" '("smart-jump-lisp-sl")))
 
@@ -205,9 +173,7 @@ Register `smart-jump' for `lisp-mode'.
 ;;; Generated autoloads from smart-jump-lispy.el
 
 (autoload 'smart-jump-lispy-register "smart-jump-lispy" "\
-Register `smart-jump' for `lispy'.
-
-\(fn)" nil nil)
+Register `smart-jump' for `lispy'." nil nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "smart-jump-lispy" '("smart-jump-lispy-order")))
 
@@ -218,9 +184,7 @@ Register `smart-jump' for `lispy'.
 ;;; Generated autoloads from smart-jump-lsp-mode.el
 
 (autoload 'smart-jump-lsp-mode-register "smart-jump-lsp-mode" "\
-Register `lsp-mode' for `smart-jump'.
-
-\(fn)" nil nil)
+Register `lsp-mode' for `smart-jump'." nil nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "smart-jump-lsp-mode" '("smart-jump-lsp-mode-order")))
 
@@ -231,9 +195,7 @@ Register `lsp-mode' for `smart-jump'.
 ;;; Generated autoloads from smart-jump-lua-mode.el
 
 (autoload 'smart-jump-lua-mode-register "smart-jump-lua-mode" "\
-Register `smart-jump' for `lua-mode'.
-
-\(fn)" nil nil)
+Register `smart-jump' for `lua-mode'." nil nil)
 
 ;;;***
 
@@ -242,11 +204,9 @@ Register `smart-jump' for `lua-mode'.
 ;;; Generated autoloads from smart-jump-python.el
 
 (autoload 'smart-jump-python-register "smart-jump-python" "\
-Register `smart-jump' for `python'.
+Register `smart-jump' for `python'." nil nil)
 
-\(fn)" nil nil)
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "smart-jump-python" '("smart-jump-python-anaconda-available-p")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "smart-jump-python" '("smart-jump-python-")))
 
 ;;;***
 
@@ -255,9 +215,7 @@ Register `smart-jump' for `python'.
 ;;; Generated autoloads from smart-jump-ruby-mode.el
 
 (autoload 'smart-jump-ruby-mode-register "smart-jump-ruby-mode" "\
-Register `smart-jump' for `ruby-mode'.
-
-\(fn)" nil nil)
+Register `smart-jump' for `ruby-mode'." nil nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "smart-jump-ruby-mode" '("smart-jump-ruby-robe-available-p")))
 
@@ -268,9 +226,7 @@ Register `smart-jump' for `ruby-mode'.
 ;;; Generated autoloads from smart-jump-rust-mode.el
 
 (autoload 'smart-jump-rust-mode-register "smart-jump-rust-mode" "\
-Register `smart-jump' for `rust-mode'.
-
-\(fn)" nil nil)
+Register `smart-jump' for `rust-mode'." nil nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "smart-jump-rust-mode" '("smart-jump-rust-mode-racer-available-p")))
 
@@ -281,9 +237,7 @@ Register `smart-jump' for `rust-mode'.
 ;;; Generated autoloads from smart-jump-scala-mode.el
 
 (autoload 'smart-jump-scala-mode-register "smart-jump-scala-mode" "\
-Register `smart-jump' for `scala-mode'.
-
-\(fn)" nil nil)
+Register `smart-jump' for `scala-mode'." nil nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "smart-jump-scala-mode" '("smart-jump-scala-mode-ensime-available-p")))
 
@@ -294,9 +248,7 @@ Register `smart-jump' for `scala-mode'.
 ;;; Generated autoloads from smart-jump-scheme.el
 
 (autoload 'smart-jump-scheme-register "smart-jump-scheme" "\
-Register `smart-jump' for `scheme'.
-
-\(fn)" nil nil)
+Register `smart-jump' for `scheme'." nil nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "smart-jump-scheme" '("smart-jump-scheme-geiser-available-p")))
 
@@ -307,9 +259,7 @@ Register `smart-jump' for `scheme'.
 ;;; Generated autoloads from smart-jump-swift-mode.el
 
 (autoload 'smart-jump-swift-mode-register "smart-jump-swift-mode" "\
-Register `smart-jump' for `swift-mode'.
-
-\(fn)" nil nil)
+Register `smart-jump' for `swift-mode'." nil nil)
 
 ;;;***
 
@@ -331,9 +281,7 @@ Register `smart-jump' for `typescript-mode'.
 ;;; Generated autoloads from smart-jump-web-mode.el
 
 (autoload 'smart-jump-web-mode-register "smart-jump-web-mode" "\
-Register `smart-jump' for `web-mode'.
-
-\(fn)" nil nil)
+Register `smart-jump' for `web-mode'." nil nil)
 
 ;;;***
 

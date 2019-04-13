@@ -23,6 +23,11 @@ Run `swiper' for all open buffers.
 
 \(fn &optional INITIAL-INPUT)" t nil)
 
+(autoload 'swiper-isearch "swiper" "\
+A `swiper' that's not line-based.
+
+\(fn &optional INITIAL-INPUT)" t nil)
+
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "swiper" '("swiper-")))
 
 ;;;***

@@ -1,4 +1,4 @@
-(define-package "smart-jump" "20190216.2006" "Smart go to definition."
+(define-package "smart-jump" "20190412.1529" "Smart go to definition."
   '((emacs "25.1")
     (dumb-jump "0.5.1"))
   :keywords
