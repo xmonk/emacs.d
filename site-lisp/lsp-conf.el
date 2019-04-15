@@ -29,6 +29,7 @@
 
 (use-package dap-mode
   :ensure t
+  :commands (dap-mode dap-breakpoint-add)
   :config
   (dap-mode 1)
   (dap-ui-mode 1)
