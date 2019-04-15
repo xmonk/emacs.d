@@ -57,9 +57,10 @@
   (flycheck-json-python-json-executable "/usr/bin/python3")
   :hook (json-mode . flycheck-mode)
   :init
-  (setq indent-tabs-mode nil)
-  (setq tab-width 2)
-  (setq json-reformat:indent-width '2))
+  (add-hook 'json-mode '(lambda ()
+                          (setq-local indent-tabs-mode nil)
+                          (setq-local tab-width 2)
+                          (setq json-reformat:indent-width '2))))
 
 ;;; codesearch http://code.google.com/p/codesearch/
 (use-package codesearch
