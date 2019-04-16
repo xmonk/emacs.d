@@ -239,6 +239,26 @@ Open related file in other frame." t nil)
 (autoload 'projectile-find-related-file "projectile" "\
 Open related file." t nil)
 
+(autoload 'projectile-related-files-fn-groups "projectile" "\
+Generate a related-files-fn which relates as KIND for files in each of GROUPS.
+
+\(fn KIND GROUPS)" nil nil)
+
+(autoload 'projectile-related-files-fn-extensions "projectile" "\
+Generate a related-files-fn which relates as KIND for files having EXTENSIONS.
+
+\(fn KIND EXTENSIONS)" nil nil)
+
+(autoload 'projectile-related-files-fn-test-with-prefix "projectile" "\
+Generate a related-files-fn which relates tests and impl for files with EXTENSION based on TEST-PREFIX.
+
+\(fn EXTENSION TEST-PREFIX)" nil nil)
+
+(autoload 'projectile-related-files-fn-test-with-suffix "projectile" "\
+Generate a related-files-fn which relates tests and impl for files with EXTENSION based on TEST-SUFFIX.
+
+\(fn EXTENSION TEST-SUFFIX)" nil nil)
+
 (autoload 'projectile-project-info "projectile" "\
 Display info for current project." t nil)
 
@@ -273,9 +293,10 @@ regular expression.
 (autoload 'projectile-ripgrep "projectile" "\
 Run a Ripgrep search with `SEARCH-TERM' at current project root.
 
-SEARCH-TERM is a regexp.
+With an optional prefix argument ARG SEARCH-TERM is interpreted as a
+regular expression.
 
-\(fn SEARCH-TERM)" t nil)
+\(fn SEARCH-TERM &optional ARG)" t nil)
 
 (autoload 'projectile-regenerate-tags "projectile" "\
 Regenerate the project's [e|g]tags." t nil)

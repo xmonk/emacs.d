@@ -74,6 +74,13 @@ argument ask the user to select which language server to start.
 
 ;;;***
 
+;;;### (autoloads nil "lsp-xml" "lsp-xml.el" (0 0 0 0))
+;;; Generated autoloads from lsp-xml.el
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lsp-xml" '("lsp-xml-")))
+
+;;;***
+
 ;;;### (autoloads nil nil ("lsp-mode-pkg.el" "lsp.el") (0 0 0 0))
 
 ;;;***
