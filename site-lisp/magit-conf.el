@@ -45,6 +45,10 @@
 (use-package forge
   :ensure t)
 
+(use-package github-review
+  :ensure t
+  :after magit)
+
 (provide 'magit-conf)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
