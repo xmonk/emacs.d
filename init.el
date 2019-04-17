@@ -24,14 +24,21 @@
 ;;
 ;;; Code:
 
+(defvar jj--file-name-handler-alist file-name-handler-alist)
+(setq file-name-handler-alist nil)
+
 ;; 10MB let's see how well it works.
-(setq gc-cons-threshold (* 10 1024 1024))
-(add-hook 'after-init-hook (lambda ()
-                             ;; restore after startup
-                             (setq gc-cons-threshold 800000)
-                             ;; disable menu-bar in console.
-                             (when (eql window-system nil)
-                               (menu-bar-mode -1))))
+(setq gc-cons-threshold 402653184
+      gc-cons-percentage 0.6)
+
+(add-hook 'emacs-startup-hook (lambda ()
+                                ;; restore after startup
+                                (setq gc-cons-threshold 16777216
+                                      gc-cons-percentage 0.1)
+                                ;; disable menu-bar in console.
+                                (when (eql window-system nil)
+                                  (menu-bar-mode -1))))
+
 ;;; frame
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
 
@@ -73,9 +80,11 @@
 (use-package markdown-conf :defer 0.8)
 (use-package org-conf :defer 0.8)
 (use-package prog-conf)
-(use-package company-conf :defer 0.4)
+(use-package company-conf :defer 0.5)
 (use-package lsp-conf :defer 0.5)
-(use-package ycmd-conf :disabled :defer 0.5)
 
+(add-hook 'emacs-startup-hook
+          '(lambda ()
+             (setq file-name-handler-alist jj--file-name-handler-alist)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
