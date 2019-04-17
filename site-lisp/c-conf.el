@@ -1,4 +1,4 @@
-;;; c-conf.el ---  C configuration file
+;;; c-conf.el ---  C configuration file  -*- lexical-binding: t; -*-
 ;;
 ;; Filename: c-conf.el
 ;; Description:

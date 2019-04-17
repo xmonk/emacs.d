@@ -1,4 +1,4 @@
-;;; keymaps.el --- Personal key maps.
+;;; keymaps.el --- Personal key maps.  -*- lexical-binding: t; -*-
 ;;
 ;; Filename: keymaps.el
 ;; Description:

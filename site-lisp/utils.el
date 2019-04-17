@@ -1,3 +1,4 @@
+;;; utils.el -*- lexical-binding: t; -*-
 ;;; diminish
 (use-package diminish
   :commands diminish

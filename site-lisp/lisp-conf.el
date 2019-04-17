@@ -1,4 +1,4 @@
-;;; lisp-conf.el ---  Common Lisp configuration
+;;; lisp-conf.el ---  Common Lisp configuration -*- lexical-binding: t; -*-
 ;;
 ;; Filename: lisp-conf.el
 ;; Description:

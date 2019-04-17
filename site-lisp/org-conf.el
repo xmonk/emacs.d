@@ -1,4 +1,4 @@
-;;; org-conf.el --- Org configuration
+;;; org-conf.el --- Org configuration -*- lexical-binding: t; -*-
 ;;
 ;; Filename: org-conf.el
 ;; Description:

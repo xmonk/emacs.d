@@ -1,4 +1,4 @@
-;;; rust-conf.el --- Rust configuration
+;;; rust-conf.el --- Rust configuration -*- lexical-binding: t; -*-
 ;;
 ;; Filename: rust-conf.el
 ;; Description:

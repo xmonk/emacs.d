@@ -1,4 +1,4 @@
-;;; magit-conf.el --- Magit configuration.
+;;; magit-conf.el --- Magit configuration. -*- lexical-binding: t; -*-
 ;;
 ;; Filename: magit-conf.el
 ;; Description:
@@ -43,6 +43,7 @@
     (jump-to-register :magit-fullscreen)))
 
 (use-package forge
+  :after magit
   :ensure t)
 
 (use-package github-review

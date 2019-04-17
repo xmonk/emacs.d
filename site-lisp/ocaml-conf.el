@@ -1,4 +1,4 @@
-;;; ocaml-conf.el ---  OCaml configuration
+;;; ocaml-conf.el ---  OCaml configuration -*- lexical-binding: t; -*-
 ;;
 ;; Filename: ocaml-conf.el
 ;; Description:

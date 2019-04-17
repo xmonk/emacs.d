@@ -1,4 +1,4 @@
-;;; sh-conf.el --- Shell configuration
+;;; sh-conf.el --- Shell configuration -*- lexical-binding: t; -*-
 ;;
 ;; Filename: sh-conf.el
 ;; Description:

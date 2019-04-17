@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (use-package tern
   :ensure t
   :commands tern-mode

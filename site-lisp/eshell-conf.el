@@ -1,4 +1,4 @@
-;;; eshell-conf.el --- Emacs shell configuration.
+;;; eshell-conf.el --- Emacs shell configuration. -*- lexical-binding: t; -*-
 ;;
 ;; Filename: eshell-conf.el
 ;; Description:

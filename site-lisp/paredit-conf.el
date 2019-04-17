@@ -1,4 +1,4 @@
-;;; paredit
+;;; paredit -*- lexical-binding: t; -*-
 (use-package paredit
   :ensure t
   :commands paredit-mode

@@ -1,3 +1,4 @@
+;;; prog-mode.el -*- lexical-binding: t; -*-
 ;; setup a things for programming
 (add-hook 'prog-mode-hook 'jj/local-comment-auto-fill)
 (add-hook 'prog-mode-hook 'jj/add-watchwords)

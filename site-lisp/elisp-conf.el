@@ -1,4 +1,4 @@
-;;; elisp-conf.el --- Emacs Lisp configuration
+;;; elisp-conf.el --- Emacs Lisp configuration -*- lexical-binding: t; -*-
 ;;
 ;; Filename: elisp-conf.el
 ;; Description:

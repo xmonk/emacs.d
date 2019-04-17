@@ -1,3 +1,4 @@
+;;; pdf-tools -*- lexical-binding: t; -*-
 (use-package pdf-tools
   :disabled
   :magic ("%PDF" . pdf-view-mode)
