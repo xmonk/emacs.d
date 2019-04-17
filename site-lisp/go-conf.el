@@ -1,4 +1,4 @@
-;;; go-conf.el --- Go language configuration.
+;;; go-conf.el --- Go language configuration. -*- lexical-binding: t; -*-
 ;;
 ;; Filename: go-conf.el
 ;; Description:
@@ -27,6 +27,8 @@
 (use-package go-mode
   :commands go-mode
   :ensure t
+  :bind (:map go-mode-map
+              ([remap xref-find-definitions] . godef-jump))
   :init
   (add-hook 'before-save-hook 'gofmt-before-save)
   (add-hook 'go-mode-hook #'lsp)
@@ -68,6 +70,13 @@
     :ensure t
     :init
     (add-hook 'go-mode-hook 'go-guru-hl-identifier-mode))
+
+  (use-package go-projectile
+    :requires projectile
+    :ensure t
+    :commands (go-projectile-mode go-projectile-switch-project)
+    :hook ((go-mode . go-projectile-mode)
+           (projectile-after-swith-project . go-projectile-switch-project)))
 
   (defun jj/go-test()
     (interactive)
