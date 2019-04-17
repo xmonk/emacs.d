@@ -1,4 +1,4 @@
-;;; py-conf.el --- Python configuration
+;;; py-conf.el --- Python configuration -*- lexical-binding: t; -*-
 ;;
 ;; Filename: py-conf.el
 ;; Description:
@@ -31,10 +31,10 @@
   (flycheck-python-flake8-executable (executable-find "flake8"))
   :init
   (add-hook 'python-mode-hook 'jj/py-hook)
-  (add-hook 'python-mode-hook 'flycheck-mode)
+  (add-hook 'python-mode-hook #'flycheck-mode)
   (add-hook 'python-mode-hook '(lambda () (flymake-mode -1)))
   (add-hook 'python-mode-hook 'cscope-minor-mode)
-  (add-hook 'python-mode-hook #'lsp)
+  (setq python-shell-completion-native-enable nil)
   (defun jj/py-hook ()
     (setq-local tab-width '4)
     (setq-local indent-tabs-mode nil)
@@ -49,8 +49,7 @@
         ((executable-find "python3")
          (setq python-shell-interpreter "python3"
                python-shell-interpreter-args "-i"
-               comint-process-echoes t
-               python-shell-completion-native-enable t)))
+               comint-process-echoes t)))
 
   ;; Don't font lock in an inferior python shell. It's too easy for a
   ;; docstring (when using foo? in ipython) to contain doublequotes and
