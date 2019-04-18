@@ -76,6 +76,8 @@
   (ivy-display-style 'fancy)
   (ivy-use-virtual-buffers t)
   (enable-recursive-minibuffers t)
+  :init
+  (setq ivy-initial-inputs-alist nil)
   :config
   (ivy-mode 1))
 
@@ -105,8 +107,7 @@
   :ensure t
   :requires ivy
   :functions jj/swiper-recenter
-  :bind (("C-s" . swiper)
-         ("C-r" . swiper))
+  :bind (("C-s" . swiper-isearch))
   :init
   ;;advise swiper to recenter on exit
   (defun jj/swiper-recenter ()
@@ -157,19 +158,6 @@
   (setq uniquify-after-kill-buffer-p t)
   (setq uniquify-buffer-name-style 'post-forward))
 
-;;;; recentf
-;; (use-package recentf
-;;   :commands recentf-mode
-;;   :bind (("C-x C-r" . ido-recentf-open))
-;;   :config
-;;   (recentf-mode t)
-;;   (defun ido-recentf-open ()
-;;     "Use `ido-completing-read' to \\[find-file] a recent file"
-;;     (interactive)
-;;     (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-;;         (message "Opening file...")
-;;       (message "Aborting"))))
-
 (use-package dired
   :commands dired
   :init
@@ -197,15 +185,15 @@
   (setq whitespace-line-column 80)
   (setq whitespace-style '(trailing lines space-before-tab indentation space-after-tab)))
 
-(when (memq window-system '(mac ns))
+(when (memq window-system '(mac ns x))
   (use-package exec-path-from-shell
     :ensure t
-    :defer 0.8
+    :defer 0.9
     :init
     (setq exec-path-from-shell-check-startup-files nil)
-    :config
+    (setq exec-path-from-shell-variables '("PATH" "MANPATH" "PYTHONPATH" "GOPATH"))
+    (setq exec-path-from-shell-arguments '("-l"))
     (exec-path-from-shell-initialize)))
-
 
 (use-package deadgrep
   :ensure t
