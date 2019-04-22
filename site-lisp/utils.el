@@ -63,7 +63,6 @@
   :ensure t
   :diminish
   :bind (("C-c C-r" . ivy-resume)
-         ("M-x" . counsel-M-x)
          ("C-x C-f" . counsel-find-file)
          ("C-x C-r" . counsel-recentf)
          ("C-c r" . counsel-rg))
@@ -81,6 +80,8 @@
   (ivy-display-style 'fancy)
   (ivy-use-virtual-buffers t)
   (enable-recursive-minibuffers t)
+  :init
+  (setq ivy-initial-inputs-alist nil)
   :config
   (ivy-mode 1))
 
