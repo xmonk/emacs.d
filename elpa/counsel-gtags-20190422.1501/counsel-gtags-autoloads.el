@@ -28,10 +28,9 @@ Prompt for TAGNAME if not given.
 \(fn TAGNAME)" t nil)
 
 (autoload 'counsel-gtags-find-file "counsel-gtags" "\
-Search for FILENAME among tagged files.
-Prompt for FILENAME if not given.
+Search/narrow for FILENAME among tagged files.
 
-\(fn FILENAME)" t nil)
+\(fn &optional FILENAME)" t nil)
 
 (autoload 'counsel-gtags-go-backward "counsel-gtags" "\
 Go to previous position in context stack." t nil)
@@ -41,21 +40,21 @@ Go to next position in context stack." t nil)
 
 (autoload 'counsel-gtags-create-tags "counsel-gtags" "\
 Create tag database in ROOTDIR.
-LABEL is passed as the value for the environment variable GTAGSLABEL.
-Prompt for ROOTDIR and LABEL if not given.  This command is asynchronous.
+  LABEL is passed as the value for the environment variable GTAGSLABEL.
+  Prompt for ROOTDIR and LABEL if not given.  This command is asynchronous.
 
 \(fn ROOTDIR LABEL)" t nil)
 
 (autoload 'counsel-gtags-update-tags "counsel-gtags" "\
 Update tag database for current file.
-Changes in other files are ignored.  With a prefix argument, update
-tags for all files.  With two prefix arguments, generate new tag
-database in prompted directory." t nil)
+  Changes in other files are ignored.  With a prefix argument, update
+  tags for all files.  With two prefix arguments, generate new tag
+  database in prompted directory." t nil)
 
 (autoload 'counsel-gtags-dwim "counsel-gtags" "\
 Find definition or reference of thing at point (Do What I Mean).
-If point is at a definition, find its references, otherwise, find
-its definition." t nil)
+  If point is at a definition, find its references, otherwise, find
+  its definition." t nil)
 
 (autoload 'counsel-gtags-mode "counsel-gtags" "\
 Toggle Counsel-Gtags mode on or off.
