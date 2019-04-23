@@ -35,7 +35,6 @@
   (add-hook 'go-mode-hook 'jj/go-init-hook)
   (add-hook 'go-mode-hook #'flycheck-mode)
   :config
-  (setenv "GOPATH" (concat (getenv "HOME") "/g"))
   ;; gofmt command
   (setq gofmt-command "goimports")
 
