@@ -25,16 +25,17 @@
 ;;; Code:
 
 (defvar jj--file-name-handler-alist file-name-handler-alist)
-(setq file-name-handler-alist nil)
+(defvar jj--gc-cons-threshold gc-cons-threshold)
+(defvar jj--gc-cons-precentage gc-cons-percentage)
 
-;; 10MB let's see how well it works.
-(setq gc-cons-threshold 402653184
-      gc-cons-percentage 0.6)
+(setq file-name-handler-alist nil)
+(setq gc-cons-threshold 402653184)
+(setq gc-cons-percentage 0.6)
 
 (add-hook 'emacs-startup-hook (lambda ()
                                 ;; restore after startup
-                                (setq gc-cons-threshold 16777216
-                                      gc-cons-percentage 0.1)
+                                (setq gc-cons-threshold jj--gc-cons-threshold)
+                                (setq gc-cons-percentage jj--gc-cons-precentage)
                                 ;; disable menu-bar in console.
                                 (when (eql window-system nil)
                                   (menu-bar-mode -1))))
