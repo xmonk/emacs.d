@@ -2039,7 +2039,7 @@ Appendix C Keystroke Index
 * c s:                                   Initiating a Commit. (line  55)
 * c S:                                   Initiating a Commit. (line  63)
 * c w:                                   Initiating a Commit. (line  33)
-* C-<return>:                            Diff Buffer.         (line  48)
+* C-<return>:                            Diff Buffer.         (line  49)
 * C-<tab>:                               Section Visibility.  (line  13)
 * C-c C-a:                               Editing Commit Messages.
                                                               (line 128)
@@ -2054,7 +2054,7 @@ Appendix C Keystroke Index
 * C-c C-d:                               Refreshing Diffs.    (line  81)
 * C-c C-d <1>:                           Editing Commit Messages.
                                                               (line  57)
-* C-c C-e:                               Diff Buffer.         (line  80)
+* C-c C-e:                               Diff Buffer.         (line  81)
 * C-c C-f:                               Log Buffer.          (line  25)
 * C-c C-f <1>:                           Refreshing Diffs.    (line  95)
 * C-c C-i:                               Editing Commit Messages.
@@ -2073,7 +2073,7 @@ Appendix C Keystroke Index
                                                               (line 132)
 * C-c C-s:                               Editing Commit Messages.
                                                               (line 136)
-* C-c C-t:                               Diff Buffer.         (line  70)
+* C-c C-t:                               Diff Buffer.         (line  71)
 * C-c C-t <1>:                           Editing Commit Messages.
                                                               (line 140)
 * C-c C-w:                               Editing Commit Messages.
@@ -2135,7 +2135,7 @@ Appendix C Keystroke Index
 * d w:                                   Diffing.             (line  44)
 * D w:                                   Refreshing Diffs.    (line  29)
 * DEL:                                   Log Buffer.          (line  45)
-* DEL <1>:                               Diff Buffer.         (line 109)
+* DEL <1>:                               Diff Buffer.         (line 110)
 * DEL <2>:                               Blaming.             (line  92)
 * DEL <3>:                               Editing Rebase Sequences.
                                                               (line  28)
@@ -2171,7 +2171,7 @@ Appendix C Keystroke Index
                                                               (line  24)
 * G:                                     Automatic Refreshing of Magit Buffers.
                                                               (line  33)
-* j:                                     Diff Buffer.         (line  99)
+* j:                                     Diff Buffer.         (line 100)
 * k:                                     Viewing Git Output.  (line  24)
 * k <1>:                                 Applying.            (line  40)
 * k <2>:                                 Editing Rebase Sequences.
@@ -2336,7 +2336,7 @@ Appendix C Keystroke Index
                                                               (line  59)
 * S-<tab>:                               Section Visibility.  (line  22)
 * SPC:                                   Log Buffer.          (line  35)
-* SPC <1>:                               Diff Buffer.         (line 105)
+* SPC <1>:                               Diff Buffer.         (line 106)
 * SPC <2>:                               Blaming.             (line  82)
 * SPC <3>:                               Editing Rebase Sequences.
                                                               (line  21)
@@ -2584,7 +2584,7 @@ Appendix D Command Index
                                                               (line  86)
 * magit-diff-default-context:            Refreshing Diffs.    (line  73)
 * magit-diff-dwim:                       Diffing.             (line  26)
-* magit-diff-edit-hunk-commit:           Diff Buffer.         (line  80)
+* magit-diff-edit-hunk-commit:           Diff Buffer.         (line  81)
 * magit-diff-flip-revs:                  Refreshing Diffs.    (line  46)
 * magit-diff-less-context:               Refreshing Diffs.    (line  65)
 * magit-diff-more-context:               Refreshing Diffs.    (line  69)
@@ -2602,11 +2602,11 @@ Appendix D Command Index
 * magit-diff-switch-range-type:          Refreshing Diffs.    (line  41)
 * magit-diff-toggle-file-filter:         Refreshing Diffs.    (line  51)
 * magit-diff-toggle-refine-hunk:         Refreshing Diffs.    (line  37)
-* magit-diff-trace-definition:           Diff Buffer.         (line  70)
+* magit-diff-trace-definition:           Diff Buffer.         (line  71)
 * magit-diff-unstaged:                   Diffing.             (line  56)
 * magit-diff-visit-file:                 Diff Buffer.         (line   8)
-* magit-diff-visit-file-other-window:    Diff Buffer.         (line  65)
-* magit-diff-visit-file-worktree:        Diff Buffer.         (line  48)
+* magit-diff-visit-file-other-window:    Diff Buffer.         (line  66)
+* magit-diff-visit-file-worktree:        Diff Buffer.         (line  49)
 * magit-diff-while-committing:           Refreshing Diffs.    (line  81)
 * magit-diff-while-committing <1>:       Editing Commit Messages.
                                                               (line  57)
@@ -2656,7 +2656,7 @@ Appendix D Command Index
 * magit-go-forward:                      Log Buffer.          (line  25)
 * magit-go-forward <1>:                  Refreshing Diffs.    (line  95)
 * magit-init:                            Creating Repository. (line   6)
-* magit-jump-to-diffstat-or-diff:        Diff Buffer.         (line  99)
+* magit-jump-to-diffstat-or-diff:        Diff Buffer.         (line 100)
 * magit-kill-this-buffer:                Minor Mode for Buffers Visiting Blobs.
                                                               (line  20)
 * magit-list-repositories:               Repository List.     (line   6)
@@ -2895,8 +2895,8 @@ Appendix D Command Index
 * magit-worktree-checkout:               Worktree.            (line  13)
 * magit-worktree-delete:                 Worktree.            (line  21)
 * magit-worktree-status:                 Worktree.            (line  26)
-* scroll-down:                           Diff Buffer.         (line 109)
-* scroll-up:                             Diff Buffer.         (line 105)
+* scroll-down:                           Diff Buffer.         (line 110)
+* scroll-up:                             Diff Buffer.         (line 106)
 * with-editor-cancel:                    Editing Commit Messages.
                                                               (line  24)
 * with-editor-cancel <1>:                Editing Rebase Sequences.
@@ -2951,7 +2951,7 @@ Appendix E Function Index
 * magit-define-section-jumper:           Creating Sections.   (line  77)
 * magit-diff-scope:                      Matching Sections.   (line 118)
 * magit-diff-type:                       Matching Sections.   (line  95)
-* magit-diff-visit-file-other-window:    Diff Buffer.         (line  65)
+* magit-diff-visit-file-other-window:    Diff Buffer.         (line  66)
 * magit-display-buffer:                  Switching Buffers.   (line   6)
 * magit-display-buffer-fullcolumn-most-v1: Switching Buffers. (line  76)
 * magit-display-buffer-fullframe-status-topleft-v1: Switching Buffers.
@@ -3221,7 +3221,7 @@ Appendix F Variable Index
 * magit-diff-refine-hunk:                Diff Options.        (line   6)
 * magit-diff-refine-ignore-whitespace:   Diff Options.        (line  16)
 * magit-diff-unmarked-lines-keep-foreground: Diff Options.    (line 120)
-* magit-diff-visit-previous-blob:        Diff Buffer.         (line  37)
+* magit-diff-visit-previous-blob:        Diff Buffer.         (line  38)
 * magit-direct-use-buffer-arguments:     Transient Arguments and Buffer Variables.
                                                               (line  73)
 * magit-display-buffer-function:         Switching Buffers.   (line  27)
@@ -3251,7 +3251,7 @@ Appendix F Variable Index
 * magit-log-section-commit-count:        Status Sections.     (line 120)
 * magit-log-select-margin:               Select from Log.     (line  30)
 * magit-log-show-refname-after-summary:  Log Buffer.          (line  75)
-* magit-log-trace-definition-function:   Diff Buffer.         (line  74)
+* magit-log-trace-definition-function:   Diff Buffer.         (line  75)
 * magit-module-sections-hook:            Status Module Sections.
                                                               (line  20)
 * magit-module-sections-nested:          Status Module Sections.

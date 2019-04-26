@@ -13,6 +13,13 @@
 
 ;;;***
 
+;;;### (autoloads nil "lsp-clojure" "lsp-clojure.el" (0 0 0 0))
+;;; Generated autoloads from lsp-clojure.el
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lsp-clojure" '("lsp-cl")))
+
+;;;***
+
 ;;;### (autoloads nil "lsp-css" "lsp-css.el" (0 0 0 0))
 ;;; Generated autoloads from lsp-css.el
 
