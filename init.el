@@ -37,6 +37,19 @@
                                 ;; disable menu-bar in console.
                                 (when (eql window-system nil)
                                   (menu-bar-mode -1))))
+;;; package
+(autoload 'package "package" nil t)
+
+(setq package-archives
+      '(("elpa" . "https://elpa.gnu.org/packages/")
+        ("org" . "https://orgmode.org/elpa/")
+        ("melpa" . "https://melpa.org/packages/")))
+
+(setq package-enable-at-startup t)
+(if (>= emacs-major-version 27)
+    (setq package-quickstart t)
+  (package-initialize))
+
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)

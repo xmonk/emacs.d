@@ -1,19 +1,6 @@
 (setq inhibit-startup-message t)
 (setq default-directory (expand-file-name "~/"))
 
-;;; package
-(autoload 'package "package" nil t)
-
-(setq package-archives
-      '(("elpa" . "https://elpa.gnu.org/packages/")
-        ("org" . "https://orgmode.org/elpa/")
-        ("melpa" . "https://melpa.org/packages/")))
-
-(setq package-enable-at-startup t)
-(if (>= emacs-major-version 27)
-    (setq package-quickstart t)
-  (package-initialize))
-
 (face-spec-set 'default
                '((((type x)) :family "PragmataPro Mono" :pixelsize 100 :foundry "FSD" :slant normal :weight normal :spacing 100 :height 105 :width normal :scalable t)
                  (((type ns)) :family "PragmataPro Mono" :pixelsize 200 :foundry "FSD" :slant normal :weight normal :spacing 100 :height 135 :width normal :scalable t)
