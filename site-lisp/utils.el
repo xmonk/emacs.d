@@ -188,7 +188,7 @@
 (when (memq window-system '(mac ns x))
   (use-package exec-path-from-shell
     :ensure t
-    :defer 0.9
+    :defer 4
     :init
     (setq exec-path-from-shell-check-startup-files nil)
     (setq exec-path-from-shell-variables '("PATH" "MANPATH" "PYTHONPATH" "GOPATH"))
