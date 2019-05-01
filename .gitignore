@@ -37,3 +37,4 @@ elpa/gnupg
 /.lsp-session-v1
 forge-database.sqlite
 /.dap-breakpoints
+/.#recentf
