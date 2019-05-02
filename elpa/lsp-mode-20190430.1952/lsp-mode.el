@@ -241,6 +241,11 @@ When nil, all registered clients are considered candidates.")
   :type 'hook
   :group 'lsp-mode)
 
+(defcustom lsp-after-initialize-hook nil
+  "List of functions to be called after a Language Server has been initialized for a new workspace."
+  :type 'hook
+  :group 'lsp-mode)
+
 (defcustom lsp-before-open-hook nil
   "List of functions to be called before a new file with LSP support is opened."
   :type 'hook
@@ -917,7 +922,10 @@ INHERIT-INPUT-METHOD will be proxied to `completing-read' without changes."
   ;; Function which will be called right after a workspace has been intialized.
   (initialized-fn)
   ;; ‘remote?’ indicate whether the client can be used for LSP server over TRAMP.
-  (remote? nil))
+  (remote? nil)
+
+  ;; ‘completion-in-comments?’ t if the client supports completion in comments.
+  (completion-in-comments? nil))
 
 ;; from http://emacs.stackexchange.com/questions/8082/how-to-get-buffer-position-given-line-number-and-column-number
 (defun lsp--line-character-to-point (line character)
@@ -1950,7 +1958,7 @@ TYPE can either be 'incoming or 'outgoing"
   (if (and (lsp--workspace-ewoc workspace)
            (buffer-live-p (ewoc-buffer (lsp--workspace-ewoc workspace))))
       (lsp--workspace-ewoc workspace)
-    (let ((buffer (get-buffer-create (format "*lsp-io: %s*"
+    (let ((buffer (get-buffer-create (format "*lsp-log: %s*"
                                              (lsp--workspace-root workspace)))))
       (with-current-buffer buffer
         (unless (eq 'lsp-log-io-mode major-mode) (lsp-log-io-mode))
@@ -4622,7 +4630,10 @@ SESSION is the active session."
                                (lsp--open-in-workspace workspace)))
 
                            (when-let (initialize-fn (lsp--client-initialized-fn client))
-                             (funcall initialize-fn workspace)))
+                             (funcall initialize-fn workspace))
+
+                           (with-lsp-workspace workspace
+                             (run-hooks 'lsp-after-initialize-hook)))
                          :mode 'detached))
     workspace))
 
