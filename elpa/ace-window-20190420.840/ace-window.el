@@ -5,7 +5,7 @@
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; Maintainer: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/ace-window
-;; Package-Version: 20190326.942
+;; Package-Version: 20190420.840
 ;; Version: 0.9.0
 ;; Package-Requires: ((avy "0.2.0"))
 ;; Keywords: window, location
@@ -490,7 +490,9 @@ The new frame is set to the same size as the previous frame, offset by
                  (if (and fn description)
                      (prog1 (setq aw-action fn)
                        (aw-set-mode-line (format " Ace - %s" description)))
-                   (funcall fn)
+                   (if (commandp fn)
+                       (call-interactively fn)
+                     (funcall fn))
                    (throw 'done 'exit)))
              (aw-clean-up-avy-current-path)
              ;; Prevent any char from triggering an avy dispatch command.
