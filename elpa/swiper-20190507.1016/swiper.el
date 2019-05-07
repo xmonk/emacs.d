@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20190412.1718
+;; Package-Version: 20190507.1016
 ;; Version: 0.11.0
 ;; Package-Requires: ((emacs "24.1") (ivy "0.11.0"))
 ;; Keywords: matching
@@ -1229,8 +1229,11 @@ come back to the same place as when \"a\" was initially entered.")
               (cl-incf idx)
               (let ((line (buffer-substring
                            (line-beginning-position)
-                           (line-end-position))))
-                (put-text-property 0 1 'point (point) line)
+                           (line-end-position)))
+                    (pos (if swiper-goto-start-of-match
+                             (match-beginning 0)
+                           (point))))
+                (put-text-property 0 1 'point pos line)
                 (push line cands)))))
         (setq ivy--old-re re)
         (when idx-found
@@ -1257,6 +1260,30 @@ come back to the same place as when \"a\" was initially entered.")
           (swiper--add-cursor-overlay)))
     (swiper--cleanup)))
 
+(defun swiper-isearch-symbol-at-point ()
+  "Insert `symbol-at-point' into the minibuffer of `swiper-isearch'.
+When not running `swiper-isearch' already, start it."
+  (interactive)
+  (if (window-minibuffer-p)
+      (let (bnd str)
+        (with-ivy-window
+          (setq bnd (bounds-of-thing-at-point 'symbol))
+          (setq str (buffer-substring-no-properties (car bnd) (cdr bnd))))
+        (setq swiper--isearch-point-history
+              (list (cons "" (car bnd))))
+        (insert str))
+    (let ((bnd (bounds-of-thing-at-point 'symbol)))
+      (when bnd
+        (goto-char (car bnd))
+        (swiper-isearch (buffer-substring-no-properties (car bnd) (cdr bnd)))))))
+
+(defvar swiper-isearch-map
+  (let ((map (make-sparse-keymap)))
+    (set-keymap-parent map swiper-map)
+    (define-key map (kbd "M-n") 'swiper-isearch-symbol-at-point)
+    map)
+  "Keymap for `swiper-isearch'.")
+
 ;;;###autoload
 (defun swiper-isearch (&optional initial-input)
   "A `swiper' that's not line-based."
@@ -1264,9 +1291,7 @@ come back to the same place as when \"a\" was initially entered.")
   (swiper--init)
   (setq swiper--isearch-point-history
         (list
-         (cons "" (if executing-kbd-macro
-                      (point)
-                    (line-beginning-position)))))
+         (cons "" (point))))
   (let ((ivy-fixed-height-minibuffer t)
         (cursor-in-non-selected-windows nil)
         (swiper-min-highlight 1)
@@ -1278,7 +1303,7 @@ come back to the same place as when \"a\" was initially entered.")
                  "Swiper: "
                  #'swiper-isearch-function
                  :initial-input initial-input
-                 :keymap swiper-map
+                 :keymap swiper-isearch-map
                  :dynamic-collection t
                  :require-match t
                  :action #'swiper-isearch-action
