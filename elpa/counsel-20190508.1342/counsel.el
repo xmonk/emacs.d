@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20190506.1823
+;; Package-Version: 20190508.1342
 ;; Version: 0.11.0
 ;; Package-Requires: ((emacs "24.3") (swiper "0.11.0"))
 ;; Keywords: convenience, matching, tools
@@ -386,7 +386,7 @@ Update the minibuffer with the amount of lines collected every
 ;;** `counsel-company'
 (defvar company-candidates)
 (defvar company-point)
-(defvar company-common)
+(defvar company-prefix)
 (declare-function company-complete "ext:company")
 (declare-function company-mode "ext:company")
 (declare-function company-complete-common "ext:company")
@@ -400,9 +400,8 @@ Update the minibuffer with the amount of lines collected every
   (unless company-candidates
     (company-complete))
   (when company-point
-    (when (looking-back company-common (line-beginning-position))
-      (setq ivy-completion-beg (match-beginning 0))
-      (setq ivy-completion-end (match-end 0)))
+    (setq ivy-completion-beg (- company-point (length company-prefix)))
+    (setq ivy-completion-end company-point)
     (ivy-read "company cand: " company-candidates
               :action #'ivy-completion-in-region-action
               :unwind #'company-abort
@@ -2615,23 +2614,29 @@ NEEDLE is the search string."
          (funcall ivy--regex-function str))
    counsel--regex-look-around))
 
+(defun counsel--ag-extra-switches (regex)
+  "Get additional switches needed for look-arounds."
+  (and (stringp counsel--regex-look-around)
+       ;; using look-arounds
+       (string-match-p "\\`\\^(\\?[=!]" regex)
+       (concat " " counsel--regex-look-around " ")))
+
 (defun counsel-ag-function (string)
   "Grep in the current directory for STRING."
-  (let ((command-args (counsel--split-command-args string)))
-    (let ((switches (car command-args))
-          (search-term (cdr command-args)))
-      (or
-       (let ((ivy-text search-term))
-         (ivy-more-chars))
-       (let ((default-directory (ivy-state-directory ivy-last))
-             (regex (counsel--grep-regex search-term)))
-         (if (and (stringp counsel--regex-look-around)
-                  (string-match-p "\\`\\^(\\?[=!]" regex)) ;; using look-arounds
-             (setq switches (concat switches " " counsel--regex-look-around)))
-         (counsel--async-command (counsel--format-ag-command
-                                  switches
-                                  (shell-quote-argument regex)))
-         nil)))))
+  (let* ((command-args (counsel--split-command-args string))
+         (search-term (cdr command-args)))
+    (or
+     (let ((ivy-text search-term))
+       (ivy-more-chars))
+     (let* ((default-directory (ivy-state-directory ivy-last))
+            (regex (counsel--grep-regex search-term))
+            (switches (concat (car command-args)
+                              (counsel--ag-extra-switches regex)
+                              (and (ivy--case-fold-p string) " -i "))))
+       (counsel--async-command (counsel--format-ag-command
+                                switches
+                                (shell-quote-argument regex)))
+       nil))))
 
 ;;;###autoload
 (cl-defun counsel-ag (&optional initial-input initial-directory extra-ag-args ag-prompt
@@ -2693,12 +2698,13 @@ CALLER is passed to `ivy-read'."
         (and (string-match "\"\\(.*\\)\"" (buffer-name))
              (match-string 1 (buffer-name))))
   (let* ((command-args (counsel--split-command-args ivy-text))
+         (regex (counsel--grep-regex (cdr command-args)))
+         (switches (concat (car command-args)
+                           (counsel--ag-extra-switches regex)))
          (cmd (format cmd-template
                       (concat
-                       (car command-args)
-                       (shell-quote-argument
-                        (counsel--elisp-to-pcre
-                         (ivy--regex (cdr command-args)))))))
+                       switches
+                       (shell-quote-argument regex))))
          (cands (split-string (shell-command-to-string cmd)
                               counsel-async-split-string-re
                               t)))

@@ -1372,6 +1372,13 @@ Call the permanent action if possible."
   (move-end-of-line 1)
   (ivy--maybe-scroll-history))
 
+(defun ivy--insert-symbol-boundaries ()
+  (undo-boundary)
+  (beginning-of-line)
+  (insert "\\_<")
+  (end-of-line)
+  (insert "\\_>"))
+
 (defun ivy-next-history-element (arg)
   "Forward to `next-history-element' with ARG."
   (interactive "p")
@@ -1385,11 +1392,7 @@ Call the permanent action if possible."
                    (not (ffap-url-p ivy--default))
                    (not (ivy-state-dynamic-collection ivy-last))
                    (> (point) (minibuffer-prompt-end)))
-          (undo-boundary)
-          (insert "\\_>")
-          (goto-char (minibuffer-prompt-end))
-          (insert "\\_<")
-          (forward-char (+ 2 (length ivy--default)))))
+          (ivy--insert-symbol-boundaries)))
     (next-history-element arg))
   (ivy--cd-maybe)
   (move-end-of-line 1)
@@ -2080,7 +2083,11 @@ This is useful for recursive `ivy-read'."
                          (equal (ivy--get-action ivy-last) 'identity))
                  (setq initial-input nil))))
             ((eq collection #'internal-complete-buffer)
-             (setq coll (ivy--buffer-list "" ivy-use-virtual-buffers predicate)))
+             (setq coll (ivy--buffer-list
+                         ""
+                         (and ivy-use-virtual-buffers
+                              (member caller '(ivy-switch-buffer counsel-switch-buffer)))
+                         predicate)))
             (dynamic-collection
              (setq coll (funcall collection ivy-text)))
             ((consp (car-safe collection))
@@ -4154,10 +4161,11 @@ If the region is active, forward to `kill-ring-save' instead."
 Don't finish completion."
   (interactive)
   (delete-minibuffer-contents)
-  (if (and ivy--directory
-           (ivy--dirname-p (ivy-state-current ivy-last)))
-      (insert (substring (ivy-state-current ivy-last) 0 -1))
-    (insert (ivy-state-current ivy-last))))
+  (let ((end (and ivy--directory
+                  (ivy--dirname-p (ivy-state-current ivy-last))
+                  -1)))
+    (insert (substring-no-properties
+             (ivy-state-current ivy-last) 0 end))))
 
 (define-obsolete-variable-alias 'ivy--preferred-re-builders
     'ivy-preferred-re-builders "0.10.0")
@@ -4394,8 +4402,7 @@ There is no limit on the number of *ivy-occur* buffers."
             (ivy--occur-insert-lines
              ivy--old-cands)))
         (setf (ivy-state-text ivy-last) ivy-text)
-        (setq ivy-occur-last ivy-last)
-        (setq-local ivy--directory ivy--directory))
+        (setq ivy-occur-last ivy-last))
       (ivy-exit-with-action
        (lambda (_) (pop-to-buffer buffer))))))
 
@@ -4604,8 +4611,11 @@ EVENT gives the mouse position."
       (with-current-buffer buf
         (insert-file-contents ivy-help-file)
         (org-mode)
+        (setq org-hide-emphasis-markers t)
         (view-mode)
-        (goto-char (point-min))))
+        (goto-char (point-min))
+        (let ((inhibit-message t))
+          (org-cycle '(64)))))
     (if (eq this-command 'ivy-help)
         (switch-to-buffer buf)
       (with-ivy-window
