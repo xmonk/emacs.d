@@ -1,0 +1,2 @@
+;;; Generated package description from /home/jfuentes/.emacs.d/elpa/ace-window-20190513.1048/ace-window.el  -*- no-byte-compile: t -*-
+(define-package "ace-window" "20190513.1048" "Quickly switch windows." '((avy "0.2.0")) :commit "c963bb9316053536dbbdab0537d830bef3d7172d" :keywords '("window" "location") :authors '(("Oleh Krehel" . "ohwoeowho@gmail.com")) :maintainer '("Oleh Krehel" . "ohwoeowho@gmail.com") :url "https://github.com/abo-abo/ace-window")
