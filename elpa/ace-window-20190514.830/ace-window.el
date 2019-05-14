@@ -5,7 +5,7 @@
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; Maintainer: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/ace-window
-;; Package-Version: 20190513.1048
+;; Package-Version: 20190514.830
 ;; Version: 0.9.0
 ;; Package-Requires: ((avy "0.2.0"))
 ;; Keywords: window, location
@@ -551,9 +551,9 @@ Amend MODE-LINE to the mode line for the duration of the selection."
                                (avy-translate-char-function aw-translate-char-function)
                                (res (avy-read (avy-tree candidate-list aw-keys)
                                               (if (and ace-window-display-mode
-                                                       aw-display-mode-overlay)
-                                                  #'aw--lead-overlay
-                                                (lambda (_path _leaf)))
+                                                       (null aw-display-mode-overlay))
+                                                  (lambda (_path _leaf))
+                                                #'aw--lead-overlay)
                                               #'avy--remove-leading-chars)))
                           (if (eq res 'exit)
                               (setq aw-action nil)
