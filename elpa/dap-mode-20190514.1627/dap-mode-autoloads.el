@@ -13,6 +13,13 @@
 
 ;;;***
 
+;;;### (autoloads nil "dap-edge" "dap-edge.el" (0 0 0 0))
+;;; Generated autoloads from dap-edge.el
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "dap-edge" '("dap-edge-")))
+
+;;;***
+
 ;;;### (autoloads nil "dap-elixir" "dap-elixir.el" (0 0 0 0))
 ;;; Generated autoloads from dap-elixir.el
 
