@@ -2,7 +2,7 @@
 
 (face-spec-set 'default
                '((((type x)) :family "PragmataPro" :pixelsize 100 :foundry "FSD" :slant normal :weight normal :spacing 100 :height 105 :width normal :scalable t)
-                 (((type ns)) :family "PragmataPro Mono" :pixelsize 200 :foundry "FSD" :slant normal :weight normal :spacing 100 :height 135 :width normal :scalable t)
+                 (((type ns)) :family "PragmataPro" :pixelsize 200 :foundry "FSD" :slant normal :weight normal :spacing 100 :height 135 :width normal :scalable t)
                  (t :family :height 100)))
 
 (face-spec-set 'fix-pitch
