@@ -555,7 +555,8 @@ If set to `:none' neither of two will be enabled."
                                         (ruby-mode . "ruby")
                                         (enh-ruby-mode . "ruby")
                                         (f90-mode . "fortran")
-                                        (elm-mode . "elm"))
+                                        (elm-mode . "elm")
+                                        (dart-mode . "dart"))
   "Language id configuration.")
 
 (defvar lsp-method-requirements
@@ -2405,10 +2406,11 @@ in that particular folder."
   (interactive
    (list (read-directory-name "Select folder to add: "
                               (or (lsp--suggest-project-root) default-directory) nil t)))
-  (push project-root (lsp-session-folders (lsp-session))))
+  (push project-root (lsp-session-folders (lsp-session)))
+  (lsp--persist-session (lsp-session)))
 
 (defun lsp-workspace-folders-remove (project-root)
-  "Remove PROJECT-ROOT to the list of workspace folders."
+  "Remove PROJECT-ROOT from the list of workspace folders."
   (interactive (list (completing-read "Select folder to remove: "
                                       (lsp-session-folders (lsp-session)) nil t
                                       (lsp-find-session-folder (lsp-session) default-directory))))
@@ -2448,10 +2450,15 @@ in that particular folder."
 
   (run-hook-with-args 'lsp-workspace-folders-changed-hook nil (list project-root)))
 
-(defun lsp-workspace-folders-switch()
-  "Switch to another workspace folder from the current session."
-  (interactive)
-  (find-file (completing-read "Switch to folder: " (lsp-session-folders (lsp-session)) nil t)))
+(define-obsolete-function-alias 'lsp-workspace-folders-switch
+  'lsp-workspace-folders-open "lsp-mode 6.1")
+
+(defun lsp-workspace-folders-open (project-root)
+  "Open the directory located at PROJECT-ROOT"
+  (interactive (list (completing-read "Open folder: "
+                                      (lsp-session-folders (lsp-session))
+                                      nil t)))
+  (find-file project-root))
 
 (define-minor-mode lsp--managed-mode
   "Mode for source buffers managed by lsp-mode."

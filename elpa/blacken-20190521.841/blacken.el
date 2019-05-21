@@ -5,7 +5,7 @@
 ;; Author: Artem Malyshev <proofit404@gmail.com>
 ;; Homepage: https://github.com/proofit404/blacken
 ;; Version: 0.0.1
-;; Package-Version: 20190301.1405
+;; Package-Version: 20190521.841
 ;; Package-Requires: ((emacs "25.2"))
 
 ;; This file is free software; you can redistribute it and/or modify
@@ -113,6 +113,8 @@ Return black process the exit code."
      (list "--fast"))
    (when blacken-skip-string-normalization
      (list "--skip-string-normalization"))
+   (when (string-match "\.pyi$" (buffer-file-name (current-buffer)))
+     (list "--pyi"))   
    '("-")))
 
 ;;;###autoload
