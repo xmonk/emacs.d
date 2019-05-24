@@ -60,6 +60,11 @@ to sort candidates before displaying them.
 ACTION is a function to call after selecting a candidate.
 It takes the candidate, which is a string, as its only argument.
 
+MULTI-ACTION, when non-nil, is called instead of ACTION when
+there are marked candidates. It takes the list of candidates as
+its only argument. When it's nil, ACTION is called on each marked
+candidate.
+
 UNWIND is a function of no arguments to call before exiting.
 
 RE-BUILDER is a function transforming input text into a regex
@@ -76,7 +81,7 @@ CALLER is a symbol to uniquely identify the caller to `ivy-read'.
 It is used, along with COLLECTION, to determine which
 customizations apply to the current completion session.
 
-\(fn PROMPT COLLECTION &key PREDICATE REQUIRE-MATCH INITIAL-INPUT HISTORY PRESELECT DEF KEYMAP UPDATE-FN SORT ACTION UNWIND RE-BUILDER MATCHER DYNAMIC-COLLECTION CALLER)" nil nil)
+\(fn PROMPT COLLECTION &key PREDICATE REQUIRE-MATCH INITIAL-INPUT HISTORY PRESELECT DEF KEYMAP UPDATE-FN SORT ACTION MULTI-ACTION UNWIND RE-BUILDER MATCHER DYNAMIC-COLLECTION CALLER)" nil nil)
 
 (autoload 'ivy-completing-read "ivy" "\
 Read a string in the minibuffer, with completion.
