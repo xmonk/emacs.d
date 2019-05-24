@@ -15,6 +15,7 @@
   (setq lsp-auto-guess-root t)
   (setq lsp-prefer-flymake nil)
   (setq flymake-fringe-indicator-position 'right-fringe)
+  (setq lsp-enable-snippet nil)
   :config
 
   (use-package lsp-clients
