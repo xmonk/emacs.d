@@ -46,8 +46,8 @@
  '(flycheck-python-flake8-executable "/home/jfuentes/.local/bin/flake8")
  '(flycheck-python-pycompile-executable "python3")
  '(flycheck-python-pyflakes-executable "pyflakes")
- '(gdb-many-windows t t)
- '(gdb-show-main t t)
+ '(gdb-many-windows t)
+ '(gdb-show-main t)
  '(grep-command "/usr/bin/rg")
  '(grep-find-command '("find . -type f -exec /usr/bin/rg \\{\\} +" . 39))
  '(grep-find-template
