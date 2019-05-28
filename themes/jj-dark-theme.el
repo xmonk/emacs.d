@@ -97,11 +97,11 @@
 		     `(company-tooltip-selection ((t (:background ,white :foreground ,black))))
 		     `(company-tooltip-annotation ((t (:foreground "gray31" :weight bold :height ,fontsize))))
          ;; ivy
-         `(ivy-current-match ((t (:background "gray31" :foreground ,white))))
-         `(ivy-minibuffer-match-face-1 ((t (:background "gray31" :foreground ,white))))
-         `(ivy-minibuffer-match-face-2 ((t (:foreground ,white :bold t))))
-         `(ivy-minibuffer-match-face-3 ((t (:foreground "lightblue" :bold t))))
-         `(ivy-minibuffer-match-face-4 ((t (:foreground ,white :bold t))))
+         ;; `(ivy-current-match ((t (:background "gray31" :foreground ,white :bold t))))
+         ;; `(ivy-minibuffer-match-face-1 ((t (:background "gray31" :foreground "#F8f8f8" :bold t))))
+         ;; `(ivy-minibuffer-match-face-2 ((t (:foreground ,white :bold t))))
+         ;; `(ivy-minibuffer-match-face-3 ((t (:foreground "lightblue" :bold t))))
+         ;; `(ivy-minibuffer-match-face-4 ((t (:foreground ,white :bold t))))
 		     ;; eshell
 		     `(eshell-prompt ((t (:inherit default))))
 		     `(font-lock-warning-face ((t (:background ,black :foreground ,white :bold t :underline t))))
