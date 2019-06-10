@@ -1890,18 +1890,24 @@ Load FILE with optional arguments NOERROR and MUSTSUFFIX.
 
 ;;;***
 
-;;;### (autoloads nil "org-mobile" "org-mobile.el" "761340db7a38b1663446311d12a73dbb")
+;;;### (autoloads nil "org-mobile" "org-mobile.el" (0 0 0 0))
 ;;; Generated autoloads from org-mobile.el
 
 (autoload 'org-mobile-push "org-mobile" "\
 Push the current state of Org affairs to the target directory.
 This will create the index file, copy all agenda files there, and also
-create all custom agenda views, for upload to the mobile phone." t nil)
+create all custom agenda views, for upload to the mobile phone.
+
+\(fn)" t nil)
 
 (autoload 'org-mobile-pull "org-mobile" "\
 Pull the contents of `org-mobile-capture-file' and integrate them.
 Apply all flagged actions, flag entries to be flagged and then call an
-agenda view showing the flagged items." t nil)
+agenda view showing the flagged items.
+
+\(fn)" t nil)
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-mobile" '("org-mobile-")))
 
 ;;;***
 
@@ -1919,7 +1925,7 @@ agenda view showing the flagged items." t nil)
 
 ;;;***
 
-;;;### (autoloads nil "org-plot" "org-plot.el" "5b1b5812de5673417289c68c9576764f")
+;;;### (autoloads nil "org-plot" "org-plot.el" (0 0 0 0))
 ;;; Generated autoloads from org-plot.el
 
 (autoload 'org-plot/gnuplot "org-plot" "\
@@ -1928,6 +1934,8 @@ If not given options will be taken from the +PLOT
 line directly before or after the table.
 
 \(fn &optional PARAMS)" t nil)
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-plot" '("org-plot")))
 
 ;;;***
 
@@ -1952,13 +1960,15 @@ line directly before or after the table.
 
 ;;;***
 
-;;;### (autoloads nil "org-table" "org-table.el" "145b38a2d17f93afea0cc64c8ab6523d")
+;;;### (autoloads nil "org-table" "org-table.el" (0 0 0 0))
 ;;; Generated autoloads from org-table.el
 
 (autoload 'org-table-create-with-table\.el "org-table" "\
 Use the table.el package to insert a new table.
 If there is already a table at point, convert between Org tables
-and table.el tables." t nil)
+and table.el tables.
+
+\(fn)" t nil)
 
 (autoload 'org-table-create-or-convert-from-region "org-table" "\
 Convert region to table, or create an empty table.
@@ -2037,7 +2047,9 @@ extension of the given file name, and finally on the variable
 \(fn &optional FILE FORMAT)" t nil)
 
 (autoload 'org-table-align "org-table" "\
-Align the table at point by aligning all vertical bars." t nil)
+Align the table at point by aligning all vertical bars.
+
+\(fn)" t nil)
 
 (autoload 'org-table-begin "org-table" "\
 Find the beginning of the table and return its position.
@@ -2063,15 +2075,21 @@ Optional argument NEW may specify text to replace the current field content.
 
 (autoload 'org-table-next-field "org-table" "\
 Go to the next field in the current table, creating new lines as needed.
-Before doing so, re-align the table if necessary." t nil)
+Before doing so, re-align the table if necessary.
+
+\(fn)" t nil)
 
 (autoload 'org-table-previous-field "org-table" "\
 Go to the previous field in the table.
-Before doing so, re-align the table if necessary." t nil)
+Before doing so, re-align the table if necessary.
+
+\(fn)" t nil)
 
 (autoload 'org-table-next-row "org-table" "\
 Go to the next row (same column) in the current table.
-Before doing so, re-align the table if necessary." t nil)
+Before doing so, re-align the table if necessary.
+
+\(fn)" t nil)
 
 (autoload 'org-table-copy-down "org-table" "\
 Copy the value of the current field one row below.
@@ -2094,7 +2112,9 @@ to a number.  In the case of a timestamp, increment by days.
 \(fn N)" t nil)
 
 (autoload 'org-table-blank-field "org-table" "\
-Blank the current table field or active region." t nil)
+Blank the current table field or active region.
+
+\(fn)" t nil)
 
 (autoload 'org-table-field-info "org-table" "\
 Show info about the current field, and highlight any reference at point.
@@ -2111,16 +2131,24 @@ However, when FORCE is non-nil, create new columns if necessary.
 \(fn N &optional ON-DELIM FORCE)" t nil)
 
 (autoload 'org-table-insert-column "org-table" "\
-Insert a new column into the table." t nil)
+Insert a new column into the table.
+
+\(fn)" t nil)
 
 (autoload 'org-table-delete-column "org-table" "\
-Delete a column from the table." t nil)
+Delete a column from the table.
+
+\(fn)" t nil)
 
 (autoload 'org-table-move-column-right "org-table" "\
-Move column to the right." t nil)
+Move column to the right.
+
+\(fn)" t nil)
 
 (autoload 'org-table-move-column-left "org-table" "\
-Move column to the left." t nil)
+Move column to the left.
+
+\(fn)" t nil)
 
 (autoload 'org-table-move-column "org-table" "\
 Move the current column to the right.  With arg LEFT, move to the left.
@@ -2128,10 +2156,14 @@ Move the current column to the right.  With arg LEFT, move to the left.
 \(fn &optional LEFT)" t nil)
 
 (autoload 'org-table-move-row-down "org-table" "\
-Move table row down." t nil)
+Move table row down.
+
+\(fn)" t nil)
 
 (autoload 'org-table-move-row-up "org-table" "\
-Move table row up." t nil)
+Move table row up.
+
+\(fn)" t nil)
 
 (autoload 'org-table-move-row "org-table" "\
 Move the current table line down.  With arg UP, move it up.
@@ -2156,7 +2188,9 @@ Insert a hline and move to the row below that line.
 \(fn &optional SAME-COLUMN)" t nil)
 
 (autoload 'org-table-kill-row "org-table" "\
-Delete the current row or horizontal line from the table." t nil)
+Delete the current row or horizontal line from the table.
+
+\(fn)" t nil)
 
 (autoload 'org-table-sort-lines "org-table" "\
 Sort table lines according to the column at point.
@@ -2211,7 +2245,9 @@ Paste a rectangular region into a table.
 The upper right corner ends up in the current field.  All involved fields
 will be overwritten.  If the rectangle does not fit into the present table,
 the table is enlarged as needed.  The process ignores horizontal separator
-lines." t nil)
+lines.
+
+\(fn)" t nil)
 
 (autoload 'org-table-convert "org-table" "\
 Convert from `org-mode' table to table.el and back.
@@ -2221,7 +2257,9 @@ these as cell boundaries and has no notion of horizontal lines.  A table.el
 table can be converted to an Org table only if it does not do row or column
 spanning.  Multiline cells will become multiple cells.  Beware, Org mode
 does not test if the table can be successfully converted - it blindly
-applies a recipe that works for simple tables." t nil)
+applies a recipe that works for simple tables.
+
+\(fn)" t nil)
 
 (autoload 'org-table-wrap-region "org-table" "\
 Wrap several fields in a column like a paragraph.
@@ -2287,7 +2325,9 @@ LOCATION is a buffer position, consider the formulas there.
 
 (autoload 'org-table-maybe-eval-formula "org-table" "\
 Check if the current field starts with \"=\" or \":=\".
-If yes, store the formula and apply it." nil nil)
+If yes, store the formula and apply it.
+
+\(fn)" nil nil)
 
 (autoload 'org-table-rotate-recalc-marks "org-table" "\
 Rotate the recalculation mark in the first column.
@@ -2313,10 +2353,14 @@ This function sets up the following dynamically scoped variables:
  `org-table-dlines',
  `org-table-hlines',
  `org-table-local-parameters',
- `org-table-named-field-locations'." nil nil)
+ `org-table-named-field-locations'.
+
+\(fn)" nil nil)
 
 (autoload 'org-table-maybe-recalculate-line "org-table" "\
-Recompute the current line if marked for it, and if we haven't just done it." t nil)
+Recompute the current line if marked for it, and if we haven't just done it.
+
+\(fn)" t nil)
 
 (autoload 'org-table-eval-formula "org-table" "\
 Replace the table field value at the cursor by the result of a calculation.
@@ -2381,13 +2425,19 @@ with the prefix ARG.
 \(fn &optional ARG)" t nil)
 
 (autoload 'org-table-recalculate-buffer-tables "org-table" "\
-Recalculate all tables in the current buffer." t nil)
+Recalculate all tables in the current buffer.
+
+\(fn)" t nil)
 
 (autoload 'org-table-iterate-buffer-tables "org-table" "\
-Iterate all tables in the buffer, to converge inter-table dependencies." t nil)
+Iterate all tables in the buffer, to converge inter-table dependencies.
+
+\(fn)" t nil)
 
 (autoload 'org-table-edit-formulas "org-table" "\
-Edit the formulas of the current table in a separate buffer." t nil)
+Edit the formulas of the current table in a separate buffer.
+
+\(fn)" t nil)
 
 (autoload 'org-table-toggle-column-width "org-table" "\
 Shrink or expand current column in an Org table.
@@ -2434,10 +2484,14 @@ beginning and end position of the current table.
 \(fn &optional BEGIN END)" t nil)
 
 (autoload 'org-table-toggle-coordinate-overlays "org-table" "\
-Toggle the display of Row/Column numbers in tables." t nil)
+Toggle the display of Row/Column numbers in tables.
+
+\(fn)" t nil)
 
 (autoload 'org-table-toggle-formula-debugger "org-table" "\
-Toggle the formula debugger in tables." t nil)
+Toggle the formula debugger in tables.
+
+\(fn)" t nil)
 
 (autoload 'orgtbl-mode "org-table" "\
 The Org mode table editor as a minor mode for use in other modes.
@@ -2652,6 +2706,8 @@ characters width of the plot.  ASK may also be the `\\[universal-argument]' pref
 which will prompt for the width.
 
 \(fn &optional ASK)" t nil)
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-table" '("org")))
 
 ;;;***
 
