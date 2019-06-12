@@ -40,6 +40,7 @@
  '(dired-async-mode t)
  '(ecb-options-version "2.50")
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
+ '(eieio-backward-compatibility nil)
  '(enable-recursive-minibuffers t)
  '(fci-rule-color "#010F1D")
  '(flycheck-flake8rc "/home/jfuentes/.config/flake8")
