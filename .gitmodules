@@ -1,0 +1,3 @@
+[submodule "themes/naysayer-theme"]
+	path = themes/naysayer-theme
+	url = git@github.com:nickav/naysayer-theme.el.git
