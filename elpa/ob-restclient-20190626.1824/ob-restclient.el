@@ -4,7 +4,7 @@
 
 ;; Author: Alf Lervåg
 ;; Keywords: literate programming, reproducible research
-;; Package-Version: 20190519.1145
+;; Package-Version: 20190626.1824
 ;; Homepage: https://github.com/alf/ob-restclient.el
 ;; Version: 0.02
 ;; Package-Requires: ((restclient "0"))
@@ -78,7 +78,9 @@ This function is called by `org-babel-execute-src-block'"
       (when (search-forward (buffer-name) nil t)
         (error "Restclient encountered an error"))
 
-      (org-babel-restclient-wrap-result))))
+      (if (org-babel-restclient-return-pure-payload-result-p params)
+          (org-babel-restclient-pure-payload-result)
+        (org-babel-restclient-wrap-result)))))
 
 (defun org-babel-restclient-wrap-result ()
   "Wrap the contents of the buffer in an `org-mode' src block."
@@ -87,6 +89,21 @@ This function is called by `org-babel-execute-src-block'"
     (goto-char (point-max))
     (insert "#+END_SRC\n")
     (buffer-string)))
+
+(defun org-babel-restclient-pure-payload-result ()
+  "Just return the payload."
+  (let ((comments-start
+         (save-excursion
+           (while (not (looking-at "//"))
+             (forward-line))
+           (point))))
+    (buffer-substring (point-min) comments-start)))
+
+(defun org-babel-restclient-return-pure-payload-result-p (params)
+  "Return `t' if the `:results' key in PARAMS contains `value' or `table'."
+  (let ((result-type (cdr (assoc :results params))))
+    (when result-type
+      (string-match "value\\|table" result-type))))
 
 (provide 'ob-restclient)
 ;;; ob-restclient.el ends here
