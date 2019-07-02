@@ -73,9 +73,9 @@
  '(menu-bar-mode nil)
  '(network-security-level 'high)
  '(package-selected-packages
-   '(py-yapf indent-tools rainbow-mode browse-at-remote company-quickhelp lsp-clients go-projectile deadgrep forge dap-mode lsp-ui lsp-mode company-lsp json-mode yasnippet irony pyvenv go-mode github-browse-file github-review ghub nswbuff projectile-ripgrep ag poet-theme csv-mode systemd smart-jump pythonic auto-virtualenv company-tern dockerfile-mode tern blacken org counsel-etags ecb flycheck-rust rust-mode alert dumb-jump ob-restclient ivy-rich counsel counsel-gtags counsel-projectile counsel-pydoc ggtags restclient spinner lsp-imenu
-             (lsp-mode lsp-ui company-lsp)
-             exec-path-from-shell eybrowse ace-window pylint whole-line-or-region yaml-mode edit-indirect xcscope web-mode use-package undo-tree swiper smartscan projectile paredit ob-go markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flycheck expand-region elisp-slime-nav diminish company-irony-c-headers company-irony company-go company-flx codesearch clang-format browse-kill-ring))
+   '(naysayer py-yapf indent-tools rainbow-mode browse-at-remote company-quickhelp lsp-clients go-projectile deadgrep forge dap-mode lsp-ui lsp-mode company-lsp json-mode yasnippet irony pyvenv go-mode github-browse-file github-review ghub nswbuff projectile-ripgrep ag poet-theme csv-mode systemd smart-jump pythonic auto-virtualenv company-tern dockerfile-mode tern blacken org counsel-etags ecb flycheck-rust rust-mode alert dumb-jump ob-restclient ivy-rich counsel counsel-gtags counsel-projectile counsel-pydoc ggtags restclient spinner lsp-imenu
+              (lsp-mode lsp-ui company-lsp)
+              exec-path-from-shell eybrowse ace-window pylint whole-line-or-region yaml-mode edit-indirect xcscope web-mode use-package undo-tree swiper smartscan projectile paredit ob-go markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck go-eldoc git-timemachine flycheck expand-region elisp-slime-nav diminish company-irony-c-headers company-irony company-go company-flx codesearch clang-format browse-kill-ring))
  '(pos-tip-background-color "#FFF9DC")
  '(pos-tip-foreground-color "#011627")
  '(projectile-globally-ignored-directories
