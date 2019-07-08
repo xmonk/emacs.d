@@ -50,6 +50,7 @@
  '(flycheck-python-pyflakes-executable "pyflakes")
  '(gdb-many-windows t t)
  '(gdb-show-main t t)
+ '(github-browse-file-show-line-at-point t)
  '(grep-command "/usr/bin/rg")
  '(grep-find-command '("find . -type f -exec /usr/bin/rg \\{\\} +" . 39))
  '(grep-find-template

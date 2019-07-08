@@ -1269,26 +1269,10 @@ Load FILE with optional arguments NOERROR and MUSTSUFFIX.
 
 ;;;***
 
-;;;### (autoloads "actual autoloads are elsewhere" "org-table" "org-table.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from org-table.el
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-table" '("org")))
-
-;;;***
-
 ;;;### (autoloads nil "org-tempo" "org-tempo.el" (0 0 0 0))
 ;;; Generated autoloads from org-tempo.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-tempo" '("org-tempo-")))
-
-;;;***
-
-;;;### (autoloads "actual autoloads are elsewhere" "org-timer" "org-timer.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from org-timer.el
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "org-timer" '("org-timer-")))
 
 ;;;***
 
