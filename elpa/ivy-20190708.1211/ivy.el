@@ -1969,41 +1969,42 @@ CALLER is a symbol to uniquely identify the caller to `ivy-read'.
 It is used, along with COLLECTION, to determine which
 customizations apply to the current completion session."
   (setq caller (or caller this-command))
-  (setq ivy-last
-        (make-ivy-state
-         :prompt prompt
-         :collection collection
-         :predicate predicate
-         :require-match require-match
-         :initial-input initial-input
-         :history history
-         :preselect preselect
-         :keymap keymap
-         :update-fn (if (eq update-fn 'auto)
-                        (lambda ()
-                          (funcall (ivy--get-action ivy-last)
-                                   (ivy-state-current ivy-last)))
-                      update-fn)
-         :sort sort
-         :action (ivy--compute-extra-actions action caller)
-         :multi-action multi-action
-         :frame (selected-frame)
-         :window (selected-window)
-         :buffer (current-buffer)
-         :unwind unwind
-         :re-builder re-builder
-         :matcher matcher
-         :dynamic-collection dynamic-collection
-         :display-transformer-fn (plist-get ivy--display-transformers-list caller)
-         :directory default-directory
-         :caller caller
-         :def def))
-  (ivy--reset-state ivy-last)
   (let* ((ivy-recursive-last (and (active-minibuffer-window) ivy-last))
          (ivy--display-function
           (when (or ivy-recursive-last
                     (not (window-minibuffer-p)))
-            (ivy-alist-setting ivy-display-functions-alist caller))))
+            (ivy-alist-setting ivy-display-functions-alist caller)))
+         result)
+    (setq ivy-last
+          (make-ivy-state
+           :prompt prompt
+           :collection collection
+           :predicate predicate
+           :require-match require-match
+           :initial-input initial-input
+           :history history
+           :preselect preselect
+           :keymap keymap
+           :update-fn (if (eq update-fn 'auto)
+                          (lambda ()
+                            (funcall (ivy--get-action ivy-last)
+                                     (ivy-state-current ivy-last)))
+                        update-fn)
+           :sort sort
+           :action (ivy--compute-extra-actions action caller)
+           :multi-action multi-action
+           :frame (selected-frame)
+           :window (selected-window)
+           :buffer (current-buffer)
+           :unwind unwind
+           :re-builder re-builder
+           :matcher matcher
+           :dynamic-collection dynamic-collection
+           :display-transformer-fn (plist-get ivy--display-transformers-list caller)
+           :directory default-directory
+           :caller caller
+           :def def))
+    (ivy--reset-state ivy-last)
     (unwind-protect
          (minibuffer-with-setup-hook
              #'ivy--minibuffer-setup
@@ -2033,10 +2034,12 @@ customizations apply to the current completion session."
                  (unless (equal item "")
                    (set hist (cons (propertize item 'ivy-index ivy--index)
                                    (delete item
-                                           (cdr (symbol-value hist))))))))))
+                                           (cdr (symbol-value hist))))))))
+             (setq result (ivy-state-current ivy-last))))
       (ivy--cleanup))
     (ivy-call)
-    (ivy--remove-props (ivy-state-current ivy-last) 'idx)))
+    (ivy--remove-props (ivy-state-current ivy-last) 'idx)
+    result))
 
 (defun ivy--cleanup ()
   ;; Fixes a bug in ESS, #1660
