@@ -29,7 +29,7 @@
 (defvar jj-faces
   `(default))
 
-(defvar darkcl-company-fontsize 130)
+(defvar darkcl-company-fontsize 100)
 
 (let ((white "#c5c8c6")
       (black "#1d1f21")
