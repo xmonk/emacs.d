@@ -31,7 +31,8 @@
   (flycheck-python-flake8-executable (executable-find "flake8"))
   :init
   (add-hook 'python-mode-hook 'jj/py-hook)
-  (add-hook 'python-mode-hook 'flycheck-mode)
+  (add-hook 'python-mode-hook #'flycheck-mode)
+  (add-hook 'python-mode-hook '(lambda () (flymake-mode -1)))
   (add-hook 'python-mode-hook 'cscope-minor-mode)
   (setq python-shell-completion-native-enable nil)
   (defun jj/py-hook ()
@@ -43,8 +44,8 @@
     (pyvenv-restart-python))
 
   (cond ((executable-find "ipython")
-         (setq python-shell-interpreter "ipython")
-         (setq python-shell-interpreter-args "--simple-prompt"))
+         (setq python-shell-interpreter "ipython"
+               python-shell-interpreter-args "--simple-prompt"))
         ((executable-find "python3")
          (setq python-shell-interpreter "python3"
                python-shell-interpreter-args "-i"
@@ -58,7 +59,6 @@
   (use-package blacken
     :after python
     :when (executable-find "black")
-    :hook (python-mode . blacken-mode)
     :bind (:map python-mode-map ("C-M-\\" . blacken-buffer))
     :ensure t)
 
@@ -69,8 +69,13 @@
     (add-hook 'projectile-after-switch-project-hook 'auto-virtualenv-set-virtualenv)
     (add-hook 'pyvenv-post-activate-hooks 'jj/restart-python))
 
+  (use-package pyvenv
+    :ensure t
+    :bind (([?\C-c ?\C-x ?v] . pyvenv-workon)))
+
   (use-package pipenv
     :disabled
+    :ensure t
     :hook (python-mode . pipenv-mode)
     :init
     (setq pipenv-projectile-after-switch-function #'pipenv-projectile-after-switch-extended))
@@ -80,7 +85,7 @@
     (interactive "sName of function or module: ")
     (switch-to-buffer-other-window "*pydoc*")
     (erase-buffer)
-    (insert (shell-command-to-string (format "python -m pydoc %s" name)))
+    (insert (shell-command-to-string (format "%s -m pydoc %s" python-shell-interpreter name)))
     (goto-char (point-min)))
 
   (defun python--add-debug-highlight()
