@@ -60,7 +60,9 @@
 
 ;;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-(load-theme 'jj-dark t)
+(add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/naysayer-theme")))
+
+(load-theme 'naysayer t)
 
 (when (window-system)
   ;; set font
