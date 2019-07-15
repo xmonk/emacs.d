@@ -18,6 +18,23 @@
   (setq lsp-enable-snippet nil)
   :config
 
+  (use-package lsp-python-ms
+    :ensure t
+    :init
+    (setq lsp-python-executable-cmd "python3")
+    (setq lsp-python-ms-extra-paths '("/home/jfuentes/w/moosetalk-web/clients"
+                                      "/home/jfuentes/w/moosetalk-web/common"
+                                      "/home/jfuentes/w/moosetalk-web/api"
+                                      "/home/jfuentes/w/moosetalk-web/billing/api"
+                                      "/home/jfuentes/w/moosetalk-web/billing/client"
+                                      "/home/jfuentes/w/moosetalk-web/billing/core"
+                                      "/home/jfuentes/w/moosetalk-web/billing/worker"
+                                      "/home/jfuentes/w/moosetalk-web/consumer"
+                                      "/home/jfuentes/w/moosetalk-web/vendors"
+                                      "/home/jfuentes/w/moosetalk-web/vendors/huey"
+                                      "/home/jfuentes/w/moosetalk-web/smpp/api"))
+    )
+
   (use-package lsp-clients
     :init
     (setq lsp-clients-python-library-directories '("/user/local/" "/usr/")))
