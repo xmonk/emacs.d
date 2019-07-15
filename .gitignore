@@ -38,3 +38,4 @@ elpa/gnupg
 forge-database.sqlite
 /.dap-breakpoints
 /.#recentf
+/mspyls
