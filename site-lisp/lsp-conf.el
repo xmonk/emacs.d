@@ -32,6 +32,7 @@
                                       "/home/jfuentes/w/moosetalk-web/consumer"
                                       "/home/jfuentes/w/moosetalk-web/vendors"
                                       "/home/jfuentes/w/moosetalk-web/vendors/huey"
+                                      "/home/jfuentes/w/moosetalk-web/vendors/huey/huey"
                                       "/home/jfuentes/w/moosetalk-web/smpp/api"))
     )
 
