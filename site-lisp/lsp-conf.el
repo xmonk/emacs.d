@@ -19,7 +19,7 @@
   :config
 
   (use-package lsp-python-ms
-    :ensure t
+    :disabled
     :init
     (setq lsp-python-executable-cmd "python3")
     (setq lsp-python-ms-extra-paths '("/home/jfuentes/w/moosetalk-web/clients"
