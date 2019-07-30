@@ -31,7 +31,7 @@ to perform almost all of their daily version control tasks directly from
 within Emacs.  While many fine Git clients exist, only Magit and Git
 itself deserve to be called porcelains.
 
-This manual is for Magit version 2.90.1 (v2.90.1-718-gfb762f459+1).
+This manual is for Magit version 2.90.1 (v2.90.1-721-g2657293c6+1).
 
      Copyright (C) 2015-2019 Jonas Bernoulli <jonas@bernoul.li>
 
@@ -2637,15 +2637,27 @@ default the following functions are also members of that hook:
 
  -- Function: magit-insert-ignored-files
 
-     Insert a tree of ignored files.
-
-     Its possible to limit the logs in the current buffer to a certain
-     directory using ‘D = f <DIRECTORY> RET g’.  If you do that, then
-     that that also affects this command.
+     Insert a tree of ignored files.  Its possible to limit the logs in
+     the current buffer to a certain directory using ‘D = f <DIRECTORY>
+     RET g’.  If you do that, then that that also affects this command.
 
      The log filter can be used to limit to multiple files.  In that
      case this function only respects the first of the files and only if
      it is a directory.
+
+ -- Function: magit-insert-skip-worktree-files
+
+     Insert a tree of skip-worktree files.  If the first element of
+     ‘magit-buffer-diff-files’ is a directory, then limit the list to
+     files below that.  The value of that variable can be set using ‘D
+     -- DIRECTORY RET g’.
+
+ -- Function: magit-insert-assumed-unchanged-files
+
+     Insert a tree of files that are assumed to be unchanged.  If the
+     first element of ‘magit-buffer-diff-files’ is a directory, then
+     limit the list to files below that.  The value of that variable can
+     be set using ‘D -- DIRECTORY RET g’.
 
  -- Function: magit-insert-unpulled-or-recent-commits
 

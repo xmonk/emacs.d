@@ -2243,7 +2243,7 @@ See info node `(magit)Debugging Tools' for more information." t nil)
 
 (advice-add 'org-man-export :around 'org-man-export--magit-gitman)
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-utils" '("magit-" "whitespace-dont-turn-on-in-magit-mode")))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "magit-utils" '("magit-")))
 
 ;;;***
 

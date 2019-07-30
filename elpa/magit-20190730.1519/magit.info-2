@@ -3034,6 +3034,7 @@ Appendix E Function Index
 * magit-ido-completing-read:             Support for Completion Frameworks.
                                                               (line  48)
 * magit-insert-am-sequence:              Status Sections.     (line  28)
+* magit-insert-assumed-unchanged-files:  Status Sections.     (line 117)
 * magit-insert-bisect-log:               Status Sections.     (line  46)
 * magit-insert-bisect-output:            Status Sections.     (line  38)
 * magit-insert-bisect-rest:              Status Sections.     (line  42)
@@ -3062,7 +3063,7 @@ Appendix E Function Index
 * magit-insert-push-branch-header:       Status Header Sections.
                                                               (line  51)
 * magit-insert-rebase-sequence:          Status Sections.     (line  23)
-* magit-insert-recent-commits:           Status Sections.     (line 119)
+* magit-insert-recent-commits:           Status Sections.     (line 131)
 * magit-insert-remote-branches:          References Sections. (line  21)
 * magit-insert-remote-header:            Status Header Sections.
                                                               (line  67)
@@ -3070,6 +3071,7 @@ Appendix E Function Index
                                                               (line  63)
 * magit-insert-section:                  Creating Sections.   (line   6)
 * magit-insert-sequencer-sequence:       Status Sections.     (line  33)
+* magit-insert-skip-worktree-files:      Status Sections.     (line 110)
 * magit-insert-staged-changes:           Status Sections.     (line  63)
 * magit-insert-stashes:                  Status Sections.     (line  67)
 * magit-insert-status-headers:           Status Header Sections.
@@ -3079,11 +3081,11 @@ Appendix E Function Index
 * magit-insert-tags-header:              Status Header Sections.
                                                               (line  56)
 * magit-insert-tracked-files:            Status Sections.     (line  96)
-* magit-insert-unpulled-cherries:        Status Sections.     (line 130)
+* magit-insert-unpulled-cherries:        Status Sections.     (line 142)
 * magit-insert-unpulled-from-pushremote: Status Sections.     (line  79)
 * magit-insert-unpulled-from-upstream:   Status Sections.     (line  74)
-* magit-insert-unpulled-or-recent-commits: Status Sections.   (line 112)
-* magit-insert-unpushed-cherries:        Status Sections.     (line 137)
+* magit-insert-unpulled-or-recent-commits: Status Sections.   (line 124)
+* magit-insert-unpushed-cherries:        Status Sections.     (line 149)
 * magit-insert-unpushed-to-pushremote:   Status Sections.     (line  89)
 * magit-insert-unpushed-to-upstream:     Status Sections.     (line  84)
 * magit-insert-unstaged-changes:         Status Sections.     (line  59)
@@ -3283,7 +3285,7 @@ Appendix F Variable Index
                                                               (line 118)
 * magit-log-margin:                      Log Margin.          (line  12)
 * magit-log-section-args:                Status Options.      (line  36)
-* magit-log-section-commit-count:        Status Sections.     (line 124)
+* magit-log-section-commit-count:        Status Sections.     (line 136)
 * magit-log-select-margin:               Select from Log.     (line  30)
 * magit-log-show-refname-after-summary:  Log Buffer.          (line  75)
 * magit-log-trace-definition-function:   Commands Available in Diffs.
