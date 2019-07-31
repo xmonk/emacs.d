@@ -599,6 +599,7 @@ If set to `:none' neither of two will be enabled."
     ("textDocument/definition" :capability "definitionProvider")
     ("workspace/symbol" :capability "workspaceSymbolProvider")
     ("textDocument/codeLens" :capability "codeLensProvider")
+    ("textDocument/selectionRange" :capability "selectionRangeProvider")
     ("textDocument/prepareRename"
      :check-command (lambda (workspace)
                       (with-lsp-workspace workspace
@@ -706,6 +707,9 @@ They are added to `markdown-code-lang-modes'")
 
 (defvar-local lsp--document-symbols nil
   "The latest document symbols.")
+
+(defvar-local lsp--document-selection-range-cache nil
+  "The document selection cache.")
 
 (defvar-local lsp--document-symbols-request-async nil
   "If non-nil, request document symbols asynchronously.")
@@ -920,7 +924,7 @@ INHERIT-INPUT-METHOD will be proxied to `completing-read' without changes."
   ;; SENTINEL.  FILTER should be used as process filter for
   ;; COMMUNICATION-PROCESS, and SENTINEL should be used as process sentinel for
   ;; COMMAND-PROCESS.
-  (new-connection nil :read-only t)
+  (new-connection nil)
 
   ;; ‘ignore-regexps’ is a list of regexps.  When a data packet from the
   ;; language server matches any of these regexps, it will be ignored.  This is
@@ -1000,7 +1004,13 @@ INHERIT-INPUT-METHOD will be proxied to `completing-read' without changes."
   (remote? nil)
 
   ;; ‘completion-in-comments?’ t if the client supports completion in comments.
-  (completion-in-comments? nil))
+  (completion-in-comments? nil)
+
+  ;; ‘path->uri-fn’ the function to use for path->uri convertion for the client.
+  (path->uri-fn nil)
+
+  ;; ‘uri->path-fn’ the function to use for uri->path convertion for the client.
+  (uri->path-fn nil))
 
 ;; from http://emacs.stackexchange.com/questions/8082/how-to-get-buffer-position-given-line-number-and-column-number
 (defun lsp--line-character-to-point (line character)
@@ -1039,6 +1049,46 @@ to the beginning and ending points in the range correspondingly."
         (app (lambda (range) (lsp--position-to-point (gethash "end" range)))
              ,(cdr region))))
 
+(defun lsp--find-wrapping-range (current-selection-range)
+  (-let* (((&hash "parent" "range") current-selection-range)
+          ((start . end) (lsp--range-to-region range)))
+    (cond
+     ((and
+       (region-active-p)
+       (<= start (region-beginning) end)
+       (<= start (region-end) end)
+       (or (not (= start (region-beginning)))
+           (not (= end (region-end)))))
+      (cons start end))
+     ((and (<= start (point) end)
+           (not (region-active-p)))
+      (cons start end))
+     (parent (lsp--find-wrapping-range parent)))))
+
+(defun lsp--get-selection-range ()
+  (or
+   (-when-let ((cache . cache-tick) lsp--document-selection-range-cache)
+     (when (= cache-tick (buffer-modified-tick)) cache))
+   (let ((response (cl-first
+                    (lsp-request
+                     "textDocument/selectionRange"
+                     (list :textDocument (lsp--text-document-identifier)
+                           :positions (vector (lsp--cur-position)))))))
+     (setq-local lsp--document-selection-range-cache
+                 (cons response (buffer-modified-tick)))
+     response)))
+
+(defun lsp-extend-selection ()
+  "Extend selection."
+  (interactive)
+  (unless (lsp--capability "selectionRangeProvider")
+    (signal 'lsp-capability-not-supported (list "selectionRangeProvider")))
+  (-when-let ((start . end) (lsp--find-wrapping-range (lsp--get-selection-range)))
+    (goto-char start)
+    (set-mark (point))
+    (goto-char end)
+    (exchange-point-and-mark)))
+
 (defun lsp-warn (message &rest args)
   "Display a warning message made from (`format-message' MESSAGE ARGS...).
 This is equivalent to `display-warning', using `lsp-mode' as the type and
@@ -1058,6 +1108,14 @@ On other systems, returns path without change."
   (if (eq system-type 'windows-nt) (downcase path) path))
 
 (defun lsp--uri-to-path (uri)
+  "Convert URI to a file path."
+  (if-let (fn (->> (lsp-workspaces)
+                       (-keep (-compose #'lsp--client-uri->path-fn #'lsp--workspace-client))
+                       (cl-first)))
+      (funcall fn uri)
+    (lsp--uri-to-path-1 uri)))
+
+(defun lsp--uri-to-path-1 (uri)
   "Convert URI to a file path."
   (let* ((url (url-generic-parse-url (url-unhex-string uri)))
          (type (url-type url))
@@ -1086,11 +1144,18 @@ On other systems, returns path without change."
   "Implemented only to make `company-lsp' happy.
 DELETE when `lsp-mode.el' is deleted.")
 
-(defun lsp--path-to-uri (path)
-  "Convert PATH to a uri."
+(defun lsp--path-to-uri-1 (path)
   (concat lsp--uri-file-prefix
           (url-hexify-string (expand-file-name (or (file-remote-p path 'localname t) path))
                              url-path-allowed-chars)))
+
+(defun lsp--path-to-uri (path)
+  "Convert PATH to a uri."
+  (if-let (uri-fn (->> (lsp-workspaces)
+                       (-keep (-compose #'lsp--client-path->uri-fn #'lsp--workspace-client))
+                       (cl-first)))
+      (funcall uri-fn path)
+    (lsp--path-to-uri-1 path)))
 
 (defun lsp--string-match-any (regex-list str)
   "Given a list of REGEX-LIST and STR return the first matching regex if any."
@@ -4946,6 +5011,19 @@ SESSION is the active session."
                (eq client client-or-list))))))
    lsp-disabled-clients))
 
+(defun lsp--create-matching-clients? (buffer-major-mode remote?)
+  (-lambda (client)
+    (and (and (or (-some-> client lsp--client-activation-fn (funcall buffer-file-name buffer-major-mode))
+                  (and (not (lsp--client-activation-fn client))
+                       (-contains? (lsp--client-major-modes client) buffer-major-mode)
+                       (eq (---truthy? remote?) (---truthy? (lsp--client-remote? client)))))
+              (-some-> client lsp--client-new-connection (plist-get :test?) funcall))
+         (or (null lsp-enabled-clients)
+             (or (member (lsp--client-server-id client) lsp-enabled-clients)
+                 (ignore (lsp--info "Client %s is not in lsp-enabled-clients"
+                                    (lsp--client-server-id client)))))
+         (not (lsp--client-disabled-p buffer-major-mode (lsp--client-server-id client))))))
+
 (defun lsp--find-clients (buffer-major-mode file-name)
   "Find clients which can handle BUFFER-MAJOR-MODE.
 SESSION is the currently active session. The function will also
@@ -4954,17 +5032,7 @@ remote machine and vice versa."
   (let ((remote? (file-remote-p file-name)))
     (-when-let (matching-clients (->> lsp-clients
                                       hash-table-values
-                                      (-filter (-lambda (client)
-                                                 (and (and (or (-some-> client lsp--client-activation-fn (funcall buffer-file-name buffer-major-mode))
-                                                               (and (not (lsp--client-activation-fn client))
-                                                                    (-contains? (lsp--client-major-modes client) buffer-major-mode)
-                                                                    (eq (---truthy? remote?) (---truthy? (lsp--client-remote? client)))))
-                                                           (-some-> client lsp--client-new-connection (plist-get :test?) funcall))
-                                                      (or (null lsp-enabled-clients)
-                                                          (or (member (lsp--client-server-id client) lsp-enabled-clients)
-                                                              (ignore (lsp--info "Client %s is not in lsp-enabled-clients"
-                                                                                 (lsp--client-server-id client)))))
-                                                      (not (lsp--client-disabled-p buffer-major-mode (lsp--client-server-id client))))))))
+                                      (-filter (lsp--create-matching-clients? buffer-major-mode remote?))))
       (lsp-log "Found the following clients for %s: %s"
                file-name
                (s-join ", "
