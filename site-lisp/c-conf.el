@@ -97,7 +97,8 @@
     ;; Release --target install
     :ensure t
     :init
-    (add-hook 'c-mode-common-hook 'irony-mode)
+    (add-hook 'c-mode-hook 'irony-mode)
+    (add-hook 'c++-mode-hook 'irony-mode)
     (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
     :config
     (use-package irony-eldoc

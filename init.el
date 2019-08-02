@@ -43,6 +43,7 @@
 ;;; frame
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/naysayer-theme/")))
+(add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/tron-legacy-emacs-theme/")))
 
 (unless (window-system)
   (menu-bar-mode -1)
@@ -50,7 +51,8 @@
 
 (when (window-system)
   ;;; themes
-  (load-theme 'naysayer t)
+  ;; (load-theme 'naysayer t)
+  (load-theme 'tron-legacy t)
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/" ".ripgreprc"))
   (toggle-frame-maximized))
 

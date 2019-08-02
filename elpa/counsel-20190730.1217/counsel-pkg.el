@@ -1,2 +1,0 @@
-;;; Generated package description from /home/jfuentes/.emacs.d/elpa/counsel-20190730.1217/counsel.el  -*- no-byte-compile: t -*-
-(define-package "counsel" "20190730.1217" "Various completion functions using Ivy" '((emacs "24.3") (swiper "0.12.0")) :commit "e4e0ec45b7bc77d40f7c2f89fb8b131eb7681e82" :keywords '("convenience" "matching" "tools") :authors '(("Oleh Krehel" . "ohwoeowho@gmail.com")) :maintainer '("Oleh Krehel" . "ohwoeowho@gmail.com") :url "https://github.com/abo-abo/swiper")

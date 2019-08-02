@@ -5,7 +5,8 @@
   :commands lsp
   :hook ((python-mode . lsp)
          (go-mode . lsp)
-         (shell-script-mode . lsp))
+         (shell-script-mode . lsp)
+         (java-mode . lsp))
   :bind (:map lsp-mode-map
               ("M-." . lsp-find-definition)
               ("M-r" . lsp-find-references)
@@ -35,6 +36,12 @@
                                       "/home/jfuentes/w/moosetalk-web/vendors/huey/huey"
                                       "/home/jfuentes/w/moosetalk-web/smpp/api"))
     )
+
+  (use-package lsp-java
+    :ensure t
+    :after lsp
+    :config
+    (add-hook 'java-mode-hook 'lsp))
 
   (use-package lsp-clients
     :init

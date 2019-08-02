@@ -40,3 +40,5 @@ forge-database.sqlite
 /.#recentf
 /mspyls
 /request
+/eclipse.jdt.ls
+/workspace
