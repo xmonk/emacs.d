@@ -25,18 +25,26 @@
 ;;; Code:
 
 (defvar jj--file-name-handler-alist file-name-handler-alist)
-(setq file-name-handler-alist nil)
+(defvar jj--gc-cons-threshold gc-cons-threshold)
+(defvar jj--gc-cons-precentage gc-cons-percentage)
 
-(setq gc-cons-threshold 402653184
-      gc-cons-percentage 0.6)
+(setq file-name-handler-alist nil)
+(setq gc-cons-threshold 402653184)
+(setq gc-cons-percentage 0.6)
 
 (add-hook 'emacs-startup-hook (lambda ()
                                 ;; restore after startup
-                                (setq gc-cons-threshold 16777216
-                                      gc-cons-percentage 0.1)
+                                (setq gc-cons-threshold jj--gc-cons-threshold)
+                                (setq gc-cons-percentage jj--gc-cons-precentage)
                                 ;; disable menu-bar in console.
                                 (when (eql window-system nil)
                                   (menu-bar-mode -1))))
+
+;;; themes
+(add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
+(add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/naysayer-theme")))
+(load-theme 'naysayer t)
+
 ;;; package
 (autoload 'package "package" nil t)
 
@@ -57,19 +65,6 @@
 
 (eval-when-compile
   (require 'use-package))
-
-;;; themes
-(add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-(add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/naysayer-theme")))
-
-(load-theme 'naysayer t)
-
-(when (window-system)
-  ;; set font
-  (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
-  (setenv "TMPDIR" "/tmp")
-  (setenv "RUST_SRC_PATH" (concat (getenv "HOME") "/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src"))
-  (toggle-frame-maximized))
 
 ;; Load customization's
 (setq custom-file (concat user-emacs-directory "custom.el"))
@@ -97,7 +92,13 @@
 
 (add-hook 'emacs-startup-hook
           '(lambda ()
-             (setq file-name-handler-alist jj--file-name-handler-alist)))
+             (setq file-name-handler-alist jj--file-name-handler-alist)
+             (when (window-system)
+               ;; set font
+               (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
+               (setenv "TMPDIR" "/tmp")
+               (setenv "RUST_SRC_PATH" (concat (getenv "HOME") "/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src"))
+               (toggle-frame-maximized))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
