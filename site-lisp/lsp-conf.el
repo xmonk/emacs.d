@@ -83,6 +83,7 @@
   :config
   (dap-mode 1)
   (dap-ui-mode 1)
-  (require 'dap-python))
+  (require 'dap-python)
+  (require 'dap-java))
 
 (provide 'lsp-conf)
