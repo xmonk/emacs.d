@@ -16,5 +16,5 @@
                  (t :family :height 100)))
 
 (setq default-frame-alist '((user-size t)
-                            (background "#1d1f21")
-                            (foreground "#c5c8c6")))
+                            (background "#000000")
+                            (foreground "#6A8397")))
