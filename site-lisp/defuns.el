@@ -379,6 +379,7 @@ a region."
       (let* ((buffer (car list))
              (name (buffer-name buffer)))
         (and (not (string-equal name "*shell*"))
+             (not (string-equal name "vterm"))
              (not (string-equal name "*Org Agenda*"))
              (not (string-match "\.org" name))
              (kill-buffer buffer)))
