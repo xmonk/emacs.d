@@ -18,25 +18,6 @@
   (setq flymake-fringe-indicator-position 'right-fringe)
   (setq lsp-enable-snippet nil)
   :config
-
-  (use-package lsp-python-ms
-    :disabled
-    :init
-    (setq lsp-python-executable-cmd "python3")
-    (setq lsp-python-ms-extra-paths '("/home/jfuentes/w/moosetalk-web/clients"
-                                      "/home/jfuentes/w/moosetalk-web/common"
-                                      "/home/jfuentes/w/moosetalk-web/api"
-                                      "/home/jfuentes/w/moosetalk-web/billing/api"
-                                      "/home/jfuentes/w/moosetalk-web/billing/client"
-                                      "/home/jfuentes/w/moosetalk-web/billing/core"
-                                      "/home/jfuentes/w/moosetalk-web/billing/worker"
-                                      "/home/jfuentes/w/moosetalk-web/consumer"
-                                      "/home/jfuentes/w/moosetalk-web/vendors"
-                                      "/home/jfuentes/w/moosetalk-web/vendors/huey"
-                                      "/home/jfuentes/w/moosetalk-web/vendors/huey/huey"
-                                      "/home/jfuentes/w/moosetalk-web/smpp/api"))
-    )
-
   (use-package lsp-java
     :ensure t
     :after lsp
