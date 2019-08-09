@@ -34,3 +34,4 @@ elpa/gnupg
 /elpa/pdf-tools-*/epdfinfo
 /transient/
 /.lsp-session-v1
+/elpa/vterm-*/build/
