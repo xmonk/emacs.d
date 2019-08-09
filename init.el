@@ -99,6 +99,7 @@
 (use-package prog-conf)
 (use-package company-conf :defer 0.5)
 (use-package lsp-conf :defer 0.5)
+(use-package vterm-conf)
 
 (add-hook 'emacs-startup-hook
           '(lambda ()
