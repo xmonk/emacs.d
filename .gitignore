@@ -42,3 +42,4 @@ forge-database.sqlite
 /request
 /eclipse.jdt.ls
 /workspace
+/elpa/vterm-*/build
