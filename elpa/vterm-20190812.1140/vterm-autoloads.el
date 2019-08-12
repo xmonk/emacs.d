@@ -13,7 +13,9 @@
 This function compiles the vterm-module." t nil)
 
 (autoload 'vterm "vterm" "\
-Create a new vterm." t nil)
+Create a new vterm.
+
+\(fn &optional BUFFER-NAME)" t nil)
 
 (autoload 'vterm-other-window "vterm" "\
 Create a new vterm." t nil)
