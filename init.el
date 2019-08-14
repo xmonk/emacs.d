@@ -52,7 +52,7 @@
 (when (window-system)
   ;;; themes
   ;; (load-theme 'naysayer t)
-  (load-theme 'tron-legacy t)
+  (load-theme 'jj-dark t)
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/" ".ripgreprc"))
   (toggle-frame-maximized))
 
