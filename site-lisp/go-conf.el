@@ -38,26 +38,10 @@
   ;; gofmt command
   (setq gofmt-command "goimports")
 
-  (use-package go-eldoc
-    :after go-mode
-    :ensure t
-    :init
-    (add-hook 'go-mode-hook 'go-eldoc-setup)
-    :config
-    (eldoc-mode))
-
   (use-package go-errcheck
     :after go-mode
     :commands go-errcheck
     :ensure t)
-
-  (use-package company-go
-    :ensure t
-    :after (go-mode company)
-    :init
-    (add-to-list 'company-backends 'company-go)
-    (setq company-go-show-annotation t)
-    (setq company-tooltip-align-annotations t))
 
   ;; Enable go-rename if available
   (use-package go-rename
