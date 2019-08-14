@@ -30,15 +30,8 @@ if ARG is `toggle'; disable the mode otherwise.
 
 ;;;***
 
-;;;### (autoloads nil "lsp-java-treemacs" "lsp-java-treemacs.el"
+;;;### (autoloads nil nil ("lsp-java-dependencies.el" "lsp-java-pkg.el")
 ;;;;;;  (0 0 0 0))
-;;; Generated autoloads from lsp-java-treemacs.el
-
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lsp-java-treemacs" '("lsp-java-treemacs-" "treemacs--lsp-node-or-folder")))
-
-;;;***
-
-;;;### (autoloads nil nil ("lsp-java-pkg.el") (0 0 0 0))
 
 ;;;***
 
