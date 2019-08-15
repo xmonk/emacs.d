@@ -30,7 +30,7 @@ if ARG is `toggle'; disable the mode otherwise.
 
 ;;;***
 
-;;;### (autoloads nil nil ("lsp-java-dependencies.el" "lsp-java-pkg.el")
+;;;### (autoloads nil nil ("lsp-java-dependency.el" "lsp-java-pkg.el")
 ;;;;;;  (0 0 0 0))
 
 ;;;***
