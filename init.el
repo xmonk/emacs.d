@@ -44,11 +44,19 @@
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/naysayer-theme")))
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/tron-legacy-emacs-theme")))
-(load-theme 'tron-legacy t)
+
+(unless (window-system)
+  (menu-bar-mode -1)
+  (load-theme 'jj-term t))
+
+(when (window-system)
+  (load-theme 'jj-dark t)
+  (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
+  (setenv "TMPDIR" "/tmp")
+  (setenv "RUST_SRC_PATH" (concat (getenv "HOME") "/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src")))
 
 ;;; package
 (autoload 'package "package" nil t)
-
 (setq package-archives
       '(("elpa" . "https://elpa.gnu.org/packages/")
         ("org" . "https://orgmode.org/elpa/")
@@ -79,27 +87,23 @@
   (server-start))
 
 (add-to-list 'load-path (expand-file-name (concat user-emacs-directory "/site-lisp")))
-(use-package defuns :functions init-maxframe)
+(use-package defuns)
 (use-package global)
 (use-package magit-conf)
 (use-package keymaps)
 (use-package windows)
 (use-package utils)
-(use-package markdown-conf :defer 0.6)
-(use-package org-conf :defer 0.5)
+(use-package markdown-conf :defer 0.8)
+(use-package org-conf :defer 0.8)
 (use-package prog-conf)
 (use-package company-conf :defer 0.5)
 (use-package lsp-conf :defer 0.5)
+(use-package vterm-conf)
 
 (add-hook 'emacs-startup-hook
           '(lambda ()
              (setq file-name-handler-alist jj--file-name-handler-alist)
-             (when (window-system)
-               ;; set font
-               (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
-               (setenv "TMPDIR" "/tmp")
-               (setenv "RUST_SRC_PATH" (concat (getenv "HOME") "/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src"))
-               (toggle-frame-maximized))))
+             (toggle-frame-maximized)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here

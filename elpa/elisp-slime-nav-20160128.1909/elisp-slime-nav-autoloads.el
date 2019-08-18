@@ -21,9 +21,7 @@ if ARG is `toggle'; disable the mode otherwise.
 \(fn &optional ARG)" t nil)
 
 (autoload 'turn-on-elisp-slime-nav-mode "elisp-slime-nav" "\
-Explicitly enable `elisp-slime-nav-mode'.
-
-\(fn)" nil nil)
+Explicitly enable `elisp-slime-nav-mode'." nil nil)
 
 (autoload 'elisp-slime-nav-find-elisp-thing-at-point "elisp-slime-nav" "\
 Find the elisp thing at point, be it a function, variable, library or face.

@@ -1,4 +1,4 @@
-;;; lisp-conf.el ---  Common Lisp configuration
+;;; lisp-conf.el ---  Common Lisp configuration -*- lexical-binding: t; -*-
 ;;
 ;; Filename: lisp-conf.el
 ;; Description:
@@ -28,6 +28,7 @@
   :commands lisp-mode
   :init
   (add-hook 'lisp-mode-hook 'jj/lisp-mode-hook)
+  (add-hook 'lisp-mode-hook 'jj/pretty-lambdas)
   (add-hook 'after-save-hook 'check-parens nil t)
   :config
   (use-package info-look

@@ -1,4 +1,4 @@
-;;; ocaml-conf.el ---  OCaml configuration
+;;; ocaml-conf.el ---  OCaml configuration -*- lexical-binding: t; -*-
 ;;
 ;; Filename: ocaml-conf.el
 ;; Description:
@@ -38,19 +38,13 @@
     (setenv (car var) (cadr var)))
   ;; Update the emacs path
   (setq exec-path (append (parse-colon-path (getenv "PATH"))
-                          (list exec-directory)))
+						              (list exec-directory)))
   :config
-  (use-package ocamlformat
-    :after tuareg
-    :init
-    (add-hook 'tuareg-mode-hook 'jj/ocamlformat)
-    (jj/ocamlformat ()
-                    (define-key merlin-mode-map (kbd "C-M-<tab>") 'ocamlformat)
-                    (add-hook 'before-save-hook 'ocamlformat-before-save)))
   (use-package utop
     :after tuareg
     :init
     (add-hook 'tuareg-mode-hook 'utop-minor-mode)
+    :config
     ;; Automatically load utop.el
     (autoload 'utop "utop" "Toplevel for OCaml" t)
     (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
@@ -72,7 +66,7 @@
       (add-to-list 'company-backends 'merlin-company-backend)
       (setq merlin-use-auto-complete-mode 'easy)
       (add-hook 'merlin-mode-hook 'company-mode)
-      (bind-key "C-<tab>" 'company-complete merlin-mode-map))
+      (bind-key "C-c <tab>" 'company-complete merlin-mode-map))
 
     ;; Use opam switch to lookup ocamlmerlin binary
     (setq merlin-command 'opam)

@@ -1,4 +1,4 @@
-;;; elisp-conf.el --- Emacs Lisp configuration
+;;; elisp-conf.el --- Emacs Lisp configuration -*- lexical-binding: t; -*-
 ;;
 ;; Filename: elisp-conf.el
 ;; Description:
@@ -32,20 +32,19 @@
   (add-hook 'ielm-mode-hook 'jj/elisp-hook)
   (add-hook 'emacs-lisp-mode-hook #'flycheck-mode)
   (add-hook 'after-save-hook 'check-parens)
+  (add-hook 'emacs-lisp-mode-hook 'jj/pretty-lambdas)
   (defun jj/elisp-hook ()
-    (enable-paredit-mode)
-    (setq-local indent-tabs-mode nil)
-    (setq-local tab-width 2))
-  :config
-  ;;; elisp-nav
-  (use-package elisp-slime-nav
-    :after emacs-lisp-mode
-    :ensure t
-    :commands elisp-slime-nav-mode
-    :diminish elisp-slime-nav
-    :config
-    (dolist (hook '(emacs-lisp-mode-hook lisp-interaction-mode-hook))
-      (add-hook hook 'turn-on-elisp-slime-nav-mode))))
+    (paredit-mode 1)
+	  (setq-local indent-tabs-mode nil)
+    (setq-local tab-width 2)))
+;;; elisp-nav
+(use-package elisp-slime-nav
+  :ensure t
+  :commands elisp-slime-nav-mode
+  :diminish
+  :init
+  (dolist (hook '(emacs-lisp-mode-hook lisp-interaction-mode-hook))
+    (add-hook hook 'turn-on-elisp-slime-nav-mode)))
 
 (provide 'elisp-conf)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

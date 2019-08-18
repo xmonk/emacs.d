@@ -11,9 +11,7 @@
 ;;; Generated autoloads from auto-virtualenv.el
 
 (autoload 'auto-virtualenv-set-virtualenv "auto-virtualenv" "\
-Activate virtualenv for buffer-filename
-
-\(fn)" nil nil)
+Activate virtualenv for buffer-filename" nil nil)
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "auto-virtualenv" '("auto-virtualenv-")))
 

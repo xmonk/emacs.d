@@ -1,23 +1,24 @@
-;; setup prog hooks.
-;; (add-hook 'prog-mode-hook 'jj/pretty-lambdas)
+;;; prog-mode.el -*- lexical-binding: t; -*-
+;; setup a things for programming
 (add-hook 'prog-mode-hook 'jj/local-comment-auto-fill)
 (add-hook 'prog-mode-hook 'jj/add-watchwords)
 
-;; load programming configs.
-(use-package elisp-conf)
-(use-package lisp-conf )
+(use-package paredit-conf)
 (use-package c-conf)
+(use-package elisp-conf)
+(use-package lisp-conf)
 (use-package go-conf)
+(use-package org-conf)
 (use-package py-conf)
-(use-package eshell-conf)
 (use-package sh-conf)
+(use-package eshell-conf)
 (use-package ocaml-conf :when (file-directory-p (expand-file-name "~/.opam")))
-(use-package rust-conf :when (file-directory-p (expand-file-name "~/.cargo")))
+(use-package rust-conf :disabled :when (file-directory-p (expand-file-name "~/.cargo")))
 
 ;;; cscope
 (use-package xcscope
   :ensure t
-  :defer
+  :defer t
   :init
   (add-hook 'prog-mode-hook 'cscope-minor-mode)
   (setq cscope-program "cscope")
@@ -27,10 +28,10 @@
 
 ;;; ggtags
 (use-package ggtags
-  :commands ggtags-mode
-  :ensure t)
+  :ensure t
+  :defer t
+  :diminish ggtags-mode)
 
-;;; eldoc
 (use-package eldoc
   :commands eldoc-mode
   :diminish eldoc-mode)
@@ -38,6 +39,7 @@
 ;;; yaml-mode
 (use-package yaml-mode
   :ensure t
+  :mode ("\\.yml$" . yaml-mode)
   :commands yaml-mode)
 
 ;;; Web-mode
@@ -49,6 +51,27 @@
   :init
   (add-hook 'web-mode-hook (lambda () (setq web-mode-markup-indent-offset 2))))
 
+(use-package json-mode
+  :ensure t
+  :mode (("\\.json$" . json-mode))
+  :custom
+  (flycheck-json-python-json-executable "/usr/bin/python3")
+  :hook (json-mode . flycheck-mode)
+  :init
+  (add-hook 'json-mode '(lambda ()
+                          (setq-local indent-tabs-mode nil)
+                          (setq-local tab-width 2)
+                          (setq json-reformat:indent-width '2))))
+
+;;; codesearch http://code.google.com/p/codesearch/
+(use-package codesearch
+  :ensure t
+  :commands (listing-codesearch-search listing-codesearch-list-directories codesearch-reset codesearch-update-index codesearch-build-index)
+  :init
+  (defalias 'csearch 'listing-codesearch-search)
+  (setq codesearch-csearchindex ".csearchindex")
+  (setq codesearch-global-csearchindex nil))
+
 ;;; flycheck
 (use-package flycheck
   :ensure t
@@ -57,36 +80,12 @@
   :functions flycheck-display-error-messages-unless-error-list
   :init
   ;; Override default flycheck triggers
-  (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled)
-        flycheck-idle-change-delay 0.3)
+  (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled))
+  (setq flycheck-idle-change-delay 0.3)
   (setq flycheck-highlighting-mode 'lines)
   (setq flycheck-display-errors-function 'flycheck-display-error-messages-unless-error-list)
   :config
   (setq flycheck-checkers (--remove (eq it 'emacs-lisp-checkdoc) flycheck-checkers)))
-
-;;; paredit
-(use-package paredit
-  :ensure t
-  :commands paredit-mode
-  :diminish paredit-mode
-  :config
-  (bind-key "C-M-l" 'paredit-recentre-on-sexp paredit-mode-map)
-  (bind-key ")" 'paredit-close-round-and-newline paredit-mode-map)
-  (bind-key "M-)" 'paredit-close-round paredit-mode-map)
-  (bind-key "M-k" 'paredit-raise-sexp paredit-mode-map)
-  (bind-key "M-I" 'paredit-splice-sexp paredit-mode-map)
-  (bind-key "<return>" 'paredit-newline paredit-mode-map)
-  (unbind-key "M-r" paredit-mode-map)
-  (unbind-key "M-s" paredit-mode-map)
-  (unbind-key "C-j" paredit-mode-map)
-  (bind-key "C-. D" 'paredit-forward-down paredit-mode-map)
-  (bind-key "C-. B" 'paredit-splice-sexp-killing-backward paredit-mode-map)
-  (bind-key "C-. C" 'paredit-convolute-sexp paredit-mode-map)
-  (bind-key "C-. F" 'paredit-splice-sexp-killing-forward paredit-mode-map)
-  (bind-key "C-. a" 'paredit-add-to-next-list paredit-mode-map)
-  (bind-key "C-. A" 'paredit-add-to-previous-list paredit-mode-map)
-  (bind-key "C-. j" 'paredit-join-with-next-list paredit-mode-map)
-  (bind-key "C-. J" 'paredit-join-with-previous-list paredit-mode-map))
 
 ;;; restclient
 (use-package restclient
@@ -106,5 +105,12 @@
   :ensure t
   :config
   (smart-jump-setup-default-registers))
+
+(use-package sr-speedbar
+  :disabled
+  :ensure t
+  :bind (("s-s" . sr-speedbar-toggle))
+  :init
+  (setq sr-speedbar-right-side nil))
 
 (provide 'prog-conf)

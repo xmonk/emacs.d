@@ -1,4 +1,4 @@
-;;; eshell-conf.el --- Emacs shell configuration.
+;;; eshell-conf.el --- Emacs shell configuration. -*- lexical-binding: t; -*-
 ;;
 ;; Filename: eshell-conf.el
 ;; Description:
@@ -62,10 +62,8 @@
 
   (use-package em-term
     :after eshell
-    :custom
-    (eshell-destroy-buffer-when-process-dies t)
     :config
-    (add-to-list 'eshell-visual-commands '("ssh" "tail" "top" "htop"))
+    (add-to-list 'eshell-visual-commands '("ssh" "tail" "htop" "top"))
     (add-to-list 'eshell-visual-options '("git" "--help"))
     (add-to-list 'eshell-visual-subcommands '("git" "log" "diff" "show")))
 
@@ -96,6 +94,23 @@
     (defun jj/simple-eshell-prompt ()
       (if (= (user-uid) 0)
 	        "# " "% "))))
+
+(use-package alert
+  :ensure t
+  :init
+  (add-hook 'eshell-kill-hook #'eshell-command-alert)
+
+  (defun eshell-command-alert (process status)
+    "Send `alert' with severity based on STATUS when PROCESS finished."
+    (let* ((cmd (process-command process))
+	         (buffer (process-buffer process))
+	         (msg (format "%s: %s" (mapconcat 'identity cmd " ")  status)))
+      (if (string-prefix-p "finished" status)
+	        (alert msg :buffer buffer :severity  'normal)
+	      (alert msg :buffer buffer :severity 'urgent))))
+  (alert-add-rule :status   '(buried)     ;only send alert when buffer not visible
+		              :mode     'eshell-mode
+		              :style 'notifications))
 
 (provide 'eshell-conf)
 

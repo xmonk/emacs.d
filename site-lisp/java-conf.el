@@ -1,4 +1,4 @@
-;;; java-conf.el ---  Java configuration
+;;; java-conf.el ---  Java configuration -*- lexical-binding: t; -*-
 ;;
 ;; Filename: java-conf.el
 ;; Description:

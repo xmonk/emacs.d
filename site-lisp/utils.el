@@ -1,3 +1,9 @@
+;;; utils.el -*- lexical-binding: t; -*-
+;;; diminish
+(use-package diminish
+  :commands diminish
+  :ensure t)
+
 ;;; ibuffer
 (use-package ibuffer
   :commands ibuffer)
@@ -5,7 +11,7 @@
 (use-package ibuffer-vc
   :ensure t
   :defer
-  :requires ibuffer
+  :after ibuffer
   :functions ibuffer-do-sort-by-alphabetic
   :init
   (defun jj/ibuffer-vc-setup ()
@@ -16,11 +22,6 @@
   (defalias 'list-buffers 'ibuffer)
   (add-hook 'ibuffer-hook 'jj/ibuffer-vc-setup))
 
-;;; diminish
-(use-package diminish
-  :commands diminish
-  :ensure t)
-
 (use-package git-timemachine
   :ensure t
   :commands git-timemachine)
@@ -29,7 +30,6 @@
 (use-package undo-tree
   :ensure t
   :diminish undo-tree-mode
-  :commands undo-tree-mode
   :bind (("C-x u" . undo-tree-undo)
          ("s-z" . undo-tree-undo)
          ("s-r" . undo-tree-redo))
@@ -38,16 +38,19 @@
   (setq undo-tree-visualizer-timestamps t)
   (setq undo-tree-auto-save-history t)
   (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
-  (unless (file-directory-p "~/.emacs.d/undo")
-    (make-directory "~/.emacs.d/undo"))
+  (unless (file-directory-p (concat user-emacs-directory "undo"))
+    (make-directory (concat user-emacs-directory "undo")))
   :config
+  (undo-tree-mode t)
   (global-undo-tree-mode t))
 
 ;;; projectile
 (use-package projectile
   :ensure t
-  :defines projectile-mode-line
+  :commands (projectile-mode projectile-switch-project)
   :diminish projectile-mode
+  :functions projectile-relevant-known-projects
+  :defines projectile-mode-line
   :bind (:map projectile-mode-map ("C-c p" . projectile-command-map))
   :init
   (setq projectile-completion-system 'ivy)
@@ -56,11 +59,12 @@
 
 ;;; counsel
 (use-package counsel
+  :requires ivy
   :ensure t
   :diminish
   :bind (("C-c C-r" . ivy-resume)
-         ("M-x" . counsel-M-x)
          ("C-x C-f" . counsel-find-file)
+         ("C-x C-r" . counsel-recentf)
          ("C-c r" . counsel-rg))
   :init
   (setq counsel-grep-command "rg"))
@@ -96,9 +100,10 @@
                           'ivy-rich-path-style 'abbrev))
 
 (use-package ivy-xref
+  :disabled
   :ensure t
-  :defer t
   :requires ivy
+  :defer
   :init
   (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
 
@@ -117,87 +122,59 @@
 
 ;;; counsel projectile
 (use-package counsel-projectile
-  :requires projectile
-  :ensure t)
+  :disabled
+  :ensure t
+  :requires projectile)
 
 (use-package counsel-gtags
   :ensure t
   :diminish counsel-gtags-mode
-  :bind (("M-." . counsel-gtags-dwim)
-         ("M-t" . counsel-gtags-find-definition)
+  :bind (("M-t" . counsel-gtags-find-definition)
          ("M-r" . counsel-gtags-find-reference)
-         ("M-s" . counsel-find-symbols)
-         ("M-," . counsel-gtags-go-backward))
+         ("M-s" . counsel-gtags-find-symbol)
+         ("M-," . counsel-gtags-go-backward)
+         ("M-." . counsel-gtags-dwim))
   :init
   (add-hook 'c-mode-common-hook 'counsel-gtags-mode)
   (add-hook 'python-mode-hook 'counsel-gtags-mode))
 
+;;; flx-ido
+(use-package flx-ido
+  :disabled
+  :commands flx-ido-mode
+  :requires ido
+  :ensure t
+  :config
+  (flx-ido-mode t))
+
 ;;; Expand-region
 (use-package expand-region
   :ensure t
+  :defer t
   :bind ("s-/" . er/expand-region))
 
 ;;; whole-line-or-region
 (use-package whole-line-or-region
   :ensure t
-  :defer t
+  :defer
   :bind (("C-y" . whole-line-or-region-yank)
-         ("C-c C-k" . whole-line-or-region-kill-ring-save))
+         ("M-w" . whole-line-or-region-kill-ring-save))
   :diminish whole-line-or-region-local-mode
-  :init
-  (whole-line-or-region-global-mode t)
   :config
-  (unbind-key "C-w" whole-line-or-region-local-mode-map))
-
-
-;;;; on duplicate filenames, show path names.
-(use-package uniquify
-  :defer 5
-  :init
-  (setq uniquify-separator ":")
-  (setq uniquify-after-kill-buffer-p t)
-  (setq uniquify-buffer-name-style 'post-forward))
-
-(use-package dired
-  :commands dired
-  :init
-  (setq dired-listing-switches "-lahv")
-  (setq dired-use-ls-dired nil))
-
-;; load dired extras
-(use-package dired-x
-  :commands dired-jump
-  :bind (("C-x C-j" . dired-jump)))
-
-;;; Doc-view
-(use-package doc-view
-  :commands doc-view)
-
-(use-package edit-indirect
-  :ensure t
-  :defer 5)
-
-;;; white space mode
-(use-package whitespace
-  :commands whitespace-mode
-  :init
-  (add-hook 'before-save-hook 'delete-trailing-whitespace)
-  (setq whitespace-line-column 80)
-  (setq whitespace-style '(trailing lines space-before-tab indentation space-after-tab)))
+  (dolist (hook '(prog-mode-hook org-mode-hook))
+    (add-hook hook #'whole-line-or-region-local-mode)))
 
 (when (memq window-system '(mac ns x))
   (use-package exec-path-from-shell
     :ensure t
-    :defer 4
     :init
     (setq exec-path-from-shell-check-startup-files nil)
-    (setq exec-path-from-shell-variables '("PATH" "MANPATH" "PYTHONPATH" "GOPATH"))
+    (setq exec-path-from-shell-variables '("PATH" "MANPATH" "PYTHONPATH" "GOPATH" "RUST_SRC_PATH"))
     (setq exec-path-from-shell-arguments '("-l"))
     (exec-path-from-shell-initialize)))
 
 (use-package deadgrep
   :ensure t
-  :commands deadgrep
   :init
   (defalias 'dg 'deadgrep))
 

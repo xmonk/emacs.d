@@ -1,4 +1,4 @@
-;;; magit-conf.el --- Magit configuration.
+;;; magit-conf.el --- Magit configuration. -*- lexical-binding: t; -*-
 ;;
 ;; Filename: magit-conf.el
 ;; Description:
@@ -29,6 +29,7 @@
   :ensure t
   :init
   (defalias 'mgit 'magit-status)
+  (setq magit-section-visibility-indicator nil)
   :config
   (defadvice magit-status (around magit-fullscreen activate)
     (window-configuration-to-register :magit-fullscreen)
@@ -38,6 +39,13 @@
   (defadvice magit-mode-quit-window (after magit-restore-screen activate)
     (jump-to-register :magit-fullscreen)))
 
+(use-package forge
+  :after magit
+  :ensure t)
+
+(use-package github-review
+  :ensure t
+  :after magit)
 
 (provide 'magit-conf)
 

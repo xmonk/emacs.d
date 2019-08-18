@@ -1,4 +1,4 @@
-;;; org-conf.el --- Org configuration
+;;; org-conf.el --- Org configuration -*- lexical-binding: t; -*-
 ;;
 ;; Filename: org-conf.el
 ;; Description:
@@ -27,13 +27,11 @@
 (use-package org
   :ensure t
   :commands org-mode
-  :mode ("\\.org\\'" . org-mode)
   :functions jj/find-org-markers
   :init
   (add-hook 'org-mode-hook 'jj/org-mode-hook)
   :config
-  (use-package ox-md
-    :requires org)
+  (use-package ox-md)
 
   (defun jj/org-mode-hook()
     (auto-fill-mode 1)
@@ -42,11 +40,10 @@
 
   (setq org-default-notes-file (concat org-directory "/notes.org"))
   (setq org-todo-keywords
-        '((type "TODO(t)" "STARTED(s)" "WAITING(w)" "APPT(a)" "PENDING(p)" "|"
-                "CANCELLED(c)"  "DEFERRED(e)" "DONE(d)")
+        '((type "TODO(t)" "STARTED(s)" "IN PROGRESS(i)" "WAITING(w)" "APPT(a)" "PENDING(p)" "BUG(g)" "FIX(f)" "|"
+                "CANCELLED(c)"  "DEFERRED(e)" "DONE(d)" "SOLVED(v)")
           (sequence "PROJECT(j)" "|" "FINISHED(f)")
-          (sequence "BILLED(b)" "INVOICED(i)" "SENT(n)" "|"
-                    "RCVD(r)")))
+          (sequence "SENT(n)" "|" "RCVD(r)")))
 
   (setq org-level-color-stars-only nil)
   (setq org-fontify-emphasized-text t)
@@ -73,8 +70,11 @@
                                                     (:exports . "code")))
   (setq-default org-babel-default-header-args:python '((:exports . "code")
                                                        (:tangle  . "yes")))
-
   ;; load languages.
+
+  (use-package ob-restclient
+    :ensure t)
+
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((org . t)
@@ -85,7 +85,8 @@
      (shell . t)
      (C . t)
      (emacs-lisp . t)
-     (sqlite . t)))
+     (sqlite . t)
+     (restclient . t)))
 
   ;; do not evaluate code on export by default
   (setq org-export-use-babel nil)
@@ -115,13 +116,11 @@
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
 
-  ;; add a few more keywords to org easy template
   (setq org-structure-template-alist
         (append org-structure-template-alist
-                '(("sh" . "src sh")
-                  ("py" . "src python")
-                  ("go" . "src go"))))
-  (require 'org-tempo)
+                '(("rc" . "src restclient"))))
+
+  (require 'org-tempo nil t)
 
 ;;; Usefull functions for org-mode.
 ;;; Taken from irreal.org. Thanks to jcs from  http://irreal.org/blog

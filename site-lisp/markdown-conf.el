@@ -1,4 +1,4 @@
-;;; Markdown
+;;; Markdown -*- lexical-binding: t; -*-
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
@@ -15,5 +15,9 @@
         markdown-marginalize-headers-margin-width 4
         markdown-fontify-code-blocks-natively t)
   (add-hook 'markdown-mode-hook #'flyspell-mode))
+
+(use-package edit-indirect
+  :ensure t
+  :defer)
 
 (provide 'markdown-conf)

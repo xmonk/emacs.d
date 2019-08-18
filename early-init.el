@@ -1,6 +1,7 @@
 (setq inhibit-startup-message t)
 (setq default-directory (expand-file-name "~/"))
 
+;;; Fonts
 (face-spec-set 'default
                '((((type x)) :family "PragmataPro Mono" :pixelsize 100 :foundry "FSD" :slant normal :weight normal :spacing 100 :height 105 :width normal :scalable t)
                  (((type ns)) :family "PragmataPro Mono" :pixelsize 200 :foundry "FSD" :slant normal :weight normal :spacing 100 :height 145 :width normal :scalable t)

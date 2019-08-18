@@ -5,7 +5,8 @@
   :commands lsp
   :hook ((python-mode . lsp)
          (go-mode . lsp)
-         (shell-script-mode . lsp))
+         (shell-script-mode . lsp)
+         (java-mode . lsp))
   :bind (:map lsp-mode-map
               ("M-." . lsp-find-definition)
               ("M-r" . lsp-find-references)
@@ -17,6 +18,11 @@
   (setq flymake-fringe-indicator-position 'right-fringe)
   (setq lsp-enable-snippet nil)
   :config
+  (use-package lsp-java
+    :ensure t
+    :after lsp
+    :config
+    (add-hook 'java-mode-hook 'lsp))
 
   (use-package lsp-clients
     :init
@@ -58,6 +64,7 @@
   :config
   (dap-mode 1)
   (dap-ui-mode 1)
-  (require 'dap-python))
+  (require 'dap-python)
+  (require 'dap-java))
 
 (provide 'lsp-conf)

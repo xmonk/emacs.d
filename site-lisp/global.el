@@ -27,6 +27,9 @@
 ;; stop cursor from blinking
 ;; (blink-cursor-mode -1)
 
+(when (string= "DRL01834" (system-name))
+  (setq frame-title-format '(multiple-frames "%b" ("" "notvim: %b"))))
+
 ;;; Encoding
 ;; utf-8
 (prefer-coding-system 'utf-8-unix)
@@ -46,10 +49,10 @@
 (setq-default transient-mark-mode t)
 ;; don't break lines
 (setq-default truncate-lines t)
-(setq inhibit-startup-message t)
 (setq initial-scratch-message "")
 (setq inhibit-startup-echo-area-message "jj")
 (setq inhibit-default-init t)
+(setq backward-delete-char-untabify-method 'hungry)
 (defvar minibuffer-max-depth nil)
 (defvar show-paren-delay 0)
 (defvar show-paren-highlight-openparen nil)
@@ -74,6 +77,9 @@
 ;; seed the random-number generator
 (random t)
 
+;; Mouse copy region
+(setq mouse-drag-copy-region t)
+
 ;; set-goal-column
 (put 'set-goal-column 'disabled nil)
 
@@ -92,6 +98,7 @@
 
 ;; Ediff
 (setq diff-switches "-Nu")
+
 ;; sensible zap to char
 (autoload 'zap-up-to-char "misc" "Kill up to, but not including ARGth occurrence of CHAR.")
 
@@ -108,6 +115,36 @@
 (defvar tramp-default-method "ssh")
 (defvar tramp-ssh-controlmaster-options nil)
 
+;;; on duplicate filenames, show path names.
+(use-package uniquify
+  :defer 5
+  :init
+  (setq uniquify-separator ":")
+  (setq uniquify-after-kill-buffer-p t)
+  (setq uniquify-buffer-name-style 'post-forward))
+
+(use-package dired
+  :commands dired
+  :init
+  (setq dired-listing-switches "-lahv")
+  (setq dired-use-ls-dired nil))
+
+;;; load dired extras
+(use-package dired-x
+  :commands dired-jump
+  :bind (("C-x C-j" . dired-jump)))
+
+;;; Doc-view
+(use-package doc-view
+  :commands doc-view)
+
+;;; white space mode
+(use-package whitespace
+  :init
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+  (setq whitespace-line-column 80)
+  (setq whitespace-style '(trailing lines space-before-tab indentation space-after-tab)))
+
 ;;; Kill ring
 (use-package browse-kill-ring
   :ensure t
@@ -115,6 +152,7 @@
 
 ;;; Abbrev
 (use-package abbrev
+  :defer t
   :commands abbrev-mode
   :diminish abbrev-mode
   :functions (jj/create-file quietly-read-abbrev-file)
@@ -131,7 +169,7 @@
 ;;; needed packages
 (use-package jka-compr
   :defer t
-  :config
+  :init
   (auto-compression-mode 1))
 
 ;;; Save place
@@ -144,10 +182,9 @@
 ;; Save all my backup files in a specific directory
 (defconst use-backup-dir t)
 (setq backup-directory-alist (quote ((".*" . "~/.emacs.d/backup")))
-      vc-make-backup-files t   ;; make backup of files in version control
       version-control t        ;; use version number for backups
       kept-new-versions 6      ;; number of newest version to keep
-      kept-old-versions 4      ;; number of oldest version to keep
+      kept-old-versions 2      ;; number of oldest version to keep
       delete-old-versions t    ;; ask to delete excess backup versions
       backup-by-copying-when-linked t) ;;copy linked files, don't rename.
 (setq auto-save-default t)
@@ -157,12 +194,12 @@
   :init
   (setq global-auto-revert-mode nil)
   (setq global-auto-revert-non-file-buffers nil)
-  (setq auto-revert-verbose t))
+  (setq auto-revert-verbose nil))
 
 (require 'desktop nil t)
-;; ;;;; only use desktop mode and timers on server
+;; only use desktop mode and timers on server
 (when (and (>= emacs-major-version 23) (daemonp))
-;;   ;; use desktop save mode. state is king!
+  ;; use desktop save mode. state is king!
   (setq desktop-dirname (concat user-emacs-directory ".desktop"))
   (unless (file-directory-p desktop-dirname)
     (mkdir desktop-dirname))
@@ -202,7 +239,6 @@
 ;;; Info
 ;;Add the init-path tree to the Info path
 (use-package info
-  :functions info-initialize
   :commands info
   :init (info-initialize))
 

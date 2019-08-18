@@ -56,7 +56,7 @@
   (princ (format "%s" (file-name-directory (expand-file-name (buffer-name))))))
 
 (defun jj/immortal-scratch-buffer()
-  "Don't allow the scratch buffer to be kill."
+  "Don't allow the scratch buffer to be killed."
   (if (equal (buffer-name (current-buffer)) "*scratch*")
       (progn
         (delete-region (point-min) (point-max))
@@ -73,13 +73,6 @@
   "Split the frame into 80-column sub-windows, and make sure no window has fewer than 80 columns."
   (interactive)
   (jj/smart-split-helper nil))
-
-;; Insert a shebang to the beginning of buffer.
-(defun jj/insert-shebang(arg)
-  "Insert the `ARG` you specify in it's proper location."
-  (interactive "sEnter the shebang you want: ")
-  (goto-char (point-min))
-  (insert (concat arg "\n")))
 
 ;; Move lines a la TextMate
 (defun jj/move-line(&optional n)
@@ -138,24 +131,20 @@
     (setq ffap-file-at-point-line-number nil)))
 
 ;; Open files with path:line:col format.
-(defadvice find-file (around find-file-line-number (path &optional wildcards) activate)
-  "Turn files like file.js:14:10 into file.js and going to line 14, col 10."
+(defun find-file--line-number (orig-fun filename &optional wildcards)
+  "Turn files like file.cpp:14 into file.cpp and going to the 14-th line."
   (save-match-data
-    (let* ((match (string-match "^\\(.*?\\):\\([0-9]+\\):?\\([0-9]*\\)$" path))
-           (line-no (and match
-                         (match-string 2 path)
-                         (string-to-number (match-string 2 path))))
-           (col-no (and match
-                        (match-string 3 path)
-                        (string-to-number (match-string 3 path))))
-           (path (if match (match-string 1 path) path)))
-      ad-do-it
-      (when line-no
+    (let* ((matched (string-match "^\\(.*\\):\\([0-9]+\\):?$" filename))
+           (line-number (and matched
+                             (match-string 2 filename)
+                             (string-to-number (match-string 2 filename))))
+           (filename (if matched (match-string 1 filename) filename)))
+      (apply orig-fun (list filename wildcards))
+      (when line-number
         ;; goto-line is for interactive use
         (goto-char (point-min))
-        (forward-line (1- line-no))
-        (when (> col-no 0)
-          (forward-char (1- col-no)))))))
+        (forward-line (1- line-number))))))
+(advice-add 'find-file :around #'find-file--line-number)
 
 (defadvice server-visit-files (before parse-numbers-in-lines (files proc &optional nowait) activate)
   "Look for file names like file:line or file:line:position and parse name in such a manner that move to line:position in file."
@@ -390,6 +379,7 @@ a region."
       (let* ((buffer (car list))
              (name (buffer-name buffer)))
         (and (not (string-equal name "*shell*"))
+             (not (string-equal name "vterm"))
              (not (string-equal name "*Org Agenda*"))
              (not (string-match "\.org" name))
              (kill-buffer buffer)))
@@ -475,7 +465,7 @@ a region."
       (jump-to-register :shell-fullscreen)
     (progn
       (window-configuration-to-register :shell-fullscreen)
-      (shell "shell")
+      (shell)
       (delete-other-windows))))
 
 (defun jj/term()
@@ -485,7 +475,27 @@ a region."
       (jump-to-register :term-fullscreen)
     (progn
       (window-configuration-to-register :term-fullscreen)
-      (term (getenv "SHELL"))
+      (ansi-term "/bin/bash" "ansi-term")
+      (delete-other-windows))))
+
+(defun jj/mterm()
+  "Bring up a full-screen terminal or restore previous config."
+  (interactive)
+  (if (string= "term-mode" major-mode)
+      (jump-to-register :term-fullscreen)
+    (progn
+      (window-configuration-to-register :term-fullscreen)
+      (multi-term)
+      (delete-other-windows))))
+
+(defun jj/vterm()
+  "Bring up a full-screen terminal or restore previous config."
+  (interactive)
+  (if (string= "vterm-mode" major-mode)
+      (jump-to-register :term-fullscreen)
+    (progn
+      (window-configuration-to-register :term-fullscreen)
+      (vterm)
       (delete-other-windows))))
 
 (defun jj/start-or-switch(func buffer-name)
@@ -514,18 +524,6 @@ a region."
       (progn
         (indent-buffer)
         (message "Indented buffer.")))))
-
-(defun untabify-buffer ()
-  "Remove tabulators from a buffer, replacing them with spaces."
-  (interactive)
-  (untabify (point-min) (point-max)))
-
-(defun cleanup-buffer ()
-  "Perform a bunch of operations on the whitespace content of a buffer."
-  (interactive)
-  (indent-buffer)
-  (untabify-buffer)
-  (delete-trailing-whitespace))
 
 (defun google()
   "Google the selected region if any, display a query prompt otherwise."
@@ -666,13 +664,13 @@ active, apply to active region instead."
       (codesearch-search pattern file-pattern))
      (setq codesearch-csearchindex "~/.csearchindex")))
 
-(defun init-maxframe()
+(defun jj/init-maxframe()
   "Resize frame on init."
   (let ((px (display-pixel-width))
         (py (display-pixel-height))
-		    (fx (frame-char-width))
-		    (fy (frame-char-height))
-		    tx ty)
+		(fx (frame-char-width))
+		(fy (frame-char-height))
+		tx ty)
     (setq tx (- (/ px fx) 11))
     (setq ty (- (/ py fy) 4))
     (setq initial-frame-alist '((top . 2) (right . 2)))
@@ -717,7 +715,7 @@ ARG should be one of: `dark' `light' 'nil'."
 
 (defun jj/pwd ()
   "Prints the current working directory."
-  (cadr (split-string (pwd) " ")))
+  (expand-file-name(cadr (split-string (pwd) " "))))
 
 (defun jj/ls_selected_packages ()
   "List of all user selected packages."
@@ -741,17 +739,6 @@ ARG should be one of: `dark' `light' 'nil'."
       (user-error "File: %s already exists" file)
     (write-region "" "" file)))
 
-;; from http://www.wilfred.me.uk/.emacs.d/init.html#orgb130ee0
-(defun beginning-of-line-dwim ()
-  "Toggle between moving point to the first non-whitespace character, and the start of the line."
-  (interactive)
-  (let ((start-position (point)))
-    ;; Move to the first non-whitespace character.
-    (back-to-indentation)
-    ;; If we haven't moved position, go to start of the line.
-    (when (= (point) start-position)
-      (move-beginning-of-line nil))))
-
 (defun jj/copy-filename ()
   "Copy the current buffer file name to the clipboard."
   (interactive)
@@ -772,6 +759,17 @@ ARG should be one of: `dark' `light' 'nil'."
       (kill-new filename)
       (message "Copied buffer file name '%s' to the clipboard." filename))))
 
+;; from http://www.wilfred.me.uk/.emacs.d/init.html#orgb130ee0
+(defun beginning-of-line-dwim ()
+  "Toggle between moving point to the first non-whitespace character, and the start of the line."
+  (interactive)
+  (let ((start-position (point)))
+    ;; Move to the first non-whitespace character.
+    (back-to-indentation)
+    ;; If we haven't moved position, go to start of the line.
+    (when (= (point) start-position)
+      (move-beginning-of-line nil))))
+
 (defun jj/emacs-version ()
   "Display Emacs version and system details in a temporary buffer."
   (interactive)
@@ -790,16 +788,25 @@ ARG should be one of: `dark' `light' 'nil'."
           (insert "\nFeatures:\n"
                   system-configuration-features))))))
 
-(defun jj/set-path-from-shell ()
-  "Sets exec-path and `PATH` from the shell"
+;; helpers..
+(defun jj/vc-emacs ()
   (interactive)
-  (dolist (var (split-string (shell-command-to-string "source ~/.bashrc; env") "\n"))
-    (if (string-match "\\(.*?\\)=\\(.*\\)" var)
-        (let ((key (match-string 1 var))
-              (val (match-string 2 var)))
-          (setenv key val))))
-  ;; Update exec-path with the contents of $PATH
-  (setq exec-path (append exec-path (split-string (getenv "PATH") ":"))))
+  (and
+   (cd (expand-file-name user-emacs-directory))
+   (magit-status)))
+
+(defun jj/vc-moosetalk-web ()
+  (interactive)
+  (and
+   (cd (expand-file-name "~/w/moosetalk-web"))
+   (magit-status)))
+
+(defun jj/vc-moosetalk-infra ()
+  (interactive)
+  (and
+   (cd (expand-file-name "~/w/moosetalk-infra"))
+   (magit-status)))
+
 
 (provide 'defuns)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

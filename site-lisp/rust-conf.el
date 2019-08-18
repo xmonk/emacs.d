@@ -1,4 +1,4 @@
-;;; rust-conf.el --- Rust configuration
+;;; rust-conf.el --- Rust configuration -*- lexical-binding: t; -*-
 ;;
 ;; Filename: rust-conf.el
 ;; Description:
@@ -25,10 +25,19 @@
 ;;; Code:
 
 (use-package rust-mode
-  :commands rust-mode
   :ensure t
   :init
-  (setq rustfmt-enable-on-save t))
+  (setq rust-format-on-save t))
+
+(use-package racer
+  :ensure t
+  :after rust-mode
+  :init
+  (add-hook 'rust-mode-hook #'racer-mode)
+  (add-hook 'racer-mode-hook #'eldoc-mode)
+  (add-hook 'racer-mode-hook #'company-mode)
+  (setq racer-cmd (expand-file-name "~/.cargo/bin/racer"))
+  (setq racer-rust-src-path (getenv "RUST_SRC_PATH")))
 
 (use-package flycheck-rust
   :ensure t
@@ -42,20 +51,10 @@
   :init
   (add-hook 'rust-mode-hook 'cargo-minor-mode))
 
-(use-package racer
-  :ensure t
-  :after rust-mode
-  :init
-  (add-hook 'rust-mode-hook #'racer-mode)
-  (add-hook 'racer-mode-hook #'eldoc-mode)
-  (add-hook 'racer-mode-hook #'company-mode)
-  (setq racer-cmd (concat (getenv "HOME") "/.cargo/bin/racer"))
-  (setq racer-rust-src-path (concat (getenv "HOME") "/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src")))
-
 (use-package company-racer
-  :when (file-executable-p (expand-file-name "~/.cargo/bin/racer"))
-  :ensure t
-  :after racer-mode)
+  :after racer
+  :when (file-executable-p "~/.cargo/bin/racer")
+  :ensure t)
 
 (provide 'rust-conf)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
