@@ -44,7 +44,7 @@
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/naysayer-theme")))
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/tron-legacy-emacs-theme")))
-(load-theme 'tron-legacy t)
+(load-theme 'jj-dark t)
 
 ;;; package
 (autoload 'package "package" nil t)
