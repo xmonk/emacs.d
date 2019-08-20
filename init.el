@@ -55,26 +55,6 @@
   (setenv "TMPDIR" "/tmp")
   (setenv "RUST_SRC_PATH" (concat (getenv "HOME") "/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src")))
 
-;;; package
-(autoload 'package "package" nil t)
-(setq package-archives
-      '(("elpa" . "https://elpa.gnu.org/packages/")
-        ("org" . "https://orgmode.org/elpa/")
-        ("melpa" . "https://melpa.org/packages/")))
-
-(setq package-enable-at-startup t)
-(if (>= emacs-major-version 27)
-    (setq package-quickstart t)
-  (package-initialize))
-
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(eval-when-compile
-  (require 'use-package))
-
 ;; Load customization's
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (if (file-exists-p custom-file)
