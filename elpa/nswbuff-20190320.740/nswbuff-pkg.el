@@ -1,2 +1,2 @@
-;;; Generated package description from /Users/jj/.emacs.d/elpa/nswbuff-20190320.740/nswbuff.el  -*- no-byte-compile: t -*-
+;;; Generated package description from /home/jfuentes/.emacs.d/elpa/nswbuff-20190320.740/nswbuff.el  -*- no-byte-compile: t -*-
 (define-package "nswbuff" "20190320.740" "Quick switching between buffers." '((emacs "25.1")) :commit "362da7f3687e2eb5bb11667347de85f4a9d002bc" :keywords '("extensions" "convenience") :authors '(("David Ponce" . "david@dponce.com") ("Kahlil (Kal) HODGSON" . "dorge@tpg.com.au") ("Joost Kremers" . "joostkremers@fastmail.fm")) :maintainer '("Joost Kremers" . "joostkremers@fastmail.fm") :url "https://github.com/joostkremers/nswbuff")
