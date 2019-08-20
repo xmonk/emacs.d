@@ -52,8 +52,7 @@
 (when (window-system)
   (load-theme 'jj-dark t)
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
-  (setenv "TMPDIR" "/tmp")
-  (setenv "RUST_SRC_PATH" (concat (getenv "HOME") "/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src")))
+  (setenv "TMPDIR" "/tmp"))
 
 ;; Load customization's
 (setq custom-file (concat user-emacs-directory "custom.el"))
