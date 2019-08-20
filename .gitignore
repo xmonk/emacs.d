@@ -35,3 +35,10 @@ elpa/gnupg
 /transient/
 /.lsp-session-v1
 /elpa/vterm-*/build/
+## integration...origin/integration
+/.dap-breakpoints
+/eclipse.jdt.ls/
+/forge-database.sqlite
+/network-security.data
+/request/
+/workspace/
