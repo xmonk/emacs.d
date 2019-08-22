@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20190809.1548
+;; Package-Version: 20190822.1356
 ;; Version: 0.12.0
 ;; Package-Requires: ((emacs "24.3") (swiper "0.12.0"))
 ;; Keywords: convenience, matching, tools
@@ -1373,6 +1373,8 @@ Typical value: '(recenter)."
       (goto-char (point-min))
       (forward-line (1- (string-to-number line-number)))
       (re-search-forward (ivy--regex ivy-text t) (line-end-position) t)
+      (when swiper-goto-start-of-match
+        (goto-char (match-beginning 0)))
       (swiper--ensure-visible)
       (run-hooks 'counsel-grep-post-action-hook)
       (unless (eq ivy-exit 'done)
@@ -2606,12 +2608,13 @@ FZF-PROMPT, if non-nil, is passed as `ivy-read' prompt argument."
   (counsel--call
    (cons find-program args)
    (lambda ()
-     (goto-char (point-min))
      (let (files)
+       (goto-char (point-min))
        (while (< (point) (point-max))
-         (push (buffer-substring
-                (+ 2 (line-beginning-position)) (line-end-position)) files)
-         (forward-line 1))
+         (when (looking-at "\\./")
+           (goto-char (match-end 0)))
+         (push (buffer-substring (point) (line-end-position)) files)
+         (beginning-of-line 2))
        (nreverse files)))))
 
 (defcustom counsel-file-jump-args (split-string ". -name .git -prune -o -type f -print")
@@ -2899,8 +2902,8 @@ This uses `counsel-ag' with `counsel-ack-base-command' replacing
 ;;** `counsel-rg'
 (defcustom counsel-rg-base-command
   (if (memq system-type '(ms-dos windows-nt))
-      "rg -S --no-heading --line-number --color never %s ."
-    "rg -S --no-heading --line-number --color never %s")
+      "rg --no-heading --line-number --color never %s ."
+    "rg --no-heading --line-number --color never %s")
   "Alternative to `counsel-ag-base-command' using ripgrep.
 
 Note: don't use single quotes for the regex."
@@ -2985,6 +2988,8 @@ substituted by the search regexp and file, respectively.  Neither
             (forward-line (1- line-number)))
           (setq counsel-grep-last-line line-number)
           (re-search-forward (ivy--regex ivy-text t) (line-end-position) t)
+          (when swiper-goto-start-of-match
+            (goto-char (match-beginning 0)))
           (run-hooks 'counsel-grep-post-action-hook)
           (if (eq ivy-exit 'done)
               (swiper--ensure-visible)
