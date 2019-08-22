@@ -2,7 +2,7 @@
 
 (use-package lsp-mode
   :ensure t
-  :commands lsp
+  :commands (lsp lsp-deferred)
   :hook ((python-mode . lsp)
          (go-mode . lsp)
          (shell-script-mode . lsp)
