@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20190809.1548
+;; Package-Version: 20190821.1027
 ;; Version: 0.12.0
 ;; Package-Requires: ((emacs "24.3") (swiper "0.12.0"))
 ;; Keywords: convenience, matching, tools
@@ -2606,12 +2606,13 @@ FZF-PROMPT, if non-nil, is passed as `ivy-read' prompt argument."
   (counsel--call
    (cons find-program args)
    (lambda ()
-     (goto-char (point-min))
      (let (files)
+       (goto-char (point-min))
        (while (< (point) (point-max))
-         (push (buffer-substring
-                (+ 2 (line-beginning-position)) (line-end-position)) files)
-         (forward-line 1))
+         (when (looking-at "\\./")
+           (goto-char (match-end 0)))
+         (push (buffer-substring (point) (line-end-position)) files)
+         (beginning-of-line 2))
        (nreverse files)))))
 
 (defcustom counsel-file-jump-args (split-string ". -name .git -prune -o -type f -print")

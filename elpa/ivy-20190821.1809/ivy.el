@@ -746,12 +746,13 @@ N is obtained from `ivy-more-chars-alist'."
   "Insert TEXT and exit minibuffer."
   (if (member (ivy-state-prompt ivy-last) '("Create directory: " "Make directory: "))
       (ivy-immediate-done)
-    (insert
-     (setf (ivy-state-current ivy-last)
-           (if (and ivy--directory
-                    (not (eq (ivy-state-history ivy-last) 'grep-files-history)))
-               (expand-file-name text ivy--directory)
-             text)))
+    (if (stringp text)
+        (insert
+         (setf (ivy-state-current ivy-last)
+               (if (and ivy--directory
+                        (not (eq (ivy-state-history ivy-last) 'grep-files-history)))
+                   (expand-file-name text ivy--directory)
+                 text))))
     (setq ivy-exit 'done)
     (exit-minibuffer)))
 
@@ -1108,6 +1109,16 @@ If the text hasn't changed as a result, forward to `ivy-alt-done'."
       (substring string (length prefix))
     string))
 
+(defun ivy--partial-cd-for-single-directory ()
+  (when (and
+         (eq (ivy-state-collection ivy-last) #'read-file-name-internal)
+         (= 1 (length
+               (ivy--re-filter
+                (funcall ivy--regex-function ivy-text) ivy--all-candidates)))
+         (let ((default-directory ivy--directory))
+           (file-directory-p (ivy-state-current ivy-last))))
+    (ivy--directory-done)))
+
 (defun ivy-partial ()
   "Complete the minibuffer text as much as possible."
   (interactive)
@@ -1137,13 +1148,7 @@ If the text hasn't changed as a result, forward to `ivy-alt-done'."
                   (concat
                    (mapconcat #'identity parts " ")
                    (and ivy-tab-space (not (= (length ivy--old-cands) 1)) " "))))
-           (when (and
-                  (eq (ivy-state-collection ivy-last) #'read-file-name-internal)
-                  (= 1 (length
-                        (all-completions ivy-text ivy--all-candidates)))
-                  (let ((default-directory ivy--directory))
-                    (file-directory-p (ivy-state-current ivy-last))))
-             (ivy--directory-done))
+           (ivy--partial-cd-for-single-directory)
            t))))
 
 (defvar ivy-completion-beg nil
@@ -1164,8 +1169,10 @@ If the text hasn't changed as a result, forward to `ivy-alt-done'."
                     (eq (ivy-state-collection ivy-last)
                         #'read-file-name-internal))
                (if (ivy-state-def ivy-last)
-                   (if (> (length ivy--directory)
-                          (1+ (length (expand-file-name (ivy-state-def ivy-last)))))
+                   (if (and
+                        (file-exists-p (ivy-state-def ivy-last))
+                        (/= (length ivy--directory)
+                            (1+ (length (expand-file-name (ivy-state-def ivy-last))))))
                        ivy--directory
                      (copy-sequence (ivy-state-def ivy-last)))
                  ivy--directory))
@@ -4302,6 +4309,12 @@ Skip buffers that match `ivy-ignore-buffers'."
             :keymap ivy-switch-buffer-map
             :caller 'ivy-switch-buffer-other-window))
 
+(defun ivy--yank-handle-case-fold (text)
+  (if (and (> (length ivy-text) 0)
+           (string= (downcase ivy-text) ivy-text))
+      (downcase text)
+    text))
+
 (defun ivy--yank-by (fn &rest args)
   "Pull buffer text from current line into search string.
 The region to extract is determined by the respective values of
@@ -4320,7 +4333,10 @@ point before and after applying FN to ARGS."
           (unless text
             (goto-char beg)))))
     (when text
-      (insert (replace-regexp-in-string "  +" " " text t t)))))
+      (insert (replace-regexp-in-string
+               "  +" " "
+               (ivy--yank-handle-case-fold text)
+               t t)))))
 
 (defun ivy-yank-word (&optional arg)
   "Pull next word from buffer into search string.
