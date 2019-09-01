@@ -10,8 +10,6 @@
 (setq default-frame-alist '((user-size t)
                             (background "#1d1f21")
                             (foreground "#c5c8c6")))
-
-
 ;;; package
 (require 'package nil t)
 (setq package-archives
@@ -23,7 +21,6 @@
 (if (>= emacs-major-version 27)
     (setq package-quickstart t)
   (package-initialize))
-
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
