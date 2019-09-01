@@ -40,10 +40,11 @@
                                 (when (eql window-system nil)
                                   (menu-bar-mode -1))))
 
-;;; themes
-(add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
-(add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/naysayer-theme")))
-(add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/tron-legacy-emacs-theme")))
+;; Load customization's
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(if (file-exists-p custom-file)
+    (load-file custom-file)
+  (message (format "ERROR: custom file: %s not found or not specified" custom-file)))
 
 (unless (window-system)
   (menu-bar-mode -1)
@@ -53,12 +54,6 @@
   (load-theme 'jj-dark t)
   (setenv "RIPGREP_CONFIG_PATH" (concat (getenv "HOME") "/.ripgreprc"))
   (setenv "TMPDIR" "/tmp"))
-
-;; Load customization's
-(setq custom-file (concat user-emacs-directory "custom.el"))
-(if (file-exists-p custom-file)
-    (load-file custom-file)
-  (message (format "ERROR: custom file: %s not found or not specified" custom-file)))
 
 ;;; Server
 (require 'server nil t)

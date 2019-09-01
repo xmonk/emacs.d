@@ -32,6 +32,7 @@
  '(column-number-mode t)
  '(compilation-message-face 'default)
  '(counsel-mode t)
+ '(custom-theme-directory "~/.emacs.d/themes/")
  '(dired-async-mode t)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(enable-recursive-minibuffers t)
