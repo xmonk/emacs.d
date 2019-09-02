@@ -1,5 +1,21 @@
+(defvar jj--file-name-handler-alist file-name-handler-alist)
+(defvar jj--gc-cons-threshold gc-cons-threshold)
+(defvar jj--gc-cons-precentage gc-cons-percentage)
+(setq file-name-handler-alist nil)
+(setq gc-cons-threshold 402653184)
+(setq gc-cons-percentage 0.6)
 (setq inhibit-startup-message t)
 (setq default-directory (expand-file-name "~/"))
+
+(add-hook 'emacs-startup-hook (lambda ()
+                                ;; restore after startup
+                                (setq gc-cons-threshold jj--gc-cons-threshold)
+                                (setq gc-cons-percentage jj--gc-cons-precentage)
+                                ;; disable menu-bar in console.
+                                (when (eql window-system nil)
+                                  (menu-bar-mode -1))
+                                (setq file-name-handler-alist jj--file-name-handler-alist)
+                                (toggle-frame-maximized)))
 
 ;;; Fonts
 (face-spec-set 'default

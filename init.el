@@ -24,21 +24,6 @@
 ;;
 ;;; Code:
 
-(defvar jj--file-name-handler-alist file-name-handler-alist)
-(defvar jj--gc-cons-threshold gc-cons-threshold)
-(defvar jj--gc-cons-precentage gc-cons-percentage)
-
-(setq file-name-handler-alist nil)
-(setq gc-cons-threshold 402653184)
-(setq gc-cons-percentage 0.6)
-
-(add-hook 'emacs-startup-hook (lambda ()
-                                ;; restore after startup
-                                (setq gc-cons-threshold jj--gc-cons-threshold)
-                                (setq gc-cons-percentage jj--gc-cons-precentage)
-                                ;; disable menu-bar in console.
-                                (when (eql window-system nil)
-                                  (menu-bar-mode -1))))
 ;;; themes
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/")))
 (add-to-list 'custom-theme-load-path (expand-file-name (concat user-emacs-directory "themes/naysayer-theme")))
@@ -77,11 +62,6 @@
 (use-package company-conf :defer 0.5)
 (use-package lsp-conf :defer 0.5)
 (use-package vterm-conf)
-
-(add-hook 'emacs-startup-hook
-          '(lambda ()
-             (setq file-name-handler-alist jj--file-name-handler-alist)
-             (toggle-frame-maximized)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
