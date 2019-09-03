@@ -46,7 +46,7 @@
 
 (use-package company-posframe
   :ensure t
-  :init
-  (company-posframe-mode 1))
+  :diminish company-posframe-mode
+  :hook (company-mode . company-posframe-mode))
 
 (provide 'company-conf)
