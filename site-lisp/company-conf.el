@@ -44,4 +44,9 @@
   :hook (global-company-mode . company-quickhelp-mode)
   :init (setq company-quickhelp-delay 0.8))
 
+(use-package company-posframe
+  :ensure t
+  :init
+  (company-posframe-mode 1))
+
 (provide 'company-conf)
