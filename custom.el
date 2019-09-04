@@ -29,6 +29,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(auto-save-file-name-transforms `((".*" "~/.emacs.d/auto-save-list/" t)))
+ '(auto-save-list-file-prefix "~/.emacs.d/auto-save-list/.saves-")
  '(column-number-mode t)
  '(compilation-message-face 'default)
  '(counsel-mode t)
@@ -92,6 +94,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(eshell-prompt ((t (:inherit default))))
+ '(ivy-posframe ((t (:background "#1d1f21"))))
+ '(ivy-posframe-border ((t (:background "#6272a4"))))
+ '(ivy-posframe-cursor ((t (:background "#61bfff"))))
  '(sp-pair-overlay-face ((t nil))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
