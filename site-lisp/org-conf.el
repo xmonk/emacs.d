@@ -118,7 +118,7 @@
 
   (setq org-structure-template-alist
         (append org-structure-template-alist
-                '(("rc" . "src restclient"))))
+                '(("r" . "src restclient"))))
 
   (require 'org-tempo nil t)
 
