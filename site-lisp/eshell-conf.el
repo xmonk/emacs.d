@@ -41,14 +41,14 @@
     :after eshell
     :init
     (setq eshell-where-to-jump 'begin
-	        eshell-review-quick-commands nil
-	        eshell-smart-space-goes-to-end t))
+          eshell-review-quick-commands nil
+          eshell-smart-space-goes-to-end t))
 
   (use-package em-hist
     :after eshell
     :init
     (setq eshell-history-size 500
-	        eshell-save-history-on-exit t))
+          eshell-save-history-on-exit t))
 
   (defun jj/eshell-mode-hook()
     (define-key eshell-mode-map "\C-a" 'eshell-bol)
@@ -88,12 +88,12 @@
     :config
     (defun jj/eshell-prompt()
       (concat (abbreviate-file-name (eshell/pwd))
-	            (if (= (user-uid) 0)
-		              "# " "% ")))
+              (if (= (user-uid) 0)
+                  "# " "% ")))
 
     (defun jj/simple-eshell-prompt ()
       (if (= (user-uid) 0)
-	        "# " "% "))))
+          "# " "% "))))
 
 (use-package alert
   :ensure t
@@ -103,14 +103,14 @@
   (defun eshell-command-alert (process status)
     "Send `alert' with severity based on STATUS when PROCESS finished."
     (let* ((cmd (process-command process))
-	         (buffer (process-buffer process))
-	         (msg (format "%s: %s" (mapconcat 'identity cmd " ")  status)))
+           (buffer (process-buffer process))
+           (msg (format "%s: %s" (mapconcat 'identity cmd " ")  status)))
       (if (string-prefix-p "finished" status)
-	        (alert msg :buffer buffer :severity  'normal)
-	      (alert msg :buffer buffer :severity 'urgent))))
+          (alert msg :buffer buffer :severity  'normal)
+        (alert msg :buffer buffer :severity 'urgent))))
   (alert-add-rule :status   '(buried)     ;only send alert when buffer not visible
-		              :mode     'eshell-mode
-		              :style 'notifications))
+                  :mode     'eshell-mode
+                  :style 'notifications))
 
 (provide 'eshell-conf)
 

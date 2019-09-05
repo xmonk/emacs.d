@@ -35,7 +35,7 @@
   (add-hook 'emacs-lisp-mode-hook 'jj/pretty-lambdas)
   (defun jj/elisp-hook ()
     (paredit-mode 1)
-	  (setq-local indent-tabs-mode nil)
+    (setq-local indent-tabs-mode nil)
     (setq-local tab-width 2)))
 ;;; elisp-nav
 (use-package elisp-slime-nav

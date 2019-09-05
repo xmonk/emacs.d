@@ -207,7 +207,7 @@ a region."
     (if (equal mark-active nil)
         (push-mark nil nil -1))
     (let ((string (read-from-minibuffer "Shell command on region: " nil nil nil
-										'shell-command-history)))
+                                        'shell-command-history)))
       (shell-command-on-region (region-beginning) (region-end) string -1)
       ;; Get rid of final newline cause I normally did by hand anyway.
       (delete-char -1))))
@@ -668,9 +668,9 @@ active, apply to active region instead."
   "Resize frame on init."
   (let ((px (display-pixel-width))
         (py (display-pixel-height))
-		(fx (frame-char-width))
-		(fy (frame-char-height))
-		tx ty)
+        (fx (frame-char-width))
+        (fy (frame-char-height))
+        tx ty)
     (setq tx (- (/ px fx) 11))
     (setq ty (- (/ py fy) 4))
     (setq initial-frame-alist '((top . 2) (right . 2)))
@@ -806,7 +806,6 @@ ARG should be one of: `dark' `light' 'nil'."
   (and
    (cd (expand-file-name "~/w/moosetalk-infra"))
    (magit-status)))
-
 
 (provide 'defuns)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
