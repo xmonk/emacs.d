@@ -109,7 +109,7 @@
 (use-package avy
   :bind (("C-c ;" . avy-goto-char)
          ("C-c '" . avy-goto-char-2)
-         ("C-c g" . avy-goto-line)))
+         ("C-c l" . avy-goto-line)))
 
 (use-package ivy-rich
   :ensure t
@@ -198,5 +198,10 @@
   :ensure t
   :init
   (defalias 'dg 'deadgrep))
+
+(use-package browse-at-remote
+  :ensure t
+  :bind (("C-c g g" . browse-at-remote)))
+
 
 (provide 'utils)
