@@ -46,6 +46,7 @@
 (global-set-key (kbd "s-e") 'jj/esh)
 (global-set-key (kbd "s-t") 'jj/vterm)
 (global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "C-x g") 'magit-status)
 ;; multiframe movements..
 ;; (global-set-key (kbd "C-c w n") 'next-multiframe-window)
 ;; (global-set-key (kbd "C-c w p") 'previous-multiframe-window)
