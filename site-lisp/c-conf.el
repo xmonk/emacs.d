@@ -75,18 +75,13 @@
     (backward-char 1))
 
   (use-package semantic
-    :functions (global-semanticdb-minor-mode global-semantic-idle-scheduler-mode semantic-add-system-include)
-    :init
-    (semantic-mode 1)
-    (global-semanticdb-minor-mode 1)
-    (global-semantic-idle-scheduler-mode 1)
+    :functions (semantic-add-system-include)
     :config
     (semantic-mode t)
     (semantic-add-system-include "/usr/include")
     (semantic-add-system-include "/usr/local/include")
     (require 'semantic/sb)
     (require 'semantic/ia)
-    (use-package semantic/db-mode :after cc-mode)
     (use-package semantic/idle :after cc-mode))
 
   (use-package irony
