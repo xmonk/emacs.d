@@ -10,7 +10,7 @@
   :bind (:map lsp-mode-map
               ("M-." . lsp-find-definition)
               ("M-r" . lsp-find-references)
-              ("S-r" . lsp-rename)
+              ("s-r" . lsp-rename)
               ("C-c C-d" . lsp-describe-thing-at-point))
   :init
   (setq lsp-auto-guess-root t)
