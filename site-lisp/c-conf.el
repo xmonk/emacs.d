@@ -75,6 +75,7 @@
     (backward-char 1))
 
   (use-package semantic
+    :disabled
     :functions (semantic-add-system-include)
     :config
     (semantic-mode t)
