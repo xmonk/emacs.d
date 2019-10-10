@@ -31,8 +31,7 @@
   :ensure t
   :diminish undo-tree-mode
   :bind (("C-x u" . undo-tree-undo)
-         ("s-z" . undo-tree-undo)
-         ("s-r" . undo-tree-redo))
+         ("s-z" . undo-tree-undo))
   :init
   (setq undo-tree-visualizer-relative-timestamps t)
   (setq undo-tree-visualizer-timestamps t)
