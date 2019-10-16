@@ -184,15 +184,6 @@
   (dolist (hook '(prog-mode-hook org-mode-hook))
     (add-hook hook #'whole-line-or-region-local-mode)))
 
-(when (memq window-system '(mac ns x))
-  (use-package exec-path-from-shell
-    :ensure t
-    :init
-    (setq exec-path-from-shell-check-startup-files nil)
-    (setq exec-path-from-shell-variables '("PATH" "MANPATH" "PYTHONPATH" "GOPATH" "RUST_SRC_PATH"))
-    (setq exec-path-from-shell-arguments '("-l"))
-    (exec-path-from-shell-initialize)))
-
 (use-package deadgrep
   :ensure t
   :init

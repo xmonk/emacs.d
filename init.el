@@ -56,6 +56,7 @@
 (use-package keymaps)
 (use-package windows)
 (use-package utils)
+(use-package path-conf :defer 0.5)
 (use-package markdown-conf :defer 0.8)
 (use-package org-conf :defer 0.8)
 (use-package prog-conf)
