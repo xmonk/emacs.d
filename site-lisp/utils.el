@@ -193,5 +193,9 @@
   :ensure t
   :bind (("C-c g g" . browse-at-remote)))
 
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
 
 (provide 'utils)
