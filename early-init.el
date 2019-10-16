@@ -2,21 +2,30 @@
 (defvar jj--gc-cons-threshold gc-cons-threshold)
 (defvar jj--gc-cons-precentage gc-cons-percentage)
 (setq file-name-handler-alist nil)
-(setq gc-cons-threshold 402653184)
+(setq gc-cons-threshold most-positive-fixnum)
 (setq gc-cons-percentage 0.6)
 (setq inhibit-startup-message t)
 (setq default-directory (expand-file-name "~/"))
 
+
+(defun jj-defer-garbage-collection-h ()
+  (setq gc-cons-threshold most-positive-fixnum))
+
+(defun jj-restore-garbage-collection-h ()
+  ;; Defer it so that commands launched immediately after will enjoy the
+  ;; benefits.
+  (run-at-time 1 nil (lambda () (setq gc-cons-threshold jj--gc-cons-threshold))))
+
+(add-hook 'minibuffer-setup-hook #'jj-defer-garbage-collection-h)
+(add-hook 'minibuffer-exit-hook #'jj-restore-garbage-collection-h)
+
 (add-hook 'emacs-startup-hook (lambda ()
                                 ;; restore after startup
-                                (setq gc-cons-threshold jj--gc-cons-threshold)
-                                (setq gc-cons-percentage jj--gc-cons-precentage)
-                                ;; disable menu-bar in console.
                                 (when (eql window-system nil)
                                   (menu-bar-mode -1))
-                                (setq file-name-handler-alist jj--file-name-handler-alist)
-                                (toggle-frame-maximized)))
-
+                                (setq gc-cons-threshold 16777216)
+                                (setq gc-cons-percentage 0.1)
+                                (setq file-name-handler-alist jj--file-name-handler-alist)))
 ;;; Fonts
 (face-spec-set 'default
                '((((type x)) :family "PragmataPro Mono" :pixelsize 100 :foundry "FSD" :slant normal :weight normal :spacing 100 :height 105 :width normal :scalable t)
