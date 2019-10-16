@@ -21,11 +21,14 @@
 
 (add-hook 'emacs-startup-hook (lambda ()
                                 ;; restore after startup
-                                (when (eql window-system nil)
-                                  (menu-bar-mode -1))
                                 (setq gc-cons-threshold 16777216)
                                 (setq gc-cons-percentage 0.1)
                                 (setq file-name-handler-alist jj--file-name-handler-alist)))
+
+(add-hook 'window-setup-hook (lambda ()
+                               (when (eql window-system nil)
+                                 (menu-bar-mode -1))
+                               (toggle-frame-maximized)))
 ;;; Fonts
 (face-spec-set 'default
                '((((type x)) :family "PragmataPro Mono" :pixelsize 100 :foundry "FSD" :slant normal :weight normal :spacing 100 :height 105 :width normal :scalable t)
