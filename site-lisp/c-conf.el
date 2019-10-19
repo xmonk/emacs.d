@@ -27,9 +27,6 @@
 
 (use-package cc-mode
   :commands (c-mode c++mode)
-  :custom
-  (gdb-many-windows t)
-  (gdb-show-main t)
   :init
   (add-hook 'c-mode-common-hook #'flycheck-mode)
   (add-hook 'c-mode-common-hook 'jj/c-hook)
