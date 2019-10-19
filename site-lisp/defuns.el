@@ -222,7 +222,114 @@ a region."
         ((looking-at "\\s)") (forward-char) (backward-sexp arg))
         ((looking-back "\\s(" 1) (backward-char) (forward-sexp arg))))
 
-;; Misc functions
+;;; Show Paren Overalay
+;; show-paren overlay hack from:
+;; https://with-emacs.com/posts/editing/show-matching-lines-when-parentheses-go-off-screen/
+(let ((ov nil))                         ; keep track of the overlay
+  (advice-add
+   #'show-paren-function
+   :after
+   (defun show-paren--off-screen+ (&rest _args)
+     "Display matching line for off-screen paren."
+     (when (overlayp ov)
+       (delete-overlay ov))
+     ;; check if it's appropriate to show match info,
+     ;; see `blink-paren-post-self-insert-function'
+     (when (and (overlay-buffer show-paren--overlay)
+                (not (or cursor-in-echo-area
+                         executing-kbd-macro
+                         noninteractive
+                         (minibufferp)
+                         this-command))
+                (and (not (bobp))
+                     (memq (char-syntax (char-before)) '(?\) ?\$)))
+                (= 1 (logand 1 (- (point)
+                                  (save-excursion
+                                    (forward-char -1)
+                                    (skip-syntax-backward "/\\")
+                                    (point))))))
+       ;; rebind `minibuffer-message' called by
+       ;; `blink-matching-open' to handle the overlay display
+       (cl-letf (((symbol-function #'minibuffer-message)
+                  (lambda (msg &rest args)
+                    (let ((msg (apply #'format-message msg args)))
+                      (setq ov (display-line-overlay+
+                                (window-start) msg ))))))
+         (blink-matching-open))))))
+
+;; show-paren helper
+(defun display-line-overlay+ (pos str &optional face)
+  "Display line at POS as STR with FACE.
+
+FACE defaults to inheriting from default and highlight."
+  (let ((ol (save-excursion
+              (goto-char pos)
+              (make-overlay (line-beginning-position)
+                            (line-end-position)))))
+    (overlay-put ol 'display str)
+    (overlay-put ol 'face
+                 (or face '(:inherit default :inherit highlight)))
+    ol))
+
+
+;;; which-key helper
+;; from: https://with-emacs.com/posts/prefix-command-completion/
+(defun which-key-M-x-prefix+ (&optional _)
+  "Completing read and execute command from current prefix map.
+
+This command can be used as `prefix-help-command'.
+
+The optional argument is ignored and only for compatability with
+`which-key-C-h-dispatch' so this command can be bound in
+`which-key-C-h-map', too."
+  (interactive)
+  (let* ((evs (if (which-key--current-prefix)
+                  (which-key--current-key-list)
+                (butlast (append (this-command-keys-vector) nil))))
+         (key (apply #'vector evs))
+         (map (key-binding key)))
+    (which-key--execute-binding+ map (key-description key))))
+
+  (defun which-key--execute-binding+ (map &optional prefix)
+    "Completing read command from MAP and execute it.
+
+If PREFIX is given it should be a key description which will be
+included in the prompt."
+    (let ((cmd (which-key--completing-read-cmd+ map prefix)))
+      (when (commandp cmd)
+        (which-key--execute-cmd+ cmd))))
+
+  (defun which-key--completing-read-cmd+ (map &optional prefix)
+    "Completing read command from MAP.
+
+Include PREFIX in prompt if given."
+    (which-key--hide-popup-ignore-command)
+    (let* ((desc
+            (completing-read
+             (if prefix
+                 (format "Execute (%s): " prefix)
+               "Execute: ")
+             (mapcar #'which-key--completing-read-format+
+                     (which-key--get-keymap-bindings map 'all)))))
+      (intern (car (split-string desc)))))
+
+  (defun which-key--execute-cmd+ (cmd)
+    "Execute command CMD as if invoked by key sequence."
+    (setq prefix-arg current-prefix-arg)
+    (setq this-command cmd)
+    (setq real-this-command cmd)
+    (command-execute cmd 'record))
+
+  (defun which-key--completing-read-format+ (bnd)
+    "Format binding BND for `completing-read'."
+    (let* ((key (car bnd))
+           (cmd (cdr bnd))
+           (desc (format "%s (%s)" cmd
+                         (propertize key 'face 'which-key-key-face))))
+      (which-key--maybe-add-docstring
+       (format "%-50s" desc) cmd)))
+
+;;; Misc functions
 
 ;; insert a path into current buffer.
 (defun jj/insert-path(path)

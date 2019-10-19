@@ -54,9 +54,18 @@
 (setq inhibit-default-init t)
 (setq backward-delete-char-untabify-method 'hungry)
 (defvar minibuffer-max-depth nil)
-(defvar show-paren-delay 0)
-(defvar show-paren-highlight-openparen nil)
-(show-paren-mode t)
+;;; show-paren overlay
+;; we will call `blink-matching-open` ourselves...
+(remove-hook 'post-self-insert-hook #'blink-paren-post-self-insert-function)
+;; this still needs to be set for `blink-matching-open` to work
+(setq blink-matching-paren 'show)
+(defvar show-paren-style 'paren)
+(defvar show-paren-delay 0.03)
+(defvar show-paren-highlight-openparen t)
+(defvar show-paren-when-point-inside-paren nil)
+(defvar show-paren-when-point-in-periphery t)
+(show-paren-mode 1)
+;;;
 (setq version-control t)
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
