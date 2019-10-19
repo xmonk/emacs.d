@@ -46,9 +46,7 @@
         ("melpa" . "https://melpa.org/packages/")))
 
 (setq package-enable-at-startup t)
-(if (>= emacs-major-version 27)
-    (setq package-quickstart t)
-  (package-initialize))
+(setq package-quickstart t)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
