@@ -116,10 +116,6 @@
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
 
-  (setq org-structure-template-alist
-        (append org-structure-template-alist
-                '(("r" . "src restclient"))))
-
   (require 'org-tempo nil t)
 
 ;;; Usefull functions for org-mode.
