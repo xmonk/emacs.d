@@ -27,6 +27,7 @@
 
 (use-package cc-mode
   :commands (c-mode c++mode)
+  :mode ("\\.c\'" "\\.cc'" "\\.cpp'" "\\.h'" "\\.hh'")
   :init
   (add-hook 'c-mode-common-hook #'flycheck-mode)
   (add-hook 'c-mode-common-hook 'jj/c-hook)
