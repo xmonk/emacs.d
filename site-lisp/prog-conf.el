@@ -3,18 +3,6 @@
 (add-hook 'prog-mode-hook 'jj/local-comment-auto-fill)
 (add-hook 'prog-mode-hook 'jj/add-watchwords)
 
-(use-package paredit-conf)
-(use-package c-conf)
-(use-package elisp-conf)
-(use-package lisp-conf)
-(use-package go-conf)
-(use-package org-conf)
-(use-package py-conf)
-(use-package sh-conf)
-(use-package eshell-conf)
-(use-package ocaml-conf :when (file-directory-p (expand-file-name "~/.opam")))
-(use-package rust-conf :disabled :when (file-directory-p (expand-file-name "~/.cargo")))
-
 ;;; cscope
 (use-package xcscope
   :ensure t
