@@ -45,7 +45,6 @@
         ("org" . "https://orgmode.org/elpa/")
         ("melpa" . "https://melpa.org/packages/")))
 
-(setq package-enable-at-startup t)
 (setq package-quickstart t)
 
 (unless (package-installed-p 'use-package)
