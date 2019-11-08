@@ -3,23 +3,6 @@
 (add-hook 'prog-mode-hook 'jj/local-comment-auto-fill)
 (add-hook 'prog-mode-hook 'jj/add-watchwords)
 
-;;; cscope
-(use-package xcscope
-  :ensure t
-  :defer t
-  :init
-  (add-hook 'prog-mode-hook 'cscope-minor-mode)
-  (setq cscope-program "cscope")
-  (setq cscope-database-regexps '(("~/.cscope/")))
-  :config
-  (cscope-setup))
-
-;;; ggtags
-(use-package ggtags
-  :ensure t
-  :defer t
-  :diminish ggtags-mode)
-
 (use-package eldoc
   :commands eldoc-mode
   :diminish eldoc-mode)

@@ -33,7 +33,6 @@
   (add-hook 'python-mode-hook 'jj/py-hook)
   (add-hook 'python-mode-hook #'flycheck-mode)
   (add-hook 'python-mode-hook '(lambda () (flymake-mode -1)))
-  (add-hook 'python-mode-hook 'cscope-minor-mode)
   (setq python-shell-completion-native-enable nil)
   (defun jj/py-hook ()
     (setq-local tab-width '4)
