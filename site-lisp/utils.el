@@ -146,18 +146,6 @@
   :ensure t
   :requires projectile)
 
-(use-package counsel-gtags
-  :ensure t
-  :diminish counsel-gtags-mode
-  :bind (("M-t" . counsel-gtags-find-definition)
-         ("M-r" . counsel-gtags-find-reference)
-         ("M-s" . counsel-gtags-find-symbol)
-         ("M-," . counsel-gtags-go-backward)
-         ("M-." . counsel-gtags-dwim))
-  :init
-  (add-hook 'c-mode-common-hook 'counsel-gtags-mode)
-  (add-hook 'python-mode-hook 'counsel-gtags-mode))
-
 ;;; flx-ido
 (use-package flx-ido
   :disabled
