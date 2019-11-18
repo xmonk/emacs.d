@@ -69,6 +69,7 @@
   :diminish
   :init
   (setq dumb-jump-selector 'ivy)
+  (setq dumb-jump-force-searcher 'rg)
   :config
   (dumb-jump-mode t))
 
