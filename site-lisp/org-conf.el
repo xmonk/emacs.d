@@ -66,12 +66,22 @@
 
   ;; Set default header arguments for the Org-mode blocks used to
   ;; showcase example Org-mode syntax.
-  (setq-default org-babel-default-header-args:org '((:results . "raw silent")
-                                                    (:exports . "code")))
-  (setq-default org-babel-default-header-args:python '((:exports . "code")
-                                                       (:tangle  . "yes")))
-  ;; load languages.
 
+  (defun jj/org-confirm-babel-evaluate (lang)
+    (not (member lang '("sh" "python" "elisp" "ruby" "shell" "dot" "perl"))))
+
+  (setq org-confirm-babel-evaluate 'jj/org-confirm-babel-evaluate)
+  (setq org-babel-default-header-args
+        (cons '(:noweb . "yes")
+              (assq-delete-all :noweb org-babel-default-header-args)))
+  (setq org-babel-default-header-args
+        (cons '(:exports . "both")
+              (assq-delete-all :exports org-babel-default-header-args)))
+  (setq org-babel-default-header-args
+        (cons '(:results . "output verbatim replace")
+              (assq-delete-all :results org-babel-default-header-args)))
+
+  ;; load languages.
   (use-package ob-restclient
     :ensure t)
 
