@@ -83,6 +83,7 @@
  '(projectile-globally-ignored-directories
    '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "elpa" "venv" ".egg*" "__pycache__" "var" "etc"))
  '(projectile-globally-ignored-files '("TAGS" ".DS_Store" ".elc" ".pyc"))
+ '(org-babel-python-command "python3")
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
  '(slime-company-completion 'fuzzy)
