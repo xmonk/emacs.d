@@ -26,6 +26,7 @@
 
 (use-package rust-mode
   :ensure t
+  :hook ((rust-mode . lsp))
   :init
   (setq rust-format-on-save t))
 
