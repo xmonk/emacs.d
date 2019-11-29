@@ -183,7 +183,7 @@
 
 (use-package which-key
   :ensure t
-  :diminish
+  :diminish which-key-mode
   :functions which-key-M-x-prefix+
   :init
   (setq prefix-help-command #'which-key-M-x-prefix+)
