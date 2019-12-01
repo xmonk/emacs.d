@@ -914,6 +914,11 @@ ARG should be one of: `dark' `light' 'nil'."
    (cd (expand-file-name "~/w/moosetalk-infra"))
    (magit-status)))
 
+(defun jj/pprint-list (lst)
+  "Pretty prints a list in it's own line"
+  (dolist (elt lst)
+    (princ (format "%s\n" elt))))
+
 (provide 'defuns)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; defuns.el ends here
