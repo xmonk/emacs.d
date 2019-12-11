@@ -53,7 +53,7 @@
 (use-package sh-conf :defer 0.8)
 (use-package eshell-conf :defer 1)
 (use-package ocaml-conf :when (file-directory-p (expand-file-name "~/.opam")) :defer 1)
-(use-package rust-conf :disabled :when (file-directory-p (expand-file-name "~/.cargo")) :defer 1)
+(use-package rust-conf :when (file-directory-p (expand-file-name "~/.cargo")) :defer 1)
 (use-package path-conf :defer 0.5)
 (use-package markdown-conf :defer 0.8)
 (use-package org-conf :defer 0.8)
