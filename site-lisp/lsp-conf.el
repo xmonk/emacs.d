@@ -40,7 +40,7 @@
                 lsp-ui-doc-header t
                 lsp-ui-doc-include-signature t
                 lsp-ui-doc-position 'top
-                lsp-ui-doc-use-webkit t
+                lsp-ui-doc-use-webkit nil
                 lsp-ui-doc-border (face-foreground 'default)
                 lsp-ui-sideline-enable nil
                 lsp-ui-sideline-ignore-duplicate t)
