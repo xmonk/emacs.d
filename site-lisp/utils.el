@@ -85,7 +85,6 @@
   (ivy-mode 1))
 
 (use-package ivy-posframe
-  :disabled
   :ensure t
   :diminish (ivy-posframe-mode . "")
   :custom-face
@@ -96,8 +95,8 @@
   (setq ivy-posframe-parameters
         '((left-fringe . 8)
           (right-fringe . 8)))
-  (setq ivy-posframe-height-alist '((swiper . 40)
-                                    (t      . 20)))
+  (setq ivy-posframe-height-alist '((swiper . 10)
+                                    (t      . 10)))
   (setq ivy-posframe-display-functions-alist
         '((swiper          . ivy-posframe-display-at-window-bottom-left)
           (complete-symbol . ivy-posframe-display-at-point)
@@ -132,7 +131,7 @@
   :ensure t
   :requires ivy
   :functions jj/swiper-recenter
-  :bind (("C-s" . swiper-isearch-thing-at-point))
+  :bind (("C-s" . swiper-isearch))
   :init
   ;;advise swiper to recenter on exit
   (defun jj/swiper-recenter ()
