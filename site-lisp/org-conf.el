@@ -127,6 +127,7 @@
   (setq org-src-tab-acts-natively t)
 
   (require 'org-tempo nil t)
+  (add-to-list 'org-structure-template-alist '("py" . "src python"))
 
 ;;; Usefull functions for org-mode.
 ;;; Taken from irreal.org. Thanks to jcs from  http://irreal.org/blog
