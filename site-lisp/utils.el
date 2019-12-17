@@ -91,7 +91,7 @@
   (ivy-posframe ((t (:background "#1d1f21"))))
   (ivy-posframe-border ((t (:background "#6272a4"))))
   (ivy-posframe-cursor ((t (:background "#61bfff"))))
-  :config
+  :init
   (setq ivy-posframe-parameters
         '((left-fringe . 8)
           (right-fringe . 8)))
@@ -102,6 +102,7 @@
           (complete-symbol . ivy-posframe-display-at-point)
           (counsel-M-x     . ivy-posframe-display-at-window-bottom-left)
           (t               . ivy-posframe-display-at-window-bottom-left)))
+  :config
   (ivy-posframe-mode 1))
 
 (use-package avy
