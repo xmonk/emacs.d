@@ -17,6 +17,7 @@
   (setq lsp-prefer-flymake nil)
   (setq flymake-fringe-indicator-position 'right-fringe)
   (setq lsp-enable-snippet nil)
+  (setq lsp-eldoc-render-all t)
   :config
   (use-package lsp-java
     :ensure t
@@ -38,7 +39,7 @@
                 ("M-r" . xref-find-references))
     :init (setq lsp-ui-doc-enable nil
                 lsp-ui-doc-header nil
-                lsp-ui-doc-include-signature t
+                lsp-ui-doc-include-signature nil
                 lsp-ui-doc-position 'top
                 lsp-ui-doc-use-webkit nil
                 lsp-ui-doc-border (face-foreground 'default)
