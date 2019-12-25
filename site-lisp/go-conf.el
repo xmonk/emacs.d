@@ -35,6 +35,8 @@
   (add-hook 'go-mode-hook 'jj/go-init-hook)
   (add-hook 'go-mode-hook #'flycheck-mode)
   :config
+  (setq lsp-gopls-staticcheck t)
+  (setq lsp-gopls-complete-unimported t)
   ;; gofmt command
   (setq gofmt-command "goimports")
 
