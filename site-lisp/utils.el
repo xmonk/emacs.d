@@ -95,12 +95,13 @@
   (setq ivy-posframe-parameters
         '((left-fringe . 8)
           (right-fringe . 8)))
+  (setq ivy-posframe-width 100)
   (setq ivy-posframe-height-alist '((swiper . 10)
                                     (t      . 10)))
   (setq ivy-posframe-display-functions-alist
         '((swiper          . ivy-posframe-display-at-window-bottom-left)
           (complete-symbol . ivy-posframe-display-at-point)
-          (counsel-M-x     . ivy-posframe-display-at-window-bottom-left)
+          (counsel-M-x     . ivy-posframe-display-at-frame-top-center)
           (t               . ivy-posframe-display-at-window-bottom-left)))
   :config
   (ivy-posframe-mode 1))
