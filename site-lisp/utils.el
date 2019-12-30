@@ -81,6 +81,13 @@
   (enable-recursive-minibuffers t)
   :init
   (setq ivy-initial-inputs-alist nil)
+  (setq ivy-re-builders-alist
+        '((counsel-rg . ivy--regex-plus)
+          (counsel-projectile-rg . ivy--regex-plus)
+          (counsel-ag . ivy--regex-plus)
+          (counsel-projectile-ag . ivy--regex-plus)
+          (swiper . ivy--regex-plus)
+          (t . ivy--regex-fuzzy)))
   :config
   (ivy-mode 1))
 
@@ -102,7 +109,7 @@
         '((swiper          . ivy-posframe-display-at-window-bottom-left)
           (complete-symbol . ivy-posframe-display-at-point)
           (counsel-M-x     . ivy-posframe-display-at-frame-top-center)
-          (t               . ivy-posframe-display-at-window-bottom-left)))
+          (t               . ivy-posframe-display-at-frame-top-center)))
   :config
   (ivy-posframe-mode 1))
 
@@ -143,9 +150,9 @@
 
 ;;; counsel projectile
 (use-package counsel-projectile
-  :disabled
   :ensure t
-  :requires projectile)
+  :requires projectile
+  :config (counsel-projectile-mode t))
 
 ;;; flx-ido
 (use-package flx-ido
