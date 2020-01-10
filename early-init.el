@@ -26,6 +26,8 @@
                                 (setq file-name-handler-alist jj--file-name-handler-alist)))
 
 (add-hook 'window-setup-hook (lambda ()
+                               (when (string= "DRL01834" (system-name))
+                                 (setq frame-title-format '(multiple-frames "%b" ("" "%b"))))
                                (when (eql window-system nil)
                                  (menu-bar-mode -1))
                                (toggle-frame-maximized)))
