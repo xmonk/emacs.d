@@ -106,8 +106,7 @@
   (setq ivy-posframe-height-alist '((swiper . 10)
                                     (t      . 10)))
   (setq ivy-posframe-display-functions-alist
-        '((swiper          . ivy-posframe-display-at-window-bottom-left)
-          (complete-symbol . ivy-posframe-display-at-point)
+        '((complete-symbol . ivy-posframe-display-at-point)
           (counsel-M-x     . ivy-posframe-display-at-frame-top-center)
           (t               . ivy-posframe-display-at-frame-top-center)))
   :config
@@ -140,7 +139,7 @@
   :ensure t
   :requires ivy
   :functions jj/swiper-recenter
-  :bind (("C-s" . swiper-isearch))
+  :bind (("C-s" . swiper))
   :init
   ;;advise swiper to recenter on exit
   (defun jj/swiper-recenter ()
