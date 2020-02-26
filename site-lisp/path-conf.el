@@ -5,7 +5,6 @@
     :ensure t
     :defer
     :init
-    (setq exec-path-from-shell-debug t)
     (setq exec-path-from-shell-check-startup-files nil)
     (setq exec-path-from-shell-arguments '("-l"))
     (setq exec-path-from-shell-variables '("PATH" "MANPATH" "PYTHONPATH" "GOPATH" "RUST_SRC_PATH" "RIPGREP_CONFIG_PATH"))
