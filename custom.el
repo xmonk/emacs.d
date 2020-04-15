@@ -49,7 +49,6 @@
  '(flycheck-flake8rc (concat (getenv "HOME") "/.config/flake8"))
  '(flycheck-json-python-json-executable "python3")
  '(flycheck-python-flake8-executable "flake8")
- '(frame-background-mode 'dark)
  '(gdb-many-windows t)
  '(gdb-show-main t)
  '(gnutls-trustfiles
@@ -102,9 +101,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(eshell-prompt ((t (:inherit default))))
- '(ivy-posframe ((t (:background "#1d1f21"))))
- '(ivy-posframe-border ((t (:background "#6272a4"))))
- '(ivy-posframe-cursor ((t (:background "#61bfff"))))
  '(sp-pair-overlay-face ((t nil))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
