@@ -109,6 +109,10 @@
          ;; `(ivy-minibuffer-match-face-2 ((t (:foreground ,white :bold t))))
          ;; `(ivy-minibuffer-match-face-3 ((t (:foreground "lightblue" :bold t))))
          ;; `(ivy-minibuffer-match-face-4 ((t (:foreground ,white :bold t))))
+         ;; posframe
+         `(ivy-posframe ((t (:background "#1d1f21"))))
+         `(ivy-posframe-border ((t (:background "#6272a4"))))
+         `(ivy-posframe-cursor ((t (:background "#61bfff"))))
          ;; eshell
          `(eshell-prompt ((t (:inherit default))))
          `(font-lock-warning-face ((t (:background ,black :foreground ,white :bold t :underline t))))

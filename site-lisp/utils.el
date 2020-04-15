@@ -94,10 +94,6 @@
 (use-package ivy-posframe
   :ensure t
   :diminish (ivy-posframe-mode . "")
-  :custom-face
-  (ivy-posframe ((t (:background "#1d1f21"))))
-  (ivy-posframe-border ((t (:background "#6272a4"))))
-  (ivy-posframe-cursor ((t (:background "#61bfff"))))
   :init
   (setq ivy-posframe-parameters
         '((left-fringe . 8)
