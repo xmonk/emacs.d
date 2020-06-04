@@ -46,7 +46,7 @@
  '(enable-recursive-minibuffers t)
  '(eshell-destroy-buffer-when-process-dies t)
  '(flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
- '(flycheck-flake8rc (concat (getenv "HOME") "/.config/flake8"))
+ '(flycheck-flake8rc "/usr/local/bin/flake8")
  '(flycheck-json-python-json-executable "python3")
  '(flycheck-python-flake8-executable "flake8")
  '(gdb-many-windows t)
@@ -79,7 +79,7 @@
  '(org-babel-python-command "python3")
  '(package-enable-at-startup t)
  '(package-selected-packages
-   '(vterm-toggle cargo flycheck-rust rust-mode which-key browse-at-remote ob-restclient lsp-java codesearch json-mode nswbuff github-review forge vterm company-posframe flycheck-posframe ivy-posframe restclient github-browse-file go-projectile dap-mode company-lsp lsp-ui lsp-mode exec-path-from-shell blacken flycheck-ycmd auto-virtualenv smart-jump company-quickhelp dumb-jump ivy-xref ivy-rich night-owl counsel counsel-projectile counsel-pydoc swiper ggtags deadgrep ace-window whole-line-or-region yaml-mode magithub flycheck-irony cmake-mode edit-indirect clang-format diminish org elisp-slime-nav irony go-mode flycheck company xcscope web-mode use-package undo-tree projectile paredit markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck git-timemachine expand-region company-irony-c-headers company-irony company-flx browse-kill-ring))
+   '(lsp-python-ms pyvenv vterm-toggle cargo flycheck-rust rust-mode which-key browse-at-remote ob-restclient lsp-java codesearch json-mode nswbuff github-review forge vterm company-posframe flycheck-posframe ivy-posframe restclient github-browse-file go-projectile dap-mode company-lsp lsp-ui lsp-mode exec-path-from-shell blacken flycheck-ycmd auto-virtualenv smart-jump company-quickhelp dumb-jump ivy-xref ivy-rich night-owl counsel counsel-projectile counsel-pydoc swiper ggtags deadgrep ace-window whole-line-or-region yaml-mode magithub flycheck-irony cmake-mode edit-indirect clang-format diminish org elisp-slime-nav irony go-mode flycheck company xcscope web-mode use-package undo-tree projectile paredit markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck git-timemachine expand-region company-irony-c-headers company-irony company-flx browse-kill-ring))
  '(projectile-globally-ignored-directories
    '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "elpa" "venv" ".egg*" "__pycache__" "var" "etc"))
  '(projectile-globally-ignored-files '("TAGS" ".DS_Store" ".elc" ".pyc"))
