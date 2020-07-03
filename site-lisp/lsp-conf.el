@@ -68,4 +68,9 @@
   (require 'dap-python)
   (require 'dap-java))
 
+(use-package lsp-python-ms
+  :ensure t
+  :init (setq lsp-python-ms-auto-install-server t))
+
+
 (provide 'lsp-conf)
