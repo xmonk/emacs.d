@@ -64,8 +64,9 @@
   :bind (("C-c C-r" . ivy-resume)
          ("C-x C-f" . counsel-find-file)
          ("C-x C-r" . counsel-recentf)
-         ("C-c r" . counsel-rg))
+         ("C-c r" . counsel-minor-history))
   :init
+  (unbind-key "C-r" minibuffer-local-map)
   (setq counsel-grep-command "rg"))
 
 (use-package ivy
@@ -132,6 +133,7 @@
 
 ;;; swiper
 (use-package swiper
+  :disabled
   :ensure t
   :requires ivy
   :functions jj/swiper-recenter
