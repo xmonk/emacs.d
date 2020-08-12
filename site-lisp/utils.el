@@ -93,6 +93,7 @@
   (ivy-mode 1))
 
 (use-package ivy-posframe
+  :disabled
   :ensure t
   :diminish (ivy-posframe-mode . "")
   :init
