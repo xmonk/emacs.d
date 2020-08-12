@@ -64,6 +64,7 @@
   (use-package auto-virtualenv
     :ensure t
     :init
+    (setq auto-virtualenv-dir (concat (getenv "HOME") ".local/share/virtualenvs"))
     (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv)
     (add-hook 'projectile-after-switch-project-hook 'auto-virtualenv-set-virtualenv)
     (add-hook 'pyvenv-post-activate-hooks 'jj/restart-python))
@@ -71,13 +72,6 @@
   (use-package pyvenv
     :ensure t
     :bind (([?\C-c ?\C-x ?v] . pyvenv-workon)))
-
-  (use-package pipenv
-    :disabled
-    :ensure t
-    :hook (python-mode . pipenv-mode)
-    :init
-    (setq pipenv-projectile-after-switch-function #'pipenv-projectile-after-switch-extended))
 
   (defun jj/pydoc (name)
     "Display pydoc information for NAME in a buffer named *pydoc*."
