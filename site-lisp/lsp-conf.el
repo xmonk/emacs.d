@@ -14,8 +14,6 @@
               ("C-c C-d" . lsp-describe-thing-at-point))
   :init
   (setq lsp-auto-guess-root t)
-  (setq lsp-prefer-flymake nil)
-  (setq flymake-fringe-indicator-position 'right-fringe)
   (setq lsp-enable-snippet nil)
   (setq lsp-eldoc-render-all t)
   :config
@@ -24,10 +22,6 @@
     :after lsp
     :config
     (add-hook 'java-mode-hook 'lsp))
-
-  (use-package lsp-clients
-    :init
-    (setq lsp-clients-python-library-directories '("/user/local/" "/usr/")))
 
   (use-package lsp-ui
     :ensure t
