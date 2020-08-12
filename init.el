@@ -59,8 +59,9 @@
 (use-package org-conf :defer 0.8)
 (use-package prog-conf :defer 0.5)
 (use-package company-conf :defer 0.5)
-(use-package lsp-conf :defer 0.5)
+(use-package lsp-conf :defer 1)
 (use-package vterm-conf)
+(use-package cfn-conf :defer 0.5)
 
 ;;; Server
 (require 'server nil t)
