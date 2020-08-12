@@ -67,14 +67,11 @@
 (use-package dumb-jump
   :ensure t
   :diminish
-  :bind (:map dumb-jump-mode-map
-              ("M-," . dumb-jump-back))
   :init
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
   (unbind-key "C-M-p" dumb-jump-mode-map)
   (setq dumb-jump-selector 'ivy)
-  (setq dumb-jump-force-searcher 'rg)
-  :config
-  (dumb-jump-mode t))
+  (setq dumb-jump-force-searcher 'rg))
 
 (use-package smart-jump
   :ensure t
