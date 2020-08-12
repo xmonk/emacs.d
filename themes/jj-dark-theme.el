@@ -79,12 +79,12 @@
          `(magit-diff-removed ((t (:inherit default))))
          `(magit-diff-removed-highlight ((t (:inherit default))))
          ;; diff
-         `(diff-header ((t (:foreground ,white))))
-         `(diff-file-header ((t (:background ,black))))
-         `(diff-hunk-header ((t (:background ,black :foreground ,white))))
-         `(diff-hunk-text ((t (:foreground ,black))))
-         `(diff-added ((t (:foreground ",white"))))
-         `(diff-removed ((t (:foreground "gray72"))))
+         ;; `(diff-header ((t (:inherit default))))
+         ;; `(diff-file-header ((t (:inherit default))))
+         ;; `(diff-hunk-header ((t (:inherit default))))
+         ;; `(diff-hunk-text ((t (:inherit default))))
+         ;; `(diff-added ((t (:inherit default))))
+         ;; `(diff-removed ((t (:inherit default))))
          ;; auto-complete
          `(ac-completion-face ((t (:background ,black :foreground ,white))))
          `(ac-candidate-face ((t (:background ,black :foreground ,white))))
