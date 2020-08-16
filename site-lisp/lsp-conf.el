@@ -5,8 +5,7 @@
   :commands (lsp lsp-deferred)
   :hook ((python-mode . lsp)
          (go-mode . lsp)
-         (shell-script-mode . lsp)
-         (java-mode . lsp))
+         (shell-script-mode . lsp))
   :bind (:map lsp-mode-map
               ("M-." . lsp-find-definition)
               ("M-r" . lsp-find-references)
