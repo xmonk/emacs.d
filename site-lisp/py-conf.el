@@ -64,7 +64,6 @@
   (use-package auto-virtualenv
     :ensure t
     :init
-    (setq auto-virtualenv-dir (concat (getenv "HOME") ".local/share/virtualenvs"))
     (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv)
     (add-hook 'projectile-after-switch-project-hook 'auto-virtualenv-set-virtualenv)
     (add-hook 'pyvenv-post-activate-hooks 'jj/restart-python))
