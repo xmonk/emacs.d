@@ -18,6 +18,14 @@
   :init
   (setq company-tooltip-align-annotations t)
   (setq company-require-match nil)
+  (setq company-dabbrev-other-buffers t)
+  (setq company-dabbrev-code-other-buffers t)
+  (setq company-complete-number t)
+  (setq company-show-numbers t)
+  (setq company-selection-wrap-around t)
+  (setq company-dabbrev-downcase nil)
+  (setq company-dabbrev-ignore-case t)
+
   :config
   (global-company-mode 1))
 
@@ -29,8 +37,8 @@
   (setq company-tooltip-limit 20)
   (setq company-idle-delay .3)
   (setq company-echo-delay 0)
-  (setq company-auto-complete nil)
-  (setq  company-begin-commands nil)
+  (setq company-auto-commit nil)
+  (setq company-begin-commands nil)
   (setq company-minimum-prefix-length 3)
   (add-hook 'company-mode-hook (lambda () (add-to-list 'company-backends 'company-capf)))
   :config
