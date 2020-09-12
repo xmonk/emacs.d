@@ -33,16 +33,6 @@
                           (setq-local indent-tabs-mode nil)
                           (setq-local tab-width 2)
                           (setq json-reformat:indent-width '2))))
-
-;;; codesearch http://code.google.com/p/codesearch/
-(use-package codesearch
-  :ensure t
-  :commands (listing-codesearch-search listing-codesearch-list-directories codesearch-reset codesearch-update-index codesearch-build-index)
-  :init
-  (defalias 'csearch 'listing-codesearch-search)
-  (setq codesearch-csearchindex ".csearchindex")
-  (setq codesearch-global-csearchindex nil))
-
 ;;; flycheck
 (use-package flycheck
   :ensure t
