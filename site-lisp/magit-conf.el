@@ -29,6 +29,15 @@
   :ensure t
   :init
   (defalias 'mgit 'magit-status)
+  (setq magit-section-visibility-indicator nil)
+  :config
+  (defadvice magit-status (around magit-fullscreen activate)
+    (window-configuration-to-register :magit-fullscreen)
+    ad-do-it
+    (delete-other-windows))
+
+  (defadvice magit-mode-quit-window (after magit-restore-screen activate)
+    (jump-to-register :magit-fullscreen))
   (setq magit-section-visibility-indicator nil))
 
 (use-package forge
