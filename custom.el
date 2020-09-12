@@ -73,7 +73,7 @@
  '(magit-repository-directories
    '(("~/w/moosetalk-web")
      ("~/w/moosetalk-infra")
-     ("~/.files")
+     ("~/.dotfiles")
      ("~/.emacs.d/" . 0)
      ("~/.emacs.d/lib/" . 1)))
  '(org-babel-python-command "python3")
