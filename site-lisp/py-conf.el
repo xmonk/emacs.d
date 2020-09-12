@@ -30,6 +30,7 @@
   (flycheck-flake8rc (concat (getenv "HOME") "/" ".config" "/" "flake8"))
   (flycheck-python-flake8-executable (executable-find "flake8"))
   :init
+  (setq-default flycheck-disabled-checkers '(python-pylint lsp))
   (add-hook 'python-mode-hook 'jj/py-hook)
   (add-hook 'python-mode-hook #'flycheck-mode)
   (add-hook 'python-mode-hook '(lambda () (flymake-mode -1)))
@@ -64,6 +65,7 @@
   (use-package auto-virtualenv
     :ensure t
     :init
+    (setq auto-virtualenv-dir (concat (getenv "HOME") "/.local/share/virtualenvs"))
     (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv)
     (add-hook 'projectile-after-switch-project-hook 'auto-virtualenv-set-virtualenv)
     (add-hook 'pyvenv-post-activate-hooks 'jj/restart-python))
