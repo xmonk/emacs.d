@@ -3,8 +3,7 @@
 (use-package lsp-mode
   :ensure t
   :commands (lsp lsp-deferred)
-  :hook ((python-mode . lsp)
-         (go-mode . lsp)
+  :hook ((go-mode . lsp)
          (shell-script-mode . lsp))
   :bind (:map lsp-mode-map
               ("M-." . lsp-find-definition)
@@ -12,6 +11,7 @@
               ("s-r" . lsp-rename)
               ("C-c C-d" . lsp-describe-thing-at-point))
   :init
+  (setq lsp-disabled-clients '(pyls))
   (setq lsp-auto-guess-root t)
   (setq lsp-enable-snippet nil)
   (setq lsp-eldoc-render-all t)
@@ -63,7 +63,9 @@
 
 (use-package lsp-python-ms
   :ensure t
-  :init (setq lsp-python-ms-auto-install-server t))
-
+  :init (setq lsp-python-ms-auto-install-server t)
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-python-ms)
+                          (lsp))))
 
 (provide 'lsp-conf)
