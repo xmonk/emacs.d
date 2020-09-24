@@ -1,13 +1,12 @@
 ;;; -*- lexical-binding: t; -*-
-(use-package tern
-  :ensure t
-  :commands tern-mode
-  :init
-  (add-hook 'js-mode-hook (lambda () (tern-mode t))))
 
-(use-package company-tern
+(use-package js2-mode
   :ensure t
   :init
-  (add-to-list 'company-backends 'company-tern))
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  (add-to-list 'interpreter-mode-alist '("node" . js2-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
+  (add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode)))
+
 
 (provide 'js-conf)
