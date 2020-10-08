@@ -36,6 +36,11 @@
     (load-file custom-file)
   (message (format "ERROR: custom file: %s not found or not specified" custom-file)))
 
+
+(when (eq window-system 'mac)
+  (setq mac-command-modifier 'super)
+  (setq mac-option-modifier 'meta))
+
 (add-to-list 'load-path (expand-file-name (concat user-emacs-directory "/site-lisp")))
 (use-package defuns)
 (use-package global)
