@@ -37,6 +37,14 @@
   (add-hook 'sh-mode-hook 'jj/sh-hook)
   (add-hook 'sh-mode-hook 'flycheck-mode))
 
+(use-package shfmt
+  :when (file-executable-p "shfmt")
+  :ensure t
+  :init
+  (add-hook 'sh-mode-hook 'shfmt-on-save-mode)
+  (setq shfmt-arguments '("-i" "4")))
+
+
 (provide 'sh-conf)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
