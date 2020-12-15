@@ -34,8 +34,9 @@
 ;;; Fonts
 (face-spec-set 'default
                '((((type x)) :family "PragmataPro Mono" :pixelsize 100 :foundry "FSD" :slant normal :weight normal :spacing 100 :height 105 :width normal :scalable t)
-                 (((type ns)) :family "PragmataPro Mono" :pixelsize 200 :foundry "FSD" :slant normal :weight normal :spacing 100 :height 145 :width normal :scalable t)
-                 (((type mac)) :family "PragmataPro Mono" :pixelsize 200 :foundry "FSD" :slant normal :weight normal :spacing 100 :height 145 :width normal :scalable t)
+                 (((type ns)) :family "JuliaMono" :pixelsize 200 :slant normal :weight normal :spacing 100 :height 155 :width normal :scalable t)
+                 ;; (((type ns)) :family "Lucida Grande Mono" :pixelsize 200 :foundry "B&H" :slant normal :weight normal :spacing 100 :height 150 :width normal :scalable t)
+                 (((type mac)) :family "PragmataPro Mono" :pixelsize 200 :foundry "FSD" :slant normal :weight normal :spacing 100 :height 165 :width normal :scalable t)
                  (t :family :height 100)))
 
 (setq default-frame-alist '((user-size t)
