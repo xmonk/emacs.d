@@ -71,15 +71,15 @@
  '(lsp-ui-sideline-show-symbol nil)
  '(magit-diff-use-overlays nil)
  '(magit-repository-directories
-   '(("~/w/moosetalk-web")
-     ("~/w/moosetalk-infra")
+   '(("~/w/vivial/moosetalk-web")
+     ("~/w/vivial/moosetalk-infra")
      ("~/.dotfiles")
      ("~/.emacs.d/" . 0)
      ("~/.emacs.d/lib/" . 1)))
  '(org-babel-python-command "python3")
  '(package-enable-at-startup t)
  '(package-selected-packages
-   '(whole-line-or-region js2-mode pipenv s3ed lsp-python-ms pyvenv vterm-toggle cargo flycheck-rust rust-mode which-key browse-at-remote ob-restclient lsp-java codesearch json-mode nswbuff github-review forge vterm company-posframe flycheck-posframe ivy-posframe restclient github-browse-file go-projectile dap-mode company-lsp lsp-ui lsp-mode exec-path-from-shell blacken flycheck-ycmd auto-virtualenv smart-jump company-quickhelp dumb-jump ivy-xref ivy-rich night-owl counsel counsel-projectile counsel-pydoc swiper ggtags deadgrep ace-window yaml-mode magithub flycheck-irony cmake-mode edit-indirect clang-format diminish org elisp-slime-nav irony go-mode flycheck company xcscope web-mode use-package undo-tree projectile paredit markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck git-timemachine expand-region company-irony-c-headers company-irony company-flx browse-kill-ring))
+   '(lsp-python-ms xwwp shfmt whole-line-or-region js2-mode pipenv s3ed pyvenv vterm-toggle cargo flycheck-rust rust-mode which-key browse-at-remote ob-restclient lsp-java codesearch json-mode nswbuff github-review forge vterm company-posframe flycheck-posframe ivy-posframe restclient github-browse-file go-projectile dap-mode company-lsp lsp-ui lsp-mode exec-path-from-shell blacken flycheck-ycmd auto-virtualenv smart-jump company-quickhelp dumb-jump ivy-xref ivy-rich night-owl counsel counsel-projectile counsel-pydoc swiper ggtags deadgrep ace-window yaml-mode magithub flycheck-irony cmake-mode edit-indirect clang-format diminish org elisp-slime-nav irony go-mode flycheck company xcscope web-mode use-package undo-tree projectile paredit markdown-mode magit irony-eldoc ibuffer-vc go-rename go-guru go-errcheck git-timemachine expand-region company-irony-c-headers company-irony company-flx browse-kill-ring))
  '(projectile-globally-ignored-directories
    '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "elpa" "venv" ".egg*" "__pycache__" "var" "etc"))
  '(projectile-globally-ignored-files '("TAGS" ".DS_Store" ".elc" ".pyc"))
