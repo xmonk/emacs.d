@@ -2,7 +2,7 @@
 (use-package company
   :ensure t
   :commands (company-mode company-complete)
-  :bind (("C-c TAB" . company-complete)
+  :bind (("C-'" . company-complete)
          ("<backtab>" . company-yasnippet)
          :map company-active-map
          ("C-p" . company-select-previous)
