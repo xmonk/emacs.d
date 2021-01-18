@@ -905,13 +905,13 @@ ARG should be one of: `dark' `light' 'nil'."
 (defun jj/vc-moosetalk-web ()
   (interactive)
   (and
-   (cd (expand-file-name "~/w/moosetalk-web"))
+   (cd (expand-file-name "~/w/vivial/moosetalk-web"))
    (magit-status)))
 
 (defun jj/vc-moosetalk-infra ()
   (interactive)
   (and
-   (cd (expand-file-name "~/w/moosetalk-infra"))
+   (cd (expand-file-name "~/w/vivial/moosetalk-infra"))
    (magit-status)))
 
 (defun jj/pprint-list (lst)
